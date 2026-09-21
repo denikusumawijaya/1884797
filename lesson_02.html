@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Tutoring by Deni - Fractions</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#2563eb;--primary-dark:#1e40af;--secondary:#f59e0b;--success:#10b981;--danger:#ef4444;--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.tr{font-style:italic;font-size:.82em;color:var(--muted);display:block;margin-top:2px}
+header{background:var(--primary);color:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.12);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
+header .brand{font-weight:700;font-size:1.05em}
+header .topic{font-size:.88em;text-align:center;flex:1}
+header .topic .tr{color:rgba(255,255,255,.85)}
+header button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.85em;white-space:nowrap}
+header button:hover{background:rgba(255,255,255,.25)}
+.main-container{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 52px)}
+.sidebar{background:var(--card);border-right:1px solid var(--border);padding:14px;overflow-y:auto;position:sticky;top:52px;height:calc(100vh - 52px)}
+.sidebar h3{font-size:.72em;color:var(--muted);text-transform:uppercase;margin-bottom:8px;letter-spacing:1px}
+.nav-link{display:block;padding:8px 10px;border-radius:6px;cursor:pointer;margin-bottom:3px;font-size:.84em;border:1px solid transparent;transition:all .15s}
+.nav-link:hover{background:#eff6ff}
+.nav-link.active{background:var(--primary);color:#fff;pointer-events:none;cursor:default}
+.nav-link .nl-title{display:block;font-weight:600}
+.nav-link .time{font-size:.76em;color:var(--muted);display:block;margin-top:2px}
+.nav-link.active .time,.nav-link.active .tr{color:rgba(255,255,255,.85)}
+.nav-link.disabled{opacity:.45;cursor:not-allowed;font-size:.8em;padding:6px 10px}
+.content-area{padding:22px 28px;overflow-y:auto;max-width:1100px;margin:0 auto;width:100%}
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:8px}
+.page-header h2{color:var(--primary-dark);font-size:1.1em}
+.page-header .badge{background:var(--secondary);color:#fff;padding:4px 10px;border-radius:20px;font-size:.76em;font-weight:600}
+.card{background:var(--card);border-radius:10px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;border:1px solid var(--border)}
+.card.explain{border-left:4px solid var(--primary)}
+.card.task{border-left:4px solid var(--secondary)}
+.card h3{color:var(--primary-dark);margin-bottom:12px;font-size:1.1em}
+.math-block{background:#f1f5f9;padding:12px 14px;border-radius:8px;margin:12px 0;overflow-x:auto}
+.example-box{background:#fef3c7;border-left:4px solid var(--secondary);padding:12px 16px;margin:12px 0;border-radius:6px}
+.example-box h4{color:#92400e;margin-bottom:6px;font-size:.95em}
+.tip-box{background:#dbeafe;border-left:4px solid var(--primary);padding:10px 14px;margin:10px 0;border-radius:6px}
+.tip-box h4{color:#1e40af;margin-bottom:4px;font-size:.9em}
+.illustration{text-align:center;margin:14px 0;padding:14px;background:#f1f5f9;border-radius:8px}
+.q-text{font-size:1em;margin-bottom:12px;line-height:1.7}
+.options{display:flex;flex-direction:column;gap:8px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:2px solid var(--border);border-radius:8px;cursor:pointer;background:#fff;transition:all .15s}
+.option:hover{border-color:var(--primary);background:#eff6ff}
+.option.selected{border-color:var(--primary);background:#dbeafe}
+.option.correct{border-color:var(--success);background:#d1fae5}
+.option.incorrect{border-color:var(--danger);background:#fee2e2}
+.option .marker{min-width:18px;width:18px;height:18px;border:2px solid var(--muted);border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:.7em;color:#fff}
+.option.selected .marker{background:var(--primary);border-color:var(--primary)}
+.option.correct .marker{background:var(--success);border-color:var(--success)}
+.option.incorrect .marker{background:var(--danger);border-color:var(--danger)}
+.option.checkbox .marker{border-radius:3px}
+.option .opt-text{flex:1}
+.fill-input{padding:8px 12px;border:2px solid var(--border);border-radius:6px;font-size:1em;width:100%;margin:8px 0;font-family:inherit}
+.fill-input:focus{border-color:var(--primary);outline:none}
+.btn-submit{background:var(--primary);color:#fff;border:none;padding:9px 20px;border-radius:6px;cursor:pointer;font-size:.88em;font-weight:600;margin-top:12px}
+.btn-submit:hover{background:var(--primary-dark)}
+.feedback{margin-top:12px;padding:14px;border-radius:8px;display:none}
+.feedback.show{display:block}
+.feedback.correct{background:#d1fae5;border:1px solid var(--success)}
+.feedback.incorrect{background:#fee2e2;border:1px solid var(--danger)}
+.feedback h4{margin-bottom:6px}
+.feedback ol,.feedback ul{margin:6px 0;padding-left:22px}
+.feedback li{margin:4px 0}
+
+.card ol, .card ul { padding-left: 26px; margin: 10px 0; }
+.card li { margin: 5px 0; }
+.example-box ol, .example-box ul { padding-left: 22px; margin: 8px 0; }
+.tip-box ol, .tip-box ul { padding-left: 22px; margin: 8px 0; }
+.math-block ol, .math-block ul { padding-left: 22px; margin: 8px 0; }
+
+.pagination{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:14px;border-top:1px solid var(--border)}
+.pagination button{background:var(--primary);color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.84em}
+.pagination button:disabled{background:#cbd5e1;cursor:not-allowed}
+.pagination .indicator{font-size:.82em;color:var(--muted);text-align:center;flex:1;padding:0 10px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}
+.modal.active{display:flex}
+.modal-content{background:#fff;padding:22px;border-radius:12px;max-width:460px;width:90%}
+.modal-content h3{color:var(--primary-dark);margin-bottom:12px}
+.modal-content ul{list-style:none;padding-left:0}
+.modal-content li{padding:10px 0;border-bottom:1px solid var(--border)}
+.modal-content li:last-child{border-bottom:none}
+.modal-close{background:var(--primary);color:#fff;border:none;padding:8px 18px;border-radius:6px;cursor:pointer;margin-top:12px}
+.sort-list{display:flex;flex-direction:column;gap:6px}
+.sort-item{padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .15s}
+.sort-item:hover{border-color:var(--primary)}
+.sort-item.selected{border-color:var(--primary);background:#dbeafe}
+.sort-item .pos{background:var(--primary);color:#fff;min-width:24px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8em;flex-shrink:0}
+.sort-item .sort-text{flex:1}
+.pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pair-col h4{font-size:.85em;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
+.pair-col{display:flex;flex-direction:column;gap:6px}
+.pair-item{padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;text-align:center;font-size:.92em}
+.pair-item.selected{border-color:var(--primary);background:#dbeafe}
+.pair-item.paired{opacity:.5;cursor:default;border-color:var(--success);background:#d1fae5}
+.pairs-list{margin-top:10px}
+.pair-row{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:#f1f5f9;border-radius:6px;margin-bottom:4px;font-size:.85em}
+.pair-row .remove{cursor:pointer;color:var(--danger);font-weight:700;margin-left:6px}
+
+.page-numbers {
+  display: flex;
+  gap: 3px;
+  flex-wrap: nowrap;
+  justify-content: center;
+  flex: 1;
+  overflow-x: auto;
+  padding: 0 3px;
+}
+.page-num {
+  min-width: 28px;
+  height: 26px;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: .7em;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  padding: 0 4px;
+  white-space: nowrap;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+.page-num.page-num-e { background: #eff6ff; border-color: #93c5fd; color: #1e40af; }
+.page-num.page-num-t { background: #fffbeb; border-color: #fcd34d; color: #92400e; }
+.page-num.page-num-e:hover { background: #dbeafe; border-color: var(--primary); }
+.page-num.page-num-t:hover { background: #fef3c7; border-color: var(--secondary); }
+.page-num.page-num-e.active { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 600; }
+.page-num.page-num-t.active { background: var(--secondary); color: #fff; border-color: var(--secondary); font-weight: 600; }
+.page-num:disabled { opacity: 1; cursor: default; }
+.page-num.page-num-e:disabled:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+.page-num.page-num-t:disabled:hover { background: var(--secondary); color: #fff; border-color: var(--secondary); }
+
+@media(max-width:1100px){
+  .main-container{grid-template-columns:180px 1fr}
+  .content-area{padding:18px 20px}
+}
+@media(max-width:760px){
+  .main-container{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content-area{padding:16px}
+  header{font-size:.9em}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Math Tutoring by Deni</div>
+  <div class="topic">Topic: Addition and Subtraction of Fractions <span class="tr">Topik: Penjumlahan dan Pengurangan Pecahan</span></div>
+  <button id="classRulesBtn">Class Rules <span class="tr">Aturan Kelas</span></button>
+</header>
+<div class="main-container">
+  <nav class="sidebar" id="sidebar"></nav>
+  <main class="content-area">
+    <div id="pageContent"></div>
+    <div class="pagination">
+      <button id="prevBtn">← Previous <span class="tr">Sebelumnya</span></button>
+      <div class="page-numbers" id="pageNums"></div>
+      <button id="nextBtn">Next <span class="tr">Berikutnya</span> →</button>
+    </div>
+  </main>
+</div>
+<div id="classRulesModal" class="modal">
+  <div class="modal-content">
+    <h3>Class Rules <span class="tr">Aturan Kelas</span></h3>
+    <ul>
+      <li>Speak in turn <span class="tr">Berbicara secara bergantian</span></li>
+      <li>Ask permission before leaving the class <span class="tr">Meminta izin jika ingin meninggalkan kelas</span></li>
+      <li>Turn on microphone and camera when needed <span class="tr">Menyalakan microphone dan camera jika diperlukan</span></li>
+    </ul>
+    <button class="modal-close">Close <span class="tr">Tutup</span></button>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  if(!window.renderMathInElement){setTimeout(arguments.callee,50);return;}
+  
+  // ================= CONTENT DATA =================
+  const sectionsData = {
+    a: {
+      title: 'Spiral Review Warm-up',
+      titleEn: 'Spiral Review Warm-up',
+      time: '00:00 - 00:10',
+      pages: [
+        // E1
+        { type:'explanation', pageTitle:'E1: Whole Number Operations', pageTitleEn:'Operasi Bilangan Cacah',
+          body:`
+            <p><strong>Whole Number Operations</strong> involve adding (combining) and subtracting (taking away) values.
+              <span class="tr">Operasi bilangan cacah melibatkan penjumlahan (menggabungkan) dan pengurangan (mengambil) nilai.</span></p>
+            <div class="math-block"><strong>Keywords:</strong> <span class="tr">Kata kunci</span>
+              <ul style="margin-top:6px">
+                <li>Addition: Sum, Total, Plus (+) <span class="tr">Penjumlahan: Jumlah, Total, Plus</span></li>
+                <li>Subtraction: Difference, Minus (-) <span class="tr">Pengurangan: Selisih, Minus</span></li>
+              </ul>
+            </div>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              Calculate $125 + 340$. <span class="tr">Hitunglah $125 + 340$.</span>
+              <ol>
+                <li>Align by place value. <span class="tr">Sejajarkan berdasarkan nilai tempat.</span></li>
+                <li>Add units: $5 + 0 = 5$ <span class="tr">Jumlahkan satuan: $5 + 0 = 5$</span></li>
+                <li>Add tens: $20 + 40 = 60$ <span class="tr">Jumlahkan puluhan: $20 + 40 = 60$</span></li>
+                <li>Add hundreds: $100 + 300 = 400$ <span class="tr">Jumlahkan ratusan: $100 + 300 = 400$</span></li>
+                <li>Total: $465$ <span class="tr">Total: $465$</span></li>
+              </ol>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Always align numbers by their place values to avoid mistakes. 
+              <span class="tr">Selalu sejajarkan angka berdasarkan nilai tempatnya untuk menghindari kesalahan.</span></div>
+          `
+        },
+        // T1
+        { type:'task', pageTitle:'T1: Identify Operations', pageTitleEn:'Identifikasi Operasi', taskType:'radio',
+          question:'Which operation combines two or more numbers?', questionEn:'Operasi mana yang menggabungkan dua atau lebih bilangan?',
+          options:[
+            {text:'Addition (+)', correct:true},
+            {text:'Subtraction (-)', correct:false},
+            {text:'Multiplication (x)', correct:false},
+            {text:'Division (÷)', correct:false}
+          ],
+          explanation:`<p>Addition is the process of combining two or more numbers to find a total. <span class="tr">Penjumlahan adalah proses menggabungkan dua atau lebih bilangan untuk menemukan total.</span></p>`
+        },
+        // T2
+        { type:'task', pageTitle:'T2: Calculate the Sum', pageTitleEn:'Hitung Jumlah', taskType:'fill',
+          question:'Calculate $452 + 137$. The sum is ...', questionEn:'Hitunglah $452 + 137$. Jumlahnya adalah ...',
+          correctAnswer:'589', acceptableAnswers:['589'],
+          explanation:`<p>Add place values: <span class="tr">Jumlahkan nilai tempat:</span></p>
+            <ol>
+              <li>Units: $2 + 7 = 9$ <span class="tr">Satuan: $2 + 7 = 9$</span></li>
+              <li>Tens: $50 + 30 = 80$ <span class="tr">Puluhan: $50 + 30 = 80$</span></li>
+              <li>Hundreds: $400 + 100 = 500$ <span class="tr">Ratusan: $400 + 100 = 500$</span></li>
+              <li>Total: $500 + 80 + 9 = 589$ <span class="tr">Total: $500 + 80 + 9 = 589$</span></li>
+            </ol>`
+        },
+        // T3
+        { type:'task', pageTitle:'T3: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: The order of numbers in addition does not matter (Commutative Property).', questionEn:'Benar atau salah: Urutan bilangan dalam penjumlahan tidak memengaruhi hasil (Sifat Komutatif).',
+          correctAnswer:'true',
+          explanation:`<p>True. Addition is commutative, meaning $a + b = b + a$. <span class="tr">Benar. Penjumlahan bersifat komutatif, artinya $a + b = b + a$.</span></p>`
+        },
+        // E2
+        { type:'explanation', pageTitle:'E2: Introduction to Fractions', pageTitleEn:'Pengenalan Pecahan',
+          body:`
+            <p><strong>Fractions</strong> represent parts of a whole. 
+              <span class="tr">Pecahan mewakili bagian dari suatu keseluruhan.</span></p>
+            <div class="math-block"><strong>Anatomy of a Fraction:</strong> <span class="tr">Anatomi Pecahan</span>
+              <ul style="margin-top:6px">
+                <li><strong>Numerator</strong>: The top number (how many parts you have). <span class="tr">Pembilang: Angka di atas (berapa banyak bagian yang Anda miliki).</span></li>
+                <li><strong>Denominator</strong>: The bottom number (total equal parts). <span class="tr">Penyebut: Angka di bawah (total bagian yang sama).</span></li>
+              </ul>
+            </div>
+            <div class="illustration">
+              <svg width="280" height="120" viewBox="0 0 280 120">
+                <rect x="10" y="10" width="100" height="100" fill="#dbeafe" stroke="#333" stroke-width="2"/>
+                <rect x="10" y="10" width="100" height="100" fill="#f59e0b" fill-opacity="0.3"/>
+                <text x="60" y="70" text-anchor="middle" font-size="20" fill="#1e40af">$\\frac{1}{4}$</text>
+                
+                <text x="130" y="50" font-size="14" fill="#ef4444" font-weight="bold">Numerator (1)</text>
+                <text x="130" y="65" font-size="14" fill="#64748b">Denominator (4)</text>
+                <line x1="125" y1="45" x2="80" y2="40" stroke="#ef4444" stroke-width="1"/>
+                <line x1="125" y1="60" x2="80" y2="80" stroke="#64748b" stroke-width="1"/>
+              </svg>
+              <div style="font-size:.82em;color:var(--muted);margin-top:4px">1 out of 4 equal parts <span class="tr">1 dari 4 bagian yang sama</span></div>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              The denominator can never be zero. <span class="tr">Penyebut tidak boleh nol.</span></div>
+          `
+        },
+        // T4
+        { type:'task', pageTitle:'T4: Identify the Denominator', pageTitleEn:'Identifikasi Penyebut', taskType:'radio',
+          question:'In the fraction $\\frac{3}{5}$, what is the denominator?', questionEn:'Pada pecahan $\\frac{3}{5}$, berapakah penyebutnya?',
+          options:[
+            {text:'5', correct:true},
+            {text:'3', correct:false},
+            {text:'2', correct:false},
+            {text:'8', correct:false}
+          ],
+          explanation:`<p>The denominator is the bottom number. <span class="tr">Penyebut adalah angka di bawah.</span></p>`
+        },
+        // T5
+        { type:'task', pageTitle:'T5: Match Fractions to Meaning', pageTitleEn:'Pasangkan Pecahan dengan Maknanya', taskType:'pairing',
+          question:'Match each fraction to its correct description.', questionEn:'Pasangkan setiap pecahan dengan deskripsi yang benar.',
+          pairs:[
+            {left:'$\\frac{2}{3}$', right:'2 out of 3 equal parts'},
+            {left:'$\\frac{1}{2}$', right:'1 out of 2 equal parts'},
+            {left:'$\\frac{4}{5}$', right:'4 out of 5 equal parts'},
+            {left:'$\\frac{3}{4}$', right:'3 out of 4 equal parts'}
+          ],
+          explanation:`<p>The numerator tells how many parts, the denominator tells the total equal parts. <span class="tr">Pembilang menunjukkan jumlah bagian, penyebut menunjukkan total bagian yang sama.</span></p>`
+        },
+        // T6
+        { type:'task', pageTitle:'T6: Proper or Improper?', pageTitleEn:'Pecahan Tidak Asli?', taskType:'checkbox',
+          question:'Select all fractions that represent MORE than a whole.', questionEn:'Pilih semua pecahan yang mewakili LEBIH dari satu keseluruhan.',
+          options:[
+            {text:'$\\frac{5}{4}$', correct:true},
+            {text:'$\\frac{1}{2}$', correct:false},
+            {text:'$\\frac{3}{3}$', correct:false},
+            {text:'$\\frac{7}{3}$', correct:true}
+          ],
+          explanation:`<p>If the numerator is greater than the denominator, it's more than a whole. <span class="tr">Jika pembilang lebih besar dari penyebut, itu lebih dari satu keseluruhan.</span></p>
+            <p>$\\frac{1}{2}$ is less than 1. $\\frac{3}{3}$ is exactly 1. <span class="tr">$\\frac{1}{2}$ kurang dari 1. $\\frac{3}{3}$ tepat 1.</span></p>`
+        },
+        // E3
+        { type:'explanation', pageTitle:'E3: Equivalent Fractions', pageTitleEn:'Pecahan Senilai',
+          body:`
+            <p><strong>Equivalent Fractions</strong> are fractions that have the same value but different numerators and denominators.
+              <span class="tr">Pecahan senilai adalah pecahan yang memiliki nilai yang sama tetapi pembilang dan penyebut yang berbeda.</span></p>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              Is $\\frac{1}{2}$ equivalent to $\\frac{2}{4}$? <span class="tr">Apakah $\\frac{1}{2}$ senilai dengan $\\frac{2}{4}$?</span>
+              <ol>
+                <li>Multiply top and bottom by 2: $1 \\times 2 = 2$, $2 \\times 2 = 4$ <span class="tr">Kalikan atas dan bawah dengan 2:</span></li>
+                <li>Result: $\\frac{2}{4}$ <span class="tr">Hasil:</span></li>
+              </ol>
+              Yes, they are equivalent. <span class="tr">Ya, keduanya senilai.</span>
+            </div>
+            <div class="tip-box"><h4>Simplifying <span class="tr">Menyederhanakan</span></h4>
+              To simplify, divide top and bottom by the same number. <span class="tr">Untuk menyederhanakan, bagi atas dan bawah dengan angka yang sama.</span></div>
+          `
+        },
+        // T7
+        { type:'task', pageTitle:'T7: Find the Equivalent', pageTitleEn:'Temukan yang Senilai', taskType:'fill',
+          question:'Find the missing numerator: $\\frac{1}{3} = \\frac{?}{6}$', questionEn:'Temukan pembilang yang hilang: $\\frac{1}{3} = \\frac{?}{6}$',
+          correctAnswer:'2', acceptableAnswers:['2'],
+          explanation:`<p>Multiply numerator and denominator by 2. <span class="tr">Kalikan pembilang dan penyebut dengan 2.</span></p>
+            <p>$1 \\times 2 = 2$ <span class="tr">Pembilang:</span></p>
+            <p>$3 \\times 2 = 6$ <span class="tr">Penyebut:</span></p>`
+        },
+        // T8
+        { type:'task', pageTitle:'T8: Order the Steps', pageTitleEn:'Urutkan Langkahnya', taskType:'sorting',
+          question:'Order the steps to simplify $\\frac{4}{8}$ to $\\frac{1}{2}$.', questionEn:'Urutkan langkah untuk menyederhanakan $\\frac{4}{8}$ menjadi $\\frac{1}{2}$.',
+          items:[
+            'Identify the common factor (4)',
+            'Divide numerator by 4',
+            'Divide denominator by 4',
+            'Write the simplified fraction (1/2)'
+          ],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Steps to simplify: <span class="tr">Langkah menyederhanakan:</span></p>
+            <ol><li>Find common factor (4) <span class="tr">Cari faktor persekutuan (4)</span></li><li>Divide top ($4\\div4=1$) <span class="tr">Bagi atas</span></li><li>Divide bottom ($8\\div4=2$) <span class="tr">Bagi bawah</span></li><li>Result is $\\frac{1}{2}$ <span class="tr">Hasilnya</span></li></ol>`
+        },
+        // T9
+        { type:'task', pageTitle:'T9: Simplify the Fraction', pageTitleEn:'Sederhanakan Pecahan', taskType:'fill',
+          question:'Simplify $\\frac{6}{9}$. The simplest form is .../...', questionEn:'Sederhanakan $\\frac{6}{9}$. Bentuk paling sederhana adalah .../...',
+          correctAnswer:'2/3', acceptableAnswers:['2/3','2 / 3','2 /3','2/ 3','2/3'],
+          explanation:`<p>Divide top and bottom by 3. <span class="tr">Bagi atas dan bawah dengan 3.</span></p>
+            <p>$6 \\div 3 = 2$ <span class="tr">Pembilang:</span></p>
+            <p>$9 \\div 3 = 3$ <span class="tr">Penyebut:</span></p>
+            <p>Result: $\\frac{2}{3}$ <span class="tr">Hasil:</span></p>`
+        },
+        // T10
+        { type:'task', pageTitle:'T10: Check for Equivalence', pageTitleEn:'Cek Kesetaraan', taskType:'truefalse',
+          question:'True or false: $\\frac{3}{4}$ and $\\frac{6}{8}$ are equivalent fractions.', questionEn:'Benar atau salah: $\\frac{3}{4}$ dan $\\frac{6}{8}$ adalah pecahan senilai.',
+          correctAnswer:'true',
+          explanation:`<p>Multiply $\\frac{3}{4}$ by $\\frac{2}{2}$: <span class="tr">Kalikan $\\frac{3}{4}$ dengan $\\frac{2}{2}$:</span></p>
+            <p>$3 \\times 2 = 6$, $4 \\times 2 = 8$. So, $\\frac{3}{4} = \\frac{6}{8}$. <span class="tr">Jadi, $\\frac{3}{4} = \\frac{6}{8}$.</span></p>`
+        }
+      ]
+    },
+    b: {
+      title: 'Introduction & Real-World Connection',
+      titleEn: 'Introduction & Real-World Connection',
+      time: '00:10 - 00:15',
+      pages: [
+        // E1
+        { type:'explanation', pageTitle:'E1: Fractions in Real Life', pageTitleEn:'Pecahan di Kehidupan Nyata',
+          body:`
+            <p><strong>Fractions</strong> are used everywhere in daily life, especially when sharing, cooking, or measuring.
+              <span class="tr">Pecahan digunakan di mana-mana dalam kehidupan sehari-hari, terutama saat berbagi, memasak, atau mengukur.</span></p>
+            <div class="illustration">
+              <svg width="280" height="120" viewBox="0 0 280 120">
+                <circle cx="60" cy="60" r="45" fill="#f59e0b" stroke="#92400e" stroke-width="2"/>
+                <path d="M60 15 A45 45 0 0 1 101 75 L60 60 Z" fill="#fffbeb" stroke="#92400e" stroke-width="2"/>
+                <path d="M101 75 A45 45 0 0 1 60 105 L60 60 Z" fill="#fffbeb" stroke="#92400e" stroke-width="2"/>
+                <line x1="60" y1="15" x2="60" y2="105" stroke="#92400e" stroke-width="2"/>
+                <text x="60" y="70" text-anchor="middle" font-size="14" fill="#92400e">$\\frac{3}{8}$</text>
+                
+                <rect x="130" y="15" width="90" height="90" fill="#dbeafe" stroke="#1e40af" stroke-width="2"/>
+                <rect x="130" y="15" width="30" height="90" fill="#2563eb" fill-opacity="0.5"/>
+                <text x="145" y="65" text-anchor="middle" font-size="12" fill="#1e40af">$\\frac{1}{3}$</text>
+              </svg>
+              <div style="font-size:.82em;color:var(--muted);margin-top:4px">Pizza slices and chocolate bars <span class="tr">Irisan pizza dan batang cokelat</span></div>
+            </div>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              If a pizza is cut into 8 equal slices and you eat 3 slices, you have eaten $\\frac{3}{8}$ of the pizza.
+              <span class="tr">Jika sebuah pizza dipotong menjadi 8 irisan yang sama dan Anda memakan 3 irisan, Anda telah memakan $\\frac{3}{8}$ dari pizza tersebut.</span>
+            </div>
+          `
+        },
+        // T1
+        { type:'task', pageTitle:'T1: Real-World Fractions', pageTitleEn:'Pecahan Dunia Nyata', taskType:'radio',
+          question:'Which of these situations uses fractions?', questionEn:'Manakah dari situasi berikut yang menggunakan pecahan?',
+          options:[
+            {text:'Baking a cake and using half a cup of sugar', correct:true},
+            {text:'Counting the number of cars in a parking lot', correct:false},
+            {text:'Measuring the exact length of a field in whole meters', correct:false},
+            {text:'Tallying the total points in a basketball game', correct:false}
+          ],
+          explanation:`<p>Using "half a cup" represents a part of a whole, which is a fraction ($\\frac{1}{2}$). <span class="tr">Menggunakan "setengah gelas" mewakili bagian dari keseluruhan, yaitu pecahan ($\\frac{1}{2}$).</span></p>`
+        },
+        // T2
+        { type:'task', pageTitle:'T2: Calculate Remaining Parts', pageTitleEn:'Hitung Bagian yang Tersisa', taskType:'fill',
+          question:'A chocolate bar has 8 pieces. You eat 3 pieces. What fraction of the chocolate bar is left? (Use format like 5/8)', questionEn:'Sebatang cokelat memiliki 8 potongan. Anda memakan 3 potongan. Berapa pecahan cokelat yang tersisa?',
+          correctAnswer:'5/8', acceptableAnswers:['5/8','5 / 8','5 /8','5/ 8','5/8'],
+          explanation:`<p>Total pieces = 8 (denominator). <span class="tr">Total potongan = 8 (penyebut).</span></p>
+            <p>Pieces left = $8 - 3 = 5$ (numerator). <span class="tr">Sisa potongan = $8 - 3 = 5$ (pembilang).</span></p>
+            <p>Fraction left: $\\frac{5}{8}$. <span class="tr">Pecahan tersisa:</span></p>`
+        },
+        // T3
+        { type:'task', pageTitle:'T3: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: Fractions are only used in mathematics classrooms and not in real life.', questionEn:'Benar atau salah: Pecahan hanya digunakan di kelas matematika dan tidak dalam kehidupan nyata.',
+          correctAnswer:'false',
+          explanation:`<p>False. Fractions are used in cooking, shopping, sharing, and building. <span class="tr">Salah. Pecahan digunakan dalam memasak, berbelanja, berbagi, dan membangun.</span></p>`
+        },
+        // E2
+        { type:'explanation', pageTitle:'E2: Combining Parts', pageTitleEn:'Menggabungkan Bagian',
+          body:`
+            <p>Sometimes we need to <strong>combine</strong> (add) or <strong>take away</strong> (subtract) fractions in real life.
+              <span class="tr">Terkadang kita perlu menggabungkan (menjumlahkan) atau mengambil (mengurangkan) pecahan dalam kehidupan nyata.</span></p>
+            <div class="math-block">
+              If you eat $\\frac{1}{4}$ of a cake and your friend eats $\\frac{1}{4}$, together you both ate:
+              <span class="tr">Jika Anda memakan $\\frac{1}{4}$ kue dan teman memakan $\\frac{1}{4}$, bersama-sama kalian memakan:</span>
+              $$\\frac{1}{4} + \\frac{1}{4} = \\frac{2}{4}$$             </div>
+            <div class="tip-box"><h4>Key Rule <span class="tr">Aturan Penting</span></h4>
+              When adding fractions with the same denominator, just add the numerators. 
+              <span class="tr">Saat menjumlahkan pecahan dengan penyebut yang sama, cukup jumlahkan pembilangnya.</span></div>
+          `
+        },
+        // T4
+        { type:'task', pageTitle:'T4: Add the Fractions', pageTitleEn:'Jumlahkan Pecahan', taskType:'radio',
+          question:'You drink $\\frac{1}{5}$ of a juice box in the morning and $\\frac{2}{5}$ in the afternoon. How much juice did you drink in total?', questionEn:'Anda minum $\\frac{1}{5}$ kotak jus di pagi hari dan $\\frac{2}{5}$ di sore hari. Berapa banyak jus yang Anda minum?',
+          options:[
+            {text:'$\\frac{3}{5}$', correct:true},
+            {text:'$\\frac{2}{5}$', correct:false},
+            {text:'$\\frac{1}{5}$', correct:false},
+            {text:'$\\frac{3}{10}$', correct:false}
+          ],
+          explanation:`<p>Since the denominators are the same (5), just add the numerators: $1 + 2 = 3$. <span class="tr">Karena penyebut sama (5), cukup jumlahkan pembilang: $1 + 2 = 3$.</span></p>
+            <p>Result: $\\frac{3}{5}$. <span class="tr">Hasil:</span></p>`
+        },
+        // T5
+        { type:'task', pageTitle:'T5: Match Scenarios to Fractions', pageTitleEn:'Pasangkan Skenario ke Pecahan', taskType:'pairing',
+          question:'Match the real-world scenario to the correct fraction.', questionEn:'Pasangkan skenario dunia nyata ke pecahan yang benar.',
+          pairs:[
+            {left:'Eat 2 of 8 pizza slices', right:'$\\frac{2}{8}$'},
+            {left:'Drink 1 of 2 juice boxes', right:'$\\frac{1}{2}$'},
+            {left:'Use 3 of 4 crayons', right:'$\\frac{3}{4}$'},
+            {left:'Break 1 of 5 pencils', right:'$\\frac{1}{5}$'}
+          ],
+          explanation:`<p>The top number is what you used, the bottom is the total. <span class="tr">Angka atas adalah yang Anda gunakan, bawah adalah totalnya.</span></p>`
+        },
+        // T6
+        { type:'task', pageTitle:'T6: Identify Valid Additions', pageTitleEn:'Identifikasi Penjumlahan yang Valid', taskType:'checkbox',
+          question:'Select all situations that represent adding fractions.', questionEn:'Pilih semua situasi yang mewakili penjumlahan pecahan.',
+          options:[
+            {text:'Combining $\\frac{1}{3}$ liter of water with $\\frac{1}{3}$ liter of juice', correct:true},
+            {text:'Eating $\\frac{1}{4}$ of a pie, then eating another $\\frac{1}{4}$', correct:true},
+            {text:'Walking $\\frac{1}{2}$ mile, then resting', correct:false},
+            {text:'Having $\\frac{3}{5}$ of a cake and giving $\\frac{1}{5}$ away', correct:false}
+          ],
+          explanation:`<p>Adding means combining parts. Giving away is subtraction. Resting doesn't add more distance. <span class="tr">Menjumlahkan berarti menggabungkan bagian. Memberikan adalah pengurangan. Istirahat tidak menambah jarak.</span></p>`
+        },
+        // E3
+        { type:'explanation', pageTitle:'E3: Taking Away Parts', pageTitleEn:'Mengambil Bagian',
+          body:`
+            <p><strong>Subtracting fractions</strong> with the same denominator is just like addition: subtract the numerators.
+              <span class="tr">Mengurangkan pecahan dengan penyebut yang sama seperti penjumlahan: kurangkan pembilangnya.</span></p>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              You have $\\frac{4}{5}$ of a chocolate bar. You eat $\\frac{1}{5}$. What is left?
+              <span class="tr">Anda memiliki $\\frac{4}{5}$ batang cokelat. Anda memakan $\\frac{1}{5}$. Berapa yang tersisa?</span>
+              $$\\frac{4}{5} - \\frac{1}{5} = \\frac{3}{5}$$             </div>
+            <div class="illustration">
+              <svg width="260" height="80" viewBox="0 0 260 80">
+                <rect x="10" y="10" width="50" height="60" fill="#f59e0b" stroke="#333" stroke-width="1"/>
+                <rect x="60" y="10" width="50" height="60" fill="#f59e0b" stroke="#333" stroke-width="1"/>
+                <rect x="110" y="10" width="50" height="60" fill="#f59e0b" stroke="#333" stroke-width="1"/>
+                <rect x="160" y="10" width="50" height="60" fill="#f59e0b" stroke="#333" stroke-width="1"/>
+                <rect x="210" y="10" width="50" height="60" fill="#f1f5f9" stroke="#333" stroke-width="1"/>
+                <text x="185" y="45" text-anchor="middle" font-size="14" fill="#1e40af">- $\\frac{1}{5}$</text>
+              </svg>
+              <div style="font-size:.82em;color:var(--muted);margin-top:4px">Visualizing subtraction <span class="tr">Memvisualisasikan pengurangan</span></div>
+            </div>
+          `
+        },
+        // T7
+        { type:'task', pageTitle:'T7: Subtract the Fractions', pageTitleEn:'Kurangkan Pecahan', taskType:'fill',
+          question:'You have $\\frac{7}{8}$ of a tank of gas. You use $\\frac{3}{8}$ of the tank. How much gas is left? (format: 4/8)', questionEn:'Anda memiliki $\\frac{7}{8}$ tangki bensin. Anda menggunakan $\\frac{3}{8}$ tangki. Berapa bensin yang tersisa?',
+          correctAnswer:'4/8', acceptableAnswers:['4/8','4 / 8','4 /8','4/ 8','4/8'],
+          explanation:`<p>Subtract numerators: $7 - 3 = 4$. <span class="tr">Kurangkan pembilang: $7 - 3 = 4$.</span></p>
+            <p>Denominator stays the same: $8$. <span class="tr">Penyebut tetap sama:</span></p>
+            <p>Result: $\\frac{4}{8}$. <span class="tr">Hasil:</span></p>`
+        },
+        // T8
+        { type:'task', pageTitle:'T8: Order the Real-Life Steps', pageTitleEn:'Urutkan Langkah Kehidupan Nyata', taskType:'sorting',
+          question:'Order the steps to solve a real-life fraction subtraction problem.', questionEn:'Urutkan langkah untuk menyelesaikan soal pengurangan pecahan kehidupan nyata.',
+          items:[
+            'Identify the total starting fraction',
+            'Identify the fraction being taken away',
+            'Subtract the numerators',
+            'Write the final remaining fraction'
+          ],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Steps to solve: <span class="tr">Langkah penyelesaian:</span></p>
+            <ol><li>Find starting amount <span class="tr">Cari jumlah awal</span></li><li>Find subtracted amount <span class="tr">Cari jumlah yang dikurangkan</span></li><li>Subtract tops <span class="tr">Kurangkan atas</span></li><li>Write answer <span class="tr">Tulis jawaban</span></li></ol>`
+        },
+        // T9
+        { type:'task', pageTitle:'T9: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: If you have $\\frac{5}{6}$ of a pie and give away $\\frac{2}{6}$, you have $\\frac{3}{6}$ left.', questionEn:'Benar atau salah: Jika Anda memiliki $\\frac{5}{6}$ kue dan memberikan $\\frac{2}{6}$, Anda memiliki $\\frac{3}{6}$ tersisa.',
+          correctAnswer:'true',
+          explanation:`<p>$5 - 2 = 3$. The denominator stays 6. So, $\\frac{3}{6}$ is correct. <span class="tr">$5 - 2 = 3$. Penyebut tetap 6. Jadi, $\\frac{3}{6}$ benar.</span></p>`
+        },
+        // T10
+        { type:'task', pageTitle:'T10: Word Problem', pageTitleEn:'Soal Cerita', taskType:'fill',
+          question:'A bottle is $\\frac{6}{10}$ full. You drink $\\frac{4}{10}$ of the bottle. What fraction is left? (format: 2/10)', questionEn:'Sebotol terisi $\\frac{6}{10}$ penuh. Anda meminum $\\frac{4}{10}$ botol. Berapa pecahan yang tersisa?',
+          correctAnswer:'2/10', acceptableAnswers:['2/10','2 / 10','2 /10','2/ 10','2/10'],
+          explanation:`<p>Subtract the numerators: $6 - 4 = 2$. <span class="tr">Kurangkan pembilang: $6 - 4 = 2$.</span></p>
+            <p>Result: $\\frac{2}{10}$. <span class="tr">Hasil:</span></p>`
+        }
+      ]
+    },
+    c: {
+      title: 'Review of Prior Knowledge',
+      titleEn: 'Review of Prior Knowledge',
+      time: '00:15 - 00:20',
+      pages: [
+        // E1
+        { type:'explanation', pageTitle:'E1: Prime and Composite Numbers', pageTitleEn:'Bilangan Prima dan Komposit',
+          body:`
+            <p>To work with fractions with different denominators, we need to review <strong>Prime Numbers</strong> and <strong>Composite Numbers</strong>.
+              <span class="tr">Untuk mengerjakan pecahan dengan penyebut berbeda, kita perlu mengulas Bilangan Prima dan Komposit.</span></p>
+            <div class="math-block">
+              <ul style="margin-top:6px">
+                <li><strong>Prime Number</strong>: Only divisible by 1 and itself (e.g., 2, 3, 5, 7). <span class="tr">Bilangan Prima: Hanya bisa dibagi 1 dan dirinya sendiri.</span></li>
+                <li><strong>Composite Number</strong>: Has more than two factors (e.g., 4, 6, 8, 9). <span class="tr">Bilangan Komposit: Memiliki lebih dari dua faktor.</span></li>
+              </ul>
+            </div>
+            <div class="tip-box"><h4>Note <span class="tr">Catatan</span></h4>
+              The number 1 is neither prime nor composite. <span class="tr">Angka 1 bukan bilangan prima maupun komposit.</span></div>
+          `
+        },
+        // T1
+        { type:'task', pageTitle:'T1: Identify Prime Numbers', pageTitleEn:'Identifikasi Bilangan Prima', taskType:'radio',
+          question:'Which of the following is a prime number?', questionEn:'Manakah dari berikut ini yang merupakan bilangan prima?',
+          options:[
+            {text:'7', correct:true},
+            {text:'8', correct:false},
+            {text:'9', correct:false},
+            {text:'10', correct:false}
+          ],
+          explanation:`<p>7 is only divisible by 1 and 7. 8 is divisible by 1, 2, 4, 8. <span class="tr">7 hanya bisa dibagi 1 dan 7. 8 bisa dibagi 1, 2, 4, 8.</span></p>`
+        },
+        // T2
+        { type:'task', pageTitle:'T2: List the Factors', pageTitleEn:'Daftar Faktor', taskType:'fill',
+          question:'What is the smallest prime number?', questionEn:'Berapakah bilangan prima terkecil?',
+          correctAnswer:'2', acceptableAnswers:['2'],
+          explanation:`<p>2 is the smallest prime number and the only even prime number. <span class="tr">2 adalah bilangan prima terkecil dan satu-satunya bilangan prima genap.</span></p>`
+        },
+        // T3
+        { type:'task', pageTitle:'T3: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: The number 9 is a prime number.', questionEn:'Benar atau salah: Angka 9 adalah bilangan prima.',
+          correctAnswer:'false',
+          explanation:`<p>9 is composite because it is divisible by 1, 3, and 9 ($3 \\times 3 = 9$). <span class="tr">9 adalah komposit karena bisa dibagi 1, 3, dan 9 ($3 \\times 3 = 9$).</span></p>`
+        },
+        // E2
+        { type:'explanation', pageTitle:'E2: Multiples and Common Multiples', pageTitleEn:'Kelipatan dan Kelipatan Bersama',
+          body:`
+            <p><strong>Multiples</strong> are the results of multiplying a number by integers.
+              <span class="tr">Kelipatan adalah hasil kali bilangan dengan bilangan bulat.</span></p>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              Multiples of 4: 4, 8, 12, 16, 20, 24... <span class="tr">Kelipatan 4: 4, 8, 12, 16, 20, 24...</span><br>
+              Multiples of 6: 6, 12, 18, 24, 30... <span class="tr">Kelipatan 6: 6, 12, 18, 24, 30...</span><br>
+              <strong>Common Multiples</strong> are numbers found in both lists (like 12 and 24).
+              <span class="tr">Kelipatan Bersama adalah angka yang ada di kedua daftar (seperti 12 dan 24).</span>
+            </div>
+            <div class="illustration">
+              <svg width="280" height="80" viewBox="0 0 280 80">
+                <text x="20" y="20" font-size="12" fill="#2563eb">Multiples of 4:</text>
+                <text x="140" y="20" font-size="12" fill="#1e293b">4, 8, 12, 16, 20, 24</text>
+                <text x="20" y="50" font-size="12" fill="#ef4444">Multiples of 6:</text>
+                <text x="140" y="50" font-size="12" fill="#1e293b">6, 12, 18, 24, 30</text>
+              </svg>
+              <div style="font-size:.82em;color:var(--muted);margin-top:4px">Finding common ground <span class="tr">Mencari titik temu</span></div>
+            </div>
+          `
+        },
+        // T4
+        { type:'task', pageTitle:'T4: Identify the Multiple', pageTitleEn:'Identifikasi Kelipatan', taskType:'radio',
+          question:'Which of the following is a multiple of 3?', questionEn:'Manakah dari berikut ini yang merupakan kelipatan 3?',
+          options:[
+            {text:'12', correct:true},
+            {text:'10', correct:false},
+            {text:'14', correct:false},
+            {text:'16', correct:false}
+          ],
+          explanation:`<p>12 is a multiple of 3 because $3 \\times 4 = 12$. <span class="tr">12 adalah kelipatan 3 karena $3 \\times 4 = 12$.</span></p>`
+        },
+        // T5
+        { type:'task', pageTitle:'T5: Match Multiples', pageTitleEn:'Pasangkan Kelipatan', taskType:'pairing',
+          question:'Match each number to one of its multiples.', questionEn:'Pasangkan setiap angka ke salah satu kelipatannya.',
+          pairs:[
+            {left:'4', right:'16'},
+            {left:'5', right:'20'},
+            {left:'6', right:'18'},
+            {left:'7', right:'21'}
+          ],
+          explanation:`<p>Check by dividing the multiple by the number. $16 \\div 4 = 4$. <span class="tr">Cek dengan membagi kelipatan dengan angkanya.</span></p>`
+        },
+        // T6
+        { type:'task', pageTitle:'T6: Select Common Multiples', pageTitleEn:'Pilih Kelipatan Bersama', taskType:'checkbox',
+          question:'Select all common multiples of 2 and 4 under 20.', questionEn:'Pilih semua kelipatan bersama 2 dan 4 di bawah 20.',
+          options:[
+            {text:'4', correct:true},
+            {text:'8', correct:true},
+            {text:'12', correct:true},
+            {text:'16', correct:true}
+          ],
+          explanation:`<p>Since 4 is a multiple of 2, all multiples of 4 are also multiples of 2. <span class="tr">Karena 4 adalah kelipatan 2, semua kelipatan 4 juga kelipatan 2.</span></p>`
+        },
+        // E3
+        { type:'explanation', pageTitle:'E3: Least Common Multiple (LCM)', pageTitleEn:'Kelipatan Persekutuan Terkecil (KPK)',
+          body:`
+            <p>The <strong>Least Common Multiple (LCM)</strong> is the smallest common multiple shared by two numbers.
+              <span class="tr">Kelipatan Persekutuan Terkecil (KPK) adalah kelipatan bersama terkecil yang dimiliki dua bilangan.</span></p>
+            <div class="math-block"><strong>Why is LCM important for fractions?</strong> <span class="tr">Mengapa KPK penting untuk pecahan?</span>
+              <p style="margin-top:6px">It helps us find a <strong>common denominator</strong> to add or subtract fractions with different denominators. 
+                <span class="tr">Ini membantu kita menemukan penyebut bersama untuk menjumlahkan atau mengurangkan pecahan dengan penyebut berbeda.</span></p>
+            </div>
+            <div class="example-box"><h4>Example of finding LCM <span class="tr">Contoh mencari KPK</span></h4>
+              Find LCM of 3 and 4. <span class="tr">Cari KPK dari 3 dan 4.</span>
+              <ol>
+                <li>List multiples of 3: 3, 6, 9, 12, 15... <span class="tr">Daftar kelipatan 3: 3, 6, 9, 12, 15...</span></li>
+                <li>List multiples of 4: 4, 8, 12, 16, 20... <span class="tr">Daftar kelipatan 4: 4, 8, 12, 16, 20...</span></li>
+                <li>The smallest match is 12. So, LCM(3,4) = 12. <span class="tr">Cocokan terkecil adalah 12. Jadi, KPK(3,4) = 12.</span></li>
+              </ol>
+            </div>
+          `
+        },
+        // T7
+        { type:'task', pageTitle:'T7: Find the LCM', pageTitleEn:'Temukan KPK', taskType:'radio',
+          question:'What is the LCM of 2 and 3?', questionEn:'Berapakah KPK dari 2 dan 3?',
+          options:[
+            {text:'6', correct:true},
+            {text:'4', correct:false},
+            {text:'5', correct:false},
+            {text:'12', correct:false}
+          ],
+          explanation:`<p>Multiples of 2: 2, 4, 6, 8... Multiples of 3: 3, 6, 9... The first match is 6. <span class="tr">Kelipatan 2: 2, 4, 6, 8... Kelipatan 3: 3, 6, 9... Temu pertama adalah 6.</span></p>`
+        },
+        // T8
+        { type:'task', pageTitle:'T8: Order the LCM Steps', pageTitleEn:'Urutkan Langkah KPK', taskType:'sorting',
+          question:'Order the steps to find the LCM of 3 and 4.', questionEn:'Urutkan langkah untuk menemukan KPK dari 3 dan 4.',
+          items:[
+            'List the multiples of the first number',
+            'List the multiples of the second number',
+            'Identify the common multiples',
+            'Select the smallest common multiple'
+          ],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Step 1: List multiples of 3. Step 2: List multiples of 4. Step 3: Find matches (12). Step 4: Pick smallest. <span class="tr">Langkah 1: Daftar kelipatan 3. Langkah 2: Daftar kelipatan 4. Langkah 3: Cari yang sama. Langkah 4: Pilih terkecil.</span></p>`
+        },
+        // T9
+        { type:'task', pageTitle:'T9: Calculate LCM', pageTitleEn:'Hitung KPK', taskType:'fill',
+          question:'What is the LCM of 5 and 10?', questionEn:'Berapakah KPK dari 5 dan 10?',
+          correctAnswer:'10', acceptableAnswers:['10'],
+          explanation:`<p>Since 10 is a multiple of 5 ($5 \\times 2 = 10$), the LCM is 10. <span class="tr">Karena 10 adalah kelipatan 5 ($5 \\times 2 = 10$), KPK-nya adalah 10.</span></p>`
+        },
+        // T10
+        { type:'task', pageTitle:'T10: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: The LCM of 4 and 8 is 32.', questionEn:'Benar atau salah: KPK dari 4 dan 8 adalah 32.',
+          correctAnswer:'false',
+          explanation:`<p>32 is a common multiple, but it is not the LEAST. The LCM of 4 and 8 is 8. <span class="tr">32 adalah kelipatan bersama, tetapi bukan yang TERKECIL. KPK dari 4 dan 8 adalah 8.</span></p>`
+        }
+      ]
+    },
+    d: {
+      title: 'Problem Introduction',
+      titleEn: 'Problem Introduction',
+      time: '00:20 - 00:30',
+      pages: [
+        // E1
+        { type:'explanation', pageTitle:'E1: The Core Problem', pageTitleEn:'Masalah Inti',
+          body:`
+            <p>What happens when we want to add or subtract fractions that have <strong>different denominators</strong>?
+              <span class="tr">Apa yang terjadi ketika kita ingin menjumlahkan atau mengurangkan pecahan yang memiliki penyebut berbeda?</span></p>
+            <div class="illustration">
+              <svg width="280" height="120" viewBox="0 0 280 120">
+                <circle cx="60" cy="60" r="40" fill="#dbeafe" stroke="#333" stroke-width="2"/>
+                <path d="M60 20 A40 40 0 0 1 100 60 L60 60 Z" fill="#2563eb" fill-opacity="0.5"/>
+                <text x="70" y="70" font-size="14" fill="#1e40af">$\\frac{1}{2}$</text>
+                
+                <text x="130" y="65" font-size="16" fill="#ef4440" font-weight="bold">+ ?</text>
+                
+                <circle cx="200" cy="60" r="40" fill="#fef3c7" stroke="#333" stroke-width="2"/>
+                <path d="M200 20 A40 40 0 0 1 235 40 L200 60 Z" fill="#f59e0b" fill-opacity="0.5"/>
+                <text x="210" y="70" font-size="14" fill="#92400e">$\\frac{1}{3}$</text>
+              </svg>
+              <div style="font-size:.82em;color:var(--muted);margin-top:4px">Different sized pieces <span class="tr">Ukuran potongan yang berbeda</span></div>
+            </div>
+            <div class="math-block">
+              We cannot just add $\\frac{1}{2} + \\frac{1}{3}$ directly. 
+              <span class="tr">Kita tidak bisa langsung menjumlahkan $\\frac{1}{2} + \\frac{1}{3}$.</span><br>
+              It's like trying to add 1 apple and 1 orange—they need a common name.
+              <span class="tr">Ini seperti menjumlahkan 1 apel dan 1 jeruk—mereka butuh nama yang sama.</span>
+            </div>
+            <div class="tip-box"><h4>Key Concept <span class="tr">Konsep Kunci</span></h4>
+              To add or subtract fractions, their denominators MUST be the same. 
+              <span class="tr">Untuk menjumlahkan atau mengurangkan pecahan, penyebutnya HARUS sama.</span></div>
+          `
+        },
+        // T1
+        { type:'task', pageTitle:'T1: Can We Add Directly?', pageTitleEn:'Bisakah Kita Jumlahkan Langsung?', taskType:'radio',
+          question:'Can we calculate $\\frac{1}{2} + \\frac{1}{3}$ by just adding the numerators and denominators ($\\frac{2}{5}$)?', questionEn:'Bisakah kita menghitung $\\frac{1}{2} + \\frac{1}{3}$ dengan hanya menjumlahkan pembilang dan penyebutnya ($\\frac{2}{5}$)?',
+          options:[
+            {text:'No, the pieces are different sizes', correct:true},
+            {text:'Yes, math always works like that', correct:false},
+            {text:'Only if the numbers are even', correct:false},
+            {text:'Only if the numbers are odd', correct:false}
+          ],
+          explanation:`<p>No! $\\frac{1}{2}$ is larger than $\\frac{1}{3}$. Adding them directly makes no sense. We must find a common denominator first. <span class="tr">Tidak! $\\frac{1}{2}$ lebih besar dari $\\frac{1}{3}$. Menjumlahkannya langsung tidak masuk akal. Kita harus menemukan penyebut bersama dulu.</span></p>`
+        },
+        // T2
+        { type:'task', pageTitle:'T2: Identify the Need', pageTitleEn:'Identifikasi Kebutuhan', taskType:'fill',
+          question:'To add fractions with different denominators, we need a common ___.', questionEn:'Untuk menjumlahkan pecahan dengan penyebut berbeda, kita membutuhkan ___ bersama.',
+          correctAnswer:'denominator', acceptableAnswers:['denominator','penyebut','Denominator','Penyebut'],
+          explanation:`<p>We need a <strong>common denominator</strong> so the pieces are the same size. <span class="tr">Kita butuh penyebut bersama agar ukuran potongannya sama.</span></p>`
+        },
+        // T3
+        { type:'task', pageTitle:'T3: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: $\\frac{1}{4} + \\frac{1}{4} = \\frac{2}{8}$.', questionEn:'Benar atau salah: $\\frac{1}{4} + \\frac{1}{4} = \\frac{2}{8}$.',
+          correctAnswer:'false',
+          explanation:`<p>The denominators are already the same, so we just add the numerators: $1 + 1 = 2$. The denominator stays 4. Answer: $\\frac{2}{4}$. <span class="tr">Penyebut sudah sama, jadi jumlahkan pembilang: $1 + 1 = 2$. Penyebut tetap 4. Jawaban: $\\frac{2}{4}$.</span></p>`
+        },
+        // E2
+        { type:'explanation', pageTitle:'E2: Using Equivalent Fractions', pageTitleEn:'Menggunakan Pecahan Senilai',
+          body:`
+            <p>To create common denominators, we use <strong>Equivalent Fractions</strong> and the <strong>LCM</strong>.
+              <span class="tr">Untuk membuat penyebut bersama, kita gunakan Pecahan Senilai dan KPK.</span></p>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              Add $\\frac{1}{2} + \\frac{1}{3}$. <span class="tr">Jumlahkan $\\frac{1}{2} + \\frac{1}{3}$.</span>
+              <ol>
+                <li>Find LCM of denominators 2 and 3. LCM = 6. <span class="tr">Cari KPK dari penyebut 2 dan 3. KPK = 6.</span></li>
+                <li>Convert $\\frac{1}{2}$ to sixths: Multiply top and bottom by 3. $\\frac{1}{2} = \\frac{3}{6}$. <span class="tr">Ubah $\\frac{1}{2}$ menjadi per-enam: Kalikan atas dan bawah dengan 3.</span></li>
+                <li>Convert $\\frac{1}{3}$ to sixths: Multiply top and bottom by 2. $\\frac{1}{3} = \\frac{2}{6}$. <span class="tr">Ubah $\\frac{1}{3}$ menjadi per-enam: Kalikan atas dan bawah dengan 2.</span></li>
+                <li>Now add: $\\frac{3}{6} + \\frac{2}{6} = \\frac{5}{6}$. <span class="tr">Sekarang jumlahkan:</span></li>
+              </ol>
+            </div>
+            <div class="tip-box"><h4>Rule <span class="tr">Aturan</span></h4>
+              Whatever you multiply the denominator by, you MUST multiply the numerator by the same amount. 
+              <span class="tr">Apa pun yang Anda kalikan penyebut, Anda HARUS mengalikan pembilang dengan jumlah yang sama.</span></div>
+          `
+        },
+        // T4
+        { type:'task', pageTitle:'T4: Find the Common Denominator', pageTitleEn:'Temukan Penyebut Bersama', taskType:'radio',
+          question:'What is the best common denominator for $\\frac{1}{2}$ and $\\frac{1}{4}$?', questionEn:'Berapakah penyebut bersama terbaik untuk $\\frac{1}{2}$ dan $\\frac{1}{4}$?',
+          options:[
+            {text:'4', correct:true},
+            {text:'2', correct:false},
+            {text:'8', correct:false},
+            {text:'6', correct:false}
+          ],
+          explanation:`<p>4 is a multiple of 2, so 4 is the best common denominator. We just convert $\\frac{1}{2}$ into $\\frac{2}{4}$. <span class="tr">4 adalah kelipatan 2, jadi 4 adalah penyebut bersama terbaik. Kita ubah $\\frac{1}{2}$ menjadi $\\frac{2}{4}$.</span></p>`
+        },
+        // T5
+        { type:'task', pageTitle:'T5: Match Conversions', pageTitleEn:'Pasangkan Konversi', taskType:'pairing',
+          question:'Match each fraction to its equivalent fraction with denominator 6.', questionEn:'Pasangkan setiap pecahan ke pecahan senilainya dengan penyebut 6.',
+          pairs:[
+            {left:'$\\frac{1}{2}$', right:'$\\frac{3}{6}$'},
+            {left:'$\\frac{1}{3}$', right:'$\\frac{2}{6}$'},
+            {left:'$\\frac{1}{6}$', right:'$\\frac{1}{6}$'},
+            {left:'$\\frac{2}{3}$', right:'$\\frac{4}{6}$'}
+          ],
+          explanation:`<p>Multiply $\\frac{1}{2}$ by $\\frac{3}{3} = \\frac{3}{6}$. Multiply $\\frac{1}{3}$ by $\\frac{2}{2} = \\frac{2}{6}$. Multiply $\\frac{2}{3}$ by $\\frac{2}{2} = \\frac{4}{6}$. <span class="tr">Kalikan dengan pecahan bernilai 1 untuk mendapatkan penyebut 6.</span></p>`
+        },
+        // T6
+        { type:'task', pageTitle:'T6: Identify Correct Steps', pageTitleEn:'Identifikasi Langkah Benar', taskType:'checkbox',
+          question:'Select all steps needed to add fractions with different denominators.', questionEn:'Pilih semua langkah yang dibutuhkan untuk menjumlahkan pecahan dengan penyebut berbeda.',
+          options:[
+            {text:'Find the LCM of the denominators', correct:true},
+            {text:'Convert fractions to equivalent fractions', correct:true},
+            {text:'Add the numerators', correct:true},
+            {text:'Keep the common denominator', correct:true}
+          ],
+          explanation:`<p>These are the 4 steps: 1) Find LCM, 2) Convert, 3) Add numerators, 4) Keep denominator. <span class="tr">Ini adalah 4 langkah: 1) Cari KPK, 2) Ubah, 3) Jumlahkan pembilang, 4) Simpan penyebut.</span></p>`
+        },
+        // E3
+        { type:'explanation', pageTitle:'E3: Visualizing the Solution', pageTitleEn:'Memvisualisasikan Solusi',
+          body:`
+            <p>Let's visualize $\\frac{1}{2} + \\frac{1}{4}$ using a chocolate bar. 
+              <span class="tr">Mari visualisasikan $\\frac{1}{2} + \\frac{1}{4}$ menggunakan batang cokelat.</span></p>
+            <div class="illustration">
+              <svg width="260" height="80" viewBox="0 0 260 80">
+                <rect x="10" y="10" width="240" height="60" fill="#f1f5f9" stroke="#333" stroke-width="2"/>
+                <line x1="70" y1="10" x2="70" y2="70" stroke="#333"/>
+                <line x1="130" y1="10" x2="130" y2="70" stroke="#333"/>
+                <line x1="190" y1="10" x2="190" y2="70" stroke="#333"/>
+                
+                <rect x="10" y="10" width="120" height="60" fill="#2563eb" fill-opacity="0.5"/>
+                <text x="70" y="45" text-anchor="middle" font-size="14" fill="#1e40af">$\\frac{1}{2}$</text>
+                
+                <rect x="130" y="10" width="60" height="60" fill="#f59e0b" fill-opacity="0.5"/>
+                <text x="160" y="45" text-anchor="middle" font-size="14" fill="#92400e">$\\frac{1}{4}$</text>
+              </svg>
+              <div style="font-size:.82em;color:var(--muted);margin-top:4px">Combining pieces of the same size <span class="tr">Menggabungkan potongan dengan ukuran sama</span></div>
+            </div>
+            <p>First, cut the $\\frac{1}{2}$ piece into two $\\frac{1}{4}$ pieces. Now you have $\\frac{2}{4} + \\frac{1}{4} = \\frac{3}{4}$.
+              <span class="tr">Pertama, potong bagian $\\frac{1}{2}$ menjadi dua bagian $\\frac{1}{4}$. Sekarang Anda memiliki $\\frac{2}{4} + \\frac{1}{4} = \\frac{3}{4}$.</span></p>
+          `
+        },
+        // T7
+        { type:'task', pageTitle:'T7: Order the Steps', pageTitleEn:'Urutkan Langkahnya', taskType:'sorting',
+          question:'Order the steps to solve $\\frac{1}{4} + \\frac{1}{3}$.', questionEn:'Urutkan langkah untuk menyelesaikan $\\frac{1}{4} + \\frac{1}{3}$.',
+          items:[
+            'Find LCM of 4 and 3 (which is 12)',
+            'Convert 1/4 to 3/12',
+            'Convert 1/3 to 4/12',
+            'Add: 3/12 + 4/12 = 7/12'
+          ],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>First find common denominator (12), then convert both fractions, then add the tops. <span class="tr">Pertama cari penyebut bersama (12), lalu ubah kedua pecahan, lalu jumlahkan atasnya.</span></p>`
+        },
+        // T8
+        { type:'task', pageTitle:'T8: Find the Common Denominator', pageTitleEn:'Temukan Penyebut Bersama', taskType:'fill',
+          question:'What is the LCM of 5 and 2?', questionEn:'Berapakah KPK dari 5 dan 2?',
+          correctAnswer:'10', acceptableAnswers:['10'],
+          explanation:`<p>The multiples of 5: 5, 10, 15. The multiples of 2: 2, 4, 6, 8, 10. The first match is 10. <span class="tr">Kelipatan 5: 5, 10, 15. Kelipatan 2: 2, 4, 6, 8, 10. Temuan pertama adalah 10.</span></p>`
+        },
+        // T9
+        { type:'task', pageTitle:'T9: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: When adding $\\frac{1}{3} + \\frac{1}{4}$, the denominator in the final answer will be 7 (3+4).', questionEn:'Benar atau salah: Saat menjumlahkan $\\frac{1}{3} + \\frac{1}{4}$, penyebut di jawaban akhir akan menjadi 7 (3+4).',
+          correctAnswer:'false',
+          explanation:`<p>We do NOT add denominators. We find a common denominator using LCM. The denominator for $\\frac{1}{3} + \\frac{1}{4}$ will be 12. <span class="tr">Kita TIDAK menjumlahkan penyebut. Kita mencari penyebut bersama menggunakan KPK. Penyebut untuk $\\frac{1}{3} + \\frac{1}{4}$ adalah 12.</span></p>`
+        },
+        // T10
+        { type:'task', pageTitle:'T10: Calculate the Addition', pageTitleEn:'Hitung Penjumlahannya', taskType:'fill',
+          question:'Calculate $\\frac{1}{4} + \\frac{2}{4}$. (Format: 3/4)', questionEn:'Hitunglah $\\frac{1}{4} + \\frac{2}{4}$.',
+          correctAnswer:'3/4', acceptableAnswers:['3/4','3 / 4','3 /4','3/ 4','3/4'],
+          explanation:`<p>Denominators are the same. Add numerators: $1 + 2 = 3$. Answer is $\\frac{3}{4}$. <span class="tr">Penyebut sama. Jumlahkan pembilang: $1 + 2 = 3$. Jawaban $\\frac{3}{4}$.</span></p>`
+        }
+      ]
+    }    ,
+    e: {
+      title: 'Guided Practice',
+      titleEn: 'Guided Practice',
+      time: '00:30 - 00:45',
+      pages: [
+        // E1
+        { type:'explanation', pageTitle:'E1: Addition Step-by-Step', pageTitleEn:'Penjumlahan Langkah demi Langkah',
+          body:`
+            <p>Let's practice adding fractions with different denominators step-by-step.
+              <span class="tr">Mari kita berlatih menjumlahkan pecahan dengan penyebut berbeda langkah demi langkah.</span></p>
+            <div class="math-block">
+              Solve: <span class="tr">Selesaikan:</span> $$\\frac{2}{3} + \\frac{1}{4}$$             </div>
+            <div class="example-box"><h4>Step-by-Step <span class="tr">Langkah-demi-Langkah</span></h4>
+              <ol>
+                <li><strong>Find LCM</strong> of 3 and 4. Multiples of 3: 3, 6, 9, 12. Multiples of 4: 4, 8, 12. LCM = 12. <span class="tr">Cari KPK dari 3 dan 4. Kelipatan 3: 3, 6, 9, 12. Kelipatan 4: 4, 8, 12. KPK = 12.</span></li>
+                <li><strong>Convert $\\frac{2}{3}$</strong>: Multiply by $\\frac{4}{4}$. $2 \\times 4 = 8$, $3 \\times 4 = 12$. So, $\\frac{8}{12}$. <span class="tr">Ubah $\\frac{2}{3}$: Kalikan dengan $\\frac{4}{4}$. Hasilnya $\\frac{8}{12}$.</span></li>
+                <li><strong>Convert $\\frac{1}{4}$</strong>: Multiply by $\\frac{3}{3}$. $1 \\times 3 = 3$, $4 \\times 3 = 12$. So, $\\frac{3}{12}$. <span class="tr">Ubah $\\frac{1}{4}$: Kalikan dengan $\\frac{3}{3}$. Hasilnya $\\frac{3}{12}$.</span></li>
+                <li><strong>Add</strong>: $\\frac{8}{12} + \\frac{3}{12} = \\frac{11}{12}$. <span class="tr">Jumlahkan:</span></li>
+              </ol>
+              <strong>Final Answer: $\\frac{11}{12}$</strong> <span class="tr">Jawaban Akhir:</span>
+            </div>
+          `
+        },
+        // T1
+        { type:'task', pageTitle:'T1: First Step', pageTitleEn:'Langkah Pertama', taskType:'radio',
+          question:'What is the first step to solve $\\frac{1}{3} + \\frac{1}{5}$?', questionEn:'Apakah langkah pertama untuk menyelesaikan $\\frac{1}{3} + \\frac{1}{5}$?',
+          options:[
+            {text:'Find the LCM of 3 and 5', correct:true},
+            {text:'Add 1+1 and 3+5', correct:false},
+            {text:'Subtract 5-3', correct:false},
+            {text:'Multiply 3x5', correct:false}
+          ],
+          explanation:`<p>Before we can add, we need a common denominator. We find this by getting the LCM. <span class="tr">Sebelum menjumlahkan, kita butuh penyebut bersama. Kami menemukan ini dengan mendapatkan KPK.</span></p>`
+        },
+        // T2
+        { type:'task', pageTitle:'T2: Find LCM', pageTitleEn:'Temukan KPK', taskType:'fill',
+          question:'What is the LCM of 3 and 5?', questionEn:'Berapakah KPK dari 3 dan 5?',
+          correctAnswer:'15', acceptableAnswers:['15'],
+          explanation:`<p>Multiples of 3: 3, 6, 9, 12, 15. Multiples of 5: 5, 10, 15. LCM is 15. <span class="tr">Kelipatan 3: 3, 6, 9, 12, 15. Kelipatan 5: 5, 10, 15. KPK adalah 15.</span></p>`
+        },
+        // T3
+        { type:'task', pageTitle:'T3: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: In $\\frac{1}{4} + \\frac{1}{5}$, if we use 20 as the common denominator, $\\frac{1}{4}$ becomes $\\frac{5}{20}$.', questionEn:'Benar atau salah: Dalam $\\frac{1}{4} + \\frac{1}{5}$, jika kita gunakan 20 sebagai penyebut bersama, $\\frac{1}{4}$ menjadi $\\frac{5}{20}$.',
+          correctAnswer:'true',
+          explanation:`<p>$\\frac{1}{4} \\times \\frac{5}{5} = \\frac{5}{20}$. This is correct because $\\frac{5}{20}$ is equivalent to $\\frac{1}{4}$. <span class="tr">$\\frac{1}{4} \\times \\frac{5}{5} = \\frac{5}{20}$. Ini benar karena $\\frac{5}{20}$ senilai dengan $\\frac{1}{4}$.</span></p>`
+        },
+        // E2
+        { type:'explanation', pageTitle:'E2: Subtraction Step-by-Step', pageTitleEn:'Pengurangan Langkah demi Langkah',
+          body:`
+            <p>Subtracting fractions uses the exact same steps as addition, just with a minus sign at the end.
+              <span class="tr">Mengurangkan pecahan menggunakan langkah yang sama persis seperti penjumlahan, hanya dengan tanda kurang di akhir.</span></p>
+            <div class="math-block">
+              Solve: <span class="tr">Selesaikan:</span> $$\\frac{3}{4} - \\frac{1}{3}$$             </div>
+            <div class="example-box"><h4>Step-by-Step <span class="tr">Langkah-demi-Langkah</span></h4>
+              <ol>
+                <li><strong>Find LCM</strong> of 4 and 3. LCM = 12. <span class="tr">Cari KPK dari 4 dan 3. KPK = 12.</span></li>
+                <li><strong>Convert $\\frac{3}{4}$</strong>: Multiply by $\\frac{3}{3}$. $3 \\times 3 = 9$, $4 \\times 3 = 12$. So, $\\frac{9}{12}$. <span class="tr">Ubah $\\frac{3}{4}$: Kalikan dengan $\\frac{3}{3}$. Hasilnya $\\frac{9}{12}$.</span></li>
+                <li><strong>Convert $\\frac{1}{3}$</strong>: Multiply by $\\frac{4}{4}$. $1 \\times 4 = 4$, $3 \\times 4 = 12$. So, $\\frac{4}{12}$. <span class="tr">Ubah $\\frac{1}{3}$: Kalikan dengan $\\frac{4}{4}$. Hasilnya $\\frac{4}{12}$.</span></li>
+                <li><strong>Subtract</strong>: $\\frac{9}{12} - \\frac{4}{12} = \\frac{5}{12}$. <span class="tr">Kurangkan:</span></li>
+              </ol>
+              <strong>Final Answer: $\\frac{5}{12}$</strong> <span class="tr">Jawaban Akhir:</span>
+            </div>
+            <div class="tip-box"><h4>Check <span class="tr">Cek</span></h4>
+              Always ensure the final answer is in its simplest form. $\\frac{5}{12}$ cannot be simplified further.
+              <span class="tr">Pastikan jawaban akhir dalam bentuk paling sederhana. $\\frac{5}{12}$ tidak bisa disederhanakan lagi.</span></div>
+          `
+        },
+        // T4
+        { type:'task', pageTitle:'T4: Solve Subtraction', pageTitleEn:'Selesaikan Pengurangan', taskType:'radio',
+          question:'Calculate $\\frac{1}{2} - \\frac{1}{4}$. What is the answer?', questionEn:'Hitunglah $\\frac{1}{2} - \\frac{1}{4}$. Berapakah jawabannya?',
+          options:[
+            {text:'$\\frac{1}{4}$', correct:true},
+            {text:'$\\frac{1}{2}$', correct:false},
+            {text:'$\\frac{2}{6}$', correct:false},
+            {text:'$\\frac{0}{2}$', correct:false}
+          ],
+          explanation:`<p>LCM is 4. Convert $\\frac{1}{2}$ to $\\frac{2}{4}$. Then $\\frac{2}{4} - \\frac{1}{4} = \\frac{1}{4}$. <span class="tr">KPK adalah 4. Ubah $\\frac{1}{2}$ ke $\\frac{2}{4}$. Lalu $\\frac{2}{4} - \\frac{1}{4} = \\frac{1}{4}$.</span></p>`
+        },
+        // T5
+        { type:'task', pageTitle:'T5: Match Conversions', pageTitleEn:'Pasangkan Konversi', taskType:'pairing',
+          question:'Match each fraction to its equivalent fraction with denominator 12.', questionEn:'Pasangkan setiap pecahan ke pecahan senilainya dengan penyebut 12.',
+          pairs:[
+            {left:'$\\frac{1}{2}$', right:'$\\frac{6}{12}$'},
+            {left:'$\\frac{1}{3}$', right:'$\\frac{4}{12}$'},
+            {left:'$\\frac{1}{4}$', right:'$\\frac{3}{12}$'},
+            {left:'$\\frac{1}{6}$', right:'$\\frac{2}{12}$'}
+          ],
+          explanation:`<p>$\\frac{1}{2} \\times \\frac{6}{6} = \\frac{6}{12}$. $\\frac{1}{3} \\times \\frac{4}{4} = \\frac{4}{12}$. $\\frac{1}{4} \\times \\frac{3}{3} = \\frac{3}{12}$. $\\frac{1}{6} \\times \\frac{2}{2} = \\frac{2}{12}$. <span class="tr">Kalikan dengan pecahan bernilai 1.</span></p>`
+        },
+        // T6
+        { type:'task', pageTitle:'T6: Identify Correct Steps', pageTitleEn:'Identifikasi Langkah Benar', taskType:'checkbox',
+          question:'Select all correct steps for subtracting fractions.', questionEn:'Pilih semua langkah yang benar untuk mengurangkan pecahan.',
+          options:[
+            {text:'Find common denominator', correct:true},
+            {text:'Convert fractions', correct:true},
+            {text:'Subtract numerators', correct:true},
+            {text:'Keep the common denominator', correct:true}
+          ],
+          explanation:`<p>Same as addition: Find LCM, Convert, Subtract tops, Keep bottom. <span class="tr">Sama seperti penjumlahan: Cari KPK, Ubah, Kurangkan atas, Simpan bawah.</span></p>`
+        },
+        // E3
+        { type:'explanation', pageTitle:'E3: Simplifying the Final Answer', pageTitleEn:'Menyederhanakan Jawaban Akhir',
+          body:`
+            <p>After adding or subtracting, always check if your answer can be <strong>simplified</strong>.
+              <span class="tr">Setelah menjumlahkan atau mengurangkan, selalu periksa apakah jawabanmu bisa disederhanakan.</span></p>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              $\\frac{1}{4} + \\frac{1}{4} = \\frac{2}{4}$.<br>
+              Both 2 and 4 can be divided by 2. <span class="tr">Angka 2 dan 4 sama-sama bisa dibagi 2.</span><br>
+              $2 \\div 2 = 1$, $4 \\div 2 = 2$.<br>
+              Simplest form: $\\frac{1}{2}$. <span class="tr">Bentuk paling sederhana: $\\frac{1}{2}$.</span>
+            </div>
+            <div class="tip-box"><h4>Rule <span class="tr">Aturan</span></h4>
+              Divide numerator and denominator by their Greatest Common Factor (GCF). 
+              <span class="tr">Bagi pembilang dan penyebut dengan Faktor Persekutuan Terbesarnya (FPB).</span></div>
+          `
+        },
+        // T7
+        { type:'task', pageTitle:'T7: Add and Simplify', pageTitleEn:'Jumlahkan dan Sederhanakan', taskType:'fill',
+          question:'Calculate $\\frac{1}{6} + \\frac{1}{6}$. Write the simplest form. (Format: 1/3)', questionEn:'Hitunglah $\\frac{1}{6} + \\frac{1}{6}$. Tulis dalam bentuk paling sederhana.',
+          correctAnswer:'1/3', acceptableAnswers:['1/3','1 / 3','1 /3','1/ 3','1/3'],
+          explanation:`<p>Add tops: $\\frac{1}{6} + \\frac{1}{6} = \\frac{2}{6}$. <span class="tr">Jumlahkan atas: $\\frac{2}{6}$.</span></p>
+            <p>Simplify: Divide top and bottom by 2. $\\frac{2}{6} = \\frac{1}{3}$. <span class="tr">Sederhanakan: Bagi atas dan bawah dengan 2.</span></p>`
+        },
+        // T8
+        { type:'task', pageTitle:'T8: Order the Steps', pageTitleEn:'Urutkan Langkahnya', taskType:'sorting',
+          question:'Order the steps to solve $\\frac{1}{2} + \\frac{1}{4}$.', questionEn:'Urutkan langkah menyelesaikan $\\frac{1}{2} + \\frac{1}{4}$.',
+          items:[
+            'Identify LCM of 2 and 4 (which is 4)',
+            'Convert 1/2 to 2/4',
+            'Keep 1/4 as 1/4',
+            'Add: 2/4 + 1/4 = 3/4'
+          ],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>LCM is 4. $\\frac{1}{2}$ becomes $\\frac{2}{4}$. $\\frac{1}{4}$ stays. Add them to get $\\frac{3}{4}$. <span class="tr">KPK 4. $\\frac{1}{2}$ jadi $\\frac{2}{4}$. Tambahkan untuk dapat $\\frac{3}{4}$.</span></p>`
+        },
+        // T9
+        { type:'task', pageTitle:'T9: Calculate the Subtraction', pageTitleEn:'Hitung Pengurangannya', taskType:'fill',
+          question:'Calculate $\\frac{1}{3} + \\frac{1}{3}$. Write the simplest form. (Format: 2/3)', questionEn:'Hitunglah $\\frac{1}{3} + \\frac{1}{3}$. Tulis bentuk paling sederhana.',
+          correctAnswer:'2/3', acceptableAnswers:['2/3','2 / 3','2 /3','2/ 3','2/3'],
+          explanation:`<p>Add tops: $1+1=2$. Denominator stays 3. $\\frac{2}{3}$ is already simplest. <span class="tr">Jumlahkan atas: $1+1=2$. Penyebut tetap 3. $\\frac{2}{3}$ sudah paling sederhana.</span></p>`
+        },
+        // T10
+        { type:'task', pageTitle:'T10: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: The final answer of an addition problem should always be in simplest form.', questionEn:'Benar atau salah: Jawaban akhir dari soal penjumlahan harus selalu dalam bentuk paling sederhana.',
+          correctAnswer:'true',
+          explanation:`<p>Always simplify your final answer if possible. <span class="tr">Selalu sederhanakan jawaban akhir Anda jika memungkinkan.</span></p>`
+        }
+      ]
+    },
+    f: {
+      title: 'Independent Practice',
+      titleEn: 'Independent Practice',
+      time: '00:45 - 00:55',
+      pages: [
+        // E1
+        { type:'explanation', pageTitle:'E1: Real-World Word Problems', pageTitleEn:'Soal Cerita Dunia Nyata',
+          body:`
+            <p>Let's apply our fraction skills to real-world word problems.
+              <span class="tr">Mari terapkan keterampilan pecahan kita pada soal cerita dunia nyata.</span></p>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              A recipe needs $\\frac{1}{2}$ cup of flour and $\\frac{1}{3}$ cup of sugar. How much dry ingredient is needed in total?
+              <span class="tr">Resep membutuhkan $\\frac{1}{2}$ cangkir tepung dan $\\frac{1}{3}$ cangkir gula. Berapa banyak bahan kering yang dibutuhkan secara total?</span>
+              <ol>
+                <li>Find LCM of 2 and 3 = 6. <span class="tr">Cari KPK dari 2 dan 3 = 6.</span></li>
+                <li>Flour: $\\frac{1}{2} = \\frac{3}{6}$ <span class="tr">Tepung:</span></li>
+                <li>Sugar: $\\frac{1}{3} = \\frac{2}{6}$ <span class="tr">Gula:</span></li>
+                <li>Total: $\\frac{3}{6} + \\frac{2}{6} = \\frac{5}{6}$ cup. <span class="tr">Total: $\\frac{5}{6}$ cangkir.</span></li>
+              </ol>
+            </div>
+            <div class="illustration">
+              <svg width="240" height="100" viewBox="0 0 240 100">
+                <rect x="10" y="20" width="60" height="60" fill="#dbeafe" stroke="#333" stroke-width="2"/>
+                <text x="40" y="55" text-anchor="middle" font-size="14" fill="#1e40af">$\\frac{1}{2}$</text>
+                <text x="80" y="55" font-size="14" fill="#333">+</text>
+                <rect x="100" y="20" width="60" height="60" fill="#fef3c7" stroke="#333" stroke-width="2"/>
+                <text x="130" y="55" text-anchor="middle" font-size="14" fill="#92400e">$\\frac{1}{3}$</text>
+                <text x="170" y="55" font-size="14" fill="#333">=</text>
+                <rect x="190" y="20" width="40" height="60" fill="#d1fae5" stroke="#333" stroke-width="2"/>
+                <text x="210" y="55" text-anchor="middle" font-size="14" fill="#10b981">$\\frac{5}{6}$</text>
+              </svg>
+              <div style="font-size:.82em;color:var(--muted);margin-top:4px">Adding ingredients <span class="tr">Menjumlahkan bahan</span></div>
+            </div>
+          `
+        },
+        // T1
+        { type:'task', pageTitle:'T1: Distance Problem', pageTitleEn:'Soal Jarak', taskType:'fill',
+          question:'John walks $\\frac{1}{4}$ mile to the bus stop, then walks $\\frac{1}{8}$ mile to school. Total distance walked? (Format: 3/8)', questionEn:'John berjalan $\\frac{1}{4}$ mil ke halte bus, lalu berjalan $\\frac{1}{8}$ mil ke sekolah. Total jarak berjalan?',
+          correctAnswer:'3/8', acceptableAnswers:['3/8','3 / 8','3 /8','3/ 8','3/8'],
+          explanation:`<p>LCM of 4 and 8 is 8. $\\frac{1}{4} = \\frac{2}{8}$. <span class="tr">KPK dari 4 dan 8 adalah 8. $\\frac{1}{4} = \\frac{2}{8}$.</span></p>
+            <p>$\\frac{2}{8} + \\frac{1}{8} = \\frac{3}{8}$ mile. <span class="tr">mil.</span></p>`
+        },
+        // T2
+        { type:'task', pageTitle:'T2: Pizza Problem', pageTitleEn:'Soal Pizza', taskType:'radio',
+          question:'Sarah eats $\\frac{1}{2}$ of a pizza and Mike eats $\\frac{1}{6}$. How much pizza did they eat together?', questionEn:'Sarah memakan $\\frac{1}{2}$ pizza dan Mike memakan $\\frac{1}{6}$. Berapa banyak pizza yang mereka makan bersama?',
+          options:[
+            {text:'$\\frac{2}{3}$', correct:true},
+            {text:'$\\frac{2}{8}$', correct:false},
+            {text:'$\\frac{1}{4}$', correct:false},
+            {text:'$\\frac{1}{3}$', correct:false}
+          ],
+          explanation:`<p>LCM of 2 and 6 is 6. $\\frac{1}{2} = \\frac{3}{6}$. $\\frac{3}{6} + \\frac{1}{6} = \\frac{4}{6}$. Simplify $\\frac{4}{6}$ to $\\frac{2}{3}$. <span class="tr">KPK 2 dan 6 adalah 6. $\\frac{1}{2} = \\frac{3}{6}$. $\\frac{3}{6} + \\frac{1}{6} = \\frac{4}{6}$. Sederhanakan $\\frac{4}{6}$ menjadi $\\frac{2}{3}$.</span></p>`
+        },
+        // T3
+        { type:'task', pageTitle:'T3: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: If you add $\\frac{2}{3}$ and $\\frac{1}{5}$, the common denominator will be 8.', questionEn:'Benar atau salah: Jika Anda menjumlahkan $\\frac{2}{3}$ dan $\\frac{1}{5}$, penyebut bersamanya akan menjadi 8.',
+          correctAnswer:'false',
+          explanation:`<p>The LCM of 3 and 5 is 15, not 8. The common denominator should be 15. <span class="tr">KPK dari 3 dan 5 adalah 15, bukan 8. Penyebut bersama seharusnya 15.</span></p>`
+        },
+        // E2
+        { type:'explanation', pageTitle:'E2: Subtracting in Real Life', pageTitleEn:'Pengurangan dalam Kehidupan Nyata',
+          body:`
+            <p>Sometimes we need to find out how much is <strong>left</strong> after something is used.
+              <span class="tr">Terkadang kita perlu mencari tahu berapa yang tersisa setelah sesuatu digunakan.</span></p>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              A plank is $\\frac{7}{8}$ meters long. You cut off $\\frac{1}{4}$ meter. How long is the remaining plank?
+              <span class="tr">Sebatang papan panjangnya $\\frac{7}{8}$ meter. Anda memotong $\\frac{1}{4}$ meter. Berapa panjang papan yang tersisa?</span>
+              <ol>
+                <li>LCM of 8 and 4 is 8. <span class="tr">KPK dari 8 dan 4 adalah 8.</span></li>
+                <li>Convert $\\frac{1}{4}$ to eighths: $\\frac{2}{8}$. <span class="tr">Ubah $\\frac{1}{4}$ ke per-delapan: $\\frac{2}{8}$.</span></li>
+                <li>Subtract: $\\frac{7}{8} - \\frac{2}{8} = \\frac{5}{8}$. <span class="tr">Kurangkan:</span></li>
+              </ol>
+              <strong>Remaining: $\\frac{5}{8}$ meter.</strong> <span class="tr">Sisa: $\\frac{5}{8}$ meter.</span>
+            </div>
+          `
+        },
+        // T4
+        { type:'task', pageTitle:'T4: Liquid Problem', pageTitleEn:'Soal Cairan', taskType:'fill',
+          question:'You have $\\frac{3}{4}$ liter of juice. You drink $\\frac{1}{8}$ liter. How much is left? (Format: 5/8)', questionEn:'Anda punya $\\frac{3}{4}$ liter jus. Anda minum $\\frac{1}{8}$ liter. Berapa yang tersisa?',
+          correctAnswer:'5/8', acceptableAnswers:['5/8','5 / 8','5 /8','5/ 8','5/8'],
+          explanation:`<p>LCM of 4 and 8 is 8. $\\frac{3}{4} = \\frac{6}{8}$. <span class="tr">KPK 4 dan 8 adalah 8. $\\frac{3}{4} = \\frac{6}{8}$.</span></p>
+            <p>$\\frac{6}{8} - \\frac{1}{8} = \\frac{5}{8}$ liter left. <span class="tr">liter tersisa.</span></p>`
+        },
+        // T5
+        { type:'task', pageTitle:'T5: Match Word Problems to Equations', pageTitleEn:'Pasangkan Soal ke Persamaan', taskType:'pairing',
+          question:'Match each word problem to the correct mathematical equation.', questionEn:'Pasangkan setiap soal cerita ke persamaan matematika yang benar.',
+          pairs:[
+            {left:'1/2 eaten + 1/3 eaten', right:'$\\frac{1}{2} + \\frac{1}{3}$'},
+            {left:'3/4 total - 1/4 used', right:'$\\frac{3}{4} - \\frac{1}{4}$'},
+            {left:'1/6 blue + 1/6 red', right:'$\\frac{1}{6} + \\frac{1}{6}$'},
+            {left:'5/8 total - 1/4 used', right:'$\\frac{5}{8} - \\frac{1}{4}$'}
+          ],
+          explanation:`<p>Match the context: "eaten" or "added" means addition (+). "Used" or "left from total" means subtraction (-). <span class="tr">Cocokkan konteks: "dimakan" atau "ditambah" berarti penjumlahan (+). "Digunakan" atau "sisa dari total" berarti pengurangan (-).</span></p>`
+        },
+        // T6
+        { type:'task', pageTitle:'T6: Verify the Solution', pageTitleEn:'Verifikasi Solusi', taskType:'checkbox',
+          question:'A student solved $\\frac{1}{2} + \\frac{1}{4}$ and got $\\frac{3}{4}$. Select all true statements.', questionEn:'Seorang siswa menyelesaikan $\\frac{1}{2} + \\frac{1}{4}$ dan mendapat $\\frac{3}{4}$. Pilih semua pernyataan benar.',
+          options:[
+            {text:'The common denominator is 4', correct:true},
+            {text:'$\\frac{1}{2}$ is converted to $\\frac{2}{4}$', correct:true},
+            {text:'$\\frac{1}{4}$ is converted to $\\frac{2}{8}$', correct:false},
+            {text:'The final answer is correct', correct:true}
+          ],
+          explanation:`<p>LCM is 4. $\\frac{1}{2}$ becomes $\\frac{2}{4}$. $\\frac{2}{4} + \\frac{1}{4} = \\frac{3}{4}$. The student is correct. <span class="tr">KPK 4. $\\frac{1}{2}$ jadi $\\frac{2}{4}$. $\\frac{2}{4} + \\frac{1}{4} = \\frac{3}{4}$. Siswa benar.</span></p>`
+        },
+        // E3
+        { type:'explanation', pageTitle:'E3: Common Mistakes', pageTitleEn:'Kesalahan Umum',
+          body:`
+            <p>Avoid these common mistakes when working with fractions!
+              <span class="tr">Hindari kesalahan umum ini saat mengerjakan pecahan!</span></p>
+            <div class="math-block">
+              <ul style="margin-top:6px">
+                <li><strong>Mistake 1:</strong> Adding denominators ($\\frac{1}{2} + \\frac{1}{3} = \\frac{2}{5}$ ✗). <span class="tr">Kesalahan 1: Menjumlahkan penyebut.</span></li>
+                <li><strong>Mistake 2:</strong> Forgetting to simplify the final answer ($\\frac{2}{4}$ instead of $\\frac{1}{2}$ ✗). <span class="tr">Kesalahan 2: Lupa menyederhanakan jawaban akhir.</span></li>
+                <li><strong>Mistake 3:</strong> Multiplying only the numerator without the denominator. <span class="tr">Kesalahan 3: Mengalikan pembilang tanpa penyebut.</span></li>
+              </ul>
+            </div>
+            <div class="tip-box"><h4>Double Check <span class="tr">Cek Ulang</span></h4>
+              Always verify your LCM is correct before converting fractions.
+              <span class="tr">Selalu pastikan KPK Anda benar sebelum mengubah pecahan.</span></div>
+          `
+        },
+        // T7
+        { type:'task', pageTitle:'T7: Identify the Error', pageTitleEn:'Identifikasi Kesalahan', taskType:'radio',
+          question:'Tom solved $\\frac{1}{3} + \\frac{1}{4}$ as $\\frac{2}{7}$. What was his mistake?', questionEn:'Tom menyelesaikan $\\frac{1}{3} + \\frac{1}{4}$ menjadi $\\frac{2}{7}$. Apa kesalahannya?',
+          options:[
+            {text:'He added the denominators', correct:true},
+            {text:'He forgot to add numerators', correct:false},
+            {text:'He simplified incorrectly', correct:false},
+            {text:'He used the wrong LCM', correct:false}
+          ],
+          explanation:`<p>Tom added the denominators ($3+4=7$). You must NEVER add denominators; find the LCM instead. <span class="tr">Tom menjumlahkan penyebutnya ($3+4=7$). Anda TIDAK BOLEH menjumlahkan penyebut; cari KPK sebagai gantinya.</span></p>`
+        },
+        // T8
+        { type:'task', pageTitle:'T8: Order the Word Problem Steps', pageTitleEn:'Urutkan Langkah Soal Cerita', taskType:'sorting',
+          question:'Order the steps to solve: "A rope is 5/6 m. Cut off 1/3 m. What is left?"', questionEn:'Urutkan langkah menyelesaikan: "Tali 5/6 m. Dipotong 1/3 m. Berapa sisanya?"',
+          items:[
+            'Identify operation: Subtraction (5/6 - 1/3)',
+            'Find LCM of 6 and 3 (which is 6)',
+            'Convert 1/3 to 2/6',
+            'Subtract: 5/6 - 2/6 = 3/6'
+          ],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>1) It's subtraction. 2) LCM is 6. 3) $\\frac{1}{3} = \\frac{2}{6}$. 4) $\\frac{5}{6} - \\frac{2}{6} = \\frac{3}{6}$ (or $\\frac{1}{2}$). <span class="tr">1) Ini pengurangan. 2) KPK 6. 3) $\\frac{1}{3} = \\frac{2}{6}$. 4) $\\frac{5}{6} - \\frac{2}{6} = \\frac{3}{6}$ (atau $\\frac{1}{2}$).</span></p>`
+        },
+        // T9
+        { type:'task', pageTitle:'T9: Final Calculation', pageTitleEn:'Perhitungan Akhir', taskType:'fill',
+          question:'Calculate $\\frac{1}{10} + \\frac{1}{5}$. (Format: 3/10)', questionEn:'Hitunglah $\\frac{1}{10} + \\frac{1}{5}$.',
+          correctAnswer:'3/10', acceptableAnswers:['3/10','3 / 10','3 /10','3/ 10','3/10'],
+          explanation:`<p>LCM of 10 and 5 is 10. $\\frac{1}{5} = \\frac{2}{10}$. <span class="tr">KPK 10 dan 5 adalah 10. $\\frac{1}{5} = \\frac{2}{10}$.</span></p>
+            <p>$\\frac{1}{10} + \\frac{2}{10} = \\frac{3}{10}$. <span class="tr">Hasil:</span></p>`
+        },
+        // T10
+        { type:'task', pageTitle:'T10: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: $\\frac{1}{3} - \\frac{1}{6} = \\frac{2}{6}$.', questionEn:'Benar atau salah: $\\frac{1}{3} - \\frac{1}{6} = \\frac{2}{6}$.',
+          correctAnswer:'false',
+          explanation:`<p>LCM is 6. $\\frac{1}{3} = \\frac{2}{6}$. $\\frac{2}{6} - \\frac{1}{6} = \\frac{1}{6}$. The answer should be $\\frac{1}{6}$, not $\\frac{2}{6}$. <span class="tr">KPK 6. $\\frac{1}{3} = \\frac{2}{6}$. $\\frac{2}{6} - \\frac{1}{6} = \\frac{1}{6}$. Jawabannya $\\frac{1}{6}$, bukan $\\frac{2}{6}$.</span></p>`
+        }
+      ]
+    },
+    g: {
+      title: 'Consolidation & Reflection',
+      titleEn: 'Consolidation & Reflection',
+      time: '00:55 - 01:00',
+      pages: [
+        // E1: Poin Penting
+        { type:'explanation', pageTitle:'E1: Key Takeaways', pageTitleEn:'Poin Penting',
+          body:`
+            <div class="illustration">
+              <svg width="220" height="80" viewBox="0 0 220 80">
+                <circle cx="40" cy="40" r="28" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                <text x="40" y="48" text-anchor="middle" font-size="22" fill="#2563eb">★</text>
+                <text x="85" y="35" font-size="13" fill="#1e40af" font-weight="bold">Fractions</text>
+                <text x="85" y="52" font-size="10" fill="#64748b">Addition & Subtraction</text>
+              </svg>
+              <div style="font-size:.82em;color:var(--muted);margin-top:4px">One method, one solution <span class="tr">Satu metode, satu solusi</span></div>
+            </div>
+            <p>Today we learned how to add and subtract fractions with <strong>different denominators</strong>. Here are the key points:
+              <span class="tr">Hari ini kita belajar menjumlahkan dan mengurangkan pecahan dengan penyebut berbeda. Berikut poin pentingnya:</span></p>
+            <div class="math-block">
+              <ol>
+                <li><strong>Common Denominator</strong>: You MUST have the same denominator before adding or subtracting. <span class="tr">Penyebut Bersama: Anda HARUS memiliki penyebut yang sama sebelum menjumlahkan atau mengurangkan.</span></li>
+                <li><strong>Find LCM</strong>: Use the Least Common Multiple of the denominators. <span class="tr">Cari KPK: Gunakan Kelipatan Persekutuan Terkecil dari penyebut.</span></li>
+                <li><strong>Convert</strong>: Multiply numerator and denominator by the same number to make equivalent fractions. <span class="tr">Ubah: Kalikan pembilang dan penyebut dengan angka yang sama.</span></li>
+                <li><strong>Add/Subtract</strong>: Only add or subtract the numerators, keep the denominator the same. <span class="tr">Jumlah/Kurang: Hanya jumlah/kurangkan pembilang, pertahankan penyebut.</span></li>
+                <li><strong>Simplify</strong>: Always write your final answer in its simplest form. <span class="tr">Sederhanakan: Selalu tulis jawaban akhir dalam bentuk paling sederhana.</span></li>
+              </ol>
+            </div>
+            <div class="tip-box">
+              <h4>Formula Summary <span class="tr">Ringkasan Rumus</span></h4>
+              $$\\frac{a}{c} + \\frac{b}{c} = \\frac{a+b}{c}$$ <span class="tr">(Penyebut sama)</span><br><br>
+              $$\\frac{a}{b} + \\frac{c}{d} = \\frac{a \\times \\frac{LCM}{b} + c \\times \\frac{LCM}{d}}{LCM}$$ <span class="tr">(Penyebut berbeda)</span>
+            </div>
+          `
+        },
+        // T1: Pertanyaan Refleksi
+        { type:'task', pageTitle:'T1: Reflection Question', pageTitleEn:'Pertanyaan Refleksi', taskType:'truefalse',
+          question:'True or false: I understand that I must find the LCM to create a common denominator before adding fractions with different denominators.', questionEn:'Benar atau salah: Saya mengerti bahwa saya harus mencari KPK untuk membuat penyebut bersama sebelum menjumlahkan pecahan dengan penyebut berbeda.',
+          correctAnswer:'true',
+          explanation:`<p>If you answered <strong>True</strong>, you are ready for independent practice! <span class="tr">Jika Anda menjawab Benar, Anda siap untuk latihan mandiri!</span></p>
+            <p>If <strong>False</strong>, review Section D and E again. <span class="tr">Jika Salah, ulangi Bagian D dan E.</span></p>`
+        },
+        // T2: Exit Ticket
+        { type:'task', pageTitle:'T2: Exit Ticket', pageTitleEn:'Tiket Keluar', taskType:'fill',
+          question:'Solve: $\\frac{1}{2} + \\frac{1}{6}$. Write the simplest form. (Format: 2/3)', questionEn:'Selesaikan: $\\frac{1}{2} + \\frac{1}{6}$. Tulis bentuk paling sederhana.',
+          correctAnswer:'2/3', acceptableAnswers:['2/3','2 / 3','2 /3','2/ 3','2/3'],
+          explanation:`<p>LCM of 2 and 6 is 6. <span class="tr">KPK dari 2 dan 6 adalah 6.</span></p>
+            <ol>
+              <li>Convert $\\frac{1}{2}$ to sixths: $\\frac{3}{6}$. <span class="tr">Ubah $\\frac{1}{2}$ ke per-enam:</span></li>
+              <li>Add: $\\frac{3}{6} + \\frac{1}{6} = \\frac{4}{6}$. <span class="tr">Jumlahkan:</span></li>
+              <li>Simplify: Divide top and bottom by 2. $\\frac{4}{6} = \\frac{2}{3}$. <span class="tr">Sederhanakan: Bagi atas dan bawah dengan 2.</span></li>
+            </ol>
+            <p><strong>Answer: $\\frac{2}{3}$</strong> <span class="tr">Jawaban:</span></p>`
+        },
+        // E2: Follow-up Practice
+        { type:'explanation', pageTitle:'E2: Follow-up Practice', pageTitleEn:'Latihan Lanjutan',
+          body:`
+            <p>Additional practice is available in <strong>Sections H–L (Task 1–5)</strong>. Each section contains 10 questions:
+              <span class="tr">Latihan tambahan tersedia di Bagian H–L (Tugas 1–5). Setiap bagian berisi 10 soal:</span>
+            </p>
+            <div class="math-block">
+              <ul>
+                <li><strong>Task 1 (H):</strong> Mixed basics <span class="tr">Dasar campuran</span></li>
+                <li><strong>Task 2 (I):</strong> Finding LCM & Common Denominators <span class="tr">Mencari KPK & Penyebut Bersama</span></li>
+                <li><strong>Task 3 (J):</strong> Addition Focus <span class="tr">Fokus Penjumlahan</span></li>
+                <li><strong>Task 4 (K):</strong> Subtraction Focus <span class="tr">Fokus Pengurangan</span></li>
+                <li><strong>Task 5 (L):</strong> Word Problems <span class="tr">Soal Cerita</span></li>
+              </ul>
+            </div>
+            <div class="tip-box">
+              <h4>How to use <span class="tr">Cara menggunakan</span></h4>
+              <ol>
+                <li>Open sections H–L from the left sidebar. <span class="tr">Buka bagian H–L dari sidebar kiri.</span></li>
+                <li>Answer each question, then click <strong>"Check Answer"</strong>. <span class="tr">Jawab soal, lalu klik "Periksa Jawaban".</span></li>
+                <li>When finished, click the <strong>🖨 Print to PDF</strong> button at the top right. <span class="tr">Setelah selesai, klik tombol 🖨 Print to PDF di kanan atas.</span></li>
+                <li>Print or save as PDF for your tutor to check. <span class="tr">Cetak atau simpan sebagai PDF untuk diperiksa tutor.</span></li>
+              </ol>
+            </div>
+            <div class="example-box">
+              <h4>Tips for success <span class="tr">Tips sukses</span></h4>
+              <ul>
+                <li>Always check if denominators are the same. <span class="tr">Selalu cek apakah penyebut sama.</span></li>
+                <li>Use scratch paper to find LCM. <span class="tr">Gunakan kertas coreng-coretan untuk cari KPK.</span></li>
+                <li>Always simplify! <span class="tr">Selalu sederhanakan!</span></li>
+              </ul>
+            </div>
+          `
+        }
+      ]
+    },
+    h: {
+      title: 'Task 1',
+      titleEn: 'Task 1',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Identify Fractions', pageTitleEn:'Identifikasi Pecahan', taskType:'radio',
+          question:'Which of the following is a proper fraction?', questionEn:'Manakah dari berikut ini yang merupakan pecahan murni?',
+          options:[
+            {text:'$\\frac{3}{4}$', correct:true},
+            {text:'$\\frac{5}{2}$', correct:false},
+            {text:'$\\frac{4}{4}$', correct:false},
+            {text:'$\\frac{7}{3}$', correct:false}
+          ],
+          explanation:`<p>A proper fraction has a numerator smaller than its denominator. <span class="tr">Pecahan murni memiliki pembilang lebih kecil dari penyebutnya.</span></p>`},
+        { type:'task', pageTitle:'T2: Add Same Denominators', pageTitleEn:'Jumlahkan Penyebut Sama', taskType:'fill',
+          question:'Calculate $\\frac{2}{7} + \\frac{1}{7}$. (Format: 3/7)', questionEn:'Hitunglah $\\frac{2}{7} + \\frac{1}{7}$.',
+          correctAnswer:'3/7', acceptableAnswers:['3/7','3 / 7','3 /7','3/ 7','3/7'],
+          explanation:`<p>Add numerators: $2+1=3$. Keep denominator: $7$. <span class="tr">Jumlahkan pembilang: $2+1=3$. Pertahankan penyebut: $7$.</span></p>`},
+        { type:'task', pageTitle:'T3: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: To add $\\frac{1}{3}$ and $\\frac{1}{4}$, the common denominator is 7.', questionEn:'Benar atau salah: Untuk menjumlahkan $\\frac{1}{3}$ dan $\\frac{1}{4}$, penyebut bersamanya adalah 7.',
+          correctAnswer:'false',
+          explanation:`<p>The common denominator is the LCM of 3 and 4, which is 12. <span class="tr">Penyebut bersama adalah KPK dari 3 dan 4, yaitu 12.</span></p>`},
+        { type:'task', pageTitle:'T4: Equivalent Fraction', pageTitleEn:'Pecahan Senilai', taskType:'radio',
+          question:'What is $\\frac{1}{2}$ converted to have a denominator of 6?', questionEn:'Berapakah $\\frac{1}{2}$ diubah agar penyebutnya menjadi 6?',
+          options:[
+            {text:'$\\frac{3}{6}$', correct:true},
+            {text:'$\\frac{2}{6}$', correct:false},
+            {text:'$\\frac{1}{6}$', correct:false},
+            {text:'$\\frac{4}{6}$', correct:false}
+          ],
+          explanation:`<p>Multiply top and bottom by 3: $\\frac{1}{2} \\times \\frac{3}{3} = \\frac{3}{6}$. <span class="tr">Kalikan atas dan bawah dengan 3: $\\frac{1}{2} \\times \\frac{3}{3} = \\frac{3}{6}$.</span></p>`},
+        { type:'task', pageTitle:'T5: Match Equivalents', pageTitleEn:'Pasangkan Senilai', taskType:'pairing',
+          question:'Match each fraction to its equivalent with denominator 8.', questionEn:'Pasangkan setiap pecahan ke senilainya dengan penyebut 8.',
+          pairs:[
+            {left:'$\\frac{1}{2}$', right:'$\\frac{4}{8}$'},
+            {left:'$\\frac{1}{4}$', right:'$\\frac{2}{8}$'},
+            {left:'$\\frac{3}{4}$', right:'$\\frac{6}{8}$'},
+            {left:'$\\frac{1}{8}$', right:'$\\frac{1}{8}$'}
+          ],
+          explanation:`<p>Multiply by $\\frac{4}{4}$, $\\frac{2}{2}$, $\\frac{2}{2}$, and $\\frac{1}{1}$ respectively. <span class="tr">Kalikan dengan $\\frac{4}{4}$, $\\frac{2}{2}$, $\\frac{2}{2}$, dan $\\frac{1}{1}$ berturut-turut.</span></p>`},
+        { type:'task', pageTitle:'T6: Valid Addition Steps', pageTitleEn:'Langkah Penjumlahan Valid', taskType:'checkbox',
+          question:'Select all steps needed to add $\\frac{1}{2} + \\frac{1}{3}$.', questionEn:'Pilih semua langkah untuk menjumlahkan $\\frac{1}{2} + \\frac{1}{3}$.',
+          options:[
+            {text:'Find LCM of 2 and 3', correct:true},
+            {text:'Convert $\\frac{1}{2}$ to $\\frac{3}{6}$', correct:true},
+            {text:'Add numerators: $3+2$', correct:true},
+            {text:'Add denominators: $6+6$', correct:false}
+          ],
+          explanation:`<p>Never add denominators. Find LCM (6), convert fractions, add numerators. <span class="tr">Jangan pernah jumlahkan penyebut. Cari KPK, ubah pecahan, jumlahkan pembilang.</span></p>`},
+        { type:'task', pageTitle:'T7: Find LCM', pageTitleEn:'Temukan KPK', taskType:'fill',
+          question:'What is the LCM of 3 and 4?', questionEn:'Berapakah KPK dari 3 dan 4?',
+          correctAnswer:'12', acceptableAnswers:['12'],
+          explanation:`<p>Multiples of 3: 3,6,9,12. Multiples of 4: 4,8,12. LCM is 12. <span class="tr">Kelipatan 3: 3,6,9,12. Kelipatan 4: 4,8,12. KPK 12.</span></p>`},
+        { type:'task', pageTitle:'T8: Order Steps', pageTitleEn:'Urutkan Langkah', taskType:'sorting',
+          question:'Order the steps to add fractions with different denominators.', questionEn:'Urutkan langkah menjumlahkan pecahan penyebut berbeda.',
+          items:['Find the LCM of the denominators','Convert fractions to equivalent fractions','Add the numerators','Simplify the final answer'],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Standard algorithm for fraction addition. <span class="tr">Algoritma standar untuk penjumlahan pecahan.</span></p>`},
+        { type:'task', pageTitle:'T9: Calculate', pageTitleEn:'Hitung', taskType:'fill',
+          question:'Calculate $\\frac{1}{5} + \\frac{2}{5}$. (Format: 3/5)', questionEn:'Hitunglah $\\frac{1}{5} + \\frac{2}{5}$.',
+          correctAnswer:'3/5', acceptableAnswers:['3/5','3 / 5','3 /5','3/ 5','3/5'],
+          explanation:`<p>$1+2=3$. Denominator stays 5. Result: $\\frac{3}{5}$. <span class="tr">$1+2=3$. Penyebut tetap 5. Hasil: $\\frac{3}{5}$.</span></p>`},
+        { type:'task', pageTitle:'T10: Simplify', pageTitleEn:'Sederhanakan', taskType:'radio',
+          question:'What is the simplest form of $\\frac{4}{6}$?', questionEn:'Bentuk paling sederhana dari $\\frac{4}{6}$?',
+          options:[
+            {text:'$\\frac{2}{3}$', correct:true},
+            {text:'$\\frac{1}{2}$', correct:false},
+            {text:'$\\frac{4}{6}$', correct:false},
+            {text:'$\\frac{2}{6}$', correct:false}
+          ],
+          explanation:`<p>Divide top and bottom by 2: $4\\div2=2$, $6\\div2=3$. <span class="tr">Bagi atas dan bawah dengan 2: $4\\div2=2$, $6\\div2=3$.</span></p>`}
+      ]
+    },
+    i: {
+      title: 'Task 2',
+      titleEn: 'Task 2',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Find LCM', pageTitleEn:'Cari KPK', taskType:'fill',
+          question:'What is the LCM of 2 and 5?', questionEn:'Berapakah KPK dari 2 dan 5?',
+          correctAnswer:'10', acceptableAnswers:['10'],
+          explanation:`<p>Multiples of 2: 2,4,6,8,10. Multiples of 5: 5,10. LCM is 10. <span class="tr">Kelipatan 2: 2,4,6,8,10. Kelipatan 5: 5,10. KPK 10.</span></p>`},
+        { type:'task', pageTitle:'T2: Choose LCM', pageTitleEn:'Pilih KPK', taskType:'radio',
+          question:'What is the LCM of 4 and 8?', questionEn:'Berapakah KPK dari 4 dan 8?',
+          options:[
+            {text:'8', correct:true},
+            {text:'4', correct:false},
+            {text:'12', correct:false},
+            {text:'32', correct:false}
+          ],
+          explanation:`<p>Since 8 is a multiple of 4, the LCM is 8. <span class="tr">Karena 8 adalah kelipatan 4, KPK-nya 8.</span></p>`},
+        { type:'task', pageTitle:'T3: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: The LCM of two prime numbers is always their product.', questionEn:'Benar atau salah: KPK dari dua bilangan prima selalu hasil kalinya.',
+          correctAnswer:'true',
+          explanation:`<p>Primes have no common factors other than 1, so you multiply them. <span class="tr">Prima tidak punya faktor persekutuan selain 1, jadi dikalikan.</span></p>`},
+        { type:'task', pageTitle:'T4: Common Denominator', pageTitleEn:'Penyebut Bersama', taskType:'fill',
+          question:'What is the common denominator for $\\frac{1}{3}$ and $\\frac{1}{4}$?', questionEn:'Berapakah penyebut bersama untuk $\\frac{1}{3}$ dan $\\frac{1}{4}$?',
+          correctAnswer:'12', acceptableAnswers:['12'],
+          explanation:`<p>LCM of 3 and 4 is 12. <span class="tr">KPK dari 3 dan 4 adalah 12.</span></p>`},
+        { type:'task', pageTitle:'T5: Match to Common Denom', pageTitleEn:'Pasangkan ke Penyebut Bersama', taskType:'pairing',
+          question:'Match the original fraction to its converted form with denominator 12.', questionEn:'Pasangkan pecahan asli ke bentuk ubahannya dengan penyebut 12.',
+          pairs:[
+            {left:'$\\frac{1}{2}$', right:'$\\frac{6}{12}$'},
+            {left:'$\\frac{1}{3}$', right:'$\\frac{4}{12}$'},
+            {left:'$\\frac{1}{4}$', right:'$\\frac{3}{12}$'},
+            {left:'$\\frac{1}{6}$', right:'$\\frac{2}{12}$'}
+          ],
+          explanation:`<p>Multiply $\\frac{1}{2}$ by 6, $\\frac{1}{3}$ by 4, $\\frac{1}{4}$ by 3, $\\frac{1}{6}$ by 2. <span class="tr">Kalikan masing-masing dengan pengali yang sesuai.</span></p>`},
+        { type:'task', pageTitle:'T6: Identify Multiples', pageTitleEn:'Identifikasi Kelipatan', taskType:'checkbox',
+          question:'Select all common multiples of 2 and 4 under 20.', questionEn:'Pilih semua kelipatan bersama 2 dan 4 di bawah 20.',
+          options:[
+            {text:'4', correct:true},
+            {text:'8', correct:true},
+            {text:'10', correct:false},
+            {text:'16', correct:true}
+          ],
+          explanation:`<p>10 is not a multiple of 4. The others are. <span class="tr">10 bukan kelipatan 4. Lainnya benar.</span></p>`},
+        { type:'task', pageTitle:'T7: Missing Numerator', pageTitleEn:'Pembilang Hilang', taskType:'fill',
+          question:'Convert $\\frac{1}{2}$ to have denominator 6. What is the numerator?', questionEn:'Ubah $\\frac{1}{2}$ agar penyebutnya 6. Berapakah pembilangnya?',
+          correctAnswer:'3', acceptableAnswers:['3'],
+          explanation:`<p>$\\frac{1}{2} \\times \\frac{3}{3} = \\frac{3}{6}$. The numerator is 3. <span class="tr">$\\frac{1}{2} \\times \\frac{3}{3} = \\frac{3}{6}$. Pembilangnya 3.</span></p>`},
+        { type:'task', pageTitle:'T8: Order LCM Steps', pageTitleEn:'Urutkan Langkah KPK', taskType:'sorting',
+          question:'Order the steps to find the LCM of 3 and 4.', questionEn:'Urutkan langkah mencari KPK dari 3 dan 4.',
+          items:['List multiples of 3','List multiples of 4','Identify the smallest matching number','State the LCM'],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Find matching multiples, pick the smallest. <span class="tr">Cari kelipatan yang sama, pilih terkecil.</span></p>`},
+        { type:'task', pageTitle:'T9: Convert Fraction', pageTitleEn:'Ubah Pecahan', taskType:'fill',
+          question:'Convert $\\frac{2}{3}$ to have denominator 15. What is the numerator?', questionEn:'Ubah $\\frac{2}{3}$ agar penyebutnya 15. Berapakah pembilangnya?',
+          correctAnswer:'10', acceptableAnswers:['10'],
+          explanation:`<p>$\\frac{2}{3} \\times \\frac{5}{5} = \\frac{10}{15}$. The numerator is 10. <span class="tr">$\\frac{2}{3} \\times \\frac{5}{5} = \\frac{10}{15}$. Pembilangnya 10.</span></p>`},
+        { type:'task', pageTitle:'T10: Choose Denominator', pageTitleEn:'Pilih Penyebut', taskType:'radio',
+          question:'What is the best common denominator for $\\frac{1}{6}$ and $\\frac{1}{4}$?', questionEn:'Berapakah penyebut bersama terbaik untuk $\\frac{1}{6}$ dan $\\frac{1}{4}$?',
+          options:[
+            {text:'12', correct:true},
+            {text:'10', correct:false},
+            {text:'24', correct:false},
+            {text:'6', correct:false}
+          ],
+          explanation:`<p>LCM of 6 and 4 is 12. 24 is a common denominator but not the LEAST. <span class="tr">KPK 6 dan 4 adalah 12. 24 adalah penyebut bersama tapi bukan TERKECIL.</span></p>`}
+      ]
+    },
+    j: {
+      title: 'Task 3',
+      titleEn: 'Task 3',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Add 1/2 and 1/4', pageTitleEn:'Jumlahkan 1/2 dan 1/4', taskType:'fill',
+          question:'Calculate $\\frac{1}{2} + \\frac{1}{4}$. (Format: 3/4)', questionEn:'Hitunglah $\\frac{1}{2} + \\frac{1}{4}$.',
+          correctAnswer:'3/4', acceptableAnswers:['3/4','3 / 4','3 /4','3/ 4','3/4'],
+          explanation:`<p>Convert $\\frac{1}{2}$ to $\\frac{2}{4}$. $\\frac{2}{4} + \\frac{1}{4} = \\frac{3}{4}$. <span class="tr">Ubah $\\frac{1}{2}$ jadi $\\frac{2}{4}$. $\\frac{2}{4} + \\frac{1}{4} = \\frac{3}{4}$.</span></p>`},
+        { type:'task', pageTitle:'T2: Add 1/3 and 1/6', pageTitleEn:'Jumlahkan 1/3 dan 1/6', taskType:'fill',
+          question:'Calculate $\\frac{1}{3} + \\frac{1}{6}$. (Format: 3/6 or 1/2)', questionEn:'Hitunglah $\\frac{1}{3} + \\frac{1}{6}$.',
+          correctAnswer:'3/6', acceptableAnswers:['3/6','3 / 6','3 /6','3/ 6','3/6','1/2','1 / 2','1 /2','1/ 2','1/2'],
+          explanation:`<p>Convert $\\frac{1}{3}$ to $\\frac{2}{6}$. $\\frac{2}{6} + \\frac{1}{6} = \\frac{3}{6}$. Simplified: $\\frac{1}{2}$. <span class="tr">Ubah $\\frac{1}{3}$ jadi $\\frac{2}{6}$. $\\frac{2}{6} + \\frac{1}{6} = \\frac{3}{6}$.</span></p>`},
+        { type:'task', pageTitle:'T3: Result of 1/2+1/3', pageTitleEn:'Hasil 1/2+1/3', taskType:'radio',
+          question:'What is $\\frac{1}{2} + \\frac{1}{3}$?', questionEn:'Berapakah $\\frac{1}{2} + \\frac{1}{3}$?',
+          options:[
+            {text:'$\\frac{5}{6}$', correct:true},
+            {text:'$\\frac{2}{5}$', correct:false},
+            {text:'$\\frac{1}{6}$', correct:false},
+            {text:'$\\frac{2}{6}$', correct:false}
+          ],
+          explanation:`<p>LCM is 6. $\\frac{3}{6} + \\frac{2}{6} = \\frac{5}{6}$. <span class="tr">KPK 6. $\\frac{3}{6} + \\frac{2}{6} = \\frac{5}{6}$.</span></p>`},
+        { type:'task', pageTitle:'T4: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: $\\frac{1}{5} + \\frac{1}{10} = \\frac{3}{10}$.', questionEn:'Benar atau salah: $\\frac{1}{5} + \\frac{1}{10} = \\frac{3}{10}$.',
+          correctAnswer:'true',
+          explanation:`<p>Convert $\\frac{1}{5}$ to $\\frac{2}{10}$. $\\frac{2}{10} + \\frac{1}{10} = \\frac{3}{10}$. <span class="tr">Ubah $\\frac{1}{5}$ jadi $\\frac{2}{10}$. $\\frac{2}{10} + \\frac{1}{10} = \\frac{3}{10}$.</span></p>`},
+        { type:'task', pageTitle:'T5: Match Addition to LCM', pageTitleEn:'Pasangkan Jumlah ke KPK', taskType:'pairing',
+          question:'Match each addition problem to its common denominator.', questionEn:'Pasangkan soal jumlah ke penyebut bersamanya.',
+          pairs:[
+            {left:'$\\frac{1}{2} + \\frac{1}{3}$', right:'6'},
+            {left:'$\\frac{1}{4} + \\frac{1}{3}$', right:'12'},
+            {left:'$\\frac{1}{5} + \\frac{1}{2}$', right:'10'},
+            {left:'$\\frac{1}{6} + \\frac{1}{4}$', right:'12'}
+          ],
+          explanation:`<p>Find the LCM of each pair of denominators. <span class="tr">Cari KPK dari setiap pasangan penyebut.</span></p>`},
+        { type:'task', pageTitle:'T6: Correct Addition Steps', pageTitleEn:'Langkah Jumlah Benar', taskType:'checkbox',
+          question:'Select all correct steps for $\\frac{1}{2} + \\frac{1}{4}$.', questionEn:'Pilih semua langkah benar untuk $\\frac{1}{2} + \\frac{1}{4}$.',
+          options:[
+            {text:'Common denominator is 4', correct:true},
+            {text:'$\\frac{1}{2}$ becomes $\\frac{2}{4}$', correct:true},
+            {text:'$\\frac{1}{4}$ becomes $\\frac{2}{8}$', correct:false},
+            {text:'Add numerators to get $\\frac{3}{4}$', correct:true}
+          ],
+          explanation:`<p>$\\frac{1}{4}$ stays as $\\frac{1}{4}$. We only convert $\\frac{1}{2}$ to $\\frac{2}{4}$. <span class="tr">$\\frac{1}{4}$ tetap. Kita ubah $\\frac{1}{2}$ jadi $\\frac{2}{4}$.</span></p>`},
+        { type:'task', pageTitle:'T7: Add and Simplify', pageTitleEn:'Jumlah dan Sederhanakan', taskType:'fill',
+          question:'Calculate $\\frac{1}{4} + \\frac{1}{8}$. Simplify your answer. (Format: 3/8)', questionEn:'Hitunglah $\\frac{1}{4} + \\frac{1}{8}$. Sederhanakan jawabanmu.',
+          correctAnswer:'3/8', acceptableAnswers:['3/8','3 / 8','3 /8','3/ 8','3/8'],
+          explanation:`<p>$\\frac{1}{4} = \\frac{2}{8}$. $\\frac{2}{8} + \\frac{1}{8} = \\frac{3}{8}$. $\\frac{3}{8}$ is already simplest. <span class="tr">$\\frac{1}{4} = \\frac{2}{8}$. $\\frac{2}{8} + \\frac{1}{8} = \\frac{3}{8}$. Sudah paling sederhana.</span></p>`},
+        { type:'task', pageTitle:'T8: Order Addition', pageTitleEn:'Urutkan Penjumlahan', taskType:'sorting',
+          question:'Order the steps to solve $\\frac{1}{2} + \\frac{1}{3}$.', questionEn:'Urutkan langkah menyelesaikan $\\frac{1}{2} + \\frac{1}{3}$.',
+          items:['Find LCM of 2 and 3 (6)','Convert $\\frac{1}{2}$ to $\\frac{3}{6}$ and $\\frac{1}{3}$ to $\\frac{2}{6}$','Add numerators: $3+2=5$','Final answer: $\\frac{5}{6}$'],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>LCM is 6, convert, add, final answer $\\frac{5}{6}$. <span class="tr">KPK 6, ubah, jumlah, jawaban $\\frac{5}{6}$.</span></p>`},
+        { type:'task', pageTitle:'T9: Calculate 2/3+1/4', pageTitleEn:'Hitung 2/3+1/4', taskType:'fill',
+          question:'Calculate $\\frac{2}{3} + \\frac{1}{4}$. (Format: 11/12)', questionEn:'Hitunglah $\\frac{2}{3} + \\frac{1}{4}$.',
+          correctAnswer:'11/12', acceptableAnswers:['11/12','11 / 12','11 /12','11/ 12','11/12'],
+          explanation:`<p>LCM is 12. $\\frac{2}{3} = \\frac{8}{12}$, $\\frac{1}{4} = \\frac{3}{12}$. $8+3=11$. Result: $\\frac{11}{12}$. <span class="tr">KPK 12. $\\frac{2}{3} = \\frac{8}{12}$, $\\frac{1}{4} = \\frac{3}{12}$. Hasil: $\\frac{11}{12}$.</span></p>`},
+        { type:'task', pageTitle:'T10: Solve 1/2+1/8', pageTitleEn:'Selesaikan 1/2+1/8', taskType:'radio',
+          question:'What is $\\frac{1}{2} + \\frac{1}{8}$?', questionEn:'Berapakah $\\frac{1}{2} + \\frac{1}{8}$?',
+          options:[
+            {text:'$\\frac{5}{8}$', correct:true},
+            {text:'$\\frac{2}{8}$', correct:false},
+            {text:'$\\frac{1}{10}$', correct:false},
+            {text:'$\\frac{2}{10}$', correct:false}
+          ],
+          explanation:`<p>Convert $\\frac{1}{2}$ to $\\frac{4}{8}$. $\\frac{4}{8} + \\frac{1}{8} = \\frac{5}{8}$. <span class="tr">Ubah $\\frac{1}{2}$ jadi $\\frac{4}{8}$. $\\frac{4}{8} + \\frac{1}{8} = \\frac{5}{8}$.</span></p>`}
+      ]
+    },
+    k: {
+      title: 'Task 4',
+      titleEn: 'Task 4',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Subtract 1/2-1/4', pageTitleEn:'Kurangi 1/2-1/4', taskType:'fill',
+          question:'Calculate $\\frac{1}{2} - \\frac{1}{4}$. (Format: 1/4)', questionEn:'Hitunglah $\\frac{1}{2} - \\frac{1}{4}$.',
+          correctAnswer:'1/4', acceptableAnswers:['1/4','1 / 4','1 /4','1/ 4','1/4'],
+          explanation:`<p>$\\frac{1}{2} = \\frac{2}{4}$. $\\frac{2}{4} - \\frac{1}{4} = \\frac{1}{4}$. <span class="tr">$\\frac{1}{2} = \\frac{2}{4}$. $\\frac{2}{4} - \\frac{1}{4} = \\frac{1}{4}$.</span></p>`},
+        { type:'task', pageTitle:'T2: Subtract 3/4-1/8', pageTitleEn:'Kurangi 3/4-1/8', taskType:'fill',
+          question:'Calculate $\\frac{3}{4} - \\frac{1}{8}$. (Format: 5/8)', questionEn:'Hitunglah $\\frac{3}{4} - \\frac{1}{8}$.',
+          correctAnswer:'5/8', acceptableAnswers:['5/8','5 / 8','5 /8','5/ 8','5/8'],
+          explanation:`<p>$\\frac{3}{4} = \\frac{6}{8}$. $\\frac{6}{8} - \\frac{1}{8} = \\frac{5}{8}$. <span class="tr">$\\frac{3}{4} = \\frac{6}{8}$. $\\frac{6}{8} - \\frac{1}{8} = \\frac{5}{8}$.</span></p>`},
+        { type:'task', pageTitle:'T3: Result of 5/6-1/3', pageTitleEn:'Hasil 5/6-1/3', taskType:'radio',
+          question:'What is $\\frac{5}{6} - \\frac{1}{3}$?', questionEn:'Berapakah $\\frac{5}{6} - \\frac{1}{3}$?',
+          options:[
+            {text:'$\\frac{3}{6}$ (or $\\frac{1}{2}$)', correct:true},
+            {text:'$\\frac{4}{3}$', correct:false},
+            {text:'$\\frac{4}{6}$', correct:false},
+            {text:'$\\frac{2}{3}$', correct:false}
+          ],
+          explanation:`<p>$\\frac{1}{3} = \\frac{2}{6}$. $\\frac{5}{6} - \\frac{2}{6} = \\frac{3}{6} = \\frac{1}{2}$. <span class="tr">$\\frac{1}{3} = \\frac{2}{6}$. $\\frac{5}{6} - \\frac{2}{6} = \\frac{3}{6} = \\frac{1}{2}$.</span></p>`},
+        { type:'task', pageTitle:'T4: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: $\\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6}$.', questionEn:'Benar atau salah: $\\frac{1}{2} - \\frac{1}{3} = \\frac{1}{6}$.',
+          correctAnswer:'true',
+          explanation:`<p>$\\frac{1}{2} = \\frac{3}{6}$, $\\frac{1}{3} = \\frac{2}{6}$. $\\frac{3}{6} - \\frac{2}{6} = \\frac{1}{6}$. <span class="tr">$\\frac{1}{2} = \\frac{3}{6}$, $\\frac{1}{3} = \\frac{2}{6}$. $\\frac{3}{6} - \\frac{2}{6} = \\frac{1}{6}$.</span></p>`},
+        { type:'task', pageTitle:'T5: Match Subtraction to LCM', pageTitleEn:'Pasangkan Kurang ke KPK', taskType:'pairing',
+          question:'Match each subtraction problem to its common denominator.', questionEn:'Pasangkan soal kurang ke penyebut bersamanya.',
+          pairs:[
+            {left:'$\\frac{1}{2} - \\frac{1}{3}$', right:'6'},
+            {left:'$\\frac{1}{4} - \\frac{1}{3}$', right:'12'},
+            {left:'$\\frac{3}{4} - \\frac{1}{8}$', right:'8'},
+            {left:'$\\frac{5}{6} - \\frac{1}{4}$', right:'12'}
+          ],
+          explanation:`<p>LCM of 2,3 is 6. LCM of 4,3 is 12. LCM of 4,8 is 8. LCM of 6,4 is 12. <span class="tr">Cari KPK setiap pasangan.</span></p>`},
+        { type:'task', pageTitle:'T6: Correct Subtraction Steps', pageTitleEn:'Langkah Kurang Benar', taskType:'checkbox',
+          question:'Select all correct steps for $\\frac{3}{4} - \\frac{1}{8}$.', questionEn:'Pilih semua langkah benar untuk $\\frac{3}{4} - \\frac{1}{8}$.',
+          options:[
+            {text:'Common denominator is 8', correct:true},
+            {text:'$\\frac{3}{4}$ becomes $\\frac{6}{8}$', correct:true},
+            {text:'Subtract numerators: $6 - 1 = 5$', correct:true},
+            {text:'Final answer is $\\frac{5}{4}$', correct:false}
+          ],
+          explanation:`<p>Denominator stays 8. Final answer is $\\frac{5}{8}$. <span class="tr">Penyebut tetap 8. Jawaban akhir $\\frac{5}{8}$.</span></p>`},
+        { type:'task', pageTitle:'T7: Subtract and Simplify', pageTitleEn:'Kurangi dan Sederhanakan', taskType:'fill',
+          question:'Calculate $\\frac{7}{8} - \\frac{1}{4}$. Simplify if possible. (Format: 5/8)', questionEn:'Hitunglah $\\frac{7}{8} - \\frac{1}{4}$.',
+          correctAnswer:'5/8', acceptableAnswers:['5/8','5 / 8','5 /8','5/ 8','5/8'],
+          explanation:`<p>$\\frac{1}{4} = \\frac{2}{8}$. $\\frac{7}{8} - \\frac{2}{8} = \\frac{5}{8}$. $\\frac{5}{8}$ is simplest. <span class="tr">$\\frac{1}{4} = \\frac{2}{8}$. $\\frac{7}{8} - \\frac{2}{8} = \\frac{5}{8}$. Sudah sederhana.</span></p>`},
+        { type:'task', pageTitle:'T8: Order Subtraction', pageTitleEn:'Urutkan Pengurangan', taskType:'sorting',
+          question:'Order the steps to solve $\\frac{1}{2} - \\frac{1}{3}$.', questionEn:'Urutkan langkah menyelesaikan $\\frac{1}{2} - \\frac{1}{3}$.',
+          items:['Find LCM of 2 and 3 (6)','Convert $\\frac{1}{2}$ to $\\frac{3}{6}$ and $\\frac{1}{3}$ to $\\frac{2}{6}$','Subtract numerators: $3 - 2 = 1$','Final answer: $\\frac{1}{6}$'],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>LCM is 6, convert, subtract, final answer $\\frac{1}{6}$. <span class="tr">KPK 6, ubah, kurang, jawaban $\\frac{1}{6}$.</span></p>`},
+        { type:'task', pageTitle:'T9: Calculate 4/5-1/2', pageTitleEn:'Hitung 4/5-1/2', taskType:'fill',
+          question:'Calculate $\\frac{4}{5} - \\frac{1}{2}$. (Format: 3/10)', questionEn:'Hitunglah $\\frac{4}{5} - \\frac{1}{2}$.',
+          correctAnswer:'3/10', acceptableAnswers:['3/10','3 / 10','3 /10','3/ 10','3/10'],
+          explanation:`<p>LCM is 10. $\\frac{4}{5} = \\frac{8}{10}$, $\\frac{1}{2} = \\frac{5}{10}$. $8-5=3$. Result: $\\frac{3}{10}$. <span class="tr">KPK 10. $\\frac{4}{5} = \\frac{8}{10}$, $\\frac{1}{2} = \\frac{5}{10}$. Hasil: $\\frac{3}{10}$.</span></p>`},
+        { type:'task', pageTitle:'T10: Solve 1/2-1/6', pageTitleEn:'Selesaikan 1/2-1/6', taskType:'radio',
+          question:'What is $\\frac{1}{2} - \\frac{1}{6}$?', questionEn:'Berapakah $\\frac{1}{2} - \\frac{1}{6}$?',
+          options:[
+            {text:'$\\frac{2}{6}$ (or $\\frac{1}{3}$)', correct:true},
+            {text:'$\\frac{1}{4}$', correct:false},
+            {text:'$\\frac{0}{2}$', correct:false},
+            {text:'$\\frac{2}{4}$', correct:false}
+          ],
+          explanation:`<p>$\\frac{1}{2} = \\frac{3}{6}$. $\\frac{3}{6} - \\frac{1}{6} = \\frac{2}{6} = \\frac{1}{3}$. <span class="tr">$\\frac{1}{2} = \\frac{3}{6}$. $\\frac{3}{6} - \\frac{1}{6} = \\frac{2}{6} = \\frac{1}{3}$.</span></p>`}
+      ]
+    },
+    l: {
+      title: 'Task 5',
+      titleEn: 'Task 5',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Total Eaten', pageTitleEn:'Total Dimakan', taskType:'fill',
+          question:'Mary eats $\\frac{1}{2}$ cake and John eats $\\frac{1}{4}$ cake. Total eaten? (Format: 3/4)', questionEn:'Mary makan $\\frac{1}{2}$ kue dan John makan $\\frac{1}{4}$ kue. Total dimakan?',
+          correctAnswer:'3/4', acceptableAnswers:['3/4','3 / 4','3 /4','3/ 4','3/4'],
+          explanation:`<p>Convert $\\frac{1}{2}$ to $\\frac{2}{4}$. $\\frac{2}{4} + \\frac{1}{4} = \\frac{3}{4}$. <span class="tr">Ubah $\\frac{1}{2}$ jadi $\\frac{2}{4}$. $\\frac{2}{4} + \\frac{1}{4} = \\frac{3}{4}$.</span></p>`},
+        { type:'task', pageTitle:'T2: Remaining Juice', pageTitleEn:'Jus Tersisa', taskType:'fill',
+          question:'You have $\\frac{3}{4}$ liter of juice. You drink $\\frac{1}{8}$ liter. What is left? (Format: 5/8)', questionEn:'Anda punya $\\frac{3}{4}$ liter jus. Anda minum $\\frac{1}{8}$ liter. Berapa sisanya?',
+          correctAnswer:'5/8', acceptableAnswers:['5/8','5 / 8','5 /8','5/ 8','5/8'],
+          explanation:`<p>$\\frac{3}{4} = \\frac{6}{8}$. $\\frac{6}{8} - \\frac{1}{8} = \\frac{5}{8}$. <span class="tr">$\\frac{3}{4} = \\frac{6}{8}$. $\\frac{6}{8} - \\frac{1}{8} = \\frac{5}{8}$.</span></p>`},
+        { type:'task', pageTitle:'T3: Total Distance', pageTitleEn:'Total Jarak', taskType:'radio',
+          question:'Tom walks $\\frac{1}{2}$ mile to school and $\\frac{1}{3}$ mile to the store. Total distance?', questionEn:'Tom berjalan $\\frac{1}{2}$ mil ke sekolah dan $\\frac{1}{3}$ mil ke toko. Total jarak?',
+          options:[
+            {text:'$\\frac{5}{6}$ mile', correct:true},
+            {text:'$\\frac{2}{5}$ mile', correct:false},
+            {text:'$\\frac{2}{6}$ mile', correct:false},
+            {text:'$\\frac{1}{6}$ mile', correct:false}
+          ],
+          explanation:`<p>LCM is 6. $\\frac{3}{6} + \\frac{2}{6} = \\frac{5}{6}$. <span class="tr">KPK 6. $\\frac{3}{6} + \\frac{2}{6} = \\frac{5}{6}$.</span></p>`},
+        { type:'task', pageTitle:'T4: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: If a recipe needs $\\frac{1}{3}$ cup flour and $\\frac{1}{2}$ cup sugar, the total is $\\frac{2}{5}$ cup.', questionEn:'Benar atau salah: Jika resep butuh $\\frac{1}{3}$ cangkir tepung dan $\\frac{1}{2}$ cangkir gula, totalnya $\\frac{2}{5}$ cangkir.',
+          correctAnswer:'false',
+          explanation:`<p>You must find LCM. $\\frac{1}{3} = \\frac{2}{6}$, $\\frac{1}{2} = \\frac{3}{6}$. Total is $\\frac{5}{6}$ cup, not $\\frac{2}{5}$. <span class="tr">Harus cari KPK. $\\frac{1}{3} = \\frac{2}{6}$, $\\frac{1}{2} = \\frac{3}{6}$. Total $\\frac{5}{6}$ cangkir, bukan $\\frac{2}{5}$.</span></p>`},
+        { type:'task', pageTitle:'T5: Match Story to Equation', pageTitleEn:'Pasangkan Cerita ke Persamaan', taskType:'pairing',
+          question:'Match each word problem to the correct equation.', questionEn:'Pasangkan setiap soal cerita ke persamaan yang benar.',
+          pairs:[
+            {left:'Eat 1/2 and 1/4', right:'$\\frac{1}{2} + \\frac{1}{4}$'},
+            {left:'Have 3/4, use 1/8', right:'$\\frac{3}{4} - \\frac{1}{8}$'},
+            {left:'Walk 1/2 and 1/3', right:'$\\frac{1}{2} + \\frac{1}{3}$'},
+            {left:'Have 5/6, cut 1/3', right:'$\\frac{5}{6} - \\frac{1}{3}$'}
+          ],
+          explanation:`<p>Adding means combining (+). Having and using means taking away (-). <span class="tr">Gabungkan (+). Punya dan pakai berarti kurang (-).</span></p>`},
+        { type:'task', pageTitle:'T6: Word Problem Steps', pageTitleEn:'Langkah Soal Cerita', taskType:'checkbox',
+          question:'Select all correct steps to solve: "You have 5/6 m rope, cut off 1/3 m. What is left?"', questionEn:'Pilih langkah benar: "Anda punya tali 5/6 m, potong 1/3 m. Berapa sisanya?"',
+          options:[
+            {text:'Identify operation: Subtraction', correct:true},
+            {text:'Find LCM of 6 and 3', correct:true},
+            {text:'Convert $\\frac{1}{3}$ to $\\frac{2}{6}$', correct:true},
+            {text:'Subtract: $\\frac{5}{6} - \\frac{2}{6} = \\frac{3}{6}$', correct:true}
+          ],
+          explanation:`<p>These are the exact correct steps to find the remaining rope. <span class="tr">Ini langkah tepat untuk mencari sisa tali.</span></p>`},
+        { type:'task', pageTitle:'T7: Remaining Rope', pageTitleEn:'Sisa Tali', taskType:'fill',
+          question:'You have $\\frac{5}{6}$ m rope. Cut off $\\frac{1}{3}$ m. How much is left? (Format: 3/6 or 1/2)', questionEn:'Anda punya tali $\\frac{5}{6}$ m. Potong $\\frac{1}{3}$ m. Berapa sisanya?',
+          correctAnswer:'3/6', acceptableAnswers:['3/6','3 / 6','3 /6','3/ 6','3/6','1/2','1 / 2','1 /2','1/ 2','1/2'],
+          explanation:`<p>$\\frac{1}{3} = \\frac{2}{6}$. $\\frac{5}{6} - \\frac{2}{6} = \\frac{3}{6} = \\frac{1}{2}$. <span class="tr">$\\frac{1}{3} = \\frac{2}{6}$. $\\frac{5}{6} - \\frac{2}{6} = \\frac{3}{6} = \\frac{1}{2}$.</span></p>`},
+        { type:'task', pageTitle:'T8: Order Word Problem', pageTitleEn:'Urutkan Soal Cerita', taskType:'sorting',
+          question:'Order the steps to solve a word problem.', questionEn:'Urutkan langkah menyelesaikan soal cerita.',
+          items:['Read and identify the operation','Find the common denominator','Convert fractions and add/subtract','Simplify the final answer'],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Read -> Plan -> Execute -> Simplify. <span class="tr">Baca -> Rencana -> Eksekusi -> Sederhanakan.</span></p>`},
+        { type:'task', pageTitle:'T9: Total Water', pageTitleEn:'Total Air', taskType:'fill',
+          question:'Pour $\\frac{1}{2}$ liter and $\\frac{1}{4}$ liter into a pot. Total water? (Format: 3/4)', questionEn:'Tuang $\\frac{1}{2}$ liter dan $\\frac{1}{4}$ liter ke panci. Total air?',
+          correctAnswer:'3/4', acceptableAnswers:['3/4','3 / 4','3 /4','3/ 4','3/4'],
+          explanation:`<p>$\\frac{1}{2} = \\frac{2}{4}$. $\\frac{2}{4} + \\frac{1}{4} = \\frac{3}{4}$. <span class="tr">$\\frac{1}{2} = \\frac{2}{4}$. $\\frac{2}{4} + \\frac{1}{4} = \\frac{3}{4}$.</span></p>`},
+        { type:'task', pageTitle:'T10: Remaining Fuel', pageTitleEn:'Sisa Bahan Bakar', taskType:'radio',
+          question:'A tank has $\\frac{7}{8}$ fuel. You use $\\frac{1}{4}$ of the tank. How much is left?', questionEn:'Tangki berisi $\\frac{7}{8}$ bahan bakar. Anda pakai $\\frac{1}{4}$ tangki. Berapa sisanya?',
+          options:[
+            {text:'$\\frac{5}{8}$', correct:true},
+            {text:'$\\frac{6}{4}$', correct:false},
+            {text:'$\\frac{6}{8}$', correct:false},
+            {text:'$\\frac{1}{2}$', correct:false}
+          ],
+          explanation:`<p>$\\frac{1}{4} = \\frac{2}{8}$. $\\frac{7}{8} - \\frac{2}{8} = \\frac{5}{8}$. <span class="tr">$\\frac{1}{4} = \\frac{2}{8}$. $\\frac{7}{8} - \\frac{2}{8} = \\frac{5}{8}$.</span></p>`}
+      ]
+    }
+  };
+
+  // ================= STATE =================
+  let currentSection = 'a';
+  let currentPage = 0;
+  let userAnswers = {};
+
+  // ================= UTILITIES =================
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  function renderMath(el){
+    if(window.renderMathInElement){
+      renderMathInElement(el, {
+        delimiters: [
+          {left:'$$', right:'$$', display:true},
+          {left:'$', right:'$', display:false}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
+  // ================= SIDEBAR =================
+  function renderSidebar(){
+    const sidebar = document.getElementById('sidebar');
+    const sectionKeys = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+    const meta = {
+      a:{t:'Spiral Review Warm-up', e:'Spiral Review Warm-up', time:'00:00-00:10'},
+      b:{t:'Intro & Real-World', e:'Intro & Real-World', time:'00:10-00:15'},
+      c:{t:'Review of Prior Knowledge', e:'Review of Prior Knowledge', time:'00:15-00:20'},
+      d:{t:'Problem Introduction', e:'Problem Introduction', time:'00:20-00:30'},
+      e:{t:'Guided Practice', e:'Guided Practice', time:'00:30-00:45'},
+      f:{t:'Independent Practice', e:'Independent Practice', time:'00:45-00:55'},
+      g:{t:'Consolidation & Reflection', e:'Consolidation & Reflection', time:'00:55-01:00'},
+      h:{t:'Task 1', e:'Task 1', time:'Printable'},
+      i:{t:'Task 2', e:'Task 2', time:'Printable'},
+      j:{t:'Task 3', e:'Task 3', time:'Printable'},
+      k:{t:'Task 4', e:'Task 4', time:'Printable'},
+      l:{t:'Task 5', e:'Task 5', time:'Printable'}
+    };
+    let html = '<h3>Sections <span class="tr">Bagian</span></h3>';
+    sectionKeys.forEach(key => {
+      const section = sectionsData[key];
+      const isActive = currentSection === key;
+      if(section){
+        html += `<div class="nav-link ${isActive?'active':''}" data-section="${key}">
+          <span class="nl-title">${key.toUpperCase()}. ${meta[key].t}</span>
+          <span class="tr">${meta[key].e}</span>
+          <span class="time">${meta[key].time}</span>
+        </div>`;
+      } else {
+        html += `<div class="nav-link disabled">${key.toUpperCase()}. ${meta[key].t}<br><span class="tr">${meta[key].e}</span><br><span class="time">${meta[key].time} (coming soon)</span></div>`;
+      }
+    });
+    sidebar.innerHTML = html;
+    sidebar.querySelectorAll('.nav-link[data-section]').forEach(el => {
+      el.addEventListener('click', () => {
+        currentSection = el.dataset.section;
+        currentPage = 0;
+        renderSidebar();
+        renderPage();
+      });
+    });
+  }
+
+  // ================= PAGE RENDER =================
+  function renderPage(){
+    const section = sectionsData[currentSection];
+    if(!section) return;
+    const page = section.pages[currentPage];
+    const contentEl = document.getElementById('pageContent');
+
+    let printBtnHtml = '';
+    if(['h','i','j','k','l'].includes(currentSection)){
+      printBtnHtml = '<button id="printBtnTop" style="background:var(--success);color:#fff;border:none;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:.8em;font-weight:600;white-space:nowrap">🖨 Print to PDF <span class="tr">Cetak ke PDF</span></button>';
+    }
+
+    let html = '<div class="page-header"><h2>' + section.title + ' <span class="tr">' + section.titleEn + '</span></h2><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' + printBtnHtml + '<span class="badge">' + page.pageTitle + '</span></div></div>';
+
+    if(page.type === 'explanation'){
+      html += '<div class="card explain"><h3>' + page.pageTitle + ' <span class="tr">' + page.pageTitleEn + '</span></h3>' + page.body + '</div>';
+    } else if(page.type === 'task'){
+      html += renderTask(page);
+    }
+    contentEl.innerHTML = html;
+    renderMath(contentEl);
+
+    const total = section.pages.length;
+    const pageNumsEl = document.getElementById('pageNums');
+    let pageNumHtml = '';
+    section.pages.forEach(function(p, i){
+      var raw = p.pageTitle.split(':')[0].trim();
+      var type = raw.charAt(0);
+      var num = parseInt(raw.substring(1));
+      var label = type + '-' + String(num).padStart(2, '0');
+      var typeClass = (type === 'E') ? 'page-num-e' : 'page-num-t';
+      var isActive = (i === currentPage);
+      pageNumHtml += '<button class="page-num ' + typeClass + ' ' + (isActive ? 'active' : '') + '" data-page="' + i + '"' + (isActive ? ' disabled' : '') + '>' + label + '</button>';
+    });
+    pageNumsEl.innerHTML = pageNumHtml;
+
+    pageNumsEl.querySelectorAll('.page-num').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        currentPage = parseInt(btn.dataset.page);
+        renderPage();
+      });
+    });
+
+    document.getElementById('prevBtn').disabled = (currentPage === 0);
+    document.getElementById('nextBtn').disabled = (currentPage === total - 1);
+
+    var printBtnTop = document.getElementById('printBtnTop');
+    if(printBtnTop){
+      printBtnTop.addEventListener('click', function(){ printTask(currentSection); });
+    }
+
+    if(page.type === 'task'){
+      attachTaskHandlers(page);
+    }
+  }
+
+  function renderTask(page){
+    let html = `<div class="card task"><h3>${page.pageTitle} <span class="tr">${page.pageTitleEn}</span></h3>`;
+    html += `<div class="q-text">${page.question} <span class="tr">${page.questionEn || ''}</span></div>`;
+
+    if(page.taskType === 'radio' || page.taskType === 'checkbox'){
+      const options = shuffle(page.options);
+      page._shuffledOptions = options;
+      html += '<div class="options">';
+      options.forEach((opt, i) => {
+        const cls = page.taskType === 'checkbox' ? 'option checkbox' : 'option radio';
+        html += `<div class="${cls}" data-idx="${i}">
+          <div class="marker"></div>
+          <div class="opt-text">${opt.text}</div>
+        </div>`;
+      });
+      html += '</div>';
+    } else if(page.taskType === 'fill'){
+      html += `<input type="text" class="fill-input" id="fillInput" placeholder="...">`;
+    } else if(page.taskType === 'truefalse'){
+      const opts = shuffle([
+        {text:'True <span class="tr">Benar</span>', val:'true'},
+        {text:'False <span class="tr">Salah</span>', val:'false'}
+      ]);
+      html += '<div class="options">';
+      opts.forEach(o => {
+        html += `<div class="option radio" data-val="${o.val}"><div class="marker"></div><div class="opt-text">${o.text}</div></div>`;
+      });
+      html += '</div>';
+    } else if(page.taskType === 'sorting'){
+      const shuffled = shuffle(page.items.map((item, idx) => ({text:item, originalIdx:idx})));
+      page._shuffledItems = shuffled;
+      html += '<div class="sort-list">';
+      shuffled.forEach((it, i) => {
+        html += `<div class="sort-item" data-pos="${i}" data-orig="${it.originalIdx}">
+          <span class="pos">${i+1}</span>
+          <span class="sort-text">${it.text}</span>
+        </div>`;
+      });
+      html += '</div>';
+      html += '<p style="font-size:.82em;color:var(--muted);margin-top:6px">Click two items to swap positions. <span class="tr">Klik dua item untuk menukar posisi.</span></p>';
+    } else if(page.taskType === 'pairing'){
+      const lefts = shuffle(page.pairs.map((p, idx) => ({text:p.left, originalIdx:idx})));
+      const rights = shuffle(page.pairs.map((p, idx) => ({text:p.right, originalIdx:idx})));
+      page._shuffledPairs = {lefts, rights};
+      html += '<div class="pair-grid">';
+      html += '<div class="pair-col"><h4>Left <span class="tr">Kiri</span></h4>';
+      lefts.forEach((l, i) => {
+        html += `<div class="pair-item" data-side="left" data-idx="${i}">${l.text}</div>`;
+      });
+      html += '</div>';
+      html += '<div class="pair-col"><h4>Right <span class="tr">Kanan</span></h4>';
+      rights.forEach((r, i) => {
+        html += `<div class="pair-item" data-side="right" data-idx="${i}">${r.text}</div>`;
+      });
+      html += '</div></div>';
+      html += '<div class="pairs-list" id="pairsList"></div>';
+      html += '<p style="font-size:.82em;color:var(--muted);margin-top:6px">Click left then right to pair. <span class="tr">Klik kiri lalu kanan untuk memasangkan.</span></p>';
+    }
+    html += `<button class="btn-submit" id="submitBtn">Check Answer <span class="tr">Periksa Jawaban</span></button>`;
+    html += `<div class="feedback" id="feedback"></div></div>`;
+    return html;
+  }
+
+  function attachTaskHandlers(page){
+    const taskType = page.taskType;
+
+    if(taskType === 'radio' || taskType === 'truefalse'){
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+        });
+      });
+    } else if(taskType === 'checkbox'){
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => opt.classList.toggle('selected'));
+      });
+    } else if(taskType === 'sorting'){
+      let firstClick = null;
+      document.querySelectorAll('.sort-item').forEach(item => {
+        item.addEventListener('click', () => {
+          if(firstClick === null){
+            firstClick = item;
+            item.classList.add('selected');
+          } else if(firstClick === item){
+            item.classList.remove('selected');
+            firstClick = null;
+          } else {
+            const fText = firstClick.querySelector('.sort-text').innerHTML;
+            const sText = item.querySelector('.sort-text').innerHTML;
+            firstClick.querySelector('.sort-text').innerHTML = sText;
+            item.querySelector('.sort-text').innerHTML = fText;
+            const fOrig = firstClick.dataset.orig;
+            firstClick.dataset.orig = item.dataset.orig;
+            item.dataset.orig = fOrig;
+            firstClick.classList.remove('selected');
+            firstClick = null;
+          }
+        });
+      });
+    } else if(taskType === 'pairing'){
+      let selectedLeft = null;
+      document.querySelectorAll('.pair-item[data-side="left"]').forEach(item => {
+        item.addEventListener('click', () => {
+          if(item.classList.contains('paired')) return;
+          document.querySelectorAll('.pair-item[data-side="left"]').forEach(i => i.classList.remove('selected'));
+          item.classList.add('selected');
+          selectedLeft = item;
+        });
+      });
+      document.querySelectorAll('.pair-item[data-side="right"]').forEach(item => {
+        item.addEventListener('click', () => {
+          if(item.classList.contains('paired') || !selectedLeft) return;
+          const leftIdx = selectedLeft.dataset.idx;
+          const rightIdx = item.dataset.idx;
+          const pairList = document.getElementById('pairsList');
+          const pairRow = document.createElement('div');
+          pairRow.className = 'pair-row';
+          pairRow.dataset.leftIdx = leftIdx;
+          pairRow.dataset.rightIdx = rightIdx;
+          pairRow.innerHTML = `<span>${selectedLeft.innerHTML}</span> <span>↔</span> <span>${item.innerHTML}</span> <span class="remove" title="Remove">×</span>`;
+          pairRow.querySelector('.remove').addEventListener('click', () => {
+            selectedLeft_restore(pairRow);
+          });
+          pairList.appendChild(pairRow);
+          selectedLeft.classList.remove('selected');
+          selectedLeft.classList.add('paired');
+          item.classList.add('paired');
+          selectedLeft = null;
+        });
+      });
+      function selectedLeft_restore(row){
+        const lIdx = row.dataset.leftIdx;
+        const rIdx = row.dataset.rightIdx;
+        const lItem = document.querySelector(`.pair-item[data-side="left"][data-idx="${lIdx}"]`);
+        const rItem = document.querySelector(`.pair-item[data-side="right"][data-idx="${rIdx}"]`);
+        if(lItem) lItem.classList.remove('paired');
+        if(rItem) rItem.classList.remove('paired');
+        row.remove();
+      }
+      window._pairingRestore = selectedLeft_restore;
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', () => checkAnswer(page));
+  }
+
+  function checkAnswer(page){
+    const taskType = page.taskType;
+    let isCorrect = false;
+    let userAnswerStr = '';
+
+    if(taskType === 'radio'){
+      let selected = null, selectedIdx = -1;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')){
+          selected = page._shuffledOptions[i];
+          selectedIdx = i;
+        }
+      });
+      if(!selected){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      isCorrect = selected.correct;
+      userAnswerStr = selected.text;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(page._shuffledOptions[i].correct) opt.classList.add('correct');
+        else if(i === selectedIdx && !selected.correct) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'checkbox'){
+      const selectedIdxs = [];
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')) selectedIdxs.push(i);
+      });
+      if(selectedIdxs.length === 0){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      const correctSet = new Set();
+      page._shuffledOptions.forEach((opt, i) => { if(opt.correct) correctSet.add(i); });
+      const selectedSet = new Set(selectedIdxs);
+      isCorrect = correctSet.size === selectedSet.size && [...correctSet].every(i => selectedSet.has(i));
+      userAnswerStr = selectedIdxs.map(i => page._shuffledOptions[i].text).join(', ');
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(page._shuffledOptions[i].correct) opt.classList.add('correct');
+        else if(selectedSet.has(i)) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'fill'){
+      const val = document.getElementById('fillInput').value.trim();
+      const acceptable = page.acceptableAnswers || [page.correctAnswer];
+      const norm = s => s.toLowerCase().replace(/\s+/g, '').trim();
+      isCorrect = acceptable.some(a => norm(a) === norm(val));
+      userAnswerStr = val;
+    } else if(taskType === 'truefalse'){
+      let selectedVal = null;
+      document.querySelectorAll('.option').forEach(opt => {
+        if(opt.classList.contains('selected')) selectedVal = opt.dataset.val;
+      });
+      if(!selectedVal){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      isCorrect = selectedVal === page.correctAnswer;
+      userAnswerStr = selectedVal === 'true' ? 'True' : 'False';
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.classList.remove('selected');
+        if(opt.dataset.val === page.correctAnswer) opt.classList.add('correct');
+        else if(opt.dataset.val === selectedVal && selectedVal !== page.correctAnswer) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'sorting'){
+      const currentOrder = [];
+      document.querySelectorAll('.sort-item').forEach(item => {
+        currentOrder.push(parseInt(item.dataset.orig));
+      });
+      isCorrect = currentOrder.every((idx, i) => idx === page.correctOrder[i]);
+      userAnswerStr = currentOrder.map((idx, i) => `${i+1}. ${page.items[idx] || '?'}`).join('  |  ');
+      document.querySelectorAll('.sort-item').forEach((item, i) => {
+        if(currentOrder[i] === page.correctOrder[i]) item.style.borderColor = 'var(--success)';
+        else item.style.borderColor = 'var(--danger)';
+      });
+    } else if(taskType === 'pairing'){
+      const pairRows = document.querySelectorAll('.pair-row');
+      if(pairRows.length === 0){
+        showFeedback(false, 'Please make pairs. <span class="tr">Silakan buat pasangan.</span>', false);
+        return;
+      }
+      const userPairs = [];
+      pairRows.forEach(row => {
+        const lIdx = parseInt(row.dataset.leftIdx);
+        const rIdx = parseInt(row.dataset.rightIdx);
+        userPairs.push({
+          leftText: page._shuffledPairs.lefts[lIdx].text,
+          rightText: page._shuffledPairs.rights[rIdx].text
+        });
+      });
+      const correctPairs = page.pairs.map(p => ({left:p.left, right:p.right}));
+      const correctCount = userPairs.filter(up =>
+        correctPairs.some(cp => cp.left === up.leftText && cp.right === up.rightText)
+      ).length;
+      isCorrect = correctCount === correctPairs.length && userPairs.length === correctPairs.length;
+      userAnswerStr = userPairs.map(p => `${p.leftText}↔${p.rightText}`).join('  |  ');
+      pairRows.forEach(row => {
+        const lIdx = parseInt(row.dataset.leftIdx);
+        const rIdx = parseInt(row.dataset.rightIdx);
+        const lText = page._shuffledPairs.lefts[lIdx].text;
+        const rText = page._shuffledPairs.rights[rIdx].text;
+        const ok = correctPairs.some(cp => cp.left === lText && cp.right === rText);
+        row.style.background = ok ? '#d1fae5' : '#fee2e2';
+      });
+    }
+
+    const pageKey = `${currentSection}-${currentPage}`;
+    userAnswers[pageKey] = {userAnswer:userAnswerStr, correct:isCorrect, pageTitle:page.pageTitle};
+    showFeedback(isCorrect, page.explanation, true);
+  }
+
+  function showFeedback(isCorrect, explanation, showAnswer){
+    const feedback = document.getElementById('feedback');
+    feedback.className = `feedback show ${isCorrect?'correct':'incorrect'}`;
+    if(showAnswer){
+      feedback.innerHTML = `<h4>${isCorrect?'✓ Correct!':'✗ Incorrect'} <span class="tr">${isCorrect?'Benar!':'Kurang Tepat'}</span></h4>${explanation}`;
+    } else {
+      feedback.innerHTML = `<h4>${isCorrect?'✓ Correct!':'✗ Incorrect'}</h4>`;
+    }
+    renderMath(feedback);
+  }
+
+  // ================= EVENT LISTENERS =================
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    if(currentPage > 0){ currentPage--; renderPage(); }
+  });
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    const total = sectionsData[currentSection].pages.length;
+    if(currentPage < total - 1){ currentPage++; renderPage(); }
+  });
+
+  const modal = document.getElementById('classRulesModal');
+  document.getElementById('classRulesBtn').addEventListener('click', () => modal.classList.add('active'));
+  document.querySelector('.modal-close').addEventListener('click', () => modal.classList.remove('active'));
+  modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('active'); });
+
+  // ================= PRINT TO PDF =================
+  function getCorrectAnswer(task){
+    if(task.taskType === 'radio'){
+      const c = task.options.find(o => o.correct);
+      return c ? c.text : '';
+    }
+    if(task.taskType === 'checkbox'){
+      return task.options.filter(o => o.correct).map(o => o.text).join(', ');
+    }
+    if(task.taskType === 'fill'){
+      let ans = task.correctAnswer || '';
+      // Convert a/b to \frac{a}{b} for KaTeX rendering in print
+      let formattedAns = ans.replace(/(\d+)\s*\/\s*(\d+)/g, '\\frac{$1}{$2}');
+      return '$' + formattedAns + '$';
+    }
+    if(task.taskType === 'truefalse'){
+      return task.correctAnswer === 'true' ? 'True' : 'False';
+    }
+    if(task.taskType === 'sorting'){
+      return task.correctOrder.map(i => task.items[i]).join(' → ');
+    }
+    if(task.taskType === 'pairing'){
+      return task.pairs.map(p => p.left + ' ↔ ' + p.right).join('; ');
+    }
+    return '';
+  }
+
+  function printTask(sectionKey){
+    const section = sectionsData[sectionKey];
+    if(!section) return;
+    const tasks = section.pages;
+    let correctCount = 0;
+
+    const rows = tasks.map((task, idx) => {
+      const pageKey = sectionKey + '-' + idx;
+      const ua = userAnswers[pageKey];
+      const isCorrect = ua ? ua.correct : false;
+      const userAns = ua ? ua.userAnswer : '(Not answered)';
+      const correctAns = getCorrectAnswer(task);
+      if(ua && ua.correct) correctCount++;
+      return '<tr><td>' + (idx+1) + '</td><td>' + task.question + '</td><td>' + userAns + '</td><td>' + correctAns + '</td><td style="text-align:center;font-size:1.1em">' + (isCorrect ? '✓' : '✗') + '</td></tr>';
+    }).join('');
+
+    const score = correctCount + ' / ' + tasks.length;
+    const today = new Date().toLocaleDateString('id-ID', {day:'numeric',month:'long',year:'numeric'});
+
+    const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Print - ' + section.title + '</title>' +
+      '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">' +
+      '<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"><\/script>' +
+      '<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"><\/script>' +
+      '<style>' +
+      'body{font-family:Segoe UI,sans-serif;padding:30px;color:#1e293b;line-height:1.5}' +
+      'h1{font-size:1.2em;margin-bottom:5px}' +
+      '.info{margin-bottom:15px;font-size:.88em}' +
+      '.info div{margin:3px 0}' +
+      'table{width:100%;border-collapse:collapse;margin:15px 0;font-size:.82em}' +
+      'th,td{border:1px solid #cbd5e1;padding:6px 8px;text-align:left;vertical-align:top}' +
+      'th{background:#f1f5f9;font-weight:600}' +
+      '.checked-by{margin-top:30px;text-align:right;font-style:italic}' +
+      '.tr{font-style:italic;font-size:.85em;color:#64748b}' +
+      '@media print{body{padding:15px}}' +
+      '</style></head><body>' +
+      '<h1>Math Tutoring by Deni</h1>' +
+      '<div class="info">' +
+      '<div>Nama: ____________________________</div>' +
+      '<div>Tanggal: ' + today + '</div>' +
+      '<div>Topic: Addition and Subtraction of Fractions <span class="tr">Topik: Penjumlahan dan Pengurangan Pecahan</span></div>' +
+      '<div>Grup task: ' + section.title + ' <span class="tr">' + section.titleEn + '</span></div>' +
+      '<div>Skor: <strong>' + score + '</strong></div>' +
+      '</div>' +
+      '<table><thead><tr>' +
+      '<th style="width:30px">No.</th>' +
+      '<th>Pertanyaan <span class="tr">Question</span></th>' +
+      '<th>Jawaban Siswa <span class="tr">Student Answer</span></th>' +
+      '<th>Jawaban Benar <span class="tr">Correct Answer</span></th>' +
+      '<th style="width:50px">Ket. <span class="tr">Note</span></th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table>' +
+      '<div class="checked-by">Checked by,<br>Deni</div>' +
+      '<script>document.addEventListener("DOMContentLoaded",function(){' +
+      'if(window.renderMathInElement){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false});}' +
+      'setTimeout(function(){window.print();},500);});<\/script>' +
+      '</body></html>';
+
+    const w = window.open('', '_blank');
+    if(w){
+      w.document.write(html);
+      w.document.close();
+	} else {
+	  alert('Please allow pop-ups to print. (Mohon izinkan pop-up untuk mencetak.)');
+	}
+  }
+
+  // ================= INIT =================
+  renderSidebar();
+  renderPage();
+});
+</script>
+</body>
+</html>
