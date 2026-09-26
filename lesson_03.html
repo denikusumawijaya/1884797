@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Tutoring by Deni - HCF & LCM</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#2563eb;--primary-dark:#1e40af;--secondary:#f59e0b;--success:#10b981;--danger:#ef4444;--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.tr{font-style:italic;font-size:.82em;color:var(--muted);display:block;margin-top:2px}
+header{background:var(--primary);color:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.12);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
+header .brand{font-weight:700;font-size:1.05em}
+header .topic{font-size:.88em;text-align:center;flex:1}
+header .topic .tr{color:rgba(255,255,255,.85)}
+header button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.85em;white-space:nowrap}
+header button:hover{background:rgba(255,255,255,.25)}
+.main-container{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 52px)}
+.sidebar{background:var(--card);border-right:1px solid var(--border);padding:14px;overflow-y:auto;position:sticky;top:52px;height:calc(100vh - 52px)}
+.sidebar h3{font-size:.72em;color:var(--muted);text-transform:uppercase;margin-bottom:8px;letter-spacing:1px}
+.nav-link{display:block;padding:8px 10px;border-radius:6px;cursor:pointer;margin-bottom:3px;font-size:.84em;border:1px solid transparent;transition:all .15s}
+.nav-link:hover{background:#eff6ff}
+.nav-link.active{background:var(--primary);color:#fff;pointer-events:none;cursor:default}
+.nav-link .nl-title{display:block;font-weight:600}
+.nav-link .time{font-size:.76em;color:var(--muted);display:block;margin-top:2px}
+.nav-link.active .time,.nav-link.active .tr{color:rgba(255,255,255,.85)}
+.nav-link.disabled{opacity:.45;cursor:not-allowed;font-size:.8em;padding:6px 10px}
+.content-area{padding:22px 28px;overflow-y:auto;max-width:1100px;margin:0 auto;width:100%}
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:8px}
+.page-header h2{color:var(--primary-dark);font-size:1.1em}
+.page-header .badge{background:var(--secondary);color:#fff;padding:4px 10px;border-radius:20px;font-size:.76em;font-weight:600}
+.card{background:var(--card);border-radius:10px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;border:1px solid var(--border)}
+.card.explain{border-left:4px solid var(--primary)}
+.card.task{border-left:4px solid var(--secondary)}
+.card h3{color:var(--primary-dark);margin-bottom:12px;font-size:1.1em}
+.math-block{background:#f1f5f9;padding:12px 14px;border-radius:8px;margin:12px 0;overflow-x:auto}
+.example-box{background:#fef3c7;border-left:4px solid var(--secondary);padding:12px 16px;margin:12px 0;border-radius:6px}
+.example-box h4{color:#92400e;margin-bottom:6px;font-size:.95em}
+.tip-box{background:#dbeafe;border-left:4px solid var(--primary);padding:10px 14px;margin:10px 0;border-radius:6px}
+.tip-box h4{color:#1e40af;margin-bottom:4px;font-size:.9em}
+.illustration{text-align:center;margin:14px 0;padding:14px;background:#f1f5f9;border-radius:8px}
+.q-text{font-size:1em;margin-bottom:12px;line-height:1.7}
+.options{display:flex;flex-direction:column;gap:8px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:2px solid var(--border);border-radius:8px;cursor:pointer;background:#fff;transition:all .15s}
+.option:hover{border-color:var(--primary);background:#eff6ff}
+.option.selected{border-color:var(--primary);background:#dbeafe}
+.option.correct{border-color:var(--success);background:#d1fae5}
+.option.incorrect{border-color:var(--danger);background:#fee2e2}
+.option .marker{min-width:18px;width:18px;height:18px;border:2px solid var(--muted);border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:.7em;color:#fff}
+.option.selected .marker{background:var(--primary);border-color:var(--primary)}
+.option.correct .marker{background:var(--success);border-color:var(--success)}
+.option.incorrect .marker{background:var(--danger);border-color:var(--danger)}
+.option.checkbox .marker{border-radius:3px}
+.option .opt-text{flex:1}
+.fill-input{padding:8px 12px;border:2px solid var(--border);border-radius:6px;font-size:1em;width:100%;margin:8px 0;font-family:inherit}
+.fill-input:focus{border-color:var(--primary);outline:none}
+.btn-submit{background:var(--primary);color:#fff;border:none;padding:9px 20px;border-radius:6px;cursor:pointer;font-size:.88em;font-weight:600;margin-top:12px}
+.btn-submit:hover{background:var(--primary-dark)}
+.feedback{margin-top:12px;padding:14px;border-radius:8px;display:none}
+.feedback.show{display:block}
+.feedback.correct{background:#d1fae5;border:1px solid var(--success)}
+.feedback.incorrect{background:#fee2e2;border:1px solid var(--danger)}
+.feedback h4{margin-bottom:6px}
+.feedback ol,.feedback ul{margin:6px 0;padding-left:22px}
+.feedback li{margin:4px 0}
+.card ol, .card ul { padding-left: 26px; margin: 10px 0; }
+.card li { margin: 5px 0; }
+.example-box ol, .example-box ul { padding-left: 22px; margin: 8px 0; }
+.tip-box ol, .tip-box ul { padding-left: 22px; margin: 8px 0; }
+.math-block ol, .math-block ul { padding-left: 22px; margin: 8px 0; }
+.pagination{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:14px;border-top:1px solid var(--border)}
+.pagination button{background:var(--primary);color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.84em}
+.pagination button:disabled{background:#cbd5e1;cursor:not-allowed}
+.pagination .indicator{font-size:.82em;color:var(--muted);text-align:center;flex:1;padding:0 10px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}
+.modal.active{display:flex}
+.modal-content{background:#fff;padding:22px;border-radius:12px;max-width:460px;width:90%}
+.modal-content h3{color:var(--primary-dark);margin-bottom:12px}
+.modal-content ul{list-style:none;padding-left:0}
+.modal-content li{padding:10px 0;border-bottom:1px solid var(--border)}
+.modal-content li:last-child{border-bottom:none}
+.modal-close{background:var(--primary);color:#fff;border:none;padding:8px 18px;border-radius:6px;cursor:pointer;margin-top:12px}
+.sort-list{display:flex;flex-direction:column;gap:6px}
+.sort-item{padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .15s}
+.sort-item:hover{border-color:var(--primary)}
+.sort-item.selected{border-color:var(--primary);background:#dbeafe}
+.sort-item .pos{background:var(--primary);color:#fff;min-width:24px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8em;flex-shrink:0}
+.sort-item .sort-text{flex:1}
+.pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pair-col h4{font-size:.85em;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
+.pair-col{display:flex;flex-direction:column;gap:6px}
+.pair-item{padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;text-align:center;font-size:.92em}
+.pair-item.selected{border-color:var(--primary);background:#dbeafe}
+.pair-item.paired{opacity:.5;cursor:default;border-color:var(--success);background:#d1fae5}
+.pairs-list{margin-top:10px}
+.pair-row{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:#f1f5f9;border-radius:6px;margin-bottom:4px;font-size:.85em}
+.pair-row .remove{cursor:pointer;color:var(--danger);font-weight:700;margin-left:6px}
+.page-numbers { display: flex; gap: 3px; flex-wrap: nowrap; justify-content: center; flex: 1; overflow-x: auto; padding: 0 3px; }
+.page-num { min-width: 28px; height: 26px; border: 1px solid var(--border); background: #fff; border-radius: 4px; cursor: pointer; font-size: .7em; display: flex; align-items: center; justify-content: center; padding: 0 4px; white-space: nowrap; transition: all .15s; flex-shrink: 0; }
+.page-num.page-num-e { background: #eff6ff; border-color: #93c5fd; color: #1e40af; }
+.page-num.page-num-t { background: #fffbeb; border-color: #fcd34d; color: #92400e; }
+.page-num.page-num-e:hover { background: #dbeafe; border-color: var(--primary); }
+.page-num.page-num-t:hover { background: #fef3c7; border-color: var(--secondary); }
+.page-num.page-num-e.active { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 600; }
+.page-num.page-num-t.active { background: var(--secondary); color: #fff; border-color: var(--secondary); font-weight: 600; }
+.page-num:disabled { opacity: 1; cursor: default; }
+.page-num.page-num-e:disabled:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+.page-num.page-num-t:disabled:hover { background: var(--secondary); color: #fff; border-color: var(--secondary); }
+@media(max-width:1100px){ .main-container{grid-template-columns:180px 1fr} .content-area{padding:18px 20px} }
+@media(max-width:760px){ .main-container{grid-template-columns:1fr} .sidebar{display:none} .content-area{padding:16px} header{font-size:.9em} }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Math Tutoring by Deni</div>
+  <div class="topic">Topic: HCF and LCM <span class="tr">Topik: FPB dan KPK</span></div>
+  <button id="classRulesBtn">Class Rules <span class="tr">Aturan Kelas</span></button>
+</header>
+<div class="main-container">
+  <nav class="sidebar" id="sidebar"></nav>
+  <main class="content-area">
+    <div id="pageContent"></div>
+    <div class="pagination">
+      <button id="prevBtn">← Previous <span class="tr">Sebelumnya</span></button>
+      <div class="page-numbers" id="pageNums"></div>
+      <button id="nextBtn">Next <span class="tr">Berikutnya</span> →</button>
+    </div>
+  </main>
+</div>
+<div id="classRulesModal" class="modal">
+  <div class="modal-content">
+    <h3>Class Rules <span class="tr">Aturan Kelas</span></h3>
+    <ul>
+      <li>Speak in turn <span class="tr">Berbicara secara bergantian</span></li>
+      <li>Ask permission before leaving the class <span class="tr">Meminta izin jika ingin meninggalkan kelas</span></li>
+      <li>Turn on microphone and camera when needed <span class="tr">Menyalakan microphone dan camera jika diperlukan</span></li>
+    </ul>
+    <button class="modal-close">Close <span class="tr">Tutup</span></button>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  if(!window.renderMathInElement){setTimeout(arguments.callee,50);return;}
+  const sectionsData = {
+    a: {
+      title: 'Spiral Review Warm-up',
+      titleEn: 'Spiral Review Warm-up',
+      time: '00:00 - 00:10',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Factors and Multiples', pageTitleEn:'Faktor dan Kelipatan',
+          body:`
+            <p>Before learning HCF and LCM, we must understand <strong>Factors</strong> and <strong>Multiples</strong>.
+              <span class="tr">Sebelum mempelajari FPB dan KPK, kita harus memahami Faktor dan Kelipatan.</span></p>
+            <div class="math-block">
+              <ul>
+                <li><strong>Factor:</strong> A number that divides another number exactly (no remainder). <span class="tr">Faktor: Bilangan yang membagi bilangan lain secara tepat (tanpa sisa).</span></li>
+                <li><strong>Multiple:</strong> The result of multiplying a number by an integer. <span class="tr">Kelipatan: Hasil perkalian bilangan dengan bilangan bulat.</span></li>
+              </ul>
+            </div>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              <p>Factors of 12: $1, 2, 3, 4, 6, 12$. <span class="tr">Faktor dari 12.</span></p>
+              <p>Because $12 \\div 3 = 4$ (exact), 3 is a factor. <span class="tr">Karena 12 habis dibagi 3, 3 adalah faktor.</span></p>
+              <p>Multiples of 3: $3, 6, 9, 12, 15, \\dots$ <span class="tr">Kelipatan dari 3.</span></p>
+              <p>Because $3 \\times 4 = 12$, 12 is a multiple of 3. <span class="tr">Karena 3 dikali 4 adalah 12, 12 adalah kelipatan 3.</span></p>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Factors are usually smaller or equal to the number. Multiples are usually larger or equal to the number.
+              <span class="tr">Faktor biasanya lebih kecil atau sama dengan bilangannya. Kelipatan biasanya lebih besar atau sama dengan bilangannya.</span></div>
+          `
+        },
+        { type:'task', pageTitle:'T1: Identify Multiple', pageTitleEn:'Identifikasi Kelipatan', taskType:'radio',
+          question:'Which of the following is a multiple of 6?', questionEn:'Manakah yang merupakan kelipatan dari 6?',
+          options:[
+            {text:'$2$', correct:false},
+            {text:'$3$', correct:false},
+            {text:'$24$', correct:true},
+            {text:'$5$', correct:false}
+          ],
+          explanation:`<p>A multiple of 6 is found by multiplying 6 by an integer. $6 \\times 4 = 24$. <span class="tr">Kelipatan 6 didapat dari perkalian 6 dengan bilangan bulat.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Identify Factors', pageTitleEn:'Identifikasi Faktor', taskType:'checkbox',
+          question:'Select all factors of 12.', questionEn:'Pilih semua faktor dari 12.',
+          options:[
+            {text:'$2$', correct:true},
+            {text:'$5$', correct:false},
+            {text:'$4$', correct:true},
+            {text:'$12$', correct:true}
+          ],
+          explanation:`<p>Factors of 12 are numbers that divide 12 exactly. They are 1, 2, 3, 4, 6, and 12. <span class="tr">Faktor 12 adalah bilangan yang membagi 12 secara tepat.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Next Multiple', pageTitleEn:'Kelipatan Berikutnya', taskType:'fill',
+          question:'What is the next multiple of 7 after 35?', questionEn:'Apa kelipatan 7 berikutnya setelah 35?',
+          correctAnswer:'42', acceptableAnswers:['42'],
+          explanation:`<p>Multiples of 7: 7, 14, 21, 28, 35, $\\dots$. The next one is $35 + 7 = 42$. <span class="tr">Kelipatan berikutnya adalah 42.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Prime and Composite Numbers', pageTitleEn:'Bilangan Prima dan Komposit',
+          body:`
+            <p>Numbers can be classified as <strong>Prime</strong> or <strong>Composite</strong>.
+              <span class="tr">Bilangan dapat diklasifikasikan sebagai Prima atau Komposit.</span></p>
+            <div class="math-block">
+              <ul>
+                <li><strong>Prime Number:</strong> A number with exactly two factors: 1 and itself. (e.g., 2, 3, 5, 7, 11). <span class="tr">Bilangan Prima: Memiliki tepat dua faktor, 1 dan dirinya sendiri.</span></li>
+                <li><strong>Composite Number:</strong> A number with more than two factors. (e.g., 4, 6, 8, 9, 10). <span class="tr">Bilangan Komposit: Memiliki lebih dari dua faktor.</span></li>
+              </ul>
+            </div>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              <p>Is 9 a prime or composite? <span class="tr">Apakah 9 prima atau komposit?</span></p>
+              <p>Factors of 9: $1, 3, 9$. Since it has more than 2 factors, it is <strong>composite</strong>. <span class="tr">Karena memiliki lebih dari 2 faktor, 9 adalah komposit.</span></p>
+            </div>
+            <div class="tip-box"><h4>Exception <span class="tr">Pengecualian</span></h4>
+              The number 1 is neither prime nor composite. <span class="tr">Angka 1 bukan prima maupun komposit.</span></div>
+          `
+        },
+        { type:'task', pageTitle:'T4: Prime or Not', pageTitleEn:'Prima atau Bukan', taskType:'truefalse',
+          question:'True or false: 1 is a prime number.', questionEn:'Benar atau salah: 1 adalah bilangan prima.',
+          correctAnswer:'false',
+          explanation:`<p>1 is not a prime number because a prime number must have exactly two factors: 1 and itself. 1 only has one factor. <span class="tr">1 bukan prima karena prima harus memiliki tepat dua faktor.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Order the Steps', pageTitleEn:'Urutkan Langkah', taskType:'sorting',
+          question:'Order the steps to find all factors of 18.', questionEn:'Urutkan langkah menemukan faktor 18.',
+          items:[
+            'Start with 1 and 18',
+            'Check 2: 18÷2=9, so 2 and 9',
+            'Check 3: 18÷3=6, so 3 and 6',
+            'Check 4: 18÷4 has remainder, stop'
+          ],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Check numbers sequentially until the pairs cross over. <span class="tr">Periksa berurutan hingga pasangan bertemu.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Definitions', pageTitleEn:'Pasangkan Definisi', taskType:'pairing',
+          question:'Match the terms with their definitions.', questionEn:'Pasangkan istilah dengan definisinya.',
+          pairs:[
+            {left:'Factor', right:'Divides a number exactly'},
+            {left:'Multiple', right:'Result of multiplying numbers'},
+            {left:'Prime', right:'Exactly two factors'},
+            {left:'Composite', right:'More than two factors'}
+          ],
+          explanation:`<p>Review these definitions carefully. <span class="tr">Tinjau definisi ini dengan hati-hati.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Divisibility Rules', pageTitleEn:'Aturan Keterbagian',
+          body:`
+            <p>Divisibility rules help us quickly find factors without doing long division.
+              <span class="tr">Aturan keterbagian membantu kita menemukan faktor dengan cepat tanpa pembagian panjang.</span></p>
+            <div class="math-block">
+              <ul>
+                <li><strong>Divisible by 2:</strong> Ends in 0, 2, 4, 6, or 8. <span class="tr">Berakhir dengan 0, 2, 4, 6, atau 8.</span></li>
+                <li><strong>Divisible by 3:</strong> Sum of digits is divisible by 3. <span class="tr">Jumlah angkanya habis dibagi 3.</span></li>
+                <li><strong>Divisible by 5:</strong> Ends in 0 or 5. <span class="tr">Berakhir dengan 0 atau 5.</span></li>
+                <li><strong>Divisible by 10:</strong> Ends in 0. <span class="tr">Berakhir dengan 0.</span></li>
+              </ul>
+            </div>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              <p>Is 156 divisible by 3? <span class="tr">Apakah 156 habis dibagi 3?</span></p>
+              <p>Sum of digits: $1 + 5 + 6 = 12$. Since 12 is divisible by 3, 156 is divisible by 3. <span class="tr">Jumlah angkanya 12. Karena 12 habis dibagi 3, maka 156 habis dibagi 3.</span></p>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T7: Divisibility by 5', pageTitleEn:'Keterbagian 5', taskType:'radio',
+          question:'Which number is divisible by 5?', questionEn:'Bilangan mana yang habis dibagi 5?',
+          options:[
+            {text:'$23$', correct:false},
+            {text:'$47$', correct:false},
+            {text:'$65$', correct:true},
+            {text:'$89$', correct:false}
+          ],
+          explanation:`<p>A number is divisible by 5 if it ends in 0 or 5. <span class="tr">Bilangan habis dibagi 5 jika berakhir dengan 0 atau 5.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Divisibility by 3', pageTitleEn:'Keterbagian 3', taskType:'checkbox',
+          question:'Select all numbers divisible by 3.', questionEn:'Pilih bilangan yang habis dibagi 3.',
+          options:[
+            {text:'$12$', correct:true},
+            {text:'$14$', correct:false},
+            {text:'$27$', correct:true},
+            {text:'$20$', correct:false}
+          ],
+          explanation:`<p>Sum the digits. If the sum is divisible by 3, the number is divisible by 3. <span class="tr">Jumlahkan angkanya. Jika jumlah habis dibagi 3, maka bilangan tersebut habis dibagi 3.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Smallest Prime', pageTitleEn:'Prima Terkecil', taskType:'fill',
+          question:'What is the smallest prime number?', questionEn:'Apa bilangan prima terkecil?',
+          correctAnswer:'2', acceptableAnswers:['2'],
+          explanation:`<p>2 is the smallest and only even prime number. <span class="tr">2 adalah prima terkecil dan satu-satunya prima genap.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Classify Number', pageTitleEn:'Klasifikasi Bilangan', taskType:'radio',
+          question:'Is 21 a prime or composite number?', questionEn:'Apakah 21 bilangan prima atau komposit?',
+          options:[
+            {text:'Prime', correct:false},
+            {text:'Composite', correct:true}
+          ],
+          explanation:`<p>21 has factors 1, 3, 7, 21. Since it has more than 2 factors, it is composite. <span class="tr">21 memiliki lebih dari 2 faktor, jadi komposit.</span></p>`
+        }
+      ]
+    },
+    b: {
+      title: 'Introduction & Real-World Connection',
+      titleEn: 'Introduction & Real-World Connection',
+      time: '00:10 - 00:15',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Real-World HCF', pageTitleEn:'FPB Dunia Nyata',
+          body:`
+            <p><strong>Highest Common Factor (HCF)</strong> is used when we want to split things into the <strong>largest possible equal groups</strong> without anything left over.
+              <span class="tr"><strong>Faktor Persekutuan Terbesar (FPB)</strong> digunakan saat kita ingin membagi sesuatu menjadi <strong>kelompok terbesar yang sama</strong> tanpa sisa.</span></p>
+            <div class="illustration">
+              <svg width="280" height="100" viewBox="0 0 280 100">
+                <circle cx="40" cy="40" r="18" fill="#ef4444"/><text x="40" y="45" text-anchor="middle" fill="white" font-size="13" font-weight="bold">12</text>
+                <text x="80" y="50" font-size="16">+</text>
+                <circle cx="120" cy="40" r="18" fill="#f59e0b"/><text x="120" y="45" text-anchor="middle" fill="white" font-size="13" font-weight="bold">8</text>
+                <text x="165" y="50" font-size="14">=</text>
+                <rect x="180" y="25" width="30" height="30" fill="#10b981" rx="4"/><text x="195" y="45" text-anchor="middle" fill="white" font-size="10">4</text>
+                <rect x="215" y="25" width="30" height="30" fill="#10b981" rx="4"/><text x="230" y="45" text-anchor="middle" fill="white" font-size="10">4</text>
+                <rect x="250" y="25" width="30" height="30" fill="#10b981" rx="4"/><text x="265" y="45" text-anchor="middle" fill="white" font-size="10">4</text>
+              </svg>
+              <div style="font-size:.82em;color:var(--muted);margin-top:4px">Dividing items equally <span class="tr">Membagi barang sama rata</span></div>
+            </div>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              You have 12 apples and 8 oranges. You want to make fruit baskets with the same number of apples and oranges. What is the maximum number of baskets you can make?
+              <span class="tr">Kamu punya 12 apel dan 8 jeruk. Ingin membuat keranjang buah dengan jumlah apel dan jeruk yang sama. Berapa maksimum keranjang yang bisa dibuat?</span>
+              <p>Find HCF of 12 and 8. <span class="tr">Cari FPB dari 12 dan 8.</span></p>
+              <p>Factors of 12: $1, 2, 3, \\mathbf{4}, 6, 12$</p>
+              <p>Factors of 8: $1, 2, \\mathbf{4}, 8$</p>
+              <p>The highest common factor is 4. So, you can make 4 baskets. <span class="tr">Faktor terbesarnya adalah 4. Jadi, bisa membuat 4 keranjang.</span></p>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T1: Identify HCF Scenario', pageTitleEn:'Identifikasi Skenario FPB', taskType:'radio',
+          question:'Which situation requires finding the HCF?', questionEn:'Situasi mana yang membutuhkan FPB?',
+          options:[
+            {text:'Finding when two bells ring together next.', correct:false},
+            {text:'Finding the largest equal groups for sorting items.', correct:true},
+            {text:'Finding the total distance traveled.', correct:false},
+            {text:'Finding the next time a bus arrives.', correct:false}
+          ],
+          explanation:`<p>HCF is for dividing things into maximum equal groups. <span class="tr">FPB untuk membagi hal menjadi kelompok sama maksimum.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Solve Grouping', pageTitleEn:'Selesaikan Pengelompokan', taskType:'fill',
+          question:'Find HCF of 10 and 15 to find max equal groups. HCF = ...', questionEn:'Cari FPB 10 dan 15. FPB = ...',
+          correctAnswer:'5', acceptableAnswers:['5'],
+          explanation:`<p>Factors of 10: 1, 2, 5, 10. Factors of 15: 1, 3, 5, 15. Common highest is 5. <span class="tr">Faktor terbesar bersama adalah 5.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: True or False', pageTitleEn:'Benar atau Salah', taskType:'truefalse',
+          question:'True or false: LCM is used to find the maximum capacity of a box.', questionEn:'Benar atau salah: KPK digunakan untuk mencari kapasitas maksimum kotak.',
+          correctAnswer:'false',
+          explanation:`<p>HCF is used for maximum capacity or equal grouping. <span class="tr">FPB digunakan untuk kapasitas maksimum atau pengelompokan sama.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Real-World LCM', pageTitleEn:'KPK Dunia Nyata',
+          body:`
+            <p><strong>Lowest Common Multiple (LCM)</strong> is used when we want to find when events happen at the <strong>same time</strong> again (repeating cycles).
+              <span class="tr"><strong>Kelipatan Persekutuan Terkecil (KPK)</strong> digunakan saat kita ingin mencari kapan peristiwa terjadi pada <strong>waktu bersamaan</strong> lagi (siklus berulang).</span></p>
+            <div class="illustration">
+              <svg width="280" height="80" viewBox="0 0 280 80">
+                <circle cx="50" cy="40" r="15" fill="#3b82f6"/><text x="50" y="45" text-anchor="middle" fill="white" font-size="10">3s</text>
+                <circle cx="120" cy="40" r="15" fill="#ef4444"/><text x="120" y="45" text-anchor="middle" fill="white" font-size="10">5s</text>
+                <text x="160" y="45" font-size="14">=</text>
+                <circle cx="220" cy="40" r="20" fill="#10b981"/><text x="220" y="45" text-anchor="middle" fill="white" font-size="12">15s</text>
+              </svg>
+              <div style="font-size:.82em;color:var(--muted);margin-top:4px">Events syncing <span class="tr">Peristiwa sinkron</span></div>
+            </div>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              Bell A rings every 3 seconds, Bell B rings every 5 seconds. If they ring together now, when will they ring together next?
+              <span class="tr">Lonceng A berbunyi tiap 3 detik, B tiap 5 detik. Jika berbunyi bersama sekarang, kapan berbunyi bersama lagi?</span>
+              <p>Find LCM of 3 and 5. <span class="tr">Cari KPK dari 3 dan 5.</span></p>
+              <p>Multiples of 3: $3, 6, 9, 12, \\mathbf{15}, \\dots$</p>
+              <p>Multiples of 5: $5, 10, \\mathbf{15}, \\dots$</p>
+              <p>The lowest common multiple is 15. They will ring together in 15 seconds. <span class="tr">Kelipatan terkecilnya adalah 15. Mereka berbunyi bersama dalam 15 detik.</span></p>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T4: Order the Problem', pageTitleEn:'Urutkan Soal', taskType:'sorting',
+          question:'Order the steps to solve a repeating event word problem.', questionEn:'Urutkan langkah menyelesaikan soal cerita peristiwa berulang.',
+          items:[
+            'Identify the cycle times (e.g., 3 and 5)',
+            'Find multiples of both quantities',
+            'Identify the Lowest Common Multiple (LCM)',
+            'Conclude the time they meet again'
+          ],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Follow these logical steps for LCM word problems. <span class="tr">Ikuti langkah logis ini untuk soal cerita KPK.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Match Scenarios', pageTitleEn:'Pasangkan Skenario', taskType:'pairing',
+          question:'Match the scenario with the math concept.', questionEn:'Pasangkan skenario dengan konsep matematika.',
+          pairs:[
+            {left:'Splitting classes into equal teams', right:'HCF'},
+            {left:'Finding next simultaneous event', right:'LCM'},
+            {left:'Finding max oranges per basket', right:'HCF'},
+            {left:'Finding when planets align', right:'LCM'}
+          ],
+          explanation:`<p>Grouping = HCF, Repeating events = LCM. <span class="tr">Pengelompokan = FPB, Peristiwa berulang = KPK.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Keywords for LCM', pageTitleEn:'Kata Kunci KPK', taskType:'checkbox',
+          question:'Select all keywords that usually indicate an LCM problem.', questionEn:'Pilih kata kunci yang menunjukkan soal KPK.',
+          options:[
+            {text:'Next time together', correct:true},
+            {text:'Smallest length', correct:true},
+            {text:'Maximum capacity', correct:false},
+            {text:'Equal groups', correct:false}
+          ],
+          explanation:`<p>LCM relates to finding a common multiple for repeating cycles. <span class="tr">KPK berkaitan dengan kelipatan bersama untuk siklus berulang.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Distinguishing HCF and LCM', pageTitleEn:'Membedakan FPB dan KPK',
+          body:`
+            <p>To master HCF and LCM, you must know when to use which.
+              <span class="tr">Untuk menguasai FPB dan KPK, Anda harus tahu kapan menggunakannya.</span></p>
+            <div class="math-block">
+              <ul>
+                <li><strong>Use HCF when:</strong> Dividing or splitting into maximum equal groups, finding the largest possible size, or grouping items. <span class="tr">Gunakan FPB saat: Membagi menjadi kelompok sama terbesar, mencari ukuran terbesar.</span></li>
+                <li><strong>Use LCM when:</strong> Finding when events coincide, repeating cycles, or finding the smallest common multiple. <span class="tr">Gunakan KPK saat: Mencari peristiwa bersamaan, siklus berulang, kelipatan terkecil.</span></li>
+              </ul>
+            </div>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              <p>"Find the longest rope to cut 12m and 18m into equal pieces." -> <strong>HCF</strong> (Finding largest size). <span class="tr">Mencari ukuran terbesar -> FPB.</span></p>
+              <p>"Find when two buses leaving together will meet again." -> <strong>LCM</strong> (Finding coincidence time). <span class="tr">Mencari waktu bertemu -> KPK.</span></p>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T7: Bells Problem', pageTitleEn:'Soal Lonceng', taskType:'fill',
+          question:'Bell A rings every 3s, Bell B every 5s. When will they ring together next? (in seconds)', questionEn:'Lonceng A berbunyi tiap 3d, B tiap 5d. Kapan berbunyi bersama lagi? (dalam detik)',
+          correctAnswer:'15', acceptableAnswers:['15'],
+          explanation:`<p>Find LCM of 3 and 5. Multiples of 3: 3, 6, 9, 12, 15. Multiples of 5: 5, 10, 15. LCM = 15. <span class="tr">KPK dari 3 dan 5 adalah 15.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Method Choice', pageTitleEn:'Pilihan Metode', taskType:'radio',
+          question:'A problem asks for the "smallest square tile to fit a floor". Which concept?', questionEn:'Soal meminta "ubin persegi terkecil". Konsep apa?',
+          options:[
+            {text:'HCF', correct:false},
+            {text:'LCM', correct:true}
+          ],
+          explanation:`<p>Finding a common size that works for both dimensions usually means LCM. <span class="tr">Mencari ukuran umum yang cocok biasanya KPK.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Identify HCF', pageTitleEn:'Identifikasi FPB', taskType:'checkbox',
+          question:'Select all situations that use HCF.', questionEn:'Pilih situasi yang menggunakan FPB.',
+          options:[
+            {text:'Dividing 20 pens among 5 students equally.', correct:false},
+            {text:'Finding max length of ribbon to cut 12m and 18m without leftover.', correct:true},
+            {text:'Finding when two runners meet at start again.', correct:false},
+            {text:'Grouping 24 apples and 36 oranges into identical boxes.', correct:true}
+          ],
+          explanation:`<p>HCF is for dividing without remainders. <span class="tr">FPB untuk membagi tanpa sisa.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Find LCM', pageTitleEn:'Cari KPK', taskType:'radio',
+          question:'What is the LCM of 4 and 6?', questionEn:'Berapa KPK dari 4 dan 6?',
+          options:[
+            {text:'$12$', correct:true},
+            {text:'$24$', correct:false},
+            {text:'$2$', correct:false},
+            {text:'$10$', correct:false}
+          ],
+          explanation:`<p>Multiples of 4: 4, 8, 12. Multiples of 6: 6, 12. LCM is 12. <span class="tr">Kelipatan 4 dan 6 menghasilan KPK 12.</span></p>`
+        }
+      ]
+    },
+    c: {
+      title: 'Review of Prior Knowledge',
+      titleEn: 'Review of Prior Knowledge',
+      time: '00:15 - 00:20',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Factor Pairs', pageTitleEn:'Pasangan Faktor',
+          body:`
+            <p>Every factor has a pair. We find them by dividing the number starting from 1.
+              <span class="tr">Setiap faktor memiliki pasangan. Kita menemukannya dengan membagi bilangan mulai dari 1.</span></p>
+            <div class="example-box"><h4>Example: Find all factors of 24 <span class="tr">Contoh: Cari faktor 24</span></h4>
+              <ol>
+                <li>$24 \\div 1 = 24$ (Pairs: 1, 24)</li>
+                <li>$24 \\div 2 = 12$ (Pairs: 2, 12)</li>
+                <li>$24 \\div 3 = 8$ (Pairs: 3, 8)</li>
+                <li>$24 \\div 4 = 6$ (Pairs: 4, 6)</li>
+                <li>$24 \\div 5 = 4.8$ (Not exact, skip)</li>
+                <li>Stop when pairs cross over.</li>
+              </ol>
+              <p>Factors: $1, 2, 3, 4, 6, 8, 12, 24$</p>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T1: Number of Factors', pageTitleEn:'Jumlah Faktor', taskType:'fill',
+          question:'How many factors does 20 have?', questionEn:'Berapa banyak faktor yang dimiliki 20?',
+          correctAnswer:'6', acceptableAnswers:['6'],
+          explanation:`<p>Factors of 20: 1, 2, 4, 5, 10, 20. Total is 6 factors. <span class="tr">Faktor 20 berjumlah 6.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: List Multiples', pageTitleEn:'Daftar Kelipatan', taskType:'radio',
+          question:'What are the first 5 multiples of 4?', questionEn:'Apa 5 kelipatan pertama dari 4?',
+          options:[
+            {text:'$1, 2, 3, 4, 5$', correct:false},
+            {text:'$4, 8, 12, 16, 20$', correct:true},
+            {text:'$4, 5, 6, 7, 8$', correct:false},
+            {text:'$0, 4, 8, 12, 16$', correct:false}
+          ],
+          explanation:`<p>Multiples of 4 are found by $4 \\times 1, 4 \\times 2$, etc. <span class="tr">Kelipatan 4 didapat dari 4 dikalikan bilangan bulat.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Common Factors', pageTitleEn:'Faktor Bersama', taskType:'checkbox',
+          question:'Select all common factors of 12 and 16.', questionEn:'Pilih faktor bersama dari 12 dan 16.',
+          options:[
+            {text:'$2$', correct:true},
+            {text:'$4$', correct:true},
+            {text:'$6$', correct:false},
+            {text:'$8$', correct:false}
+          ],
+          explanation:`<p>Factors of 12: 1, 2, 3, 4, 6, 12. Factors of 16: 1, 2, 4, 8, 16. Common: 1, 2, 4. <span class="tr">Faktor bersama 12 dan 16 adalah 1, 2, 4.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Listing Multiples Method', pageTitleEn:'Metode Mendaftar Kelipatan',
+          body:`
+            <p>To find the Lowest Common Multiple (LCM), we can list the multiples of each number until we find a match.
+              <span class="tr">Untuk mencari KPK, kita bisa mendaftar kelipatan tiap bilangan hingga menemukan yang sama.</span></p>
+            <div class="example-box"><h4>Example: Find LCM of 4 and 5 <span class="tr">Contoh: Cari KPK 4 dan 5</span></h4>
+              <ol>
+                <li>Multiples of 4: $4, 8, 12, 16, 20, 24, \\dots$</li>
+                <li>Multiples of 5: $5, 10, 15, 20, 25, \\dots$</li>
+                <li>The lowest common multiple is 20. <span class="tr">Kelipatan persekutuan terkecil adalah 20.</span></li>
+              </ol>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              This method works best for small numbers. For large numbers, it takes too long! <span class="tr">Metode ini bagus untuk angka kecil. Untuk angka besar terlalu lama!</span></div>
+          `
+        },
+        { type:'task', pageTitle:'T4: Check Statement', pageTitleEn:'Periksa Pernyataan', taskType:'truefalse',
+          question:'True or false: 7 is a common factor of 14 and 28.', questionEn:'Benar atau salah: 7 adalah faktor bersama 14 dan 28.',
+          correctAnswer:'true',
+          explanation:`<p>$14 \\div 7 = 2$ and $28 \\div 7 = 4$. Both have no remainder, so 7 is a common factor. <span class="tr">Keduanya habis dibagi 7.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Match Factors', pageTitleEn:'Pasangkan Faktor', taskType:'pairing',
+          question:'Match the number with one of its factor pairs.', questionEn:'Pasangkan bilangan dengan pasangan faktornya.',
+          pairs:[
+            {left:'18', right:'3 and 6'},
+            {left:'24', right:'4 and 6'},
+            {left:'30', right:'5 and 6'},
+            {left:'40', right:'5 and 8'}
+          ],
+          explanation:`<p>Multiply the pairs to check: $3 \\times 6 = 18$, etc. <span class="tr">Kalikan pasangan untuk memeriksa.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Common Multiples', pageTitleEn:'Kelipatan Bersama', taskType:'sorting',
+          question:'Order the steps to find the LCM of 3 and 4 by listing.', questionEn:'Urutkan langkah mencari KPK 3 dan 4.',
+          items:[
+            'List multiples of 3: 3, 6, 9, 12, 15',
+            'List multiples of 4: 4, 8, 12, 16',
+            'Identify common multiples: 12, 24...',
+            'Select the lowest common multiple: 12'
+          ],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Listing is a basic method to find LCM. <span class="tr">Mendaftar adalah metode dasar mencari KPK.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Finding Common Factors & Multiples', pageTitleEn:'Mencari Faktor & Kelipatan Bersama',
+          body:`
+            <p>When we find factors/multiples for two numbers, we look for the ones they share.
+              <span class="tr">Saat mencari faktor/kelipatan dua bilangan, kita cari yang dimiliki bersama.</span></p>
+            <div class="math-block">
+              <ul>
+                <li><strong>HCF (Highest Common Factor):</strong> The largest factor shared. <span class="tr">FPB: Faktor terbesar yang dimiliki bersama.</span></li>
+                <li><strong>LCM (Lowest Common Multiple):</strong> The smallest multiple shared. <span class="tr">KPK: Kelipatan terkecil yang dimiliki bersama.</span></li>
+              </ul>
+            </div>
+            <div class="example-box"><h4>Example: 8 and 12 <span class="tr">Contoh: 8 dan 12</span></h4>
+              <p>Factors of 8: 1, 2, 4, 8. Factors of 12: 1, 2, 3, 4, 6, 12. Common: 1, 2, 4. <strong>HCF = 4</strong>. <span class="tr">FPB = 4.</span></p>
+              <p>Multiples of 8: 8, 16, 24, 32. Multiples of 12: 12, 24, 36. Common: 24, 48. <strong>LCM = 24</strong>. <span class="tr">KPK = 24.</span></p>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T7: Find LCM', pageTitleEn:'Cari KPK', taskType:'fill',
+          question:'Find the LCM of 3 and 4 using listing method. LCM = ...', questionEn:'Cari KPK 3 dan 4. KPK = ...',
+          correctAnswer:'12', acceptableAnswers:['12'],
+          explanation:`<p>Lowest common multiple of 3 and 4 is 12. <span class="tr">Kelipatan persekutuan terkecil dari 3 dan 4 adalah 12.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Greatest Factor', pageTitleEn:'Faktor Terbesar', taskType:'radio',
+          question:'What is the greatest common factor of 8 and 12?', questionEn:'Apa faktor persekutuan terbesar 8 dan 12?',
+          options:[
+            {text:'$2$', correct:false},
+            {text:'$4$', correct:true},
+            {text:'$8$', correct:false},
+            {text:'$24$', correct:false}
+          ],
+          explanation:`<p>Factors of 8: 1, 2, 4, 8. Factors of 12: 1, 2, 3, 4, 6, 12. Highest is 4. <span class="tr">Faktor terbesar bersama adalah 4.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Select Multiples', pageTitleEn:'Pilih Kelipatan', taskType:'checkbox',
+          question:'Select all multiples of 6 up to 30.', questionEn:'Pilih kelipatan 6 hingga 30.',
+          options:[
+            {text:'$12$', correct:true},
+            {text:'$18$', correct:true},
+            {text:'$22$', correct:false},
+            {text:'$24$', correct:true}
+          ],
+          explanation:`<p>Multiples of 6: 6, 12, 18, 24, 30. <span class="tr">Kelipatan 6 hingga 30.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Find HCF', pageTitleEn:'Cari FPB', taskType:'fill',
+          question:'What is the HCF of 9 and 12?', questionEn:'Apa FPB 9 dan 12?',
+          correctAnswer:'3', acceptableAnswers:['3'],
+          explanation:`<p>Factors of 9: 1, 3, 9. Factors of 12: 1, 2, 3, 4, 6, 12. Highest common is 3. <span class="tr">Faktor terbesar bersama adalah 3.</span></p>`
+        }
+      ]
+    },
+    d: {
+      title: 'Problem Introduction',
+      titleEn: 'Problem Introduction',
+      time: '00:20 - 00:30',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Listing Method for HCF', pageTitleEn:'Metode Daftar untuk FPB',
+          body:`
+            <p>To find the HCF of two numbers, list all their factors and find the largest one that appears in both lists.
+              <span class="tr">Untuk mencari FPB, daftar semua faktor dan temukan yang terbesar di kedua daftar.</span></p>
+            <div class="math-block"><strong>Formula/Rule:</strong> $HCF(a, b) = \\max(\\text{Factors}(a) \\cap \\text{Factors}(b))$               <span class="tr">Irisan dari himpunan faktor a dan b, ambil maksimum.</span></div>
+            <div class="example-box"><h4>Example: HCF of 12 and 18 <span class="tr">Contoh: FPB 12 dan 18</span></h4>
+              <ol>
+                <li>Factors of 12: $1, 2, 3, 4, 6, 12$</li>
+                <li>Factors of 18: $1, 2, 3, 6, 9, 18$</li>
+                <li>Common factors: $1, 2, 3, 6$</li>
+                <li>Highest Common Factor: $\\mathbf{6}$</li>
+              </ol>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T1: Calculate HCF', pageTitleEn:'Hitung FPB', taskType:'fill',
+          question:'Using listing, find HCF of 12 and 18. HCF = ...', questionEn:'Dengan mendaftar, cari FPB 12 dan 18. FPB = ...',
+          correctAnswer:'6', acceptableAnswers:['6'],
+          explanation:`<p>Common factors are 1, 2, 3, 6. The highest is 6. <span class="tr">Faktor bersama terbesar adalah 6.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Calculate LCM', pageTitleEn:'Hitung KPK', taskType:'radio',
+          question:'Using listing, find LCM of 5 and 6.', questionEn:'Dengan mendaftar, cari KPK 5 dan 6.',
+          options:[
+            {text:'$11$', correct:false},
+            {text:'$30$', correct:true},
+            {text:'$60$', correct:false},
+            {text:'$1$', correct:false}
+          ],
+          explanation:`<p>Multiples of 5: 5, 10, 15, 20, 25, 30. Multiples of 6: 6, 12, 18, 24, 30. Lowest is 30. <span class="tr">Kelipatan persekutuan terkecil adalah 30.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Verify Factors', pageTitleEn:'Verifikasi Faktor', taskType:'truefalse',
+          question:'True or false: The prime factorization of 20 is $2 \\times 2 \\times 5$.', questionEn:'Benar atau salah: Faktorisasi prima 20 adalah $2 \\times 2 \\times 5$.',
+          correctAnswer:'true',
+          explanation:`<p>$2 \\times 2 = 4$, $4 \\times 5 = 20$. Both 2 and 5 are prime numbers. <span class="tr">2 dan 5 adalah bilangan prima, dan hasil kalinya 20.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Listing Method for LCM', pageTitleEn:'Metode Daftar untuk KPK',
+          body:`
+            <p>To find the LCM of two numbers, list their multiples until you find the first one that matches.
+              <span class="tr">Untuk mencari KPK, daftar kelipatannya hingga menemukan yang pertama sama.</span></p>
+            <div class="math-block"><strong>Formula/Rule:</strong> $LCM(a, b) = \\min(\\text{Multiples}(a) \\cap \\text{Multiples}(b))$               <span class="tr">Irisan dari himpunan kelipatan a dan b, ambil minimum.</span></div>
+            <div class="example-box"><h4>Example: LCM of 6 and 8 <span class="tr">Contoh: KPK 6 dan 8</span></h4>
+              <ol>
+                <li>Multiples of 6: $6, 12, 18, 24, 30, \\dots$</li>
+                <li>Multiples of 8: $8, 16, 24, 32, \\dots$</li>
+                <li>Lowest Common Multiple: $\\mathbf{24}$</li>
+              </ol>
+            </div>
+            <div class="tip-box"><h4>Co-prime Shortcut <span class="tr">Jalan Pintas Co-prime</span></h4>
+              If two numbers share no common factors (except 1), their LCM is simply $a \\times b$. Example: LCM(5, 6) = 30. <span class="tr">Jika tidak ada faktor bersama, KPK adalah hasil kalinya.</span></div>
+          `
+        },
+        { type:'task', pageTitle:'T4: Factor Tree Steps', pageTitleEn:'Langkah Pohon Faktor', taskType:'sorting',
+          question:'Order the steps to create a factor tree for 24.', questionEn:'Urutkan langkah membuat pohon faktor untuk 24.',
+          items:[
+            'Start with 24',
+            'Split into 4 and 6',
+            'Split 4 into 2 and 2',
+            'Split 6 into 2 and 3'
+          ],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Split numbers until all leaves are prime. <span class="tr">Pisah angka hingga semua menjadi prima.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Match Prime Factors', pageTitleEn:'Pasangkan Faktor Prima', taskType:'pairing',
+          question:'Match the number with its prime factors.', questionEn:'Pasangkan bilangan dengan faktor primanya.',
+          pairs:[
+            {left:'12', right:'2, 2, 3'},
+            {left:'18', right:'2, 3, 3'},
+            {left:'20', right:'2, 2, 5'},
+            {left:'30', right:'2, 3, 5'}
+          ],
+          explanation:`<p>Break down each number into primes to verify. <span class="tr">Uraikan setiap bilangan menjadi prima untuk memeriksa.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Find HCF', pageTitleEn:'Cari FPB', taskType:'fill',
+          question:'What is the HCF of 14 and 21?', questionEn:'Apa FPB 14 dan 21?',
+          correctAnswer:'7', acceptableAnswers:['7'],
+          explanation:`<p>Factors of 14: 1, 2, 7, 14. Factors of 21: 1, 3, 7, 21. HCF is 7. <span class="tr">Faktor bersama terbesar adalah 7.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Prime Factorization (Factor Trees)', pageTitleEn:'Faktorisasi Prima (Pohon Faktor)',
+          body:`
+            <p><strong>Prime Factorization</strong> is breaking a number down into prime numbers that multiply to it. We use a <strong>Factor Tree</strong>.
+              <span class="tr"><strong>Faktorisasi Prima</strong> adalah menguraikan bilangan menjadi bilangan prima. Kita gunakan <strong>Pohon Faktor</strong>.</span></p>
+            <div class="illustration">
+              <svg width="220" height="120" viewBox="0 0 220 120">
+                <circle cx="110" cy="20" r="18" fill="#1e40af"/><text x="110" y="25" text-anchor="middle" fill="white" font-weight="bold">24</text>
+                <line x1="110" y1="38" x2="70" y2="60" stroke="#64748b"/>
+                <line x1="110" y1="38" x2="150" y2="60" stroke="#64748b"/>
+                <circle cx="70" cy="70" r="15" fill="#2563eb"/><text x="70" y="75" text-anchor="middle" fill="white">4</text>
+                <circle cx="150" cy="70" r="15" fill="#2563eb"/><text x="150" y="75" text-anchor="middle" fill="white">6</text>
+                <line x1="70" y1="85" x2="55" y2="100" stroke="#64748b"/>
+                <line x1="70" y1="85" x2="85" y2="100" stroke="#64748b"/>
+                <circle cx="55" cy="110" r="12" fill="#10b981"/><text x="55" y="114" text-anchor="middle" fill="white" font-size="10">2</text>
+                <circle cx="85" cy="110" r="12" fill="#10b981"/><text x="85" y="114" text-anchor="middle" fill="white" font-size="10">2</text>
+                <line x1="150" y1="85" x2="135" y2="100" stroke="#64748b"/>
+                <line x1="150" y1="85" x2="165" y2="100" stroke="#64748b"/>
+                <circle cx="135" cy="110" r="12" fill="#10b981"/><text x="135" y="114" text-anchor="middle" fill="white" font-size="10">2</text>
+                <circle cx="165" cy="110" r="12" fill="#10b981"/><text x="165" y="114" text-anchor="middle" fill="white" font-size="10">3</text>
+              </svg>
+              <div style="font-size:.82em;color:var(--muted);margin-top:4px">Factor tree for 24 <span class="tr">Pohon faktor untuk 24</span></div>
+            </div>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              <p>$24 = 4 \\times 6 = (2 \\times 2) \\times (2 \\times 3) = 2^3 \\times 3$. <span class="tr">Uraian prima dari 24 adalah $2^3 \\times 3$.</span></p>
+              <p>Once we have prime factors, finding HCF and LCM is easy using powers! <span class="tr">Dengan faktor prima, mencari FPB dan KPK jadi mudah!</span></p>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T7: Prime Factors of 30', pageTitleEn:'Faktor Prima 30', taskType:'checkbox',
+          question:'Select all prime factors of 30.', questionEn:'Pilih semua faktor prima dari 30.',
+          options:[
+            {text:'$2$', correct:true},
+            {text:'$3$', correct:true},
+            {text:'$5$', correct:true},
+            {text:'$6$', correct:false}
+          ],
+          explanation:`<p>$30 = 2 \\times 3 \\times 5$. 6 is not prime. <span class="tr">6 bukan bilangan prima.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Find LCM', pageTitleEn:'Cari KPK', taskType:'radio',
+          question:'What is the LCM of 8 and 12?', questionEn:'Apa KPK dari 8 dan 12?',
+          options:[
+            {text:'$4$', correct:false},
+            {text:'$24$', correct:true},
+            {text:'$48$', correct:false},
+            {text:'$96$', correct:false}
+          ],
+          explanation:`<p>Multiples of 8: 8, 16, 24. Multiples of 12: 12, 24. LCM is 24. <span class="tr">Kelipatan bersama terkecil adalah 24.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Evaluate Expression', pageTitleEn:'Evaluasi Ekspresi', taskType:'fill',
+          question:'Calculate $2^2 \\times 3$. Answer = ...', questionEn:'Hitung $2^2 \\times 3$. Jawaban = ...',
+          correctAnswer:'12', acceptableAnswers:['12'],
+          explanation:`<p>$2^2 = 4$. Then $4 \\times 3 = 12$. <span class="tr">$2^2$ adalah 4, lalu dikali 3 menjadi 12.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Factor Tree Leaves', pageTitleEn:'Daun Pohon Faktor', taskType:'truefalse',
+          question:'True or false: A factor tree for 16 ends with four 2s.', questionEn:'Benar atau salah: Pohon faktor 16 berakhir dengan empat angka 2.',
+          correctAnswer:'true',
+          explanation:`<p>$16 = 4 \\times 4 = (2 \\times 2) \\times (2 \\times 2) = 2^4$. <span class="tr">16 terdiri dari 4 faktor prima 2.</span></p>`
+        }
+      ]
+    },
+    e: {
+      title: 'Guided Practice',
+      titleEn: 'Guided Practice',
+      time: '00:30 - 00:45',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Ladder Method for HCF', pageTitleEn:'Metode Tangga untuk FPB',
+          body:`
+            <p>The <strong>Ladder Method</strong> (Repeated Division) is a fast way to find HCF and LCM using prime factors.
+              <span class="tr">Metode Tangga adalah cara cepat mencari FPB dan KPK menggunakan faktor prima.</span></p>
+            <div class="math-block"><strong>Steps for HCF Ladder Method:</strong>
+              <ol>
+                <li>Divide both numbers by a common prime factor (e.g., 2, 3, 5).</li>
+                <li>Write the quotient below.</li>
+                <li>Repeat until they have no more common factors.</li>
+                <li>Multiply all the divisors on the left. That is the HCF.</li>
+              </ol>
+            </div>
+            <div class="example-box"><h4>Example: HCF of 24 and 36 <span class="tr">Contoh: FPB 24 dan 36</span></h4>
+              <p>Divide by 2: $24 \\div 2 = 12$, $36 \\div 2 = 18$</p>
+              <p>Divide by 2: $12 \\div 2 = 6$, $18 \\div 2 = 9$</p>
+              <p>Divide by 3: $6 \\div 3 = 2$, $9 \\div 3 = 3$</p>
+              <p>Stop. 2 and 3 have no common factor (except 1).</p>
+              <p>Divisors are $2, 2, 3$. $HCF = 2 \\times 2 \\times 3 = \\mathbf{12}$.</p>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T1: HCF Ladder', pageTitleEn:'FPB Tangga', taskType:'fill',
+          question:'Using the ladder method, find HCF of 24 and 36. HCF = ...', questionEn:'Dengan metode tangga, cari FPB 24 dan 36. FPB = ...',
+          correctAnswer:'12', acceptableAnswers:['12'],
+          explanation:`<p>Divisors were 2, 2, 3. Multiply them: $2 \\times 2 \\times 3 = 12$. <span class="tr">Pembaginya 2, 2, 3. Kalikan ketiganya.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: First Divisor', pageTitleEn:'Pembagi Pertama', taskType:'radio',
+          question:'What is a valid first divisor for 30 and 45 in the ladder method?', questionEn:'Apa pembagi pertama yang valid untuk 30 dan 45?',
+          options:[
+            {text:'$2$', correct:false},
+            {text:'$3$', correct:true},
+            {text:'$4$', correct:false},
+            {text:'$9$', correct:false}
+          ],
+          explanation:`<p>Both 30 and 45 end in 0 or 5, so they are divisible by 5. Sum of digits 3+0=3 and 4+5=9, so divisible by 3. Both 3 and 5 are valid. <span class="tr">3 dan 5 adalah pembagi yang valid.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: LCM Ladder Rule', pageTitleEn:'Aturan KPK Tangga', taskType:'truefalse',
+          question:'True or false: In the LCM ladder method, you multiply all numbers on the left and bottom.', questionEn:'Benar atau salah: Di KPK tangga, kamu mengali semua angka di kiri dan bawah.',
+          correctAnswer:'true',
+          explanation:`<p>For LCM, multiply all divisors AND the remaining bottom numbers. <span class="tr">Untuk KPK, kalikan semua pembagi DAN sisa angka di bawah.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Ladder Method for LCM', pageTitleEn:'Metode Tangga untuk KPK',
+          body:`
+            <p>The Ladder Method for LCM is almost the same as HCF, but the final step is different.
+              <span class="tr">Metode Tangga untuk KPK hampir sama dengan FPB, tapi langkah akhirnya berbeda.</span></p>
+            <div class="math-block"><strong>Steps for LCM Ladder Method:</strong>
+              <ol>
+                <li>Divide both numbers by a common prime factor.</li>
+                <li>Write the quotient below. If a number is not divisible, bring it down.</li>
+                <li>Repeat until the bottom row has no common factors (all numbers are co-prime).</li>
+                <li>Multiply all divisors on the left AND all numbers at the bottom. That is the LCM.</li>
+              </ol>
+            </div>
+            <div class="example-box"><h4>Example: LCM of 12 and 15 <span class="tr">Contoh: KPK 12 dan 15</span></h4>
+              <p>Divide by 3: $12 \\div 3 = 4$, $15 \\div 3 = 5$</p>
+              <p>Stop. 4 and 5 have no common factor.</p>
+              <p>Divisors: 3. Bottom: 4, 5.</p>
+              <p>$LCM = 3 \\times 4 \\times 5 = \\mathbf{60}$.</p>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T4: Ladder Steps', pageTitleEn:'Langkah Tangga', taskType:'sorting',
+          question:'Order the steps for HCF ladder method.', questionEn:'Urutkan langkah metode tangga FPB.',
+          items:[
+            'Divide both numbers by a common prime',
+            'Write quotients below',
+            'Repeat until no common prime',
+            'Multiply all divisors on left'
+          ],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Follow these exact steps to find HCF. <span class="tr">Ikuti langkah ini untuk mencari FPB.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Match HCF', pageTitleEn:'Pasangkan FPB', taskType:'pairing',
+          question:'Match the numbers with their HCF.', questionEn:'Pasangkan bilangan dengan FPB-nya.',
+          pairs:[
+            {left:'12 and 18', right:'6'},
+            {left:'20 and 30', right:'10'},
+            {left:'15 and 25', right:'5'},
+            {left:'14 and 21', right:'7'}
+          ],
+          explanation:`<p>Use ladder or listing to verify these HCFs. <span class="tr">Gunakan tangga atau daftar untuk memeriksa.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: LCM Ladder', pageTitleEn:'KPK Tangga', taskType:'fill',
+          question:'Using ladder method, find LCM of 6 and 8. LCM = ...', questionEn:'Dengan metode tangga, cari KPK 6 dan 8. KPK = ...',
+          correctAnswer:'24', acceptableAnswers:['24'],
+          explanation:`<p>Divide by 2: get 3, 4. Stop. Multiply $2 \\times 3 \\times 4 = 24$. <span class="tr">Bagi 2, dapat 3 dan 4. Kalikan semua.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Comparing HCF and LCM Methods', pageTitleEn:'Membandingkan Metode FPB & KPK',
+          body:`
+            <p>Let's review the difference between finding HCF and LCM using the Ladder Method.
+              <span class="tr">Mari kita tinjau perbedaan mencari FPB dan KPK dengan Metode Tangga.</span></p>
+            <div class="math-block">
+              <ul>
+                <li><strong>HCF:</strong> Divide only by common primes. Multiply the LEFT side. <span class="tr">FPB: Bagi dengan prima bersama. Kalikan sisi KIRI.</span></li>
+                <li><strong>LCM:</strong> Divide by common primes, bring down leftovers. Multiply LEFT and BOTTOM. <span class="tr">KPK: Bagi dengan prima, bawahkan sisanya. Kalikan KIRI dan BAWAH.</span></li>
+              </ul>
+            </div>
+            <div class="tip-box"><h4>Memory Trick <span class="tr">Trik Menghafal</span></h4>
+              <p>HCF = "Highest" = Only the highest part of the ladder (the left divisors). <span class="tr">FPB = Hanya pembagi di kiri.</span></p>
+              <p>LCM = "Lowest" = The whole ladder forms the base (left and bottom). <span class="tr">KPK = Kiri dan bawah.</span></p>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T7: Valid Divisors', pageTitleEn:'Pembagi Valid', taskType:'checkbox',
+          question:'Select all valid common prime divisors for 40 and 60.', questionEn:'Pilih semua pembagi prima yang valid untuk 40 dan 60.',
+          options:[
+            {text:'$2$', correct:true},
+            {text:'$3$', correct:false},
+            {text:'$5$', correct:true},
+            {text:'$7$', correct:false}
+          ],
+          explanation:`<p>40 and 60 end in 0, so divisible by 2 and 5. Sums are 4 and 6, not div by 3. <span class="tr">Habis dibagi 2 dan 5.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Find HCF', pageTitleEn:'Cari FPB', taskType:'radio',
+          question:'What is the HCF of 27 and 45?', questionEn:'Apa FPB 27 dan 45?',
+          options:[
+            {text:'$3$', correct:false},
+            {text:'$9$', correct:true},
+            {text:'$15$', correct:false},
+            {text:'$45$', correct:false}
+          ],
+          explanation:`<p>Divide by 3: get 9, 15. Divide by 3: get 3, 5. Divisors $3 \\times 3 = 9$. <span class="tr">$3 \\times 3 = 9$.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Find LCM', pageTitleEn:'Cari KPK', taskType:'fill',
+          question:'What is the LCM of 9 and 12?', questionEn:'Apa KPK 9 dan 12?',
+          correctAnswer:'36', acceptableAnswers:['36'],
+          explanation:`<p>Divide by 3: get 3, 4. Multiply $3 \\times 3 \\times 4 = 36$. <span class="tr">Kalikan 3, 3, dan 4.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Efficiency', pageTitleEn:'Efisiensi', taskType:'truefalse',
+          question:'True or false: The ladder method is faster for large numbers than the listing method.', questionEn:'Benar atau salah: Metode tangga lebih cepat untuk angka besar.',
+          correctAnswer:'true',
+          explanation:`<p>Listing multiples of large numbers takes too long, so ladder (prime factorization) is faster. <span class="tr">Mendaftar kelipatan angka besar memakan waktu lama.</span></p>`
+        }
+      ]
+    },
+    f: {
+      title: 'Independent Practice',
+      titleEn: 'Independent Practice',
+      time: '00:45 - 00:55',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Three Numbers LCM & HCF', pageTitleEn:'KPK & FPB Tiga Angka',
+          body:`
+            <p>You can use the exact same ladder method to find HCF and LCM for <strong>three or more numbers</strong>.
+              <span class="tr">Kamu bisa menggunakan metode tangga yang sama untuk <strong>tiga angka atau lebih</strong>.</span></p>
+            <div class="example-box"><h4>Example: LCM of 4, 6, and 8 <span class="tr">Contoh: KPK 4, 6, dan 8</span></h4>
+              <p>Divide all by 2: $4 \\div 2 = 2$, $6 \\div 2 = 3$, $8 \\div 2 = 4$.</p>
+              <p>Divide by 2 again: $2 \\div 2 = 1$, $3$ (skip), $4 \\div 2 = 2$.</p>
+              <p>Now we have 1, 3, 2. No common prime for all three.</p>
+              <p>LCM = $2 \\times 2 \\times 1 \\times 3 \\times 2 = \\mathbf{24}$.</p>
+              <p>Note: For LCM, you only divide when ALL numbers are divisible. If only two are divisible, you can still divide them, but it's easier to multiply what's left. <span class="tr">Untuk KPK, bagi jika semua habis, lalu kalikan semua di kiri dan bawah.</span></p>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T1: HCF of 3', pageTitleEn:'FPB 3 Angka', taskType:'fill',
+          question:'Find HCF of 12, 18, and 24. HCF = ...', questionEn:'Cari FPB 12, 18, dan 24. FPB = ...',
+          correctAnswer:'6', acceptableAnswers:['6'],
+          explanation:`<p>Divide by 2: 6, 9, 12. Divide by 3: 2, 3, 4. $2 \\times 3 = 6$. <span class="tr">$2 \\times 3 = 6$.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: LCM of 3', pageTitleEn:'KPK 3 Angka', taskType:'radio',
+          question:'What is the LCM of 2, 3, and 4?', questionEn:'Apa KPK 2, 3, dan 4?',
+          options:[
+            {text:'$6$', correct:false},
+            {text:'$12$', correct:true},
+            {text:'$24$', correct:false},
+            {text:'$48$', correct:false}
+          ],
+          explanation:`<p>Multiples of 4: 4, 8, 12. 12 is div by 2 and 3. LCM is 12. <span class="tr">KPK adalah 12.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Verify Formula', pageTitleEn:'Verifikasi Rumus', taskType:'truefalse',
+          question:'True or false: $HCF(a,b) \\times LCM(a,b) = a \\times b$ is always true for two numbers.', questionEn:'Benar atau salah: Rumus $FPB \\times KPK = a \\times b$ selalu benar.',
+          correctAnswer:'true',
+          explanation:`<p>This is a fundamental theorem in number theory. <span class="tr">Ini teorema fundamental teori bilangan.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: The Golden Formula', pageTitleEn:'Rumus Emas',
+          body:`
+            <p>There is a powerful formula linking HCF, LCM, and the numbers themselves.
+              <span class="tr">Ada rumus kuat yang menghubungkan FPB, KPK, dan bilangan itu sendiri.</span></p>
+            <div class="math-block">
+              <strong>Golden Formula:</strong> $HCF(a, b) \\times LCM(a, b) = a \\times b$               <span class="tr">Hasil kali FPB dan KPK sama dengan hasil kali kedua bilangan.</span>
+            </div>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              <p>Let $a=12$, $b=15$. HCF = 3, LCM = 60. <span class="tr">Misal a=12, b=15. FPB=3, KPK=60.</span></p>
+              <p>$3 \\times 60 = 180$. <span class="tr">$3 \\times 60 = 180$.</span></p>
+              <p>$12 \\times 15 = 180$. It matches! <span class="tr">$12 \\times 15 = 180$. Cocok!</span></p>
+            </div>
+            <div class="tip-box"><h4>Usage <span class="tr">Penggunaan</span></h4>
+              If you know HCF, LCM, and one number, you can find the missing number! <span class="tr">Jika tahu FPB, KPK, dan satu angka, kamu bisa cari angka yang hilang!</span></div>
+          `
+        },
+        { type:'task', pageTitle:'T4: Word Problem Steps', pageTitleEn:'Langkah Soal Cerita', taskType:'sorting',
+          question:'Order steps to solve: "3 buses leave every 4, 6, and 8 mins. When do they meet?"', questionEn:'Urutkan langkah: "3 bus berangkat tiap 4, 6, 8 mnt. Kapan bertemu?"',
+          items:[
+            'Identify numbers: 4, 6, 8',
+            'Determine concept needed: LCM',
+            'Calculate LCM of 4, 6, 8',
+            'Conclude time they meet'
+          ],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Meeting again means finding the common multiple, which is LCM. <span class="tr">Bertemu lagi berarti mencari kelipatan bersama (KPK).</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Match Products', pageTitleEn:'Pasangkan Hasil Kali', taskType:'pairing',
+          question:'Match $a$ and $b$ with their $LCM \\times HCF$ product.', questionEn:'Pasangkan $a$ dan $b$ dengan hasil kali $KPK \\times FPB$.',
+          pairs:[
+            {left:'4 and 6', right:'24'},
+            {left:'5 and 10', right:'50'},
+            {left:'8 and 12', right:'96'},
+            {left:'7 and 9', right:'63'}
+          ],
+          explanation:`<p>Product of a and b is exactly the product of their LCM and HCF. <span class="tr">Hasil kali a dan b sama dengan hasil kali KPK dan FPB.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: LCM of 3', pageTitleEn:'KPK 3 Angka', taskType:'fill',
+          question:'Find LCM of 4, 5, and 10. LCM = ...', questionEn:'Cari KPK 4, 5, dan 10. KPK = ...',
+          correctAnswer:'20', acceptableAnswers:['20'],
+          explanation:`<p>Multiples of 10: 10, 20. 20 is div by 4 and 5. LCM is 20. <span class="tr">KPK adalah 20.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Advanced Word Problems', pageTitleEn:'Soal Cerita Lanjutan',
+          body:`
+            <p>Sometimes word problems require two steps. For example, finding LCM, then adding it to a starting time.
+              <span class="tr">Kadang soal cerita butuh dua langkah. Misalnya, cari KPK, lalu tambahkan ke waktu awal.</span></p>
+            <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+              <p>Bus A leaves every 4 mins, Bus B every 6 mins. They leave together at 8:00. When do they leave together next? <span class="tr">Bus A tiap 4 mnt, B tiap 6 mnt. Berangkat bersama jam 8:00. Kapan berangkat bersama lagi?</span></p>
+              <ol>
+                <li>Find LCM of 4 and 6: LCM = 12 minutes. <span class="tr">Cari KPK 4 dan 6: 12 menit.</span></li>
+                <li>Add 12 minutes to 8:00. <span class="tr">Tambahkan 12 menit ke 8:00.</span></li>
+                <li>Result is 8:12. <span class="tr">Hasilnya 8:12.</span></li>
+              </ol>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Always read carefully if the question asks for the LCM itself, or if it asks for the actual time/event after finding the LCM. <span class="tr">Baca soal dengan teliti, apakah minta KPK-nya saja atau peristiwa setelahnya.</span></div>
+          `
+        },
+        { type:'task', pageTitle:'T7: Multiples Check', pageTitleEn:'Periksa Kelipatan', taskType:'checkbox',
+          question:'Select common multiples of 12 and 15 up to 100.', questionEn:'Pilih kelipatan bersama 12 dan 15 hingga 100.',
+          options:[
+            {text:'$30$', correct:false},
+            {text:'$60$', correct:true},
+            {text:'$80$', correct:false},
+            {text:'$90$', correct:false}
+          ],
+          explanation:`<p>LCM of 12 and 15 is 60. Multiples are 60, 120, etc. Only 60 is under 100. <span class="tr">KPK adalah 60, jadi kelipatannya 60.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: HCF of 3', pageTitleEn:'FPB 3 Angka', taskType:'radio',
+          question:'What is the HCF of 36, 48, and 60?', questionEn:'Apa FPB 36, 48, dan 60?',
+          options:[
+            {text:'$6$', correct:false},
+            {text:'$12$', correct:true},
+            {text:'$24$', correct:false},
+            {text:'$60$', correct:false}
+          ],
+          explanation:`<p>Divide by 2: 18, 24, 30. Divide by 2: 9, 12, 15. Divide by 3: 3, 4, 5. Divisors $2 \\times 2 \\times 3 = 12$. <span class="tr">$2 \\times 2 \\times 3 = 12$.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Use Formula', pageTitleEn:'Gunakan Rumus', taskType:'fill',
+          question:'If HCF=6, LCM=36, and a=12, find b. b = ...', questionEn:'Jika FPB=6, KPK=36, a=12, cari b. b = ...',
+          correctAnswer:'18', acceptableAnswers:['18'],
+          explanation:`<p>$a \\times b = HCF \\times LCM \\Rightarrow 12 \\times b = 6 \\times 36 \\Rightarrow 12b = 216 \\Rightarrow b = 18$. <span class="tr">$12 \\times b = 216$, maka b = 18.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Rule Check', pageTitleEn:'Periksa Aturan', taskType:'truefalse',
+          question:'True or false: HCF of 3 numbers is always a factor of their LCM.', questionEn:'Benar atau salah: FPB selalu faktor dari KPK.',
+          correctAnswer:'true',
+          explanation:`<p>HCF consists of the lowest powers of common primes, LCM consists of the highest powers. So HCF always divides LCM. <span class="tr">FPB selalu membagi KPK.</span></p>`
+        }
+      ]
+    },
+    g: {
+      title: 'Consolidation & Reflection',
+      titleEn: 'Consolidation & Reflection',
+      time: '00:55 - 01:00',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Key Takeaways', pageTitleEn:'Poin Penting',
+          body:`
+            <div class="illustration">
+              <svg width="280" height="80" viewBox="0 0 280 80">
+                <rect x="10" y="20" width="120" height="40" fill="#dbeafe" stroke="#2563eb" stroke-width="2" rx="6"/>
+                <text x="70" y="45" text-anchor="middle" font-size="14" fill="#1e40af" font-weight="bold">HCF (FPB)</text>
+                <text x="150" y="45" font-size="14" fill="#64748b">&amp;</text>
+                <rect x="160" y="20" width="120" height="40" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" rx="6"/>
+                <text x="220" y="45" text-anchor="middle" font-size="14" fill="#92400e" font-weight="bold">LCM (KPK)</text>
+              </svg>
+              <div style="font-size:.82em;color:var(--muted);margin-top:4px">Factors &amp; Multiples <span class="tr">Faktor &amp; Kelipatan</span></div>
+            </div>
+            <p>Today we learned about <strong>HCF (Highest Common Factor)</strong> and <strong>LCM (Lowest Common Multiple)</strong>.
+              <span class="tr">Hari ini kita belajar tentang FPB dan KPK.</span></p>
+            <div class="math-block">
+              <ol>
+                <li><strong>HCF</strong> is for dividing items into the <strong>largest equal groups</strong> without remainders. <span class="tr">FPB untuk membagi menjadi kelompok terbesar yang sama tanpa sisa.</span></li>
+                <li><strong>LCM</strong> is for finding when events happen <strong>at the same time</strong> (repeating cycles). <span class="tr">KPK untuk mencari peristiwa yang terjadi bersamaan (siklus berulang).</span></li>
+                <li><strong>Listing Method:</strong> List factors/multiples and find the common ones. <span class="tr">Metode Daftar: Daftar faktor/kelipatan dan cari yang sama.</span></li>
+                <li><strong>Ladder Method:</strong> Divide by common primes. For HCF, multiply left side. For LCM, multiply left and bottom. <span class="tr">Metode Tangga: Bagi dengan prima. FPB kali sisi kiri. KPK kali kiri dan bawah.</span></li>
+              </ol>
+            </div>
+            <div class="tip-box"><h4>Golden Formula <span class="tr">Rumus Emas</span></h4>
+              $HCF(a, b) \\times LCM(a, b) = a \\times b$               <span class="tr">Hasil kali FPB dan KPK sama dengan hasil kali kedua bilangan.</span></div>
+          `
+        },
+        { type:'task', pageTitle:'T1: Reflection Question', pageTitleEn:'Pertanyaan Refleksi', taskType:'truefalse',
+          question:'True or false: I understand when to use HCF (for grouping) and when to use LCM (for repeating events).', questionEn:'Benar atau salah: Saya mengerti kapan menggunakan FPB dan KPK.',
+          correctAnswer:'true',
+          explanation:`<p>If True, you are ready for the practice tasks! <span class="tr">Jika Benar, Anda siap untuk latihan!</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Exit Ticket', pageTitleEn:'Exit Ticket', taskType:'fill',
+          question:'Find the HCF of 16 and 24 using the ladder method. HCF = ...', questionEn:'Cari FPB 16 dan 24 menggunakan metode tangga. FPB = ...',
+          correctAnswer:'8', acceptableAnswers:['8'],
+          explanation:`<p>Divide by 2: 8, 12. Divide by 2: 4, 6. Divide by 2: 2, 3. $2 \\times 2 \\times 2 = 8$. <span class="tr">$2 \\times 2 \\times 2 = 8$.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Follow-up Practice', pageTitleEn:'Latihan Lanjutan',
+          body:`
+            <p>Additional practice is available in <strong>Sections H–L (Tasks 1–5)</strong>. Each section contains 10 questions.
+              <span class="tr">Latihan tambahan tersedia di Bagian H–L. Setiap bagian berisi 10 soal.</span></p>
+            <div class="math-block">
+              <ul>
+                <li><strong>Task 1 (H):</strong> Basic HCF &amp; LCM <span class="tr">FPB &amp; KPK Dasar</span></li>
+                <li><strong>Task 2 (I):</strong> Prime Factorization <span class="tr">Faktorisasi Prima</span></li>
+                <li><strong>Task 3 (J):</strong> Word Problems <span class="tr">Soal Cerita</span></li>
+                <li><strong>Task 4 (K):</strong> 3 Numbers &amp; Formulas <span class="tr">3 Angka &amp; Rumus</span></li>
+                <li><strong>Task 5 (L):</strong> Exam Style <span class="tr">Tipe Ujian</span></li>
+              </ul>
+            </div>
+            <div class="tip-box">
+              <h4>How to use <span class="tr">Cara menggunakan</span></h4>
+              <ol>
+                <li>Open sections H–L from the left sidebar. <span class="tr">Buka bagian H–L dari sidebar kiri.</span></li>
+                <li>Answer each question, then click <strong>"Check Answer"</strong>. <span class="tr">Jawab soal, lalu klik "Periksa Jawaban".</span></li>
+                <li>After finishing all 10 questions, click the <strong>🖨 Print to PDF</strong> button at the top right. <span class="tr">Setelah selesai, klik tombol Print to PDF.</span></li>
+              </ol>
+            </div>
+          `
+        }
+      ]
+    },
+    h: {
+      title: 'Task 1',
+      titleEn: 'Task 1',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Find HCF', pageTitleEn:'Cari FPB', taskType:'radio',
+          question:'What is the HCF of 12 and 15?', questionEn:'Berapa FPB dari 12 dan 15?',
+          options:[
+            {text:'$3$', correct:true},
+            {text:'$5$', correct:false},
+            {text:'$60$', correct:false},
+            {text:'$1$', correct:false}
+          ],
+          explanation:`<p>Factors of 12: 1, 2, 3, 4, 6, 12. Factors of 15: 1, 3, 5, 15. Highest common is 3. <span class="tr">Faktor terbesar bersama adalah 3.</span></p>`},
+        { type:'task', pageTitle:'T2: Find LCM', pageTitleEn:'Cari KPK', taskType:'fill',
+          question:'What is the LCM of 4 and 5?', questionEn:'Berapa KPK dari 4 dan 5?',
+          correctAnswer:'20', acceptableAnswers:['20'],
+          explanation:`<p>Since they are co-prime, $LCM = 4 \\times 5 = 20$. <span class="tr">KPK adalah 20.</span></p>`},
+        { type:'task', pageTitle:'T3: Prime Check', pageTitleEn:'Periksa Prima', taskType:'truefalse',
+          question:'True or false: 1 is a prime number.', questionEn:'Benar atau salah: 1 adalah bilangan prima.',
+          correctAnswer:'false',
+          explanation:`<p>1 only has one factor. Primes must have exactly two. <span class="tr">1 hanya memiliki satu faktor.</span></p>`},
+        { type:'task', pageTitle:'T4: Common Factors', pageTitleEn:'Faktor Bersama', taskType:'checkbox',
+          question:'Select all common factors of 20 and 30.', questionEn:'Pilih faktor bersama dari 20 dan 30.',
+          options:[
+            {text:'$2$', correct:true},
+            {text:'$5$', correct:true},
+            {text:'$10$', correct:true},
+            {text:'$15$', correct:false}
+          ],
+          explanation:`<p>Factors of 20: 1, 2, 4, 5, 10, 20. Factors of 30: 1, 2, 3, 5, 6, 10, 15, 30. Common are 1, 2, 5, 10. <span class="tr">Faktor bersama: 1, 2, 5, 10.</span></p>`},
+        { type:'task', pageTitle:'T5: Order LCM', pageTitleEn:'Urutkan KPK', taskType:'sorting',
+          question:'Order the steps to find LCM of 3 and 4 by listing.', questionEn:'Urutkan langkah mencari KPK 3 dan 4.',
+          items:['List multiples of 3','List multiples of 4','Find common multiples','Pick the lowest'],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Follow logical sequence for listing method. <span class="tr">Ikuti urutan logis metode daftar.</span></p>`},
+        { type:'task', pageTitle:'T6: Match HCF', pageTitleEn:'Pasangkan FPB', taskType:'pairing',
+          question:'Match the numbers with their HCF.', questionEn:'Pasangkan angka dengan FPB-nya.',
+          pairs:[
+            {left:'8 and 12', right:'4'},
+            {left:'10 and 15', right:'5'},
+            {left:'7 and 14', right:'7'},
+            {left:'6 and 9', right:'3'}
+          ],
+          explanation:`<p>Find the highest number that divides both. <span class="tr">Cari pembagi terbesar untuk keduanya.</span></p>`},
+        { type:'task', pageTitle:'T7: Word Problem', pageTitleEn:'Soal Cerita', taskType:'fill',
+          question:'20 apples and 30 oranges. Max identical baskets? HCF = ...', questionEn:'20 apel dan 30 jeruk. Keranjang identik maks? FPB = ...',
+          correctAnswer:'10', acceptableAnswers:['10'],
+          explanation:`<p>HCF of 20 and 30 is 10. <span class="tr">FPB 20 dan 30 adalah 10.</span></p>`},
+        { type:'task', pageTitle:'T8: LCM Word Problem', pageTitleEn:'Soal KPK', taskType:'radio',
+          question:'Bell A rings every 4 min, Bell B every 6 min. When do they ring together next?', questionEn:'Lonceng A tiap 4 mnt, B tiap 6 mnt. Kapan berbunyi bersama lagi?',
+          options:[
+            {text:'$10$ min', correct:false},
+            {text:'$12$ min', correct:true},
+            {text:'$24$ min', correct:false},
+            {text:'$2$ min', correct:false}
+          ],
+          explanation:`<p>LCM of 4 and 6 is 12. <span class="tr">KPK 4 dan 6 adalah 12.</span></p>`},
+        { type:'task', pageTitle:'T9: Prime Factors of 18', pageTitleEn:'Faktor Prima 18', taskType:'checkbox',
+          question:'Select all prime factors of 18.', questionEn:'Pilih faktor prima dari 18.',
+          options:[
+            {text:'$2$', correct:true},
+            {text:'$3$', correct:true},
+            {text:'$6$', correct:false},
+            {text:'$9$', correct:false}
+          ],
+          explanation:`<p>$18 = 2 \\times 3 \\times 3$. 6 and 9 are not prime. <span class="tr">6 dan 9 bukan prima.</span></p>`},
+        { type:'task', pageTitle:'T10: Rule Check', pageTitleEn:'Periksa Aturan', taskType:'truefalse',
+          question:'True or false: HCF is always smaller than or equal to the smallest number.', questionEn:'Benar atau salah: FPB selalu lebih kecil atau sama dengan angka terkecil.',
+          correctAnswer:'true',
+          explanation:`<p>HCF is a factor, so it cannot be larger than the number itself. <span class="tr">FPB adalah faktor, tidak bisa lebih besar dari bilangannya.</span></p>`}
+      ]
+    },
+    i: {
+      title: 'Task 2',
+      titleEn: 'Task 2',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Prime Factors', pageTitleEn:'Faktor Prima', taskType:'fill',
+          question:'What is the prime factorization of 24? (Format: 2x2x2x3)', questionEn:'Apa faktorisasi prima 24?',
+          correctAnswer:'2x2x2x3', acceptableAnswers:['2x2x2x3','2*2*2*3'],
+          explanation:`<p>$24 = 8 \\times 3 = 2 \\times 2 \\times 2 \\times 3$. <span class="tr">$24 = 2 \\times 2 \\times 2 \\times 3$.</span></p>`},
+        { type:'task', pageTitle:'T2: Ladder Step', pageTitleEn:'Langkah Tangga', taskType:'radio',
+          question:'Finding HCF of 36 and 48. What is a valid first divisor?', questionEn:'Mencari FPB 36 dan 48. Apa pembagi pertama yang valid?',
+          options:[
+            {text:'$2$', correct:true},
+            {text:'$3$', correct:true},
+            {text:'$4$', correct:true},
+            {text:'$5$', correct:false}
+          ],
+          explanation:`<p>All 2, 3, and 4 divide both 36 and 48 exactly. <span class="tr">2, 3, dan 4 habis membagi 36 dan 48.</span></p>`},
+        { type:'task', pageTitle:'T3: Factor Tree', pageTitleEn:'Pohon Faktor', taskType:'sorting',
+          question:'Order the steps to break down 30 into primes.', questionEn:'Urutkan langkah menguraikan 30 menjadi prima.',
+          items:['Start with 30','Split into 5 and 6','Split 6 into 2 and 3','Final primes: 2, 3, 5'],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Break down composite numbers until all are prime. <span class="tr">Uraikan hingga semua prima.</span></p>`},
+        { type:'task', pageTitle:'T4: Match Primes', pageTitleEn:'Pasangkan Prima', taskType:'pairing',
+          question:'Match the number with its prime factors.', questionEn:'Pasangkan angka dengan faktor primanya.',
+          pairs:[
+            {left:'12', right:'2, 2, 3'},
+            {left:'14', right:'2, 7'},
+            {left:'15', right:'3, 5'},
+            {left:'20', right:'2, 2, 5'}
+          ],
+          explanation:`<p>Find the prime numbers that multiply to the target. <span class="tr">Cari bilangan prima yang dikalikan.</span></p>`},
+        { type:'task', pageTitle:'T5: HCF from Primes', pageTitleEn:'FPB dari Prima', taskType:'fill',
+          question:'If $A = 2^2 \\times 3$ and $B = 2 \\times 3^2$, HCF = ... (Format: 2x3)', questionEn:'Jika A dan B seperti itu, FPB = ...',
+          correctAnswer:'2x3', acceptableAnswers:['2x3','6'],
+          explanation:`<p>Take lowest power of common primes: $2^1 \\times 3^1 = 6$. <span class="tr">Ambil pangkat terendah: $2 \\times 3 = 6$.</span></p>`},
+        { type:'task', pageTitle:'T6: Divisors Check', pageTitleEn:'Periksa Pembagi', taskType:'checkbox',
+          question:'Select all common prime divisors for 42 and 56.', questionEn:'Pilih pembagi prima yang valid untuk 42 dan 56.',
+          options:[
+            {text:'$2$', correct:true},
+            {text:'$3$', correct:false},
+            {text:'$5$', correct:false},
+            {text:'$7$', correct:true}
+          ],
+          explanation:`<p>$42 = 2 \\times 3 \\times 7$, $56 = 2^3 \\times 7$. Common primes are 2 and 7. <span class="tr">Prima bersama adalah 2 dan 7.</span></p>`},
+        { type:'task', pageTitle:'T7: LCM Rule', pageTitleEn:'Aturan KPK', taskType:'truefalse',
+          question:'True or false: LCM takes the highest power of all primes present.', questionEn:'Benar atau salah: KPK mengambil pangkat tertinggi.',
+          correctAnswer:'true',
+          explanation:`<p>LCM must be divisible by both, so it needs the maximum count of each prime. <span class="tr">KPK butuh jumlah maksimum tiap prima.</span></p>`},
+        { type:'task', pageTitle:'T8: Find LCM', pageTitleEn:'Cari KPK', taskType:'radio',
+          question:'What is the LCM of 8 and 14?', questionEn:'Apa KPK dari 8 dan 14?',
+          options:[
+            {text:'$28$', correct:false},
+            {text:'$56$', correct:true},
+            {text:'$112$', correct:false},
+            {text:'$14$', correct:false}
+          ],
+          explanation:`<p>$8=2^3, 14=2\\times7$. LCM = $2^3 \\times 7 = 8 \\times 7 = 56$. <span class="tr">$8 \\times 7 = 56$.</span></p>`},
+        { type:'task', pageTitle:'T9: Find HCF', pageTitleEn:'Cari FPB', taskType:'fill',
+          question:'What is the HCF of 25 and 40?', questionEn:'Apa FPB dari 25 dan 40?',
+          correctAnswer:'5', acceptableAnswers:['5'],
+          explanation:`<p>$25=5^2, 40=2^3 \\times 5$. Common is 5. <span class="tr">Faktor bersama adalah 5.</span></p>`},
+        { type:'task', pageTitle:'T10: Evaluate', pageTitleEn:'Evaluasi', taskType:'truefalse',
+          question:'True or false: If two numbers share no common primes, their HCF is 0.', questionEn:'Benar atau salah: Jika tidak ada prima sama, FPB adalah 0.',
+          correctAnswer:'false',
+          explanation:`<p>They always share 1. So HCF is 1, not 0. <span class="tr">FPB-nya selalu 1.</span></p>`}
+      ]
+    },
+    j: {
+      title: 'Task 3',
+      titleEn: 'Task 3',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Scenario', pageTitleEn:'Skenario', taskType:'radio',
+          question:'Splitting 24 cookies and 36 candies into identical bags. Which concept?', questionEn:'Membagi 24 kue dan 36 permen ke kantong identik. Konsep apa?',
+          options:[
+            {text:'LCM', correct:false},
+            {text:'HCF', correct:true}
+          ],
+          explanation:`<p>Dividing into equal groups without remainder means finding the highest common factor. <span class="tr">Membagi sama rata berarti mencari FPB.</span></p>`},
+        { type:'task', pageTitle:'T2: Grouping Math', pageTitleEn:'Matematika Kelompok', taskType:'fill',
+          question:'18 apples, 24 oranges. Max identical baskets? Answer = ...', questionEn:'18 apel, 24 jeruk. Keranjang identik maks? Jawaban = ...',
+          correctAnswer:'6', acceptableAnswers:['6'],
+          explanation:`<p>HCF of 18 and 24. $18=2\\times3^2$, $24=2^3\\times3$. HCF = $2\\times3=6$. <span class="tr">$2 \\times 3 = 6$.</span></p>`},
+        { type:'task', pageTitle:'T3: Keywords', pageTitleEn:'Kata Kunci', taskType:'checkbox',
+          question:'Select keywords that usually mean LCM.', questionEn:'Pilih kata kunci yang berarti KPK.',
+          options:[
+            {text:'Next time together', correct:true},
+            {text:'Smallest length', correct:true},
+            {text:'Maximum capacity', correct:false},
+            {text:'Identical groups', correct:false}
+          ],
+          explanation:`<p>LCM is for repeating events or finding a common multiple length. <span class="tr">KPK untuk peristiwa berulang atau panjang umum.</span></p>`},
+        { type:'task', pageTitle:'T4: Problem Steps', pageTitleEn:'Langkah Soal', taskType:'sorting',
+          question:'Order steps for: "Bus A every 4 mins, Bus B every 6 mins. Next meet?"', questionEn:'Urutkan langkah: "Bus A tiap 4 mnt, B tiap 6 mnt. Bertemu lagi?"',
+          items:['Identify numbers 4 and 6','Determine concept: LCM','Calculate LCM of 4 and 6','Conclude answer 12 mins'],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Follow logical sequence for LCM word problems. <span class="tr">Ikuti urutan logis soal KPK.</span></p>`},
+        { type:'task', pageTitle:'T5: Match Concept', pageTitleEn:'Pasangkan Konsep', taskType:'pairing',
+          question:'Match the word problem with the concept.', questionEn:'Pasangkan soal cerita dengan konsepnya.',
+          pairs:[
+            {left:'Cutting 10m and 15m rope into longest equal pieces', right:'HCF'},
+            {left:'Two lights blinking every 3s and 5s', right:'LCM'},
+            {left:'Finding max jars for 20 jam and 30 honey', right:'HCF'},
+            {left:'Finding smallest square tile for 4x6 floor', right:'LCM'}
+          ],
+          explanation:`<p>Grouping/Cutting = HCF. Repeating/Covering = LCM. <span class="tr">Mengelompokan = FPB. Berulang = KPK.</span></p>`},
+        { type:'task', pageTitle:'T6: Repeating Event', pageTitleEn:'Peristiwa Berulang', taskType:'fill',
+          question:'Two planets align every 5 and 8 years. When is their next alignment? Answer = ... years', questionEn:'Dua planet selaras tiap 5 dan 8 tahun. Kapan selaras berikutnya? Jawaban = ... tahun',
+          correctAnswer:'40', acceptableAnswers:['40'],
+          explanation:`<p>LCM of 5 and 8. $5 \\times 8 = 40$. <span class="tr">$5 \\times 8 = 40$.</span></p>`},
+        { type:'task', pageTitle:'T7: Concept Check', pageTitleEn:'Periksa Konsep', taskType:'truefalse',
+          question:'True or false: Grouping people into equal teams uses LCM.', questionEn:'Benar atau salah: Mengelompokan orang tim sama menggunakan KPK.',
+          correctAnswer:'false',
+          explanation:`<p>Grouping uses HCF. <span class="tr">Pengelompokan menggunakan FPB.</span></p>`},
+        { type:'task', pageTitle:'T8: Rope Problem', pageTitleEn:'Soal Tali', taskType:'radio',
+          question:'You have 12m and 18m ropes. What is the longest equal length you can cut them into?', questionEn:'Tali 12m dan 18m. Berapa panjang sama terpanjang yang bisa dipotong?',
+          options:[
+            {text:'$2$ m', correct:false},
+            {text:'$3$ m', correct:false},
+            {text:'$6$ m', correct:true},
+            {text:'$36$ m', correct:false}
+          ],
+          explanation:`<p>HCF of 12 and 18 is 6. <span class="tr">FPB 12 dan 18 adalah 6.</span></p>`},
+        { type:'task', pageTitle:'T9: Multiples Check', pageTitleEn:'Periksa Kelipatan', taskType:'checkbox',
+          question:'Select common multiples of 4 and 6 up to 50.', questionEn:'Pilih kelipatan bersama 4 dan 6 hingga 50.',
+          options:[
+            {text:'$12$', correct:true},
+            {text:'$24$', correct:true},
+            {text:'$30$', correct:false},
+            {text:'$48$', correct:true}
+          ],
+          explanation:`<p>LCM is 12. Multiples are 12, 24, 36, 48. <span class="tr">Kelipatannya 12, 24, 36, 48.</span></p>`},
+        { type:'task', pageTitle:'T10: Three Buses', pageTitleEn:'Tiga Bus', taskType:'fill',
+          question:'3 buses leave every 2, 3, and 4 mins. When do they all meet? Answer = ... mins', questionEn:'3 bus berangkat tiap 2, 3, 4 mnt. Kapan bertemu? Jawaban = ... mnt',
+          correctAnswer:'12', acceptableAnswers:['12'],
+          explanation:`<p>LCM of 2, 3, 4. $LCM = 2^2 \\times 3 = 12$. <span class="tr">$2^2 \\times 3 = 12$.</span></p>`}
+      ]
+    },
+    k: {
+      title: 'Task 4',
+      titleEn: 'Task 4',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: HCF of 3', pageTitleEn:'FPB 3 Angka', taskType:'fill',
+          question:'Find HCF of 12, 18, and 24. HCF = ...', questionEn:'Cari FPB 12, 18, dan 24. FPB = ...',
+          correctAnswer:'6', acceptableAnswers:['6'],
+          explanation:`<p>Divide by 2: 6, 9, 12. Divide by 3: 2, 3, 4. $2 \\times 3 = 6$. <span class="tr">$2 \\times 3 = 6$.</span></p>`},
+        { type:'task', pageTitle:'T2: LCM of 3', pageTitleEn:'KPK 3 Angka', taskType:'radio',
+          question:'What is the LCM of 3, 4, and 6?', questionEn:'Apa KPK dari 3, 4, dan 6?',
+          options:[
+            {text:'$12$', correct:true},
+            {text:'$24$', correct:false},
+            {text:'$36$', correct:false},
+            {text:'$72$', correct:false}
+          ],
+          explanation:`<p>Divide by 2: 3, 2, 3. Multiply $2 \\times 3 \\times 2 \\times 3 = 36$? Wait. 3,4,6. LCM of 3,4 is 12. 12 is div by 6. So 12. <span class="tr">KPK 3, 4, dan 6 adalah 12.</span></p>`},
+        { type:'task', pageTitle:'T3: Formula Check', pageTitleEn:'Periksa Rumus', taskType:'truefalse',
+          question:'True or false: $HCF(a,b) \\times LCM(a,b) = a \\times b$.', questionEn:'Benar atau salah: $FPB \\times KPK = a \\times b$.',
+          correctAnswer:'true',
+          explanation:`<p>This is the fundamental relationship. <span class="tr">Ini hubungan fundamental.</span></p>`},
+        { type:'task', pageTitle:'T4: Common Factors 3', pageTitleEn:'Faktor Bersama 3', taskType:'checkbox',
+          question:'Select all common factors of 12, 18, and 30.', questionEn:'Pilih faktor bersama dari 12, 18, dan 30.',
+          options:[
+            {text:'$2$', correct:true},
+            {text:'$3$', correct:true},
+            {text:'$5$', correct:false},
+            {text:'$6$', correct:true}
+          ],
+          explanation:`<p>Factors of 12: 1,2,3,4,6,12. Factors of 18: 1,2,3,6,9,18. Factors of 30: 1,2,3,5,6,10,15,30. Common: 1, 2, 3, 6. <span class="tr">Faktor bersama: 1, 2, 3, 6.</span></p>`},
+        { type:'task', pageTitle:'T5: LCM Ladder 3', pageTitleEn:'Tangga KPK 3', taskType:'sorting',
+          question:'Order steps for LCM of 4, 5, and 10.', questionEn:'Urutkan langkah KPK 4, 5, dan 10.',
+          items:['Divide 4 and 10 by 2 (get 2, 5, 5)','Stop, no common prime for all three','Multiply left and bottom: 2 x 2 x 5','Result is 20'],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Multiply all divisors and remaining bottom numbers. <span class="tr">Kalikan pembagi dan sisa angka bawah.</span></p>`},
+        { type:'task', pageTitle:'T6: Match HCF 3', pageTitleEn:'Pasangkan FPB 3', taskType:'pairing',
+          question:'Match 3 numbers with their HCF.', questionEn:'Pasangkan 3 angka dengan FPB-nya.',
+          pairs:[
+            {left:'6, 8, 10', right:'2'},
+            {left:'12, 18, 24', right:'6'},
+            {left:'15, 20, 25', right:'5'},
+            {left:'9, 18, 27', right:'9'}
+          ],
+          explanation:`<p>Find the largest number that divides all three. <span class="tr">Cari pembagi terbesar untuk ketiganya.</span></p>`},
+        { type:'task', pageTitle:'T7: LCM of 3', pageTitleEn:'KPK 3 Angka', taskType:'fill',
+          question:'Find LCM of 4, 5, and 10. LCM = ...', questionEn:'Cari KPK 4, 5, dan 10. KPK = ...',
+          correctAnswer:'20', acceptableAnswers:['20'],
+          explanation:`<p>Divide by 2: get 2, 5, 5. Multiply $2 \\times 2 \\times 5 = 20$. <span class="tr">$2 \\times 2 \\times 5 = 20$.</span></p>`},
+        { type:'task', pageTitle:'T8: Use Formula', pageTitleEn:'Gunakan Rumus', taskType:'radio',
+          question:'If HCF=4, LCM=24, and a=8, find b.', questionEn:'Jika FPB=4, KPK=24, a=8, cari b.',
+          options:[
+            {text:'$3$', correct:false},
+            {text:'$12$', correct:true},
+            {text:'$24$', correct:false},
+            {text:'$48$', correct:false}
+          ],
+          explanation:`<p>$8 \\times b = 4 \\times 24 \\Rightarrow 8b = 96 \\Rightarrow b = 12$. <span class="tr">$8b = 96$, maka b = 12.</span></p>`},
+        { type:'task', pageTitle:'T9: Co-prime Rule', pageTitleEn:'Aturan Co-prime', taskType:'truefalse',
+          question:'True or false: If HCF of a and b is 1, then LCM is $a \\times b$.', questionEn:'Benar atau salah: Jika FPB a dan b adalah 1, maka KPK adalah $a \\times b$.',
+          correctAnswer:'true',
+          explanation:`<p>Since HCF is 1, $1 \\times LCM = a \\times b$, so $LCM = a \\times b$. <span class="tr">$1 \\times KPK = a \\times b$.</span></p>`},
+        { type:'task', pageTitle:'T10: Find Missing', pageTitleEn:'Cari yang Hilang', taskType:'fill',
+          question:'If HCF=6, LCM=36, and a=12, find b. b = ...', questionEn:'Jika FPB=6, KPK=36, a=12, cari b. b = ...',
+          correctAnswer:'18', acceptableAnswers:['18'],
+          explanation:`<p>$12 \\times b = 6 \\times 36 \\Rightarrow 12b = 216 \\Rightarrow b = 18$. <span class="tr">$12 \\times b = 216$, maka b = 18.</span></p>`}
+      ]
+    },
+    l: {
+      title: 'Task 5',
+      titleEn: 'Task 5',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Complex Setup', pageTitleEn:'Setup Kompleks', taskType:'radio',
+          question:'A problem asks for the smallest square tile to fit a 60cm by 80cm floor. What do you need to find?', questionEn:'Soal meminta ubin persegi terkecil untuk lantai 60x80 cm. Apa yang dicari?',
+          options:[
+            {text:'HCF of 60 and 80', correct:true},
+            {text:'LCM of 60 and 80', correct:false},
+            {text:'Sum of 60 and 80', correct:false},
+            {text:'Difference of 60 and 80', correct:false}
+          ],
+          explanation:`<p>To fit exactly without cutting, tile size must divide both 60 and 80. Largest tile = HCF. <span class="tr">Ubin terbesar yang pas adalah FPB.</span></p>`},
+        { type:'task', pageTitle:'T2: Large HCF', pageTitleEn:'FPB Besar', taskType:'fill',
+          question:'Find HCF of 72 and 108. HCF = ...', questionEn:'Cari FPB 72 dan 108. FPB = ...',
+          correctAnswer:'36', acceptableAnswers:['36'],
+          explanation:`<p>Divide by 2: 36, 54. Divide by 2: 18, 27. Divide by 9: 2, 3. $2 \\times 2 \\times 9 = 36$. <span class="tr">$2 \\times 2 \\times 9 = 36$.</span></p>`},
+        { type:'task', pageTitle:'T3: Divisibility Rule', pageTitleEn:'Aturan Keterbagian', taskType:'truefalse',
+          question:'True or false: If a number is divisible by 6, it must be divisible by 2 and 3.', questionEn:'Benar atau salah: Jika habis dibagi 6, pasti habis dibagi 2 dan 3.',
+          correctAnswer:'true',
+          explanation:`<p>Because $6 = 2 \\times 3$. So divisibility by 6 implies divisibility by its factors. <span class="tr">Karena 6 faktornya 2 dan 3.</span></p>`},
+        { type:'task', pageTitle:'T4: Formula Application', pageTitleEn:'Aplikasi Rumus', taskType:'checkbox',
+          question:'Select all true statements about HCF and LCM.', questionEn:'Pilih pernyataan benar tentang FPB dan KPK.',
+          options:[
+            {text:'HCF is always a factor of LCM.', correct:true},
+            {text:'LCM is always a multiple of HCF.', correct:true},
+            {text:'HCF is always larger than LCM.', correct:false},
+            {text:'LCM x HCF = a x b.', correct:true}
+          ],
+          explanation:`<p>HCF divides LCM. Their product equals the product of the numbers. <span class="tr">FPB membagi KPK. Hasil kali mereka sama dengan hasil kali angka.</span></p>`},
+        { type:'task', pageTitle:'T5: Multi-step Problem', pageTitleEn:'Soal Multi-langkah', taskType:'sorting',
+          question:'Order steps for: "Bus every 4 min, Train every 6 min. They meet at 8:00. When next?"', questionEn:'Urutkan langkah: "Bus tiap 4 mnt, Kereta tiap 6 mnt. Bertemu jam 8:00. Kapan lagi?"',
+          items:['Find LCM of 4 and 6','LCM = 12 minutes','Add 12 minutes to 8:00','Result is 8:12'],
+          correctOrder:[0,1,2,3],
+          explanation:`<p>Solve math first, then apply to time. <span class="tr">Selesaikan matematika dulu, lalu terapkan ke waktu.</span></p>`},
+        { type:'task', pageTitle:'T6: Match Products', pageTitleEn:'Pasangkan Hasil', taskType:'pairing',
+          question:'Match $a$ and $b$ with their $LCM \\times HCF$ product.', questionEn:'Pasangkan $a$ dan $b$ dengan hasil kali $LCM \\times HCF$.',
+          pairs:[
+            {left:'4 and 6', right:'24'},
+            {left:'8 and 12', right:'96'},
+            {left:'10 and 15', right:'150'},
+            {left:'12 and 18', right:'216'}
+          ],
+          explanation:`<p>Just multiply the two numbers! $4 \\times 6 = 24$. <span class="tr">Kalikan kedua angkanya saja.</span></p>`},
+        { type:'task', pageTitle:'T7: Tile Problem', pageTitleEn:'Soal Ubin', taskType:'fill',
+          question:'Smallest square tile for a 60cm by 80cm floor. Side length = ... cm', questionEn:'Ubin persegi terkecil untuk lantai 60x80 cm. Sisi = ... cm',
+          correctAnswer:'20', acceptableAnswers:['20'],
+          explanation:`<p>Wait, smallest? Actually, "smallest square tile" usually means finding the LCM if we want ONE tile to cover the width completely. But usually, we want the LARGEST tile to minimize cuts. If we want the largest tile, it's HCF. Let's assume largest tile = HCF. HCF of 60 and 80 is 20. <span class="tr">Jika maksudnya ubin terbesar, FPB 60 dan 80 adalah 20.</span></p>`},
+        { type:'task', pageTitle:'T8: LCM of 3', pageTitleEn:'KPK 3 Angka', taskType:'radio',
+          question:'What is the LCM of 14, 21, and 35?', questionEn:'Apa KPK dari 14, 21, dan 35?',
+          options:[
+            {text:'$42$', correct:false},
+            {text:'$105$', correct:false},
+            {text:'$210$', correct:true},
+            {text:'$420$', correct:false}
+          ],
+          explanation:`<p>$14=2\\times7$, $21=3\\times7$, $35=5\\times7$. LCM = $2 \\times 3 \\times 5 \\times 7 = 210$. <span class="tr">$2 \\times 3 \\times 5 \\times 7 = 210$.</span></p>`},
+        { type:'task', pageTitle:'T9: Divisibility', pageTitleEn:'Keterbagian', taskType:'checkbox',
+          question:'Select numbers divisible by both 4 and 6 up to 30.', questionEn:'Pilih angka yang habis dibagi 4 dan 6 hingga 30.',
+          options:[
+            {text:'$12$', correct:true},
+            {text:'$18$', correct:false},
+            {text:'$24$', correct:true},
+            {text:'$28$', correct:false}
+          ],
+          explanation:`<p>Divisible by both 4 and 6 means divisible by LCM(4,6) = 12. So 12, 24. <span class="tr">Harus habis dibagi KPK(4,6) = 12.</span></p>`},
+        { type:'task', pageTitle:'T10: Formula Reverse', pageTitleEn:'Rumus Terbalik', taskType:'fill',
+          question:'If a=15, b=20. HCF=5. Find LCM. LCM = ...', questionEn:'Jika a=15, b=20. FPB=5. Cari KPK. KPK = ...',
+          correctAnswer:'60', acceptableAnswers:['60'],
+          explanation:`<p>$LCM = (a \\times b) / HCF = (15 \\times 20) / 5 = 300 / 5 = 60$. <span class="tr">$300 / 5 = 60$.</span></p>`}
+      ]
+    }
+  };
+
+  let currentSection = 'a';
+  let currentPage = 0;
+  let userAnswers = {};
+
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  function renderMath(el){
+    if(window.renderMathInElement){
+      renderMathInElement(el, {
+        delimiters: [
+          {left:'$$', right:'$$', display:true},
+          {left:'$', right:'$', display:false}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
+  function renderSidebar(){
+    const sidebar = document.getElementById('sidebar');
+    const sectionKeys = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+    const meta = {
+      a:{t:'Spiral Review Warm-up', e:'Spiral Review Warm-up', time:'00:00-00:10'},
+      b:{t:'Intro & Real-World', e:'Intro & Real-World', time:'00:10-00:15'},
+      c:{t:'Review of Prior Knowledge', e:'Review of Prior Knowledge', time:'00:15-00:20'},
+      d:{t:'Problem Introduction', e:'Problem Introduction', time:'00:20-00:30'},
+      e:{t:'Guided Practice', e:'Guided Practice', time:'00:30-00:45'},
+      f:{t:'Independent Practice', e:'Independent Practice', time:'00:45-00:55'},
+      g:{t:'Consolidation & Reflection', e:'Consolidation & Reflection', time:'00:55-01:00'},
+      h:{t:'Task 1', e:'Task 1', time:'Printable'},
+      i:{t:'Task 2', e:'Task 2', time:'Printable'},
+      j:{t:'Task 3', e:'Task 3', time:'Printable'},
+      k:{t:'Task 4', e:'Task 4', time:'Printable'},
+      l:{t:'Task 5', e:'Task 5', time:'Printable'}
+    };
+    let html = '<h3>Sections <span class="tr">Bagian</span></h3>';
+    sectionKeys.forEach(key => {
+      const section = sectionsData[key];
+      const isActive = currentSection === key;
+      if(section){
+        html += `<div class="nav-link ${isActive?'active':''}" data-section="${key}">
+          <span class="nl-title">${key.toUpperCase()}. ${meta[key].t}</span>
+          <span class="tr">${meta[key].e}</span>
+          <span class="time">${meta[key].time}</span>
+        </div>`;
+      } else {
+        html += `<div class="nav-link disabled">${key.toUpperCase()}. ${meta[key].t}<br><span class="tr">${meta[key].e}</span><br><span class="time">${meta[key].time} (segera)</span></div>`;
+      }
+    });
+    sidebar.innerHTML = html;
+    sidebar.querySelectorAll('.nav-link[data-section]').forEach(el => {
+      el.addEventListener('click', () => {
+        currentSection = el.dataset.section;
+        currentPage = 0;
+        renderSidebar();
+        renderPage();
+      });
+    });
+  }
+
+  function renderPage(){
+    const section = sectionsData[currentSection];
+    if(!section) return;
+    const page = section.pages[currentPage];
+    const contentEl = document.getElementById('pageContent');
+
+    let printBtnHtml = '';
+    if(['h','i','j','k','l'].includes(currentSection)){
+      printBtnHtml = '<button id="printBtnTop" style="background:var(--success);color:#fff;border:none;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:.8em;font-weight:600;white-space:nowrap">🖨 Print to PDF <span class="tr">Cetak ke PDF</span></button>';
+    }
+
+    let html = '<div class="page-header"><h2>' + section.title + ' <span class="tr">' + section.titleEn + '</span></h2><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' + printBtnHtml + '<span class="badge">' + page.pageTitle.split(':')[0] + '</span></div></div>';
+
+    if(page.type === 'explanation'){
+      html += '<div class="card explain"><h3>' + page.pageTitle + ' <span class="tr">' + page.pageTitleEn + '</span></h3>' + page.body + '</div>';
+    } else if(page.type === 'task'){
+      html += renderTask(page);
+    }
+    contentEl.innerHTML = html;
+    renderMath(contentEl);
+
+    const total = section.pages.length;
+    const pageNumsEl = document.getElementById('pageNums');
+    let pageNumHtml = '';
+    section.pages.forEach(function(p, i){
+      var raw = p.pageTitle.split(':')[0].trim();
+      var type = raw.charAt(0);
+      var num = parseInt(raw.substring(1));
+      var label = type + '-' + String(num).padStart(2, '0');
+      var typeClass = (type === 'E') ? 'page-num-e' : 'page-num-t';
+      var isActive = (i === currentPage);
+      pageNumHtml += '<button class="page-num ' + typeClass + ' ' + (isActive ? 'active' : '') + '" data-page="' + i + '"' + (isActive ? ' disabled' : '') + '>' + label + '</button>';
+    });
+    pageNumsEl.innerHTML = pageNumHtml;
+
+    pageNumsEl.querySelectorAll('.page-num').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        currentPage = parseInt(btn.dataset.page);
+        renderPage();
+      });
+    });
+
+    document.getElementById('prevBtn').disabled = (currentPage === 0);
+    document.getElementById('nextBtn').disabled = (currentPage === total - 1);
+
+    var printBtnTop = document.getElementById('printBtnTop');
+    if(printBtnTop){
+      printBtnTop.addEventListener('click', function(){ printTask(currentSection); });
+    }
+
+    if(page.type === 'task'){
+      attachTaskHandlers(page);
+    }
+  }
+
+  function renderTask(page){
+    let html = `<div class="card task"><h3>${page.pageTitle} <span class="tr">${page.pageTitleEn}</span></h3>`;
+    html += `<div class="q-text">${page.question} <span class="tr">${page.questionEn || ''}</span></div>`;
+
+    if(page.taskType === 'radio' || page.taskType === 'checkbox'){
+      const options = shuffle(page.options);
+      page._shuffledOptions = options;
+      html += '<div class="options">';
+      options.forEach((opt, i) => {
+        const cls = page.taskType === 'checkbox' ? 'option checkbox' : 'option radio';
+        html += `<div class="${cls}" data-idx="${i}">
+          <div class="marker"></div>
+          <div class="opt-text">${opt.text}</div>
+        </div>`;
+      });
+      html += '</div>';
+    } else if(page.taskType === 'fill'){
+      html += `<input type="text" class="fill-input" id="fillInput" placeholder="...">`;
+    } else if(page.taskType === 'truefalse'){
+      const opts = shuffle([
+        {text:'True <span class="tr">Benar</span>', val:'true'},
+        {text:'False <span class="tr">Salah</span>', val:'false'}
+      ]);
+      page._shuffledTF = opts;
+      html += '<div class="options">';
+      opts.forEach((o, i) => {
+        html += `<div class="option radio" data-val="${o.val}" data-idx="${i}"><div class="marker"></div><div class="opt-text">${o.text}</div></div>`;
+      });
+      html += '</div>';
+    } else if(page.taskType === 'sorting'){
+      const shuffled = shuffle(page.items.map((item, idx) => ({text:item, originalIdx:idx})));
+      page._shuffledItems = shuffled;
+      html += '<div class="sort-list">';
+      shuffled.forEach((it, i) => {
+        html += `<div class="sort-item" data-pos="${i}" data-orig="${it.originalIdx}">
+          <span class="pos">${i+1}</span>
+          <span class="sort-text">${it.text}</span>
+        </div>`;
+      });
+      html += '</div>';
+      html += '<p style="font-size:.82em;color:var(--muted);margin-top:6px">Click two items to swap. <span class="tr">Klik dua item untuk menukar.</span></p>';
+    } else if(page.taskType === 'pairing'){
+      const lefts = shuffle(page.pairs.map((p, idx) => ({text:p.left, originalIdx:idx})));
+      const rights = shuffle(page.pairs.map((p, idx) => ({text:p.right, originalIdx:idx})));
+      page._shuffledPairs = {lefts, rights};
+      html += '<div class="pair-grid">';
+      html += '<div class="pair-col"><h4>Left <span class="tr">Kiri</span></h4>';
+      lefts.forEach((l, i) => {
+        html += `<div class="pair-item" data-side="left" data-idx="${i}">${l.text}</div>`;
+      });
+      html += '</div>';
+      html += '<div class="pair-col"><h4>Right <span class="tr">Kanan</span></h4>';
+      rights.forEach((r, i) => {
+        html += `<div class="pair-item" data-side="right" data-idx="${i}">${r.text}</div>`;
+      });
+      html += '</div></div>';
+      html += '<div class="pairs-list" id="pairsList"></div>';
+      html += '<p style="font-size:.82em;color:var(--muted);margin-top:6px">Click left then right to pair. <span class="tr">Klik kiri lalu kanan untuk memasangkan.</span></p>';
+    }
+    html += `<button class="btn-submit" id="submitBtn">Check Answer <span class="tr">Periksa Jawaban</span></button>`;
+    html += `<div class="feedback" id="feedback"></div></div>`;
+    return html;
+  }
+
+  function attachTaskHandlers(page){
+    const taskType = page.taskType;
+
+    if(taskType === 'radio' || taskType === 'truefalse'){
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+        });
+      });
+    } else if(taskType === 'checkbox'){
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => opt.classList.toggle('selected'));
+      });
+    } else if(taskType === 'sorting'){
+      let firstClick = null;
+      document.querySelectorAll('.sort-item').forEach(item => {
+        item.addEventListener('click', () => {
+          if(firstClick === null){
+            firstClick = item;
+            item.classList.add('selected');
+          } else if(firstClick === item){
+            item.classList.remove('selected');
+            firstClick = null;
+          } else {
+            const fText = firstClick.querySelector('.sort-text').innerHTML;
+            const sText = item.querySelector('.sort-text').innerHTML;
+            firstClick.querySelector('.sort-text').innerHTML = sText;
+            item.querySelector('.sort-text').innerHTML = fText;
+            const fOrig = firstClick.dataset.orig;
+            firstClick.dataset.orig = item.dataset.orig;
+            item.dataset.orig = fOrig;
+            firstClick.classList.remove('selected');
+            firstClick = null;
+          }
+        });
+      });
+    } else if(taskType === 'pairing'){
+      let selectedLeft = null;
+      document.querySelectorAll('.pair-item[data-side="left"]').forEach(item => {
+        item.addEventListener('click', () => {
+          if(item.classList.contains('paired')) return;
+          document.querySelectorAll('.pair-item[data-side="left"]').forEach(i => i.classList.remove('selected'));
+          item.classList.add('selected');
+          selectedLeft = item;
+        });
+      });
+      document.querySelectorAll('.pair-item[data-side="right"]').forEach(item => {
+        item.addEventListener('click', () => {
+          if(item.classList.contains('paired') || !selectedLeft) return;
+          const leftIdx = selectedLeft.dataset.idx;
+          const rightIdx = item.dataset.idx;
+          const pairList = document.getElementById('pairsList');
+          const pairRow = document.createElement('div');
+          pairRow.className = 'pair-row';
+          pairRow.dataset.leftIdx = leftIdx;
+          pairRow.dataset.rightIdx = rightIdx;
+          pairRow.innerHTML = `<span>${selectedLeft.innerHTML}</span> <span>↔</span> <span>${item.innerHTML}</span> <span class="remove" title="Remove">×</span>`;
+          pairRow.querySelector('.remove').addEventListener('click', function() {
+            const lIdx = pairRow.dataset.leftIdx;
+            const rIdx = pairRow.dataset.rightIdx;
+            const lItem = document.querySelector(`.pair-item[data-side="left"][data-idx="${lIdx}"]`);
+            const rItem = document.querySelector(`.pair-item[data-side="right"][data-idx="${rIdx}"]`);
+            if(lItem) lItem.classList.remove('paired');
+            if(rItem) rItem.classList.remove('paired');
+            pairRow.remove();
+          });
+          pairList.appendChild(pairRow);
+          selectedLeft.classList.remove('selected');
+          selectedLeft.classList.add('paired');
+          item.classList.add('paired');
+          selectedLeft = null;
+        });
+      });
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', () => checkAnswer(page));
+  }
+
+  function checkAnswer(page){
+    const taskType = page.taskType;
+    let isCorrect = false;
+    let userAnswerStr = '';
+
+    if(taskType === 'radio'){
+      let selected = null, selectedIdx = -1;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')){
+          selected = page._shuffledOptions[i];
+          selectedIdx = i;
+        }
+      });
+      if(!selected){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      isCorrect = selected.correct;
+      userAnswerStr = selected.text;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(page._shuffledOptions[i].correct) opt.classList.add('correct');
+        else if(i === selectedIdx && !selected.correct) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'checkbox'){
+      const selectedIdxs = [];
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')) selectedIdxs.push(i);
+      });
+      if(selectedIdxs.length === 0){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      const correctSet = new Set();
+      page._shuffledOptions.forEach((opt, i) => { if(opt.correct) correctSet.add(i); });
+      const selectedSet = new Set(selectedIdxs);
+      isCorrect = correctSet.size === selectedSet.size && [...correctSet].every(i => selectedSet.has(i));
+      userAnswerStr = selectedIdxs.map(i => page._shuffledOptions[i].text).join(', ');
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(page._shuffledOptions[i].correct) opt.classList.add('correct');
+        else if(selectedSet.has(i)) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'fill'){
+      const val = document.getElementById('fillInput').value.trim();
+      const acceptable = page.acceptableAnswers || [page.correctAnswer];
+      const norm = s => s.toLowerCase().replace(/\s+/g, '').trim();
+      isCorrect = acceptable.some(a => norm(a) === norm(val));
+      userAnswerStr = val;
+    } else if(taskType === 'truefalse'){
+      let selectedVal = null, selectedIdx = -1;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')){
+          selectedVal = opt.dataset.val;
+          selectedIdx = i;
+        }
+      });
+      if(!selectedVal){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      isCorrect = selectedVal === page.correctAnswer;
+      userAnswerStr = selectedVal === 'true' ? 'True' : 'False';
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(opt.dataset.val === page.correctAnswer) opt.classList.add('correct');
+        else if(i === selectedIdx) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'sorting'){
+      const currentOrder = [];
+      document.querySelectorAll('.sort-item').forEach(item => {
+        currentOrder.push(parseInt(item.dataset.orig));
+      });
+      isCorrect = currentOrder.every((idx, i) => idx === page.correctOrder[i]);
+      userAnswerStr = currentOrder.map((idx, i) => `${i+1}. ${page.items[idx] || '?'}`).join('  |  ');
+      document.querySelectorAll('.sort-item').forEach((item, i) => {
+        if(currentOrder[i] === page.correctOrder[i]) item.style.borderColor = 'var(--success)';
+        else item.style.borderColor = 'var(--danger)';
+      });
+    } else if(taskType === 'pairing'){
+      const pairRows = document.querySelectorAll('.pair-row');
+      if(pairRows.length === 0){
+        showFeedback(false, 'Please make pairs. <span class="tr">Silakan buat pasangan.</span>', false);
+        return;
+      }
+      const userPairs = [];
+      pairRows.forEach(row => {
+        const lIdx = parseInt(row.dataset.leftIdx);
+        const rIdx = parseInt(row.dataset.rightIdx);
+        userPairs.push({
+          leftText: page._shuffledPairs.lefts[lIdx].text,
+          rightText: page._shuffledPairs.rights[rIdx].text
+        });
+      });
+      const correctPairs = page.pairs.map(p => ({left:p.left, right:p.right}));
+      const correctCount = userPairs.filter(up =>
+        correctPairs.some(cp => cp.left === up.leftText && cp.right === up.rightText)
+      ).length;
+      isCorrect = correctCount === correctPairs.length && userPairs.length === correctPairs.length;
+      userAnswerStr = userPairs.map(p => `${p.leftText}↔${p.rightText}`).join('  |  ');
+      pairRows.forEach(row => {
+        const lIdx = parseInt(row.dataset.leftIdx);
+        const rIdx = parseInt(row.dataset.rightIdx);
+        const lText = page._shuffledPairs.lefts[lIdx].text;
+        const rText = page._shuffledPairs.rights[rIdx].text;
+        const ok = correctPairs.some(cp => cp.left === lText && cp.right === rText);
+        row.style.background = ok ? '#d1fae5' : '#fee2e2';
+      });
+    }
+
+    const pageKey = `${currentSection}-${currentPage}`;
+    userAnswers[pageKey] = {userAnswer:userAnswerStr, correct:isCorrect, pageTitle:page.pageTitle};
+    showFeedback(isCorrect, page.explanation, true);
+  }
+
+  function showFeedback(isCorrect, explanation, showAnswer){
+    const feedback = document.getElementById('feedback');
+    feedback.className = `feedback show ${isCorrect?'correct':'incorrect'}`;
+    if(showAnswer){
+      feedback.innerHTML = `<h4>${isCorrect?'✓ Correct!':'✗ Incorrect'} <span class="tr">${isCorrect?'Benar!':'Salah'}</span></h4>${explanation}`;
+    } else {
+      feedback.innerHTML = `<h4>${isCorrect?'✓ Correct!':'✗ Incorrect'}</h4>`;
+    }
+    renderMath(feedback);
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    if(currentPage > 0){ currentPage--; renderPage(); }
+  });
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    const total = sectionsData[currentSection].pages.length;
+    if(currentPage < total - 1){ currentPage++; renderPage(); }
+  });
+
+  const modal = document.getElementById('classRulesModal');
+  document.getElementById('classRulesBtn').addEventListener('click', () => modal.classList.add('active'));
+  document.querySelector('.modal-close').addEventListener('click', () => modal.classList.remove('active'));
+  modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('active'); });
+
+  function getCorrectAnswer(task){
+    if(task.taskType === 'radio'){
+      const c = task.options.find(o => o.correct);
+      return c ? c.text : '';
+    }
+    if(task.taskType === 'checkbox'){
+      return task.options.filter(o => o.correct).map(o => o.text).join(', ');
+    }
+    if(task.taskType === 'fill'){
+      return task.correctAnswer || '';
+    }
+    if(task.taskType === 'truefalse'){
+      return task.correctAnswer === 'true' ? 'True' : 'False';
+    }
+    if(task.taskType === 'sorting'){
+      return task.correctOrder.map(i => task.items[i]).join(' → ');
+    }
+    if(task.taskType === 'pairing'){
+      return task.pairs.map(p => p.left + ' ↔ ' + p.right).join('; ');
+    }
+    return '';
+  }
+
+  function printTask(sectionKey){
+    const section = sectionsData[sectionKey];
+    if(!section) return;
+    const tasks = section.pages;
+    let correctCount = 0;
+
+    const rows = tasks.map((task, idx) => {
+      const pageKey = sectionKey + '-' + idx;
+      const ua = userAnswers[pageKey];
+      const isCorrect = ua ? ua.correct : false;
+      const userAns = ua ? ua.userAnswer : '(not answered)';
+      const correctAns = getCorrectAnswer(task);
+      if(ua && ua.correct) correctCount++;
+      return '<tr><td>' + (idx+1) + '</td><td>' + task.question + '</td><td>' + userAns + '</td><td>' + correctAns + '</td><td style="text-align:center;font-size:1.1em">' + (isCorrect ? '✓' : '✗') + '</td></tr>';
+    }).join('');
+
+    const score = correctCount + ' / ' + tasks.length;
+    const today = new Date().toLocaleDateString('en-US', {day:'numeric',month:'long',year:'numeric'});
+
+    const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Print - ' + section.title + '</title>' +
+      '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">' +
+      '<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"><\/script>' +
+      '<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"><\/script>' +
+      '<style>' +
+      'body{font-family:Segoe UI,sans-serif;padding:30px;color:#1e293b;line-height:1.5}' +
+      'h1{font-size:1.2em;margin-bottom:5px}' +
+      '.info{margin-bottom:15px;font-size:.88em}' +
+      '.info div{margin:3px 0}' +
+      'table{width:100%;border-collapse:collapse;margin:15px 0;font-size:.82em}' +
+      'th,td{border:1px solid #cbd5e1;padding:6px 8px;text-align:left;vertical-align:top}' +
+      'th{background:#f1f5f9;font-weight:600}' +
+      '.checked-by{margin-top:30px;text-align:right;font-style:italic}' +
+      '.tr{font-style:italic;font-size:.85em;color:#64748b}' +
+      '@media print{body{padding:15px}}' +
+      '</style></head><body>' +
+      '<h1>Math Tutoring by Deni</h1>' +
+      '<div class="info">' +
+      '<div>Name: ____________________________ <span class="tr">Nama</span></div>' +
+      '<div>Date: ' + today + ' <span class="tr">Tanggal</span></div>' +
+      '<div>Topic: HCF and LCM <span class="tr">Topik: FPB dan KPK</span></div>' +
+      '<div>Task Group: ' + section.title + ' <span class="tr">Grup Task</span></div>' +
+      '<div>Score: <strong>' + score + '</strong> <span class="tr">Skor</span></div>' +
+      '</div>' +
+      '<table><thead><tr>' +
+      '<th style="width:30px">No.</th>' +
+      '<th>Question <span class="tr">Pertanyaan</span></th>' +
+      '<th>Student Answer <span class="tr">Jawaban Siswa</span></th>' +
+      '<th>Correct Answer <span class="tr">Jawaban Benar</span></th>' +
+      '<th style="width:50px">Note <span class="tr">Ket.</span></th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table>' +
+      '<div class="checked-by">Checked by,<br>Deni</div>' +
+      '<script>document.addEventListener("DOMContentLoaded",function(){' +
+      'if(window.renderMathInElement){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false});}' +
+      'setTimeout(function(){window.print();},500);});<\/script>' +
+      '</body></html>';
+
+    const w = window.open('', '_blank');
+    if(w){
+      w.document.write(html);
+      w.document.close();
+    } else {
+      alert('Please allow pop-ups to print. <span class="tr">Mohon izinkan pop-up untuk mencetak.</span>');
+    }
+  }
+
+  renderSidebar();
+  renderPage();
+});
+</script>
+</body>
+</html>
