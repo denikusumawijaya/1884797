@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Tutoring by Deni - Geometry and Measure: Angles</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#2563eb;--primary-dark:#1e40af;--secondary:#f59e0b;--success:#10b981;--danger:#ef4444;--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.tr{font-style:italic;font-size:.82em;color:var(--muted);display:block;margin-top:2px}
+header{background:var(--primary);color:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.12);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
+header .brand{font-weight:700;font-size:1.05em}
+header .topic{font-size:.88em;text-align:center;flex:1}
+header .topic .tr{color:rgba(255,255,255,.85)}
+header button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.85em;white-space:nowrap}
+header button:hover{background:rgba(255,255,255,.25)}
+.main-container{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 52px)}
+.sidebar{background:var(--card);border-right:1px solid var(--border);padding:14px;overflow-y:auto;position:sticky;top:52px;height:calc(100vh - 52px)}
+.sidebar h3{font-size:.72em;color:var(--muted);text-transform:uppercase;margin-bottom:8px;letter-spacing:1px}
+.nav-link{display:block;padding:8px 10px;border-radius:6px;cursor:pointer;margin-bottom:3px;font-size:.84em;border:1px solid transparent;transition:all .15s}
+.nav-link:hover{background:#eff6ff}
+.nav-link.active{background:var(--primary);color:#fff;pointer-events:none;cursor:default}
+.nav-link .nl-title{display:block;font-weight:600}
+.nav-link .time{font-size:.76em;color:var(--muted);display:block;margin-top:2px}
+.nav-link.active .time,.nav-link.active .tr{color:rgba(255,255,255,.85)}
+.nav-link.disabled{opacity:.45;cursor:not-allowed;font-size:.8em;padding:6px 10px}
+.content-area{padding:22px 28px;overflow-y:auto;max-width:1100px;margin:0 auto;width:100%}
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:8px}
+.page-header h2{color:var(--primary-dark);font-size:1.1em}
+.page-header .badge{background:var(--secondary);color:#fff;padding:4px 10px;border-radius:20px;font-size:.76em;font-weight:600}
+.card{background:var(--card);border-radius:10px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;border:1px solid var(--border)}
+.card.explain{border-left:4px solid var(--primary)}
+.card.task{border-left:4px solid var(--secondary)}
+.card h3{color:var(--primary-dark);margin-bottom:12px;font-size:1.1em}
+.math-block{background:#f1f5f9;padding:12px 14px;border-radius:8px;margin:12px 0;overflow-x:auto}
+.example-box{background:#fef3c7;border-left:4px solid var(--secondary);padding:12px 16px;margin:12px 0;border-radius:6px}
+.example-box h4{color:#92400e;margin-bottom:6px;font-size:.95em}
+.tip-box{background:#dbeafe;border-left:4px solid var(--primary);padding:10px 14px;margin:10px 0;border-radius:6px}
+.tip-box h4{color:#1e40af;margin-bottom:4px;font-size:.9em}
+.illustration{text-align:center;margin:14px 0;padding:14px;background:#f1f5f9;border-radius:8px}
+.q-text{font-size:1em;margin-bottom:12px;line-height:1.7}
+.options{display:flex;flex-direction:column;gap:8px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:2px solid var(--border);border-radius:8px;cursor:pointer;background:#fff;transition:all .15s}
+.option:hover{border-color:var(--primary);background:#eff6ff}
+.option.selected{border-color:var(--primary);background:#dbeafe}
+.option.correct{border-color:var(--success);background:#d1fae5}
+.option.incorrect{border-color:var(--danger);background:#fee2e2}
+.option .marker{min-width:18px;width:18px;height:18px;border:2px solid var(--muted);border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:.7em;color:#fff}
+.option.selected .marker{background:var(--primary);border-color:var(--primary)}
+.option.correct .marker{background:var(--success);border-color:var(--success)}
+.option.incorrect .marker{background:var(--danger);border-color:var(--danger)}
+.option.checkbox .marker{border-radius:3px}
+.option .opt-text{flex:1}
+.fill-input{padding:8px 12px;border:2px solid var(--border);border-radius:6px;font-size:1em;width:100%;margin:8px 0;font-family:inherit}
+.fill-input:focus{border-color:var(--primary);outline:none}
+.btn-submit{background:var(--primary);color:#fff;border:none;padding:9px 20px;border-radius:6px;cursor:pointer;font-size:.88em;font-weight:600;margin-top:12px}
+.btn-submit:hover{background:var(--primary-dark)}
+.feedback{margin-top:12px;padding:14px;border-radius:8px;display:none}
+.feedback.show{display:block}
+.feedback.correct{background:#d1fae5;border:1px solid var(--success)}
+.feedback.incorrect{background:#fee2e2;border:1px solid var(--danger)}
+.feedback h4{margin-bottom:6px}
+.feedback ol,.feedback ul{margin:6px 0;padding-left:22px}
+.feedback li{margin:4px 0}
+.card ol, .card ul { padding-left: 26px; margin: 10px 0; }
+.card li { margin: 5px 0; }
+.example-box ol, .example-box ul { padding-left: 22px; margin: 8px 0; }
+.tip-box ol, .tip-box ul { padding-left: 22px; margin: 8px 0; }
+.math-block ol, .math-block ul { padding-left: 22px; margin: 8px 0; }
+.pagination{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:14px;border-top:1px solid var(--border)}
+.pagination button{background:var(--primary);color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.84em}
+.pagination button:disabled{background:#cbd5e1;cursor:not-allowed}
+.pagination .indicator{font-size:.82em;color:var(--muted);text-align:center;flex:1;padding:0 10px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}
+.modal.active{display:flex}
+.modal-content{background:#fff;padding:22px;border-radius:12px;max-width:460px;width:90%}
+.modal-content h3{color:var(--primary-dark);margin-bottom:12px}
+.modal-content ul{list-style:none;padding-left:0}
+.modal-content li{padding:10px 0;border-bottom:1px solid var(--border)}
+.modal-content li:last-child{border-bottom:none}
+.modal-close{background:var(--primary);color:#fff;border:none;padding:8px 18px;border-radius:6px;cursor:pointer;margin-top:12px}
+.sort-list{display:flex;flex-direction:column;gap:6px}
+.sort-item{padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .15s}
+.sort-item:hover{border-color:var(--primary)}
+.sort-item.selected{border-color:var(--primary);background:#dbeafe}
+.sort-item .pos{background:var(--primary);color:#fff;min-width:24px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8em;flex-shrink:0}
+.sort-item .sort-text{flex:1}
+.pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pair-col h4{font-size:.85em;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
+.pair-col{display:flex;flex-direction:column;gap:6px}
+.pair-item{padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;text-align:center;font-size:.92em}
+.pair-item.selected{border-color:var(--primary);background:#dbeafe}
+.pair-item.paired{opacity:.5;cursor:default;border-color:var(--success);background:#d1fae5}
+.pairs-list{margin-top:10px}
+.pair-row{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:#f1f5f9;border-radius:6px;margin-bottom:4px;font-size:.85em}
+.pair-row .remove{cursor:pointer;color:var(--danger);font-weight:700;margin-left:6px}
+.drag-container{display:flex;gap:20px;margin-top:15px;flex-wrap:wrap}
+.drag-col{flex:1;min-width:250px}
+.drag-col h4{font-size:.85em;color:var(--muted);margin-bottom:6px;text-transform:uppercase;text-align:center}
+.drag-items{display:flex;flex-direction:column;gap:8px;background:#f8fafc;padding:10px;border-radius:8px;border:1px dashed var(--border);min-height:100px}
+.drag-item{padding:10px 12px;background:#fff;border:1px solid var(--border);border-radius:6px;cursor:grab;text-align:center;font-size:.9em;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.drag-item:active{cursor:grabbing}
+.drop-zones{display:flex;flex-direction:column;gap:8px}
+.drop-zone{padding:10px;border:2px dashed var(--primary);border-radius:6px;min-height:45px;background:#eff6ff;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.drop-zone.over{background:#dbeafe;border-style:solid}
+.drop-zone .zone-label{font-weight:600;color:var(--primary-dark);width:120px;flex-shrink:0}
+.drop-zone .zone-content{flex:1;text-align:center;font-size:.9em}
+.page-numbers {display:flex;gap:3px;flex-wrap:nowrap;justify-content:center;flex:1;overflow-x:auto;padding:0 3px;}
+.page-num {min-width:28px;height:26px;border:1px solid var(--border);background:#fff;border-radius:4px;cursor:pointer;font-size:.7em;display:flex;align-items:center;justify-content:center;padding:0 4px;white-space:nowrap;transition:all .15s;flex-shrink:0;}
+.page-num.page-num-e {background:#eff6ff;border-color:#93c5fd;color:#1e40af;}
+.page-num.page-num-t {background:#fffbeb;border-color:#fcd34d;color:#92400e;}
+.page-num.page-num-e:hover {background:#dbeafe;border-color:var(--primary);}
+.page-num.page-num-t:hover {background:#fef3c7;border-color:var(--secondary);}
+.page-num.page-num-e.active {background:var(--primary);color:#fff;border-color:var(--primary);font-weight:600;}
+.page-num.page-num-t.active {background:var(--secondary);color:#fff;border-color:var(--secondary);font-weight:600;}
+.page-num:disabled {opacity:1;cursor:default;}
+@media(max-width:1100px){.main-container{grid-template-columns:180px 1fr}.content-area{padding:18px 20px}}
+@media(max-width:760px){.main-container{grid-template-columns:1fr}.sidebar{display:none}.content-area{padding:16px}header{font-size:.9em}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Math Tutoring by Deni</div>
+  <div class="topic">Topic: Geometry and measure: Angles <span class="tr">Topik: Geometri dan pengukuran: Sudut</span></div>
+  <button id="classRulesBtn">Class Rules <span class="tr">Aturan Kelas</span></button>
+</header>
+<div class="main-container">
+  <nav class="sidebar" id="sidebar"></nav>
+  <main class="content-area">
+    <div id="pageContent"></div>
+    <div class="pagination">
+      <button id="prevBtn">← Previous <span class="tr">Sebelumnya</span></button>
+      <div class="page-numbers" id="pageNums"></div>
+      <button id="nextBtn">Next <span class="tr">Berikutnya</span> →</button>
+    </div>
+  </main>
+</div>
+<div id="classRulesModal" class="modal">
+  <div class="modal-content">
+    <h3>Class Rules <span class="tr">Aturan Kelas</span></h3>
+    <ul>
+      <li>Speak in turn <span class="tr">Berbicara secara bergantian</span></li>
+      <li>Ask permission before leaving the class <span class="tr">Meminta izin jika ingin meninggalkan kelas</span></li>
+      <li>Turn on microphone and camera when needed <span class="tr">Menyalakan microphone dan camera jika diperlukan</span></li>
+    </ul>
+    <button class="modal-close">Close <span class="tr">Tutup</span></button>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  if(!window.renderMathInElement){setTimeout(arguments.callee,50);return;}
+  const sectionsData = {
+    a: {
+      title: 'Spiral Review Warm-up', titleEn: 'Spiral Review Warm-up', time: '00:00 - 00:10',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Types of Angles', pageTitleEn:'Jenis-jenis Sudut',
+          body:`<p>In geometry, an <strong>angle</strong> is formed when two lines meet at a point. We measure angles in degrees ($^\\circ$). <span class="tr">Dalam geometri, <strong>sudut</strong> terbentuk ketika dua garis bertemu di satu titik. Kita mengukur sudut dalam derajat ($^\\circ$).</span></p>
+          <div class="math-block">We use a protractor to measure angles accurately. <span class="tr">Kita menggunakan busur derajat untuk mengukur sudut secara akurat.</span></div>
+          <p>There are four main types of angles you need to know: <span class="tr">Ada empat jenis sudut utama yang perlu Anda ketahui:</span></p>
+          <ol>
+            <li><strong>Acute Angle:</strong> Less than $90^\\circ$. <span class="tr">Sudut Lancip: Kurang dari $90^\\circ$.</span></li>
+            <li><strong>Right Angle:</strong> Exactly $90^\\circ$. It looks like the letter 'L'. <span class="tr">Sudut Siku-siku: Tepat $90^\\circ$. Terlihat seperti huruf 'L'.</span></li>
+            <li><strong>Obtuse Angle:</strong> Greater than $90^\\circ$ but less than $180^\\circ$. <span class="tr">Sudut Tumpul: Lebih besar dari $90^\\circ$ tapi kurang dari $180^\\circ$.</span></li>
+            <li><strong>Reflex Angle:</strong> Greater than $180^\\circ$ but less than $360^\\circ$. <span class="tr">Sudut Refleks: Lebih besar dari $180^\\circ$ tapi kurang dari $360^\\circ$.</span></li>
+          </ol>
+          <div class="illustration">
+            <svg width="400" height="120" viewBox="0 0 400 120">
+              <!-- Acute -->
+              <line x1="20" y1="100" x2="90" y2="100" stroke="#333" stroke-width="2"/>
+              <line x1="20" y1="100" x2="80" y2="50" stroke="#333" stroke-width="2"/>
+              <path d="M 50 100 A 30 30 0 0 0 40 80" fill="none" stroke="#ef4444" stroke-width="2"/>
+              <text x="35" y="115" font-size="12" fill="#333">Acute <span class="tr">Lancip</span></text>
+              <!-- Right -->
+              <line x1="130" y1="100" x2="200" y2="100" stroke="#333" stroke-width="2"/>
+              <line x1="130" y1="100" x2="130" y2="40" stroke="#333" stroke-width="2"/>
+              <rect x="130" y="90" width="10" height="10" fill="none" stroke="#ef4444" stroke-width="2"/>
+              <text x="140" y="115" font-size="12" fill="#333">Right <span class="tr">Siku-siku</span></text>
+              <!-- Obtuse -->
+              <line x1="240" y1="100" x2="310" y2="100" stroke="#333" stroke-width="2"/>
+              <line x1="240" y1="100" x2="290" y2="50" stroke="#333" stroke-width="2"/>
+              <path d="M 270 100 A 30 30 0 0 0 250 80" fill="none" stroke="#ef4444" stroke-width="2"/>
+              <text x="250" y="115" font-size="12" fill="#333">Obtuse <span class="tr">Tumpul</span></text>
+              <!-- Reflex -->
+              <line x1="350" y1="100" x2="380" y2="100" stroke="#333" stroke-width="2"/>
+              <line x1="350" y1="100" x2="370" y2="60" stroke="#333" stroke-width="2"/>
+              <path d="M 370 60 A 30 30 0 1 0 350 100" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="3"/>
+              <text x="335" y="115" font-size="12" fill="#333">Reflex <span class="tr">Refleks</span></text>
+            </svg>
+          </div>`
+        },
+        { type:'task', pageTitle:'T1: Identify Angle Type', pageTitleEn:'Identifikasi Jenis Sudut', taskType:'radio',
+          question:'An angle measures $115^\\circ$. What type of angle is it?', questionEn:'Sebuah sudut memiliki ukuran $115^\\circ$. Jenis sudut apakah itu?',
+          options:[{text:'Acute <span class="tr">Lancip</span>', correct:false},{text:'Right <span class="tr">Siku-siku</span>', correct:false},{text:'Obtuse <span class="tr">Tumpul</span>', correct:true},{text:'Reflex <span class="tr">Refleks</span>', correct:false}],
+          explanation:`<p>An obtuse angle is strictly greater than $90^\\circ$ and strictly less than $180^\\circ$. Since $90^\\circ < 115^\\circ < 180^\\circ$, it is an obtuse angle. <span class="tr">Sudut tumpul lebih besar dari $90^\\circ$ dan kurang dari $180^\\circ$. Karena $115^\\circ$ berada di antaranya, ini adalah sudut tumpul.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Right Angle Check', pageTitleEn:'Cek Sudut Siku-siku', taskType:'truefalse',
+          question:'True or false: An angle of $89^\\circ$ is a right angle.', questionEn:'Benar atau salah: Sudut $89^\\circ$ adalah sudut siku-siku.',
+          correctAnswer:'false',
+          explanation:`<p>A right angle must be exactly $90^\\circ$. $89^\\circ$ is less than $90^\\circ$, making it an acute angle. <span class="tr">Sudut siku-siku harus tepat $90^\\circ$. $89^\\circ$ kurang dari $90^\\circ$, sehingga termasuk sudut lancip.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Classify Angles', pageTitleEn:'Klasifikasikan Sudut', taskType:'dragdrop',
+          question:'Drag the angles to their correct classification.', questionEn:'Seret sudut ke klasifikasi yang benar.',
+          items:['$45^\\circ$', '$90^\\circ$', '$120^\\circ$', '$210^\\circ$'],
+          dropZones:['Acute <span class="tr">Lancip</span>', 'Right <span class="tr">Siku-siku</span>', 'Obtuse <span class="tr">Tumpul</span>', 'Reflex <span class="tr">Refleks</span>'],
+          correctMapping:{'$45^\\circ$':0, '$90^\\circ$':1, '$120^\\circ$':2, '$210^\\circ$':3},
+          explanation:`<p>$45^\\circ < 90^\\circ$ (Acute). $90^\\circ = 90^\\circ$ (Right). $90^\\circ < 120^\\circ < 180^\\circ$ (Obtuse). $180^\\circ < 210^\\circ < 360^\\circ$ (Reflex). <span class="tr">Pengklasifikasian didasarkan pada rentang nilai derajat masing-masing jenis sudut.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Measuring and Drawing', pageTitleEn:'Mengukur dan Menggambar',
+          body:`<p>To measure an angle, place the center of the protractor at the vertex (the corner point) of the angle. Align the baseline with one of the lines. Read the scale starting from $0^\\circ$ on that line. <span class="tr">Untuk mengukur sudut, letakkan pusat busur derajat di titik sudut. Sejajarkan garis dasar dengan salah satu garis. Baca skala mulai dari $0^\\circ$ pada garis tersebut.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+          <p>If the scale starts at $0^\\circ$ on the bottom line and the other line crosses at $60^\\circ$, the angle is $60^\\circ$. <span class="tr">Jika skala dimulai dari $0^\\circ$ di garis bawah dan garis lainnya memotong di $60^\\circ$, maka sudutnya adalah $60^\\circ$.</span></p></div>
+          <div class="tip-box"><h4>Tip <span class="tr">Kiat</span></h4><p>Always check if the angle looks acute or obtuse to ensure you are reading the correct scale on the protractor. <span class="tr">Selalu periksa apakah sudut terlihat lancip atau tumpul untuk memastikan Anda membaca skala yang benar.</span></p></div>`
+        },
+        { type:'task', pageTitle:'T4: Estimate Angle', pageTitleEn:'Perkirakan Sudut', taskType:'radio',
+          question:'Estimate the size of the angle shown. (A slightly open angle, wider than acute but not straight)', questionEn:'Perkirakan ukuran sudut yang ditunjukkan. (Sudut yang agak terbuka, lebih lebar dari lancip tapi tidak lurus)',
+          options:[{text:'$45^\\circ$', correct:false},{text:'$95^\\circ$', correct:true},{text:'$180^\\circ$', correct:false},{text:'$270^\\circ$', correct:false}],
+          explanation:`<p>The angle is wider than $90^\\circ$ but not a straight line. Thus, $95^\\circ$ is the most reasonable estimate. <span class="tr">Sudut lebih lebar dari $90^\\circ$ tapi bukan garis lurus. Jadi, $95^\\circ$ adalah perkiraan paling masuk akal.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Reading Protractor', pageTitleEn:'Membaca Busur Derajat', taskType:'fill',
+          question:'If the baseline is at $0^\\circ$ and the line crosses at $145^\\circ$ on the inner scale, what is the angle? $\\angle = \\dots^\\circ$', questionEn:'Jika garis dasar di $0^\\circ$ dan garis memotong di $145^\\circ$ pada skala dalam, berapa sudutnya? $\\angle = \\dots^\\circ$',
+          correctAnswer:'145', acceptableAnswers:['145'],
+          explanation:`<p>Since the baseline is at $0^\\circ$ on the inner scale, we read the value directly where the line crosses. Angle = $145^\\circ$. <span class="tr">Karena garis dasar di $0^\\circ$, kita baca nilainya langsung di tempat garis memotong. Sudut = $145^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Drawing Angle', pageTitleEn:'Menggambar Sudut', taskType:'sorting',
+          question:'Order the steps to draw a $70^\\circ$ angle using a protractor.', questionEn:'Urutkan langkah menggambar sudut $70^\\circ$ menggunakan busur derajat.',
+          items:['Draw a straight baseline and mark a point at the start. <span class="tr">Gambar garis dasar lurus dan tandai titik di awal.</span>','Place the protractor center on the point and align with the baseline. <span class="tr">Letakkan pusat busur di titik dan sejajarkan dengan garis dasar.</span>','Mark a dot at $70^\\circ$ on the protractor scale. <span class="tr">Tandai titik di $70^\\circ$ pada skala busur.</span>','Remove the protractor and draw a line from the start point to the new dot. <span class="tr">Angkat busur dan tarik garis dari titik awal ke titik baru.</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>These are the standard 4 steps for drawing an angle accurately. <span class="tr">Ini adalah 4 langkah standar untuk menggambar sudut secara akurat.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Angles on a Straight Line', pageTitleEn:'Sudut pada Garis Lurus',
+          body:`<p>Angles that sit on a straight line add up to $180^\\circ$. This is a very important rule in geometry. <span class="tr">Sudut-sudut yang berada pada garis lurus jumlahnya $180^\\circ$. Ini adalah aturan penting dalam geometri.</span></p>
+          <div class="math-block"><strong>Rule:</strong> $a + b + c = 180^\\circ$ <span class="tr">Aturan</span></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+          <p>If $a = 60^\\circ$ and $b = 80^\\circ$ on a straight line, find $c$.</p>
+          <ol><li>$60^\\circ + 80^\\circ + c = 180^\\circ$ <span class="tr">Jumlahkan sudut yang diketahui</span></li><li>$140^\\circ + c = 180^\\circ$ <span class="tr">Sederhanakan</span></li><li>$c = 180^\\circ - 140^\\circ$ <span class="tr">Kurangi 140 dari 180</span></li><li>$c = 40^\\circ$ <span class="tr">Solusi</span></li></ol></div>`
+        },
+        { type:'task', pageTitle:'T7: Find Missing Angle', pageTitleEn:'Cari Sudut yang Hilang', taskType:'fill',
+          question:'Two angles are on a straight line. One is $110^\\circ$. What is the other? $x = \\dots^\\circ$', questionEn:'Dua sudut berada pada garis lurus. Satu $110^\\circ$. Berapa yang lain? $x = \\dots^\\circ$',
+          correctAnswer:'70', acceptableAnswers:['70'],
+          explanation:`<p>$x + 110^\\circ = 180^\\circ$. $x = 180^\\circ - 110^\\circ = 70^\\circ$. <span class="tr">Gunakan aturan sudut pada garis lurus.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Three Angles on Line', pageTitleEn:'Tiga Sudut pada Garis', taskType:'radio',
+          question:'Three angles on a line are $x$, $2x$, and $3x$. Find the value of $x$.', questionEn:'Tiga sudut pada garis adalah $x$, $2x$, dan $3x$. Cari nilai $x$.',
+          options:[{text:'$20^\\circ$', correct:false},{text:'$30^\\circ$', correct:true},{text:'$60^\\circ$', correct:false},{text:'$90^\\circ$', correct:false}],
+          explanation:`<p>$x + 2x + 3x = 180^\\circ \\Rightarrow 6x = 180^\\circ \\Rightarrow x = \\dfrac{180}{6} = 30^\\circ$. <span class="tr">Jumlahkan suku sejenis, lalu bagi.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Straight Line Logic', pageTitleEn:'Logika Garis Lurus', taskType:'truefalse',
+          question:'True or false: If two angles form a straight line, they must be equal.', questionEn:'Benar atau salah: Jika dua sudut membentuk garis lurus, mereka harus sama besar.',
+          correctAnswer:'false',
+          explanation:`<p>They add up to $180^\\circ$, but they don't have to be equal unless they are both $90^\\circ$ (right angles). <span class="tr">Mereka berjumlah $180^\\circ$, tapi tidak harus sama kecuali keduanya $90^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Match Angles', pageTitleEn:'Pasangkan Sudut', taskType:'pairing',
+          question:'Match the angle to its correct type based on its degree measure.', questionEn:'Pasangkan sudut dengan jenisnya berdasarkan ukuran derajatnya.',
+          pairs:[{left:'$35^\\circ$', right:'Acute <span class="tr">Lancip</span>'},{left:'$90^\\circ$', right:'Right <span class="tr">Siku-siku</span>'},{left:'$175^\\circ$', right:'Obtuse <span class="tr">Tumpul</span>'},{left:'$200^\\circ$', right:'Reflex <span class="tr">Refleks</span>'}],
+          explanation:`<p>Recall the ranges: Acute ($<90^\\circ$), Right ($=90^\\circ$), Obtuse ($>90^\\circ$ and $<180^\\circ$), Reflex ($>180^\\circ$). <span class="tr">Ingat rentang nilai setiap jenis sudut.</span></p>`
+        }
+      ]
+    },
+    b: {
+      title: 'Introduction & Real-World Connection', titleEn: 'Introduction & Real-World Connection', time: '00:10 - 00:15',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Angles in Architecture', pageTitleEn:'Sudut dalam Arsitektur',
+          body:`<p>Angles are everywhere in the real world! Architects and engineers use angles constantly to design buildings, bridges, and roads. <span class="tr">Sudut ada di mana-mana di dunia nyata! Arsitek dan insinyur menggunakan sudut terus-menerus untuk merancang bangunan, jembatan, dan jalan.</span></p>
+          <div class="illustration">
+            <svg width="200" height="150" viewBox="0 0 200 150">
+              <polygon points="100,20 160,80 40,80" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+              <rect x="40" y="80" width="120" height="50" fill="#f1f5f9" stroke="#2563eb" stroke-width="2"/>
+              <rect x="80" y="100" width="40" height="30" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+              <path d="M 100 40 A 20 20 0 0 0 90 50" fill="none" stroke="#ef4444" stroke-width="2"/>
+              <text x="105" y="45" font-size="12" fill="#ef4444">Angle</text>
+            </svg>
+            <div style="font-size:.82em;color:var(--muted);margin-top:6px">Roofs use angles for water drainage. <span class="tr">Atap menggunakan sudut untuk drainase air.</span></div>
+          </div>
+          <p>Even a simple object like a book or a door involves angles when you open it. <span class="tr">Bahkan benda sederhana seperti buku atau pintu melibatkan sudut saat Anda membukanya.</span></p>`
+        },
+        { type:'task', pageTitle:'T1: Door Angle', pageTitleEn:'Sudut Pintu', taskType:'radio',
+          question:'When a door is fully closed, what is the angle between the door and the wall?', questionEn:'Ketika pintu tertutup penuh, berapa sudut antara pintu dan dinding?',
+          options:[{text:'$0^\\circ$', correct:false},{text:'$90^\\circ$', correct:true},{text:'$180^\\circ$', correct:false},{text:'$360^\\circ$', correct:false}],
+          explanation:`<p>By default, a door is installed perpendicular to the wall, which means it forms a $90^\\circ$ angle when closed. <span class="tr">Secara default, pintu dipasang tegak lurus dengan dinding, yang berarti membentuk sudut $90^\\circ$ saat tertutup.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Clock Angles', pageTitleEn:'Sudut Jam', taskType:'fill',
+          question:'At 3:00, the angle between the hour and minute hands on a clock is $\\dots^\\circ$.', questionEn:'Pada pukul 03:00, sudut antara jarum jam dan jarum menit adalah $\\dots^\\circ$.',
+          correctAnswer:'90', acceptableAnswers:['90'],
+          explanation:`<p>A clock is a circle ($360^\\circ$). It is divided into 12 hours. $360^\\circ \\div 12 = 30^\\circ$ per hour. At 3:00, the hands are 3 hours apart. $3 \\times 30^\\circ = 90^\\circ$. <span class="tr">Lingkaran jam dibagi 12 jam. Setiap jam mewakili $30^\\circ$. Pada pukul 3, jarum berjarak 3 jam, jadi $3 \\times 30 = 90^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Ramp Design', pageTitleEn:'Desain Ram', taskType:'truefalse',
+          question:'True or false: A wheelchair ramp with a smaller angle is steeper and harder to climb.', questionEn:'Benar atau salah: Ram kursi roda dengan sudut lebih kecil lebih curam dan lebih sulit didaki.',
+          correctAnswer:'false',
+          explanation:`<p>A smaller angle means the ramp is longer and less steep, making it easier to climb. <span class="tr">Sudut yang lebih kecil berarti ram lebih panjang dan tidak curam, sehingga lebih mudah didaki.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Directions and Bearings', pageTitleEn:'Arah dan Bantalan',
+          body:`<p>Pilots and sailors use angles to describe directions. They measure angles clockwise from North ($0^\\circ$). This is called a bearing. <span class="tr">Pilot dan pelaut menggunakan sudut untuk menggambarkan arah. Mereka mengukur sudut searah jarum jam dari Utara ($0^\\circ$). Ini disebut bantalan.</span></p>
+          <div class="math-block"><strong>East</strong> is $90^\\circ$. <strong>South</strong> is $180^\\circ$. <strong>West</strong> is $270^\\circ$. <span class="tr">Timur $90^\\circ$, Selatan $180^\\circ$, Barat $270^\\circ$.</span></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>If a plane flies North-East, the bearing is exactly halfway between North ($0^\\circ$) and East ($90^\\circ$). That is $45^\\circ$. <span class="tr">Jika pesawat terbang ke Timur Laut, bantalan berada tepat di tengah antara Utara dan Timur, yaitu $45^\\circ$.</span></div>`
+        },
+        { type:'task', pageTitle:'T4: Find Bearing', pageTitleEn:'Cari Bantalan', taskType:'fill',
+          question:'What is the bearing for South? $\\dots^\\circ$', questionEn:'Berapa bantalan untuk Selatan? $\\dots^\\circ$',
+          correctAnswer:'180', acceptableAnswers:['180'],
+          explanation:`<p>South is directly opposite North. A full turn is $360^\\circ$, so half a turn is $180^\\circ$. <span class="tr">Selatan berlawanan dengan Utara. Setengah putaran adalah $180^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Ship Direction', pageTitleEn:'Arah Kapal', taskType:'radio',
+          question:'A ship sails on a bearing of $270^\\circ$. In what direction is it sailing?', questionEn:'Kapal berlayar dengan bantalan $270^\\circ$. Ke arah mana ia berlayar?',
+          options:[{text:'North <span class="tr">Utara</span>', correct:false},{text:'East <span class="tr">Timur</span>', correct:false},{text:'South <span class="tr">Selatan</span>', correct:false},{text:'West <span class="tr">Barat</span>', correct:true}],
+          explanation:`<p>$270^\\circ$ is three-quarters of a turn clockwise from North. This points West. <span class="tr">$270^\\circ$ adalah tiga perempat putaran searah jarum jam dari Utara, menunjuk ke Barat.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Bearings', pageTitleEn:'Pasangkan Bantalan', taskType:'pairing',
+          question:'Match the bearing to its compass direction.', questionEn:'Pasangkan bantalan dengan arah kompasnya.',
+          pairs:[{left:'$0^\\circ$', right:'North <span class="tr">Utara</span>'},{left:'$90^\\circ$', right:'East <span class="tr">Timur</span>'},{left:'$180^\\circ$', right:'South <span class="tr">Selatan</span>'},{left:'$270^\\circ$', right:'West <span class="tr">Barat</span>'}],
+          explanation:`<p>Standard compass bearings measured clockwise from North. <span class="tr">Bantalan kompas standar diukur searah jarum jam dari Utara.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Turns and Rotations', pageTitleEn:'Putaran dan Rotasi',
+          body:`<p>Angles also describe how much we turn. A full turn is $360^\\circ$. <span class="tr">Sudut juga menggambarkan seberapa banyak kita berputar. Putaran penuh adalah $360^\\circ$.</span></p>
+          <ul>
+            <li><strong>Half turn:</strong> $180^\\circ$ (U-turn) <span class="tr">Setengah putaran</span></li>
+            <li><strong>Quarter turn:</strong> $90^\\circ$ (turning right or left) <span class="tr">Seperempat putaran</span></li>
+            <li><strong>Three-quarter turn:</strong> $270^\\circ$ <span class="tr">Tiga perempat putaran</span></li>
+          </ul>
+          <div class="tip-box"><h4>Tip <span class="tr">Kiat</span></h4>Turning clockwise means turning in the same direction as the hands of a clock. <span class="tr">Berputar searah jarum jam berarti berputar ke arah kanan.</span></div>`
+        },
+        { type:'task', pageTitle:'T7: Calculate Turn', pageTitleEn:'Hitung Putaran', taskType:'fill',
+          question:'You make a quarter turn clockwise. You turned $\\dots^\\circ$.', questionEn:'Anda melakukan seperempat putaran searah jarum jam. Anda berputar $\\dots^\\circ$.',
+          correctAnswer:'90', acceptableAnswers:['90'],
+          explanation:`<p>A full turn is $360^\\circ$. A quarter is $\\dfrac{360}{4} = 90^\\circ$. <span class="tr">Seperempat dari $360^\\circ$ adalah $90^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Full Rotation', pageTitleEn:'Rotasi Penuh', taskType:'truefalse',
+          question:'True or false: A full rotation is equivalent to $180^\\circ$.', questionEn:'Benar atau salah: Rotasi penuh setara dengan $180^\\circ$.',
+          correctAnswer:'false',
+          explanation:`<p>A full rotation is a circle, which is $360^\\circ$. $180^\\circ$ is only a half turn. <span class="tr">Rotasi penuh adalah lingkaran, yaitu $360^\\circ$. $180^\\circ$ hanya setengah putaran.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Order the Turns', pageTitleEn:'Urutkan Putaran', taskType:'sorting',
+          question:'Order the turns from smallest to largest angle.', questionEn:'Urutkan putaran dari sudut terkecil ke terbesar.',
+          items:['Quarter turn <span class="tr">Seperempat putaran</span>','Half turn <span class="tr">Setengah putaran</span>','Three-quarter turn <span class="tr">Tiga perempat putaran</span>','Full turn <span class="tr">Putaran penuh</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>$90^\\circ$ (Quarter) < $180^\\circ$ (Half) < $270^\\circ$ (Three-quarter) < $360^\\circ$ (Full). <span class="tr">Nilai derajat menentukan urutan.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Direction Logic', pageTitleEn:'Logika Arah', taskType:'checkbox',
+          question:'Which of the following turns will make you face the opposite direction (assuming you start facing North)?', questionEn:'Mana dari putaran berikut yang akan membuat Anda menghadap arah berlawanan (asumsikan mulai menghadap Utara)?',
+          options:[{text:'$90^\\circ$ turn', correct:false},{text:'$180^\\circ$ turn', correct:true},{text:'Half turn', correct:true},{text:'$360^\\circ$ turn', correct:false}],
+          explanation:`<p>To face the opposite direction (North to South), you need a $180^\\circ$ (half) turn. A $360^\\circ$ turn brings you back to North. <span class="tr">Untuk menghadap arah berlawanan butuh setengah putaran ($180^\\circ$).</span></p>`
+        }
+      ]
+    },
+    c: {
+      title: 'Review of Prior Knowledge', titleEn: 'Review of Prior Knowledge', time: '00:15 - 00:20',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Angles Around a Point', pageTitleEn:'Sudut di Sekitar Titik',
+          body:`<p>When several angles meet at a single point, they form a full circle. The sum of angles around a point is always $360^\\circ$. <span class="tr">Ketika beberapa sudut bertemu di satu titik, mereka membentuk lingkaran penuh. Jumlah sudut di sekitar titik selalu $360^\\circ$.</span></p>
+          <div class="math-block"><strong>Rule:</strong> $a + b + c + d = 360^\\circ$ <span class="tr">Aturan</span></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+          <p>Three angles around a point are $100^\\circ$, $110^\\circ$, and $x$. Find $x$.</p>
+          <ol><li>$100^\\circ + 110^\\circ + x = 360^\\circ$ <span class="tr">Jumlahkan sudut yang diketahui</span></li><li>$210^\\circ + x = 360^\\circ$ <span class="tr">Sederhanakan</span></li><li>$x = 360^\\circ - 210^\\circ$ <span class="tr">Kurangi 210 dari 360</span></li><li>$x = 150^\\circ$ <span class="tr">Solusi</span></li></ol></div>`
+        },
+        { type:'task', pageTitle:'T1: Missing Angle', pageTitleEn:'Sudut yang Hilang', taskType:'fill',
+          question:'Angles around a point are $120^\\circ$, $100^\\circ$, and $x$. Find $x$. $x = \\dots^\\circ$', questionEn:'Sudut di sekitar titik adalah $120^\\circ$, $100^\\circ$, dan $x$. Cari $x$. $x = \\dots^\\circ$',
+          correctAnswer:'140', acceptableAnswers:['140'],
+          explanation:`<p>$x = 360^\\circ - (120^\\circ + 100^\\circ) = 360^\\circ - 220^\\circ = 140^\\circ$. <span class="tr">Gunakan aturan sudut di sekitar titik.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Equal Angles', pageTitleEn:'Sudut yang Sama', taskType:'radio',
+          question:'Four equal angles meet at a point. What is the size of each angle?', questionEn:'Empat sudut yang sama besar bertemu di satu titik. Berapa ukuran setiap sudutnya?',
+          options:[{text:'$60^\\circ$', correct:false},{text:'$90^\\circ$', correct:true},{text:'$120^\\circ$', correct:false},{text:'$180^\\circ$', correct:false}],
+          explanation:`<p>If they are equal, each is $360^\\circ \\div 4 = 90^\\circ$. They are right angles. <span class="tr">Jika sama besar, bagi $360^\\circ$ dengan 4.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Point Logic', pageTitleEn:'Logika Titik', taskType:'truefalse',
+          question:'True or false: Two angles around a point can be $180^\\circ$ and $200^\\circ$.', questionEn:'Benar atau salah: Dua sudut di sekitar titik bisa berukuran $180^\\circ$ dan $200^\\circ$.',
+          correctAnswer:'false',
+          explanation:`<p>$180^\\circ + 200^\\circ = 380^\\circ$, which is greater than $360^\\circ$. This is impossible. <span class="tr">Jumlahnya melebihi $360^\\circ$, ini tidak mungkin.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Intersecting Lines', pageTitleEn:'Garis yang Berpotongan',
+          body:`<p>When two straight lines cross each other, they form four angles. The angles opposite to each other are equal. These are called <strong>vertically opposite angles</strong>. <span class="tr">Ketika dua garis lurus saling berpotongan, mereka membentuk empat sudut. Sudut yang saling berhadapan besarnya sama. Ini disebut <strong>sudut bertolak belakang</strong>.</span></p>
+          <div class="math-block">If two lines intersect, $a = c$ and $b = d$. <span class="tr">Aturan sudut bertolak belakang</span></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+          <p>If angle $a = 50^\\circ$, then angle $c = 50^\\circ$. Since they are on a straight line, $a + b = 180^\\circ$, so $b = 180^\\circ - 50^\\circ = 130^\\circ$. Thus, $d = 130^\\circ$ too.</p></div>`
+        },
+        { type:'task', pageTitle:'T4: Find Opposite', pageTitleEn:'Cari Tolak Belakang', taskType:'fill',
+          question:'Two lines intersect. One angle is $40^\\circ$. What is its vertically opposite angle? $\\dots^\\circ$', questionEn:'Dua garis berpotongan. Satu sudut $40^\\circ$. Berapa sudut bertolak belakangnya? $\\dots^\\circ$',
+          correctAnswer:'40', acceptableAnswers:['40'],
+          explanation:`<p>Vertically opposite angles are always equal. So, it is $40^\\circ$. <span class="tr">Sudut bertolak belakang selalu sama besar.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Find Adjacent', pageTitleEn:'Cari Sudut Bersebelahan', taskType:'radio',
+          question:'Two lines intersect. One angle is $40^\\circ$. What is the angle adjacent to it on a straight line?', questionEn:'Dua garis berpotongan. Satu sudut $40^\\circ$. Berapa sudut yang bersebelahan dengannya pada garis lurus?',
+          options:[{text:'$40^\\circ$', correct:false},{text:'$90^\\circ$', correct:false},{text:'$140^\\circ$', correct:true},{text:'$320^\\circ$', correct:false}],
+          explanation:`<p>Adjacent angles on a straight line add to $180^\\circ$. $180^\\circ - 40^\\circ = 140^\\circ$. <span class="tr">Sudut bersebelahan pada garis lurus berjumlah $180^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Intersecting Angles', pageTitleEn:'Pasangkan Sudut Potongan', taskType:'pairing',
+          question:'Match the intersecting lines scenario. If $\\angle 1 = 70^\\circ$, match the other angles.', questionEn:'Pasangkan skenario garis berpotongan. Jika $\\angle 1 = 70^\\circ$, pasangkan sudut lainnya.',
+          pairs:[{left:'Vertically opposite to $\\angle 1$ <span class="tr">Tolak belakang</span>', right:'$70^\\circ$'},{left:'Adjacent to $\\angle 1$ <span class="tr">Bersebelahan</span>', right:'$110^\\circ$'},{left:'Complementary to $\\angle 1$ (adds to $90^\\circ$) <span class="tr">Komplemen</span>', right:'$20^\\circ$'},{left:'Supplementary to $\\angle 1$ (adds to $180^\\circ$) <span class="tr">Suplemen</span>', right:'$110^\\circ$'}],
+          explanation:`<p>Vertically opposite is equal ($70^\\circ$). Supplementary is $180^\\circ - 70^\\circ = 110^\\circ$. Complementary is $90^\\circ - 70^\\circ = 20^\\circ$. <span class="tr">Terapkan aturan bertolak belakang, suplemen, dan komplemen.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Complementary and Supplementary', pageTitleEn:'Komplemen dan Suplemen',
+          body:`<p><strong>Complementary angles</strong> are two angles that add up to $90^\\circ$ (a right angle). <span class="tr"><strong>Sudut komplementer</strong> adalah dua sudut yang berjumlah $90^\\circ$.</span></p>
+          <p><strong>Supplementary angles</strong> are two angles that add up to $180^\\circ$ (a straight line). <span class="tr"><strong>Sudut suplementer</strong> adalah dua sudut yang berjumlah $180^\\circ$.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+          <p>If angle $x$ and $30^\\circ$ are complementary, $x = 90^\\circ - 30^\\circ = 60^\\circ$. <span class="tr">Komplemen</span></p>
+          <p>If angle $y$ and $30^\\circ$ are supplementary, $y = 180^\\circ - 30^\\circ = 150^\\circ$. <span class="tr">Suplemen</span></p></div>`
+        },
+        { type:'task', pageTitle:'T7: Find Complement', pageTitleEn:'Cari Komplemen', taskType:'fill',
+          question:'What is the complement of $25^\\circ$? $\\dots^\\circ$', questionEn:'Berapa komplemen dari $25^\\circ$? $\\dots^\\circ$',
+          correctAnswer:'65', acceptableAnswers:['65'],
+          explanation:`<p>Complement $= 90^\\circ - 25^\\circ = 65^\\circ$. <span class="tr">Kurangi dari $90^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Find Supplement', pageTitleEn:'Cari Suplemen', taskType:'radio',
+          question:'What is the supplement of $85^\\circ$?', questionEn:'Berapa suplemen dari $85^\\circ$?',
+          options:[{text:'$5^\\circ$', correct:false},{text:'$95^\\circ$', correct:true},{text:'$180^\\circ$', correct:false},{text:'$265^\\circ$', correct:false}],
+          explanation:`<p>Supplement $= 180^\\circ - 85^\\circ = 95^\\circ$. <span class="tr">Kurangi dari $180^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Complement Logic', pageTitleEn:'Logika Komplemen', taskType:'truefalse',
+          question:'True or false: Two right angles are complementary to each other.', questionEn:'Benar atau salah: Dua sudut siku-siku saling komplemen.',
+          correctAnswer:'false',
+          explanation:`<p>Two right angles add up to $180^\\circ$, which makes them supplementary, not complementary. Complementary adds to $90^\\circ$. <span class="tr">Dua sudut siku-siku berjumlah $180^\\circ$, jadi mereka suplementer, bukan komplementer.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Order Angle Terms', pageTitleEn:'Urutkan Istilah Sudut', taskType:'sorting',
+          question:'Order the angle pairs by their total sum, from smallest to largest.', questionEn:'Urutkan pasangan sudut berdasarkan jumlah totalnya, dari terkecil ke terbesar.',
+          items:['Complementary pair <span class="tr">Pasangan komplementer</span>','Supplementary pair <span class="tr">Pasangan suplementer</span>','Angles around a point <span class="tr">Sudut di sekitar titik</span>','Full rotation <span class="tr">Rotasi penuh</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Complementary $= 90^\\circ$. Supplementary $= 180^\\circ$. Around a point $= 360^\\circ$. Full rotation $= 360^\\circ$. <span class="tr">Urutan didasarkan pada nilai derajatnya.</span></p>`
+        }
+      ]
+    },
+	
+    d: {
+      title: 'Problem Introduction', titleEn: 'Problem Introduction', time: '00:20 - 00:30',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Angles in a Triangle', pageTitleEn:'Sudut dalam Segitiga',
+          body:`<p>A triangle is a polygon with 3 sides. No matter what the triangle looks like, the sum of the interior angles inside any triangle is always $180^\\circ$. <span class="tr">Segitiga adalah poligon dengan 3 sisi. Tidak peduli bentuknya, jumlah sudut dalam segitiga selalu $180^\\circ$.</span></p>
+          <div class="math-block"><strong>Rule:</strong> $a + b + c = 180^\\circ$ <span class="tr">Aturan</span></div>
+          <div class="illustration">
+            <svg width="200" height="120" viewBox="0 0 200 120">
+              <polygon points="100,20 20,100 180,100" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+              <text x="90" y="45" font-size="14" fill="#1e40af">a</text>
+              <text x="35" y="90" font-size="14" fill="#1e40af">b</text>
+              <text x="160" y="90" font-size="14" fill="#1e40af">c</text>
+            </svg>
+            <div style="font-size:.82em;color:var(--muted);margin-top:4px">$a + b + c = 180^\\circ$</div>
+          </div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+          <p>A triangle has angles of $50^\\circ$ and $60^\\circ$. Find the third angle $x$.</p>
+          <ol><li>$50^\\circ + 60^\\circ + x = 180^\\circ$ <span class="tr">Jumlahkan sudut yang diketahui</span></li><li>$110^\\circ + x = 180^\\circ$ <span class="tr">Sederhanakan</span></li><li>$x = 180^\\circ - 110^\\circ$ <span class="tr">Kurangi 110 dari 180</span></li><li>$x = 70^\\circ$ <span class="tr">Solusi</span></li></ol></div>`
+        },
+        { type:'task', pageTitle:'T1: Find Triangle Angle', pageTitleEn:'Cari Sudut Segitiga', taskType:'fill',
+          question:'Two angles in a triangle are $45^\\circ$ and $55^\\circ$. Find the third angle. $x = \\dots^\\circ$', questionEn:'Dua sudut dalam segitiga adalah $45^\\circ$ dan $55^\\circ$. Cari sudut ketiga. $x = \\dots^\\circ$',
+          correctAnswer:'80', acceptableAnswers:['80'],
+          explanation:`<p>$45^\\circ + 55^\\circ + x = 180^\\circ \\Rightarrow 100^\\circ + x = 180^\\circ \\Rightarrow x = 80^\\circ$. <span class="tr">Gunakan aturan jumlah sudut segitiga $180^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Identify Triangle Type', pageTitleEn:'Identifikasi Jenis Segitiga', taskType:'radio',
+          question:'A triangle has angles $90^\\circ$, $45^\\circ$, and $45^\\circ$. What type of triangle is it?', questionEn:'Segitiga memiliki sudut $90^\\circ$, $45^\\circ$, dan $45^\\circ$. Jenis segitiga apakah itu?',
+          options:[{text:'Equilateral <span class="tr">Sama sisi</span>', correct:false},{text:'Isosceles Right <span class="tr">Siku-siku sama kaki</span>', correct:true},{text:'Scalene Obtuse <span class="tr">Sembarang tumpul</span>', correct:false},{text:'Acute Scalene <span class="tr">Lancip sembarang</span>', correct:false}],
+          explanation:`<p>It has a $90^\\circ$ angle (Right) and two equal angles of $45^\\circ$ (Isosceles). Thus, it's an Isosceles Right triangle. <span class="tr">Memiliki sudut siku-siku dan dua sudut yang sama (sama kaki).</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Triangle Angle Steps', pageTitleEn:'Langkah Sudut Segitiga', taskType:'sorting',
+          question:'Order the steps to solve for $x$ in a triangle if angles are $2x$, $3x$, and $4x$.', questionEn:'Urutkan langkah mencari $x$ dalam segitiga jika sudutnya $2x$, $3x$, dan $4x$.',
+          items:['$2x + 3x + 4x = 180^\\circ$ <span class="tr">Buat persamaan</span>','$9x = 180^\\circ$ <span class="tr">Jumlahkan suku sejenis</span>','$x = \\dfrac{180^\\circ}{9}$ <span class="tr">Bagi 180 dengan 9</span>','$x = 20^\\circ$ <span class="tr">Solusi</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Algebraic steps to solve for $x$ in a triangle. <span class="tr">Langkah aljabar untuk mencari $x$.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Angles in a Quadrilateral', pageTitleEn:'Sudut dalam Segi Empat',
+          body:`<p>A quadrilateral is a polygon with 4 sides. The sum of the interior angles in any quadrilateral is always $360^\\circ$. <span class="tr">Segi empat adalah poligon dengan 4 sisi. Jumlah sudut dalam segi empat selalu $360^\\circ$.</span></p>
+          <div class="math-block"><strong>Rule:</strong> $a + b + c + d = 360^\\circ$ <span class="tr">Aturan</span></div>
+          <p>This is because a quadrilateral can be split into 2 triangles, and $2 \\times 180^\\circ = 360^\\circ$. <span class="tr">Ini karena segi empat dapat dibagi menjadi 2 segitiga, dan $2 \\times 180^\\circ = 360^\\circ$.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+          <p>Three angles in a quadrilateral are $90^\\circ$, $110^\\circ$, and $80^\\circ$. Find the fourth angle $y$.</p>
+          <ol><li>$90^\\circ + 110^\\circ + 80^\\circ + y = 360^\\circ$ <span class="tr">Jumlahkan sudut yang diketahui</span></li><li>$280^\\circ + y = 360^\\circ$ <span class="tr">Sederhanakan</span></li><li>$y = 360^\\circ - 280^\\circ$ <span class="tr">Kurangi 280 dari 360</span></li><li>$y = 80^\\circ$ <span class="tr">Solusi</span></li></ol></div>`
+        },
+        { type:'task', pageTitle:'T4: Find Quad Angle', pageTitleEn:'Cari Sudut Segi Empat', taskType:'fill',
+          question:'Three angles in a quadrilateral are $100^\\circ$, $80^\\circ$, and $95^\\circ$. Find the fourth angle. $y = \\dots^\\circ$', questionEn:'Tiga sudut dalam segi empat adalah $100^\\circ$, $80^\\circ$, dan $95^\\circ$. Cari sudut keempat. $y = \\dots^\\circ$',
+          correctAnswer:'85', acceptableAnswers:['85'],
+          explanation:`<p>$100^\\circ + 80^\\circ + 95^\\circ + y = 360^\\circ \\Rightarrow 275^\\circ + y = 360^\\circ \\Rightarrow y = 85^\\circ$. <span class="tr">Gunakan aturan jumlah sudut segi empat $360^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Special Quads', pageTitleEn:'Segi Empat Khusus', taskType:'checkbox',
+          question:'Which of the following quadrilaterals always have 4 equal angles of $90^\\circ$?', questionEn:'Mana dari segi empat berikut yang selalu memiliki 4 sudut sama besar $90^\\circ$?',
+          options:[{text:'Square <span class="tr">Persegi</span>', correct:true},{text:'Rectangle <span class="tr">Persegi panjang</span>', correct:true},{text:'Rhombus <span class="tr">Belah ketupat</span>', correct:false},{text:'Parallelogram <span class="tr">Jajaran genjang</span>', correct:false}],
+          explanation:`<p>Only squares and rectangles have four $90^\\circ$ angles. Rhombuses and parallelograms have equal opposite angles, but not necessarily $90^\\circ$. <span class="tr">Hanya persegi dan persegi panjang yang memiliki 4 sudut $90^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Polygon Sums', pageTitleEn:'Pasangkan Jumlah Poligon', taskType:'pairing',
+          question:'Match the polygon to its interior angle sum.', questionEn:'Pasangkan poligon dengan jumlah sudut dalamnya.',
+          pairs:[{left:'Triangle (3 sides) <span class="tr">Segitiga</span>', right:'$180^\\circ$'},{left:'Quadrilateral (4 sides) <span class="tr">Segi empat</span>', right:'$360^\\circ$'},{left:'Pentagon (5 sides) <span class="tr">Pentagon</span>', right:'$540^\\circ$'},{left:'Hexagon (6 sides) <span class="tr">Heksagon</span>', right:'$720^\\circ$'}],
+          explanation:`<p>Formula for sum of interior angles: $(n-2) \\times 180^\\circ$, where $n$ is the number of sides. <span class="tr">Rumus jumlah sudut dalam: $(n-2) \\times 180^\\circ$.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Using Algebra with Angles', pageTitleEn:'Menggunakan Aljabar dengan Sudut',
+          body:`<p>We can use algebra to find missing angles by setting up equations. If angles are given as expressions of $x$, sum them up to the total angle rule. <span class="tr">Kita bisa menggunakan aljabar untuk mencari sudut yang hilang dengan membuat persamaan. Jika sudut diberikan dalam bentuk $x$, jumlahkan sesuai aturan sudut totalnya.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+          <p>The angles in a triangle are $x$, $2x$, and $3x$. Find $x$ first, then find the actual angles.</p>
+          <ol><li>$x + 2x + 3x = 180^\\circ$ <span class="tr">Buat persamaan segitiga</span></li><li>$6x = 180^\\circ$ <span class="tr">Jumlahkan suku sejenis</span></li><li>$x = 30^\\circ$ <span class="tr">Bagi 180 dengan 6</span></li><li>Angles are: $30^\\circ$, $2(30^\\circ)=60^\\circ$, $3(30^\\circ)=90^\\circ$. <span class="tr">Substitusi nilai $x$</span></li></ol></div>`
+        },
+        { type:'task', pageTitle:'T7: Solve for x', pageTitleEn:'Cari Nilai x', taskType:'fill',
+          question:'In a triangle, angles are $x$, $x$, and $3x$. Find $x$. $x = \\dots^\\circ$', questionEn:'Dalam segitiga, sudutnya $x$, $x$, dan $3x$. Cari $x$. $x = \\dots^\\circ$',
+          correctAnswer:'36', acceptableAnswers:['36'],
+          explanation:`<p>$x + x + 3x = 180^\\circ \\Rightarrow 5x = 180^\\circ \\Rightarrow x = \\dfrac{180}{5} = 36^\\circ$. <span class="tr">Selesaikan persamaan aljabar untuk $x$.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Triangle Algebra Logic', pageTitleEn:'Logika Aljabar Segitiga', taskType:'truefalse',
+          question:'True or false: If a triangle has angles $x, x, 2x$, it is an isosceles right triangle.', questionEn:'Benar atau salah: Jika segitiga memiliki sudut $x, x, 2x$, itu adalah segitiga siku-siku sama kaki.',
+          correctAnswer:'true',
+          explanation:`<p>$x+x+2x=180^\\circ \\Rightarrow 4x=180^\\circ \\Rightarrow x=45^\\circ$. The angles are $45^\\circ, 45^\\circ, 90^\\circ$, which is an isosceles right triangle. <span class="tr">Karena sudutnya $45^\\circ, 45^\\circ, 90^\\circ$, maka itu segitiga siku-siku sama kaki.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Match Expressions', pageTitleEn:'Pasangkan Ekspresi', taskType:'dragdrop',
+          question:'Drag the value to match the algebraic expression given $x=10$.', questionEn:'Seret nilai untuk mencocokkan ekspresi aljabar jika $x=10$.',
+          items:['$2x+10$', '$5x$', '$90-x$', '$3x+30$'],
+          dropZones:['$30$', '$50$', '$80$', '$60$'],
+          correctMapping:{'$2x+10$':0, '$5x$':1, '$90-x$':2, '$3x+30$':3},
+          explanation:`<p>Substitute $x=10$ into each: $2(10)+10=30$; $5(10)=50$; $90-10=80$; $3(10)+30=60$. <span class="tr">Substitusi $x=10$ ke setiap ekspresi.</span></p>`
+        },
+		{ type:'task', pageTitle:'T10: Complex Quadrilateral', pageTitleEn:'Segi Empat Kompleks', taskType:'radio',
+		  question:'A quadrilateral has angles $x$, $2x$, $3x$, and $4x$. What is the size of the largest angle?', questionEn:'Segi empat memiliki sudut $x$, $2x$, $3x$, dan $4x$. Berapa ukuran sudut terbesar?',
+		  options:[{text:'$36^\\circ$', correct:false},{text:'$72^\\circ$', correct:false},{text:'$108^\\circ$', correct:false},{text:'$144^\\circ$', correct:true}],
+		  explanation:`<p>$x + 2x + 3x + 4x = 360^\\circ \\Rightarrow 10x = 360^\\circ \\Rightarrow x = 36^\\circ$. The largest angle is $4x = 4(36^\\circ) = 144^\\circ$. <span class="tr">Substitusi dan cari nilai $x$ terlebih dahulu, lalu cari sudut terbesar.</span></p>`
+		}
+      ]
+    },
+    e: {
+      title: 'Guided Practice', titleEn: 'Guided Practice', time: '00:30 - 00:45',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Parallel Lines and Transversals', pageTitleEn:'Garis Sejajar dan Garis Potong',
+          body:`<p>When a line crosses two parallel lines, it is called a <strong>transversal</strong>. This creates 8 angles with special relationships. <span class="tr">Ketika sebuah garis memotong dua garis sejajar, disebut <strong>garis potong</strong> (transversal). Ini menciptakan 8 sudut dengan hubungan khusus.</span></p>
+          <div class="illustration">
+            <svg width="300" height="150" viewBox="0 0 300 150">
+              <line x1="20" y1="40" x2="280" y2="40" stroke="#2563eb" stroke-width="2"/>
+              <line x1="20" y1="110" x2="280" y2="110" stroke="#2563eb" stroke-width="2"/>
+              <line x1="100" y1="10" x2="200" y2="140" stroke="#ef4444" stroke-width="2"/>
+              <text x="60" y="30" font-size="12">Parallel</text>
+              <text x="60" y="125" font-size="12">Parallel</text>
+              <text x="210" y="70" font-size="12">Transversal</text>
+            </svg>
+          </div>
+          <div class="math-block">
+            <strong>Corresponding Angles (F-shape):</strong> Angles in the same position on each parallel line. They are EQUAL. <span class="tr">Sudut bersebrangan (bentuk-F): Sama besar.</span><br>
+            <strong>Alternate Angles (Z-shape):</strong> Angles on opposite sides of the transversal, inside the parallels. They are EQUAL. <span class="tr">Sudut dalam berseberangan (bentuk-Z): Sama besar.</span><br>
+            <strong>Co-interior Angles (C-shape):</strong> Angles on the same side of the transversal, inside the parallels. They ADD UP to $180^\\circ$. <span class="tr">Sudut dalam sepihak (bentuk-C): Berjumlah $180^\\circ$.</span>
+          </div>`
+        },
+        { type:'task', pageTitle:'T1: Identify Angle Pair', pageTitleEn:'Identifikasi Pasangan Sudut', taskType:'radio',
+          question:'Angles that form an "F" shape with parallel lines are called:', questionEn:'Sudut yang membentuk bentuk "F" dengan garis sejajar disebut:',
+          options:[{text:'Alternate <span class="tr">Berseberangan</span>', correct:false},{text:'Co-interior <span class="tr">Sepihak</span>', correct:false},{text:'Corresponding <span class="tr">Bersebrangan</span>', correct:true},{text:'Vertically Opposite <span class="tr">Tolak belakang</span>', correct:false}],
+          explanation:`<p>The "F" shape identifies Corresponding angles, which are equal. <span class="tr">Bentuk "F" mengidentifikasi sudut bersebrangan yang sama besar.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Find Corresponding', pageTitleEn:'Cari Sudut Bersebrangan', taskType:'fill',
+          question:'If a corresponding angle is $65^\\circ$, what is the other angle? $\\dots^\\circ$', questionEn:'Jika sudut bersebrangan adalah $65^\\circ$, berapa sudut yang lain? $\\dots^\\circ$',
+          correctAnswer:'65', acceptableAnswers:['65'],
+          explanation:`<p>Corresponding angles are equal. So, it is $65^\\circ$. <span class="tr">Sudut bersebrangan sama besar.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Match Properties', pageTitleEn:'Pasangkan Sifat', taskType:'dragdrop',
+          question:'Drag the angle pair to its correct property.', questionEn:'Seret pasangan sudut ke sifat yang benar.',
+          items:['Alternate', 'Corresponding', 'Co-interior', 'Vertically Opposite'],
+          dropZones:['Equal (Z-shape)', 'Equal (F-shape)', 'Add to $180^\\circ$ (C-shape)', 'Equal (X-shape)'],
+          correctMapping:{'Alternate':0, 'Corresponding':1, 'Co-interior':2, 'Vertically Opposite':3},
+          explanation:`<p>Recall the shapes: Z (Alternate, Equal), F (Corresponding, Equal), C (Co-interior, $180^\\circ$), X (Vertically Opposite, Equal). <span class="tr">Ingat bentuk-bentuk sudut hubungan garis sejajar.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Solving Parallel Line Problems', pageTitleEn:'Menyelesaikan Soal Garis Sejajar',
+          body:`<p>To find missing angles, identify which relationship the angles have. <span class="tr">Untuk mencari sudut yang hilang, identifikasi hubungan sudut tersebut.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+          <p>Two parallel lines are cut by a transversal. One co-interior angle is $70^\\circ$. Find the other.</p>
+          <ol><li>Co-interior angles add to $180^\\circ$. <span class="tr">Identifikasi hubungan</span></li><li>$70^\\circ + x = 180^\\circ$ <span class="tr">Buat persamaan</span></li><li>$x = 180^\\circ - 70^\\circ$ <span class="tr">Kurangi</span></li><li>$x = 110^\\circ$ <span class="tr">Solusi</span></li></ol></div>`
+        },
+        { type:'task', pageTitle:'T4: Find Alternate Angle', pageTitleEn:'Cari Sudut Berseberangan', taskType:'fill',
+          question:'An alternate angle to $45^\\circ$ is $x$. Find $x$. $x = \\dots^\\circ$', questionEn:'Sudut dalam berseberangan dari $45^\\circ$ adalah $x$. Cari $x$. $x = \\dots^\\circ$',
+          correctAnswer:'45', acceptableAnswers:['45'],
+          explanation:`<p>Alternate angles are equal. $x = 45^\\circ$. <span class="tr">Sudut dalam berseberangan sama besar.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Find Co-interior', pageTitleEn:'Cari Sudut Sepihak', taskType:'radio',
+          question:'One co-interior angle is $105^\\circ$. What is the other angle?', questionEn:'Satu sudut dalam sepihak adalah $105^\\circ$. Berapa sudut yang lain?',
+          options:[{text:'$75^\\circ$', correct:true},{text:'$105^\\circ$', correct:false},{text:'$90^\\circ$', correct:false},{text:'$255^\\circ$', correct:false}],
+          explanation:`<p>Co-interior angles add to $180^\\circ$. $180^\\circ - 105^\\circ = 75^\\circ$. <span class="tr">Sudut dalam sepihak berjumlah $180^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Angle Relationships', pageTitleEn:'Pasangkan Hubungan Sudut', taskType:'pairing',
+          question:'Match the angle pair with its property.', questionEn:'Pasangkan pasangan sudut dengan sifatnya.',
+          pairs:[{left:'Corresponding <span class="tr">Bersebrangan</span>', right:'Equal'},{left:'Alternate <span class="tr">Berseberangan</span>', right:'Equal'},{left:'Co-interior <span class="tr">Sepihak</span>', right:'Sum to $180^\\circ$'},{left:'Angles on straight line <span class="tr">Garis lurus</span>', right:'Sum to $180^\\circ$'}],
+          explanation:`<p>Both Corresponding and Alternate are equal. Both Co-interior and Straight line add to $180^\\circ$. <span class="tr">Sudut bersebrangan dan berseberangan sama besar. Sepihak dan garis lurus berjumlah $180^\\circ$.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Multi-Step Angle Problems', pageTitleEn:'Soal Sudut Multi-Langkah',
+          body:`<p>Sometimes you need to use multiple rules to find a missing angle. <span class="tr">Terkadang Anda perlu menggunakan beberapa aturan untuk mencari sudut yang hilang.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+          <p>Find angle $y$ if it is alternate to an angle that is vertically opposite to $60^\\circ$.</p>
+          <ol><li>Vertically opposite to $60^\\circ$ is $60^\\circ$. <span class="tr">Aturan X</span></li><li>Alternate to $60^\\circ$ is $60^\\circ$. <span class="tr">Aturan Z</span></li><li>So, $y = 60^\\circ$. <span class="tr">Solusi</span></li></ol></div>`
+        },
+        { type:'task', pageTitle:'T7: Multi-Step Logic', pageTitleEn:'Logika Multi-Langkah', taskType:'sorting',
+          question:'Order the steps to find $x$ if it is co-interior to an angle that corresponds to $80^\\circ$.', questionEn:'Urutkan langkah mencari $x$ jika $x$ sepihak dengan sudut yang bersebrangan dengan $80^\\circ$.',
+          items:['Corresponding to $80^\\circ$ is $80^\\circ$. <span class="tr">Aturan F</span>','Co-interior to $80^\\circ$ adds to $180^\\circ$. <span class="tr">Aturan C</span>','$x + 80^\\circ = 180^\\circ$ <span class="tr">Buat persamaan</span>','$x = 100^\\circ$ <span class="tr">Solusi</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Follow the logical chain of angle rules. <span class="tr">Ikuti rantai logis aturan sudut.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Parallel Line Logic', pageTitleEn:'Logika Garis Sejajar', taskType:'truefalse',
+          question:'True or false: If two lines are not parallel, alternate angles are still equal.', questionEn:'Benar atau salah: Jika dua garis tidak sejajar, sudut berseberangan tetap sama besar.',
+          correctAnswer:'false',
+          explanation:`<p>Alternate, corresponding, and co-interior rules ONLY apply if the lines are strictly parallel. <span class="tr">Aturan ini hanya berlaku jika garisnya benar-benar sejajar.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Complex Find', pageTitleEn:'Pencarian Kompleks', taskType:'fill',
+          question:'Angle $a$ corresponds to $50^\\circ$. Angle $b$ is co-interior to $a$. Find $b$. $b = \\dots^\\circ$', questionEn:'Sudut $a$ bersebrangan dengan $50^\\circ$. Sudut $b$ sepihak dengan $a$. Cari $b$. $b = \\dots^\\circ$',
+          correctAnswer:'130', acceptableAnswers:['130'],
+          explanation:`<p>$a = 50^\\circ$ (corresponding). $b + a = 180^\\circ$ (co-interior). $b = 180^\\circ - 50^\\circ = 130^\\circ$. <span class="tr">Gabungan aturan F dan C.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Identify Rules', pageTitleEn:'Identifikasi Aturan', taskType:'checkbox',
+          question:'Which of these angle pairs add up to $180^\\circ$?', questionEn:'Mana dari pasangan sudut berikut yang berjumlah $180^\\circ$?',
+          options:[{text:'Co-interior angles <span class="tr">Sudut sepihak</span>', correct:true},{text:'Angles on a straight line <span class="tr">Sudut pada garis lurus</span>', correct:true},{text:'Corresponding angles <span class="tr">Sudut bersebrangan</span>', correct:false},{text:'Alternate angles <span class="tr">Sudut berseberangan</span>', correct:false}],
+          explanation:`<p>Co-interior angles and angles on a straight line add to $180^\\circ$. Corresponding and alternate angles are equal. <span class="tr">Sepihak dan garis lurus berjumlah $180^\\circ$. Bersebrangan dan berseberangan sama besar.</span></p>`
+        }
+      ]
+    },
+    f: {
+      title: 'Independent Practice', titleEn: 'Independent Practice', time: '00:45 - 00:55',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Regular Polygons', pageTitleEn:'Poligon Beraturan',
+          body:`<p>A <strong>regular polygon</strong> has all sides equal and all angles equal. <span class="tr"><strong>Poligon beraturan</strong> memiliki semua sisi sama dan semua sudut sama.</span></p>
+          <div class="math-block"><strong>Exterior Angle Rule:</strong> The sum of exterior angles of any polygon is $360^\\circ$. For a regular polygon with $n$ sides, each exterior angle is $\\dfrac{360^\\circ}{n}$. <span class="tr">Aturan Sudut Luar: Jumlah sudut luar selalu $360^\\circ$. Sudut luar poligon beraturan adalah $\\frac{360^\\circ}{n}$.</span></div>
+          <div class="math-block"><strong>Interior Angle:</strong> $\\text{Interior} = 180^\\circ - \\text{Exterior}$. <span class="tr">Sudut Dalam: $180^\\circ - \\text{Sudut Luar}$.</span></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+          <p>Find the interior angle of a regular hexagon (6 sides).</p>
+          <ol><li>Exterior $= \\dfrac{360^\\circ}{6} = 60^\\circ$ <span class="tr">Cari sudut luar</span></li><li>Interior $= 180^\\circ - 60^\\circ$ <span class="tr">Kurangi dari 180</span></li><li>Interior $= 120^\\circ$ <span class="tr">Solusi</span></li></ol></div>`
+        },
+        { type:'task', pageTitle:'T1: Find Exterior', pageTitleEn:'Cari Sudut Luar', taskType:'fill',
+          question:'What is the exterior angle of a regular pentagon (5 sides)? $\\dots^\\circ$', questionEn:'Berapa sudut luar pentagon beraturan (5 sisi)? $\\dots^\\circ$',
+          correctAnswer:'72', acceptableAnswers:['72'],
+          explanation:`<p>Exterior $= \\dfrac{360^\\circ}{5} = 72^\\circ$. <span class="tr">Bagi $360^\\circ$ dengan jumlah sisi.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Find Interior', pageTitleEn:'Cari Sudut Dalam', taskType:'radio',
+          question:'What is the interior angle of a regular triangle (equilateral)?', questionEn:'Berapa sudut dalam segitiga beraturan (sama sisi)?',
+          options:[{text:'$60^\\circ$', correct:true},{text:'$90^\\circ$', correct:false},{text:'$120^\\circ$', correct:false},{text:'$180^\\circ$', correct:false}],
+          explanation:`<p>Exterior $= \\dfrac{360}{3} = 120^\\circ$. Interior $= 180^\\circ - 120^\\circ = 60^\\circ$. (Also, $180^\\circ \\div 3 = 60^\\circ$). <span class="tr">Cari sudut luar lalu kurangi dari 180, atau bagi jumlah sudut dalam ($180^\\circ$) dengan 3.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Polygon Steps', pageTitleEn:'Langkah Poligon', taskType:'sorting',
+          question:'Order the steps to find the interior angle of a regular octagon (8 sides).', questionEn:'Urutkan langkah mencari sudut dalam oktagon beraturan (8 sisi).',
+          items:['Exterior $= \\dfrac{360^\\circ}{8} = 45^\\circ$ <span class="tr">Cari sudut luar</span>','Interior $= 180^\\circ - 45^\\circ$ <span class="tr">Kurangi dari 180</span>','Interior $= 135^\\circ$ <span class="tr">Solusi</span>','Check: $(8-2) \\times 180 / 8 = 135^\\circ$ <span class="tr">Verifikasi dengan rumus sudut dalam</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Using the exterior angle method is the quickest way. <span class="tr">Menggunakan metode sudut luar adalah cara tercepat.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Tessellations and Angles', pageTitleEn:'Tessellasi dan Sudut',
+          body:`<p>A <strong>tessellation</strong> is a pattern of shapes that fit together perfectly without any gaps. For a regular polygon to tessellate, the interior angle must divide exactly into $360^\\circ$. <span class="tr"><strong>Tessellasi</strong> adalah pola bentuk yang menyatu dengan sempurna tanpa celah. Agar poligon beraturan bisa tessellasi, sudut dalamnya harus habis dibagi $360^\\circ$.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+          <p>Squares have an interior angle of $90^\\circ$. $360^\\circ \\div 90^\\circ = 4$. Since 4 is a whole number, squares tessellate (4 squares meet at a corner). <span class="tr">Persegi memiliki sudut $90^\\circ$. $360 \\div 90 = 4$. Karena bilangan bulat, persegi bisa tessellasi.</span></p></div>`
+        },
+        { type:'task', pageTitle:'T4: Pentagon Tessellation', pageTitleEn:'Tessellasi Pentagon', taskType:'fill',
+          question:'A regular pentagon has an interior angle of $108^\\circ$. $360 \\div 108 = \\dots$ (round to 2 decimals). This means it does not tessellate.', questionEn:'Pentagon beraturan memiliki sudut dalam $108^\\circ$. $360 \\div 108 = \\dots$ (bulatkan ke 2 desimal). Ini berarti tidak bisa tessellasi.',
+          correctAnswer:'3.33', acceptableAnswers:['3.33', '3.34', '3.3'],
+          explanation:`<p>$360 \\div 108 = 3.333...$ Since it is not a whole number, regular pentagons cannot tessellate on their own. <span class="tr">Karena bukan bilangan bulat, pentagon tidak bisa tessellasi sendiri.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Triangle Tessellation', pageTitleEn:'Tessellasi Segitiga', taskType:'truefalse',
+          question:'True or false: Any triangle can tessellate.', questionEn:'Benar atau salah: Segitiga apa pun bisa tessellasi.',
+          correctAnswer:'true',
+          explanation:`<p>True. The angles of a triangle add up to $180^\\circ$. Two copies make $360^\\circ$, so any triangle can tessellate by rotating. <span class="tr">Benar. Sudut segitiga berjumlah $180^\\circ$, dua salinannya membentuk $360^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Interior Angles', pageTitleEn:'Pasangkan Sudut Dalam', taskType:'pairing',
+          question:'Match the regular polygon to its interior angle.', questionEn:'Pasangkan poligon beraturan dengan sudut dalamnya.',
+          pairs:[{left:'Square (4) <span class="tr">Persegi</span>', right:'$90^\\circ$'},{left:'Pentagon (5) <span class="tr">Pentagon</span>', right:'$108^\\circ$'},{left:'Hexagon (6) <span class="tr">Heksagon</span>', right:'$120^\\circ$'},{left:'Octagon (8) <span class="tr">Oktagon</span>', right:'$135^\\circ$'}],
+          explanation:`<p>Use Interior $= 180 - (360/n)$ for each. <span class="tr">Gunakan rumus sudut dalam poligon beraturan.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Composite Shapes', pageTitleEn:'Bangun Gabungan',
+          body:`<p>Sometimes, multiple shapes are combined. To find missing angles, look for triangles or quadrilaterals hidden inside. <span class="tr">Terkadang, beberapa bentuk digabungkan. Untuk mencari sudut yang hilang, cari segitiga atau segi empat yang tersembunyi di dalamnya.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>
+          <p>A square and an equilateral triangle share a side. Find the angle $x$ between them.</p>
+          <ol><li>Square interior $= 90^\\circ$. Triangle interior $= 60^\\circ$. <span class="tr">Identifikasi sudut bentuk dasar</span></li><li>Around a point is $360^\\circ$. <span class="tr">Gunakan aturan titik</span></li><li>$x + 90^\\circ + 60^\\circ = 360^\\circ$ <span class="tr">Buat persamaan</span></li><li>$x = 360^\\circ - 150^\\circ = 210^\\circ$ <span class="tr">Solusi</span></li></ol></div>`
+        },
+        { type:'task', pageTitle:'T7: Composite Angle', pageTitleEn:'Sudut Gabungan', taskType:'fill',
+          question:'A square and a regular hexagon meet at a point. What is the angle between them? $x = \\dots^\\circ$', questionEn:'Persegi dan heksagon beraturan bertemu di satu titik. Berapa sudut di antara mereka? $x = \\dots^\\circ$',
+          correctAnswer:'150', acceptableAnswers:['150'],
+          explanation:`<p>Square $= 90^\\circ$. Hexagon $= 120^\\circ$. $x = 360^\\circ - (90^\\circ + 120^\\circ) = 360^\\circ - 210^\\circ = 150^\\circ$. <span class="tr">Gunakan aturan sudut di sekitar titik ($360^\\circ$).</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Complex Composite', pageTitleEn:'Gabungan Kompleks', taskType:'radio',
+          question:'Two regular pentagons and one square meet at a point. Is there a gap?', questionEn:'Dua pentagon beraturan dan satu persegi bertemu di satu titik. Apakah ada celah?',
+		  options:[{text:'No gap, exactly $360^\\circ$ <span class="tr">Tidak ada celah, tepat $360^\\circ$</span>', correct:false},{text:'Yes, gap of $54^\\circ$ <span class="tr">Ya, celah $54^\\circ$</span>', correct:true},{text:'Yes, gap of $72^\\circ$ <span class="tr">Ya, celah $72^\\circ$</span>', correct:false},{text:'No, they overlap <span class="tr">Tidak, mereka tumpang tindih</span>', correct:false}],
+		  explanation:`<p>Pentagon $= 108^\\circ$. Square $= 90^\\circ$. Sum $= 108 + 108 + 90 = 306^\\circ$. Gap $= 360^\\circ - 306^\\circ = 54^\\circ$. <span class="tr">Jumlahkan sudut dalamnya dan kurangi dari $360^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Match Formulas', pageTitleEn:'Pasangkan Rumus', taskType:'dragdrop',
+          question:'Drag the formula to its correct description.', questionEn:'Seret rumus ke deskripsi yang benar.',
+          items:['$\\dfrac{360^\\circ}{n}$', '$180^\\circ - \\text{Exterior}$', '$(n-2) \\times 180^\\circ$', '$a+b+c=180^\\circ$'],
+          dropZones:['Exterior angle of regular polygon', 'Interior angle of regular polygon', 'Sum of interior angles of polygon', 'Sum of angles in triangle'],
+          correctMapping:{'$\\dfrac{360^\\circ}{n}$':0, '$180^\\circ - \\text{Exterior}$':1, '$(n-2) \\times 180^\\circ$':2, '$a+b+c=180^\\circ$':3},
+          explanation:`<p>Match the standard geometric formulas to their uses. <span class="tr">Cocokkan rumus geometri standar dengan fungsinya.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Polygon True/False', pageTitleEn:'Poligon Benar/Salah', taskType:'checkbox',
+          question:'Select all true statements about regular polygons.', questionEn:'Pilih semua pernyataan yang benar tentang poligon beraturan.',
+          options:[{text:'All sides are equal. <span class="tr">Semua sisi sama.</span>', correct:true},{text:'All angles are equal. <span class="tr">Semua sudut sama.</span>', correct:true},{text:'The sum of exterior angles is $720^\\circ$. <span class="tr">Jumlah sudut luar $720^\\circ$.</span>', correct:false},{text:'They always tessellate. <span class="tr">Mereka selalu tessellasi.</span>', correct:false}],
+          explanation:`<p>Regular polygons have equal sides and angles. Exterior sum is always $360^\\circ$. Only triangles, squares, and hexagons tessellate. <span class="tr">Poligon beraturan memiliki sisi dan sudut sama. Jumlah sudut luar selalu $360^\\circ$.</span></p>`
+        }
+      ]
+    },
+	
+    g: {
+      title: 'Consolidation & Reflection', titleEn: 'Consolidation & Reflection', time: '00:55 - 01:00',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Key Takeaways', pageTitleEn:'Poin Penting',
+          body:`<div class="illustration">
+            <svg width="240" height="80" viewBox="0 0 240 80">
+              <circle cx="40" cy="40" r="28" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+              <text x="40" y="48" text-anchor="middle" font-size="22" fill="#2563eb">∠</text>
+              <text x="85" y="35" font-size="13" fill="#1e40af" font-weight="bold">Angles & Polygons</text>
+              <text x="85" y="52" font-size="10" fill="#64748b">Rules & Formulas</text>
+            </svg>
+            <div style="font-size:.82em;color:var(--muted);margin-top:4px">Formulas & Rules <span class="tr">Rumus & Aturan</span></div>
+          </div>
+          <p>Today we learned about <strong>Geometry and Measure: Angles</strong>. Here are the key rules to remember: <span class="tr">Hari ini kita belajar tentang <strong>Geometri dan Pengukuran: Sudut</strong>. Berikut aturan utama yang harus diingat:</span></p>
+          <div class="math-block">
+            <ol>
+              <li><strong>Straight Line:</strong> $a + b = 180^\\circ$ <span class="tr">Garis Lurus</span></li>
+              <li><strong>Around a Point:</strong> $a + b + c = 360^\\circ$ <span class="tr">Sekitar Titik</span></li>
+              <li><strong>Triangle:</strong> $a + b + c = 180^\\circ$ <span class="tr">Segitiga</span></li>
+              <li><strong>Quadrilateral:</strong> $a + b + c + d = 360^\\circ$ <span class="tr">Segi Empat</span></li>
+              <li><strong>Parallel Lines:</strong> Corresponding (F) & Alternate (Z) are Equal; Co-interior (C) add to $180^\\circ$. <span class="tr">Garis Sejajar</span></li>
+              <li><strong>Polygons:</strong> Exterior $= \\dfrac{360^\\circ}{n}$, Interior $= 180^\\circ - \\text{Exterior}$. <span class="tr">Poligon</span></li>
+            </ol>
+          </div>`
+        },
+        { type:'task', pageTitle:'T1: Reflection Question', pageTitleEn:'Pertanyaan Refleksi', taskType:'truefalse',
+          question:'True or false: I understand that to find the missing angle in a triangle, I subtract the known angles from $180^\\circ$.', questionEn:'Benar atau salah: Saya mengerti bahwa untuk mencari sudut yang hilang dalam segitiga, saya mengurangi sudut yang diketahui dari $180^\\circ$.',
+          correctAnswer:'true',
+          explanation:`<p>Yes! The interior angles of a triangle always sum to $180^\\circ$. <span class="tr">Ya! Jumlah sudut dalam segitiga selalu $180^\\circ$.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Exit Ticket', pageTitleEn:'Exit Ticket', taskType:'fill',
+          question:'A triangle has angles $35^\\circ$ and $65^\\circ$. Calculate the missing angle. $x = \\dots^\\circ$', questionEn:'Segitiga memiliki sudut $35^\\circ$ dan $65^\\circ$. Hitung sudut yang hilang. $x = \\dots^\\circ$',
+          correctAnswer:'80', acceptableAnswers:['80'],
+          explanation:`<p>$x = 180^\\circ - (35^\\circ + 65^\\circ) = 180^\\circ - 100^\\circ = 80^\\circ$. <span class="tr">Gunakan aturan jumlah sudut segitiga.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Follow-up Practice', pageTitleEn:'Latihan Lanjutan',
+          body:`<p>Additional practice is available in <strong>Sections H–L (Tasks 1–5)</strong>. Each section contains 10 questions of various types to test your full understanding of angles. <span class="tr">Latihan tambahan tersedia di Bagian H–L. Setiap bagian berisi 10 soal dengan berbagai tipe untuk menguji pemahaman Anda tentang sudut.</span></p>
+          <div class="math-block">
+            <ul>
+              <li><strong>Task 1 (H):</strong> Basic Angle Rules & Triangles <span class="tr">Aturan Sudut Dasar & Segitiga</span></li>
+              <li><strong>Task 2 (I):</strong> Parallel Lines & Algebra <span class="tr">Garis Sejajar & Aljabar</span></li>
+              <li><strong>Task 3 (J):</strong> Quadrilaterals & Polygons <span class="tr">Segi Empat & Poligon</span></li>
+              <li><strong>Task 4 (K):</strong> Advanced Multi-Step Problems <span class="tr">Soal Multi-Langkah Lanjutan</span></li>
+              <li><strong>Task 5 (L):</strong> Exam-style Mixed Questions <span class="tr">Soal Campuran Tipe Ujian</span></li>
+            </ul>
+          </div>`
+        }
+      ]
+    },
+    h: {
+      title: 'Task 1', titleEn: 'Task 1', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Straight Line Angle', pageTitleEn:'Sudut Garis Lurus', taskType:'fill',
+          question:'Two angles are on a straight line. One is $85^\\circ$. What is the other? $x = \\dots^\\circ$', questionEn:'Dua sudut berada pada garis lurus. Satu $85^\\circ$. Berapa yang lain? $x = \\dots^\\circ$',
+          correctAnswer:'95', acceptableAnswers:['95'],
+          explanation:`<p>$x + 85^\\circ = 180^\\circ \\Rightarrow x = 180^\\circ - 85^\\circ = 95^\\circ$. <span class="tr">Gunakan aturan sudut pada garis lurus.</span></p>`},
+        { type:'task', pageTitle:'T2: Angle Type', pageTitleEn:'Jenis Sudut', taskType:'radio',
+          question:'An angle measures $190^\\circ$. What type of angle is it?', questionEn:'Sebuah sudut berukuran $190^\\circ$. Jenis sudut apakah itu?',
+          options:[{text:'Obtuse <span class="tr">Tumpul</span>', correct:false},{text:'Reflex <span class="tr">Refleks</span>', correct:true},{text:'Right <span class="tr">Siku-siku</span>', correct:false},{text:'Straight <span class="tr">Lurus</span>', correct:false}],
+          explanation:`<p>A reflex angle is greater than $180^\\circ$ but less than $360^\\circ$. <span class="tr">Sudut refleks lebih besar dari $180^\\circ$ dan kurang dari $360^\\circ$.</span></p>`},
+        { type:'task', pageTitle:'T3: Vertically Opposite', pageTitleEn:'Tolak Belakang', taskType:'truefalse',
+          question:'True or false: Vertically opposite angles add up to $180^\\circ$.', questionEn:'Benar atau salah: Sudut bertolak belakang berjumlah $180^\\circ$.',
+          correctAnswer:'false',
+          explanation:`<p>Vertically opposite angles are EQUAL, they do not add up to $180^\\circ$ (unless they are both $90^\\circ$). <span class="tr">Sudut bertolak belakang itu SAMA BESAR.</span></p>`},
+        { type:'task', pageTitle:'T4: Triangle Missing Angle', pageTitleEn:'Sudut Segitiga Hilang', taskType:'sorting',
+          question:'Order the steps to find the missing angle in a triangle with angles $50^\\circ$, $60^\\circ$, and $x$.', questionEn:'Urutkan langkah mencari sudut yang hilang dalam segitiga dengan sudut $50^\\circ$, $60^\\circ$, dan $x$.',
+          items:['$50^\\circ + 60^\\circ + x = 180^\\circ$ <span class="tr">Buat persamaan</span>','$110^\\circ + x = 180^\\circ$ <span class="tr">Jumlahkan suku yang diketahui</span>','$x = 180^\\circ - 110^\\circ$ <span class="tr">Pindahkan ke ruas kanan</span>','$x = 70^\\circ$ <span class="tr">Solusi akhir</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard algebraic steps to solve for a missing angle in a triangle. <span class="tr">Langkah aljabar standar untuk menyelesaikan sudut segitiga yang hilang.</span></p>`},
+        { type:'task', pageTitle:'T5: Acute Angles', pageTitleEn:'Sudut Lancip', taskType:'checkbox',
+          question:'Select all angles that are acute.', questionEn:'Pilih semua sudut yang lancip.',
+          options:[{text:'$35^\\circ$', correct:true},{text:'$90^\\circ$', correct:false},{text:'$89^\\circ$', correct:true},{text:'$100^\\circ$', correct:false}],
+          explanation:`<p>Acute angles are strictly less than $90^\\circ$. $35^\\circ$ and $89^\\circ$ are acute. <span class="tr">Sudut lancip kurang dari $90^\\circ$.</span></p>`},
+        { type:'task', pageTitle:'T6: Match Angle Sums', pageTitleEn:'Pasangkan Jumlah Sudut', taskType:'pairing',
+          question:'Match the shape/rule to its total interior angle sum.', questionEn:'Pasangkan bentuk/aturan dengan jumlah sudut dalam totalnya.',
+          pairs:[{left:'Triangle <span class="tr">Segitiga</span>', right:'$180^\\circ$'},{left:'Quadrilateral <span class="tr">Segi empat</span>', right:'$360^\\circ$'},{left:'Point <span class="tr">Titik</span>', right:'$360^\\circ$'},{left:'Straight line <span class="tr">Garis lurus</span>', right:'$180^\\circ$'}],
+          explanation:`<p>Recall the standard angle sum rules for geometric shapes and points. <span class="tr">Ingat aturan jumlah sudut standar.</span></p>`},
+        { type:'task', pageTitle:'T7: Complementary', pageTitleEn:'Komplementer', taskType:'fill',
+          question:'What is the complement of $40^\\circ$? $\\dots^\\circ$', questionEn:'Berapa komplemen dari $40^\\circ$? $\\dots^\\circ$',
+          correctAnswer:'50', acceptableAnswers:['50'],
+          explanation:`<p>Complementary angles add to $90^\\circ$. $90^\\circ - 40^\\circ = 50^\\circ$. <span class="tr">Sudut komplementer berjumlah $90^\\circ$.</span></p>`},
+        { type:'task', pageTitle:'T8: Alternate Angles', pageTitleEn:'Sudut Berseberangan', taskType:'radio',
+          question:'If alternate angles are formed by parallel lines, and one is $72^\\circ$, what is the other?', questionEn:'Jika sudut berseberangan dibentuk oleh garis sejajar, dan satu adalah $72^\\circ$, berapa yang lain?',
+          options:[{text:'$72^\\circ$', correct:true},{text:'$108^\\circ$', correct:false},{text:'$90^\\circ$', correct:false},{text:'$144^\\circ$', correct:false}],
+          explanation:`<p>Alternate angles (Z-shape) on parallel lines are equal. <span class="tr">Sudut berseberangan pada garis sejajar sama besar.</span></p>`},
+        { type:'task', pageTitle:'T9: Reflex Logic', pageTitleEn:'Logika Refleks', taskType:'truefalse',
+          question:'True or false: A $270^\\circ$ angle is a reflex angle.', questionEn:'Benar atau salah: Sudut $270^\\circ$ adalah sudut refleks.',
+          correctAnswer:'true',
+          explanation:`<p>A reflex angle is between $180^\\circ$ and $360^\\circ$. $270^\\circ$ falls in this range. <span class="tr">Sudut refleks berada di antara $180^\\circ$ dan $360^\\circ$.</span></p>`},
+        { type:'task', pageTitle:'T10: Match Formulas', pageTitleEn:'Pasangkan Rumus', taskType:'dragdrop',
+          question:'Drag the formula to its correct name.', questionEn:'Seret rumus ke nama yang benar.',
+          items:['$\\dfrac{360^\\circ}{n}$', '$180^\\circ - \\text{Exterior}$', '$a+b+c=180^\\circ$', '$a+b=180^\\circ$'],
+          dropZones:['Exterior Angle of Regular Polygon', 'Interior Angle of Regular Polygon', 'Sum of Triangle Angles', 'Supplementary Angles'],
+          correctMapping:{'$\\dfrac{360^\\circ}{n}$':0, '$180^\\circ - \\text{Exterior}$':1, '$a+b+c=180^\\circ$':2, '$a+b=180^\\circ$':3},
+          explanation:`<p>Match the standard geometric formulas with their correct descriptions. <span class="tr">Cocokkan rumus geometri standar dengan deskripsinya.</span></p>`}
+      ]
+    },
+    i: {
+      title: 'Task 2', titleEn: 'Task 2', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Corresponding Angle', pageTitleEn:'Sudut Bersebrangan', taskType:'fill',
+          question:'A corresponding angle is $65^\\circ$. The other corresponding angle is $\\dots^\\circ$.', questionEn:'Sudut bersebrangan adalah $65^\\circ$. Sudut bersebrangan yang lain adalah $\\dots^\\circ$.',
+          correctAnswer:'65', acceptableAnswers:['65'],
+          explanation:`<p>Corresponding angles (F-shape) on parallel lines are equal. <span class="tr">Sudut bersebrangan pada garis sejajar sama besar.</span></p>`},
+        { type:'task', pageTitle:'T2: Co-interior Angle', pageTitleEn:'Sudut Sepihak', taskType:'radio',
+          question:'One co-interior angle is $115^\\circ$. What is the other?', questionEn:'Satu sudut sepihak adalah $115^\\circ$. Berapa yang lain?',
+          options:[{text:'$65^\\circ$', correct:true},{text:'$115^\\circ$', correct:false},{text:'$75^\\circ$', correct:false},{text:'$90^\\circ$', correct:false}],
+          explanation:`<p>Co-interior angles (C-shape) add to $180^\\circ$. $180^\\circ - 115^\\circ = 65^\\circ$. <span class="tr">Sudut sepihak berjumlah $180^\\circ$.</span></p>`},
+        { type:'task', pageTitle:'T3: Triangle Algebra', pageTitleEn:'Aljabar Segitiga', taskType:'truefalse',
+          question:'True or false: If a triangle has angles $x, 2x, 3x$, then $x = 30^\\circ$.', questionEn:'Benar atau salah: Jika segitiga memiliki sudut $x, 2x, 3x$, maka $x = 30^\\circ$.',
+          correctAnswer:'true',
+          explanation:`<p>$x + 2x + 3x = 180^\\circ \\Rightarrow 6x = 180^\\circ \\Rightarrow x = 30^\\circ$. <span class="tr">Selesaikan persamaan aljabar untuk $x$.</span></p>`},
+        { type:'task', pageTitle:'T4: Solve for x', pageTitleEn:'Cari Nilai x', taskType:'sorting',
+          question:'Order the steps to solve $x + 2x + 3x = 180^\\circ$.', questionEn:'Urutkan langkah menyelesaikan $x + 2x + 3x = 180^\\circ$.',
+          items:['Combine like terms: $6x = 180^\\circ$ <span class="tr">Jumlahkan suku sejenis</span>','Divide by 6: $x = \\dfrac{180^\\circ}{6}$ <span class="tr">Bagi dengan 6</span>','Simplify: $x = 30^\\circ$ <span class="tr">Sederhanakan</span>','Find $3x$: $3(30^\\circ) = 90^\\circ$ <span class="tr">Cari nilai $3x$</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Follow standard algebraic steps to isolate $x$ and find specific angle values. <span class="tr">Ikuti langkah aljabar standar.</span></p>`},
+        { type:'task', pageTitle:'T5: Parallel Line Rules', pageTitleEn:'Aturan Garis Sejajar', taskType:'checkbox',
+          question:'Which of the following pairs of angles are EQUAL when formed by parallel lines?', questionEn:'Pasangan sudut mana saja yang SAMA BESAR ketika dibentuk oleh garis sejajar?',
+          options:[{text:'Corresponding <span class="tr">Bersebrangan</span>', correct:true},{text:'Alternate <span class="tr">Berseberangan</span>', correct:true},{text:'Co-interior <span class="tr">Sepihak</span>', correct:false},{text:'Vertically Opposite <span class="tr">Tolak belakang</span>', correct:true}],
+          explanation:`<p>Corresponding, Alternate, and Vertically Opposite angles are equal. Co-interior angles add up to $180^\\circ$. <span class="tr">Sudut bersebrangan, berseberangan, dan bertolak belakang sama besar.</span></p>`},
+        { type:'task', pageTitle:'T6: Match Shapes to Rules', pageTitleEn:'Pasangkan Bentuk ke Aturan', taskType:'pairing',
+          question:'Match the angle pair to its letter-shape rule.', questionEn:'Pasangkan pasangan sudut dengan aturan bentuk hurufnya.',
+          pairs:[{left:'Corresponding <span class="tr">Bersebrangan</span>', right:'F-shape'},{left:'Alternate <span class="tr">Berseberangan</span>', right:'Z-shape'},{left:'Co-interior <span class="tr">Sepihak</span>', right:'C-shape'},{left:'Vertically Opposite <span class="tr">Tolak belakang</span>', right:'X-shape'}],
+          explanation:`<p>Remember the letter shapes to identify angle relationships quickly. <span class="tr">Ingat bentuk huruf untuk identifikasi sudut.</span></p>`},
+        { type:'task', pageTitle:'T7: Supplementary', pageTitleEn:'Suplementer', taskType:'fill',
+          question:'What is the supplement of $110^\\circ$? $\\dots^\\circ$', questionEn:'Berapa suplemen dari $110^\\circ$? $\\dots^\\circ$',
+          correctAnswer:'70', acceptableAnswers:['70'],
+          explanation:`<p>Supplementary angles add to $180^\\circ$. $180^\\circ - 110^\\circ = 70^\\circ$. <span class="tr">Sudut suplementer berjumlah $180^\\circ$.</span></p>`},
+        { type:'task', pageTitle:'T8: Multi-Step Angle', pageTitleEn:'Sudut Multi-Langkah', taskType:'radio',
+          question:'Angle $a$ is alternate to $50^\\circ$. Angle $b$ is co-interior to $a$. Find $b$.', questionEn:'Sudut $a$ berseberangan dengan $50^\\circ$. Sudut $b$ sepihak dengan $a$. Cari $b$.',
+          options:[{text:'$130^\\circ$', correct:true},{text:'$50^\\circ$', correct:false},{text:'$90^\\circ$', correct:false},{text:'$180^\\circ$', correct:false}],
+          explanation:`<p>$a = 50^\\circ$ (Alternate). $b + a = 180^\\circ$ (Co-interior). $b = 180^\\circ - 50^\\circ = 130^\\circ$. <span class="tr">Gabungkan aturan Z dan C.</span></p>`},
+        { type:'task', pageTitle:'T9: Straight Line Logic', pageTitleEn:'Logika Garis Lurus', taskType:'truefalse',
+          question:'True or false: Three angles on a straight line can be $60^\\circ$, $70^\\circ$, and $80^\\circ$.', questionEn:'Benar atau salah: Tiga sudut pada garis lurus bisa berupa $60^\\circ$, $70^\\circ$, dan $80^\\circ$.',
+		  correctAnswer:'false',
+		  explanation:`<p>$60^\\circ + 70^\\circ + 80^\\circ = 210^\\circ$, which does not equal $180^\\circ$. So, it is false. <span class="tr">Jumlah sudut pada garis lurus harus $180^\\circ$.</span></p>`},
+        { type:'task', pageTitle:'T10: Match Algebraic Angles', pageTitleEn:'Pasangkan Sudut Aljabar', taskType:'dragdrop',
+          question:'Drag the value to match the expression if $x=20^\\circ$.', questionEn:'Seret nilai untuk mencocokkan ekspresi jika $x=20^\\circ$.',
+          items:['$2x$', '$3x+10$', '$90-x$', '$5x$'],
+          dropZones:['$40^\\circ$', '$70^\\circ$', '$70^\\circ$', '$100^\\circ$'],
+          correctMapping:{'$2x$':0, '$3x+10$':1, '$90-x$':2, '$5x$':3},
+          explanation:`<p>Substitute $x=20$: $2(20)=40$; $3(20)+10=70$; $90-20=70$; $5(20)=100$. <span class="tr">Substitusi nilai $x$ ke setiap ekspresi.</span></p>`}
+      ]
+    },
+	
+    j: {
+      title: 'Task 3', titleEn: 'Task 3', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Quad Missing Angle', pageTitleEn:'Sudut Segi Empat Hilang', taskType:'fill',
+          question:'Three angles in a quadrilateral are $85^\\circ$, $95^\\circ$, and $80^\\circ$. Find the fourth angle. $x = \\dots^\\circ$', questionEn:'Tiga sudut dalam segi empat adalah $85^\\circ$, $95^\\circ$, dan $80^\\circ$. Cari sudut keempat. $x = \\dots^\\circ$',
+          correctAnswer:'100', acceptableAnswers:['100'],
+          explanation:`<p>$85 + 95 + 80 + x = 360 \\Rightarrow 260 + x = 360 \\Rightarrow x = 100^\\circ$. <span class="tr">Gunakan aturan jumlah sudut segi empat $360^\\circ$.</span></p>`},
+        { type:'task', pageTitle:'T2: Polygon Sum', pageTitleEn:'Jumlah Poligon', taskType:'radio',
+          question:'What is the sum of interior angles in a pentagon (5 sides)?', questionEn:'Berapa jumlah sudut dalam pada pentagon (5 sisi)?',
+          options:[{text:'$360^\\circ$', correct:false},{text:'$540^\\circ$', correct:true},{text:'$720^\\circ$', correct:false},{text:'$900^\\circ$', correct:false}],
+          explanation:`<p>Formula: $(n-2) \\times 180^\\circ$. For $n=5$: $(5-2) \\times 180^\\circ = 3 \\times 180^\\circ = 540^\\circ$. <span class="tr">Gunakan rumus $(n-2) \\times 180^\\circ$.</span></p>`},
+        { type:'task', pageTitle:'T3: Rectangle Logic', pageTitleEn:'Logika Persegi Panjang', taskType:'truefalse',
+          question:'True or false: All rectangles are squares.', questionEn:'Benar atau salah: Semua persegi panjang adalah persegi.',
+          correctAnswer:'false',
+          explanation:`<p>A square requires all 4 sides to be equal. A rectangle only has opposite sides equal. So, not all rectangles are squares. <span class="tr">Persegi membutuhkan 4 sisi sama. Persegi panjang hanya sisi berhadapan yang sama.</span></p>`},
+        { type:'task', pageTitle:'T4: Hexagon Angle', pageTitleEn:'Sudut Heksagon', taskType:'sorting',
+          question:'Order the steps to find the interior angle of a regular hexagon (6 sides).', questionEn:'Urutkan langkah mencari sudut dalam heksagon beraturan (6 sisi).',
+          items:['Exterior $= \\dfrac{360^\\circ}{6} = 60^\\circ$ <span class="tr">Cari sudut luar</span>','Interior $= 180^\\circ - 60^\\circ$ <span class="tr">Kurangi dari 180</span>','Interior $= 120^\\circ$ <span class="tr">Solusi</span>','Check: $6 \\times 120^\\circ = 720^\\circ$ (Total Sum) <span class="tr">Verifikasi total</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>The exterior angle method is the fastest way to find individual interior angles of regular polygons. <span class="tr">Metode sudut luar adalah cara tercepat.</span></p>`},
+        { type:'task', pageTitle:'T5: Regular Polygons', pageTitleEn:'Poligon Beraturan', taskType:'checkbox',
+          question:'Which of the following are properties of ALL regular polygons?', questionEn:'Mana dari berikut ini yang merupakan sifat SEMUA poligon beraturan?',
+          options:[{text:'All sides are equal <span class="tr">Semua sisi sama</span>', correct:true},{text:'All angles are equal <span class="tr">Semua sudut sama</span>', correct:true},{text:'They tessellate <span class="tr">Mereka tessellasi</span>', correct:false},{text:'Exterior angle is $90^\\circ$ <span class="tr">Sudut luar $90^\\circ$</span>', correct:false}],
+          explanation:`<p>Regular polygons have equal sides and equal angles. Only triangles, squares, and hexagons tessellate. <span class="tr">Poligon beraturan memiliki sisi dan sudut sama.</span></p>`},
+        { type:'task', pageTitle:'T6: Match Polygon Sides', pageTitleEn:'Pasangkan Sisi Poligon', taskType:'pairing',
+          question:'Match the polygon name to its number of sides.', questionEn:'Pasangkan nama poligon dengan jumlah sisinya.',
+          pairs:[{left:'Triangle <span class="tr">Segitiga</span>', right:'3'},{left:'Pentagon <span class="tr">Pentagon</span>', right:'5'},{left:'Hexagon <span class="tr">Heksagon</span>', right:'6'},{left:'Octagon <span class="tr">Oktagon</span>', right:'8'}],
+          explanation:`<p>Standard polygon naming conventions based on side counts. <span class="tr">Penamaan poligon standar berdasarkan jumlah sisi.</span></p>`},
+        { type:'task', pageTitle:'T7: Find Exterior', pageTitleEn:'Cari Sudut Luar', taskType:'fill',
+          question:'What is the exterior angle of a regular octagon (8 sides)? $\\dots^\\circ$', questionEn:'Berapa sudut luar oktagon beraturan (8 sisi)? $\\dots^\\circ$',
+          correctAnswer:'45', acceptableAnswers:['45'],
+          explanation:`<p>Exterior $= \\dfrac{360^\\circ}{8} = 45^\\circ$. <span class="tr">Bagi $360^\\circ$ dengan jumlah sisi.</span></p>`},
+        { type:'task', pageTitle:'T8: Interior Angle', pageTitleEn:'Sudut Dalam', taskType:'radio',
+          question:'What is the interior angle of a regular hexagon?', questionEn:'Berapa sudut dalam heksagon beraturan?',
+          options:[{text:'$60^\\circ$', correct:false},{text:'$108^\\circ$', correct:false},{text:'$120^\\circ$', correct:true},{text:'$135^\\circ$', correct:false}],
+          explanation:`<p>Exterior is $60^\\circ$. Interior $= 180^\\circ - 60^\\circ = 120^\\circ$. <span class="tr">Kurangi sudut luar dari $180^\\circ$.</span></p>`},
+        { type:'task', pageTitle:'T9: Sum Logic', pageTitleEn:'Logika Jumlah', taskType:'truefalse',
+          question:'True or false: The sum of exterior angles of ANY polygon is $360^\\circ$.', questionEn:'Benar atau salah: Jumlah sudut luar poligon APAPUN adalah $360^\\circ$.',
+          correctAnswer:'true',
+          explanation:`<p>Yes, no matter how many sides a polygon has, if you walk all the way around it, you turn $360^\\circ$. <span class="tr">Jumlah sudut luar selalu $360^\\circ$.</span></p>`},
+        { type:'task', pageTitle:'T10: Match Polygon Angles', pageTitleEn:'Pasangkan Sudut Poligon', taskType:'dragdrop',
+          question:'Drag the interior angle to its correct regular polygon.', questionEn:'Seret sudut dalam ke poligon beraturan yang benar.',
+          items:['$60^\\circ$', '$90^\\circ$', '$108^\\circ$', '$120^\\circ$'],
+          dropZones:['Triangle (3)', 'Square (4)', 'Pentagon (5)', 'Hexagon (6)'],
+          correctMapping:{'$60^\\circ$':0, '$90^\\circ$':1, '$108^\\circ$':2, '$120^\\circ$':3},
+          explanation:`<p>Triangle: $180/3=60$. Square: $360/4=90$. Pentagon: $180-(360/5)=108$. Hexagon: $180-(360/6)=120$. <span class="tr">Hitung sudut dalam untuk setiap poligon.</span></p>`}
+      ]
+    },
+    k: {
+      title: 'Task 4', titleEn: 'Task 4', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Triangle Algebra', pageTitleEn:'Aljabar Segitiga', taskType:'fill',
+          question:'In a triangle, angles are $x, 2x, 3x$. Find the value of $3x$. $3x = \\dots^\\circ$', questionEn:'Dalam segitiga, sudutnya $x, 2x, 3x$. Cari nilai $3x$. $3x = \\dots^\\circ$',
+          correctAnswer:'90', acceptableAnswers:['90'],
+          explanation:`<p>$6x = 180^\\circ \\Rightarrow x = 30^\\circ$. Then $3x = 3(30^\\circ) = 90^\\circ$. <span class="tr">Cari $x$ dulu, lalu substitusi untuk mencari $3x$.</span></p>`},
+        { type:'task', pageTitle:'T2: Parallel Multi-Step', pageTitleEn:'Garis Sejajar Multi-Langkah', taskType:'radio',
+          question:'Angle $a$ corresponds to $40^\\circ$. Angle $b$ is co-interior to $a$. Find $b$.', questionEn:'Sudut $a$ bersebrangan dengan $40^\\circ$. Sudut $b$ sepihak dengan $a$. Cari $b$.',
+          options:[{text:'$40^\\circ$', correct:false},{text:'$90^\\circ$', correct:false},{text:'$140^\\circ$', correct:true},{text:'$180^\\circ$', correct:false}],
+          explanation:`<p>$a = 40^\\circ$ (Corresponding). $b + a = 180^\\circ$ (Co-interior). $b = 180^\\circ - 40^\\circ = 140^\\circ$. <span class="tr">Gabungan aturan F dan C.</span></p>`},
+        { type:'task', pageTitle:'T3: Triangle Types', pageTitleEn:'Jenis Segitiga', taskType:'truefalse',
+          question:'True or false: A triangle with angles $x, 2x, 3x$ is a right-angled triangle.', questionEn:'Benar atau salah: Segitiga dengan sudut $x, 2x, 3x$ adalah segitiga siku-siku.',
+          correctAnswer:'true',
+          explanation:`<p>$x=30^\\circ$, $2x=60^\\circ$, $3x=90^\\circ$. Since one angle is $90^\\circ$, it is right-angled. <span class="tr">Karena ada sudut $90^\\circ$, itu segitiga siku-siku.</span></p>`},
+        { type:'task', pageTitle:'T4: Quad Algebra', pageTitleEn:'Aljabar Segi Empat', taskType:'sorting',
+          question:'Order the steps to find $x$ in a quadrilateral with angles $x, x, 2x, 4x$.', questionEn:'Urutkan langkah mencari $x$ dalam segi empat dengan sudut $x, x, 2x, 4x$.',
+		  items:['$x + 2x + 3x + 4x = 360^\\circ$ <span class="tr">Buat persamaan</span>','$10x = 360^\\circ$ <span class="tr">Jumlahkan suku sejenis</span>','$x = 36^\\circ$ <span class="tr">Bagi 360 dengan 10</span>','Largest angle $= 4(36^\\circ) = 144^\\circ$ <span class="tr">Cari sudut terbesar</span>'], correctOrder:[0,1,2,3],
+		  explanation:`<p>Sum of angles in a quad is $360^\\circ$. Solve the algebraic equation to find $x$, then find the largest angle. <span class="tr">Jumlah sudut segi empat $360^\\circ$.</span></p>`},
+        { type:'task', pageTitle:'T5: Pairs Adding to 180', pageTitleEn:'Pasangan Berjumlah 180', taskType:'checkbox',
+          question:'Which of the following angle pairs add up to $180^\\circ$?', questionEn:'Pasangan sudut mana saja yang berjumlah $180^\\circ$?',
+          options:[{text:'Co-interior <span class="tr">Sepihak</span>', correct:true},{text:'Supplementary <span class="tr">Suplementer</span>', correct:true},{text:'Straight line <span class="tr">Garis lurus</span>', correct:true},{text:'Complementary <span class="tr">Komplementer</span>', correct:false}],
+          explanation:`<p>Co-interior, Supplementary, and Straight line angles all add to $180^\\circ$. Complementary adds to $90^\\circ$. <span class="tr">Komplementer berjumlah $90^\\circ$.</span></p>`},
+        { type:'task', pageTitle:'T6: Match Terms', pageTitleEn:'Pasangkan Istilah', taskType:'pairing',
+          question:'Match the angle term to its correct total sum.', questionEn:'Pasangkan istilah sudut dengan jumlah totalnya.',
+          pairs:[{left:'Complementary <span class="tr">Komplementer</span>', right:'$90^\\circ$'},{left:'Supplementary <span class="tr">Suplementer</span>', right:'$180^\\circ$'},{left:'Triangle <span class="tr">Segitiga</span>', right:'$180^\\circ$'},{left:'Point <span class="tr">Titik</span>', right:'$360^\\circ$'}],
+          explanation:`<p>Recall the definitions of complementary, supplementary, and shape angle sums. <span class="tr">Ingat definisi istilah sudut.</span></p>`},
+        { type:'task', pageTitle:'T7: Regular Pentagon', pageTitleEn:'Pentagon Beraturan', taskType:'fill',
+          question:'What is the size of one interior angle in a regular pentagon? $\\dots^\\circ$', questionEn:'Berapa ukuran satu sudut dalam pentagon beraturan? $\\dots^\\circ$',
+          correctAnswer:'108', acceptableAnswers:['108'],
+          explanation:`<p>Exterior $= 360/5 = 72^\\circ$. Interior $= 180 - 72 = 108^\\circ$. <span class="tr">Gunakan rumus sudut dalam poligon.</span></p>`},
+        { type:'task', pageTitle:'T8: Multi-Step Find', pageTitleEn:'Pencarian Multi-Langkah', taskType:'radio',
+          question:'Angle $x$ is alternate to $65^\\circ$. Angle $y$ is co-interior to $x$. Find $y$.', questionEn:'Sudut $x$ berseberangan dengan $65^\\circ$. Sudut $y$ sepihak dengan $x$. Cari $y$.',
+          options:[{text:'$65^\\circ$', correct:false},{text:'$115^\\circ$', correct:true},{text:'$180^\\circ$', correct:false},{text:'$90^\\circ$', correct:false}],
+          explanation:`<p>$x = 65^\\circ$ (Alternate). $y = 180^\\circ - 65^\\circ = 115^\\circ$ (Co-interior). <span class="tr">Gabungan aturan Z dan C.</span></p>`},
+        { type:'task', pageTitle:'T9: Composite Logic', pageTitleEn:'Logika Gabungan', taskType:'truefalse',
+          question:'True or false: A square and a regular triangle meeting at a point leave a gap of $210^\\circ$.', questionEn:'Benar atau salah: Persegi dan segitiga beraturan bertemu di satu titik menyisakan celah $210^\\circ$.',
+          correctAnswer:'true',
+          explanation:`<p>Square $= 90^\\circ$, Triangle $= 60^\\circ$. Sum $= 150^\\circ$. Gap $= 360^\\circ - 150^\\circ = 210^\\circ$. <span class="tr">Gunakan aturan sudut di sekitar titik.</span></p>`},
+        { type:'task', pageTitle:'T10: Match Angle Measures', pageTitleEn:'Pasangkan Ukuran Sudut', taskType:'dragdrop',
+          question:'Drag the angle measure to its correct type.', questionEn:'Seret ukuran sudut ke jenis yang benar.',
+          items:['$45^\\circ$', '$90^\\circ$', '$120^\\circ$', '$200^\\circ$'],
+          dropZones:['Acute', 'Right', 'Obtuse', 'Reflex'],
+          correctMapping:{'$45^\\circ$':0, '$90^\\circ$':1, '$120^\\circ$':2, '$200^\\circ$':3},
+          explanation:`<p>Acute $<90$, Right $=90$, $90<$Obtuse$<180$, Reflex $>180$. <span class="tr">Klasifikasi sudut berdasarkan ukurannya.</span></p>`}
+      ]
+    },
+    l: {
+      title: 'Task 5', titleEn: 'Task 5', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Straight Line Algebra', pageTitleEn:'Aljabar Garis Lurus', taskType:'fill',
+          question:'Two angles on a straight line are $4x$ and $x$. Find $4x$. $4x = \\dots^\\circ$', questionEn:'Dua sudut pada garis lurus adalah $4x$ dan $x$. Cari $4x$. $4x = \\dots^\\circ$',
+          correctAnswer:'144', acceptableAnswers:['144'],
+          explanation:`<p>$4x + x = 180^\\circ \\Rightarrow 5x = 180^\\circ \\Rightarrow x = 36^\\circ$. Then $4x = 4(36^\\circ) = 144^\\circ$. <span class="tr">Cari $x$ dulu, lalu cari $4x$.</span></p>`},
+        { type:'task', pageTitle:'T2: Parallel Lines', pageTitleEn:'Garis Sejajar', taskType:'radio',
+          question:'If corresponding angles are $3x$ and $90^\\circ$, what is $x$?', questionEn:'Jika sudut bersebrangan adalah $3x$ dan $90^\\circ$, berapa $x$?',
+          options:[{text:'$30^\\circ$', correct:true},{text:'$45^\\circ$', correct:false},{text:'$90^\\circ$', correct:false},{text:'$270^\\circ$', correct:false}],
+          explanation:`<p>Corresponding angles are equal. $3x = 90^\\circ \\Rightarrow x = 30^\\circ$. <span class="tr">Samakan persamaan lalu selesaikan.</span></p>`},
+        { type:'task', pageTitle:'T3: Quadrilateral Logic', pageTitleEn:'Logika Segi Empat', taskType:'truefalse',
+          question:'True or false: The sum of angles in a quadrilateral is $360^\\circ$.', questionEn:'Benar atau salah: Jumlah sudut dalam segi empat adalah $360^\\circ$.',
+          correctAnswer:'true',
+          explanation:`<p>A quadrilateral can be split into 2 triangles. $2 \\times 180^\\circ = 360^\\circ$. <span class="tr">Segi empat terdiri dari 2 segitiga.</span></p>`},
+        { type:'task', pageTitle:'T4: Exterior Angle Steps', pageTitleEn:'Langkah Sudut Luar', taskType:'sorting',
+          question:'Order the steps to find the exterior angle of a regular decagon (10 sides).', questionEn:'Urutkan langkah mencari sudut luar desagon beraturan (10 sisi).',
+          items:['Recall formula: Exterior $= \\dfrac{360^\\circ}{n}$ <span class="tr">Ingat rumus</span>','Substitute $n=10$: $\\dfrac{360^\\circ}{10}$ <span class="tr">Substitusi nilai $n$</span>','Calculate: $36^\\circ$ <span class="tr">Hitung hasilnya</span>','Verify: Interior $= 180 - 36 = 144^\\circ$ <span class="tr">Verifikasi sudut dalam</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard procedure for finding exterior angles of regular polygons. <span class="tr">Prosedur standar mencari sudut luar.</span></p>`},
+        { type:'task', pageTitle:'T5: Identifying Shapes', pageTitleEn:'Identifikasi Bentuk', taskType:'checkbox',
+          question:'Which of the following shapes have 4 sides?', questionEn:'Mana dari bentuk berikut yang memiliki 4 sisi?',
+          options:[{text:'Square <span class="tr">Persegi</span>', correct:true},{text:'Rhombus <span class="tr">Belah ketupat</span>', correct:true},{text:'Pentagon <span class="tr">Pentagon</span>', correct:false},{text:'Trapezium <span class="tr">Trapesium</span>', correct:true}],
+          explanation:`<p>Squares, rhombuses, and trapeziums are all types of quadrilaterals (4 sides). A pentagon has 5 sides. <span class="tr">Persegi, belah ketupat, dan trapesium adalah segi empat.</span></p>`},
+        { type:'task', pageTitle:'T6: Match Supplements', pageTitleEn:'Pasangkan Suplemen', taskType:'pairing',
+          question:'Match the angle to its supplementary angle.', questionEn:'Pasangkan sudut dengan sudut suplementernya.',
+          pairs:[{left:'$30^\\circ$', right:'$150^\\circ$'},{left:'$45^\\circ$', right:'$135^\\circ$'},{left:'$60^\\circ$', right:'$120^\\circ$'},{left:'$90^\\circ$', right:'$90^\\circ$'}],
+          explanation:`<p>Supplementary angles add to $180^\\circ$. Subtract the given angle from $180^\\circ$. <span class="tr">Kurangi sudut dari $180^\\circ$.</span></p>`},
+        { type:'task', pageTitle:'T7: Vertically Opposite', pageTitleEn:'Tolak Belakang', taskType:'fill',
+          question:'Two lines intersect. One angle is $55^\\circ$. What is its vertically opposite angle? $\\dots^\\circ$', questionEn:'Dua garis berpotongan. Satu sudut $55^\\circ$. Berapa sudut bertolak belakangnya? $\\dots^\\circ$',
+          correctAnswer:'55', acceptableAnswers:['55'],
+          explanation:`<p>Vertically opposite angles are always equal. <span class="tr">Sudut bertolak belakang selalu sama besar.</span></p>`},
+        { type:'task', pageTitle:'T8: Octagon Interior', pageTitleEn:'Sudut Dalam Oktagon', taskType:'radio',
+          question:'What is the interior angle of a regular octagon?', questionEn:'Berapa sudut dalam oktagon beraturan?',
+          options:[{text:'$45^\\circ$', correct:false},{text:'$135^\\circ$', correct:true},{text:'$180^\\circ$', correct:false},{text:'$360^\\circ$', correct:false}],
+          explanation:`<p>Exterior $= 360/8 = 45^\\circ$. Interior $= 180 - 45 = 135^\\circ$. <span class="tr">Gunakan rumus sudut dalam poligon.</span></p>`},
+        { type:'task', pageTitle:'T9: Non-Parallel Logic', pageTitleEn:'Logika Tidak Sejajar', taskType:'truefalse',
+          question:'True or false: Alternate angles are equal only if the lines are parallel.', questionEn:'Benar atau salah: Sudut berseberangan sama besar hanya jika garisnya sejajar.',
+          correctAnswer:'true',
+          explanation:`<p>The rules of corresponding, alternate, and co-interior angles ONLY apply when the two lines cut by a transversal are strictly parallel. <span class="tr">Aturan ini hanya berlaku jika garisnya sejajar.</span></p>`},
+        { type:'task', pageTitle:'T10: Match Formulas', pageTitleEn:'Pasangkan Rumus', taskType:'dragdrop',
+          question:'Drag the formula to its correct description.', questionEn:'Seret rumus ke deskripsi yang benar.',
+          items:['$(n-2) \\times 180^\\circ$', '$\\dfrac{360^\\circ}{n}$', '$180^\\circ - x$', '$a+b+c=180^\\circ$'],
+          dropZones:['Sum of interior angles of polygon', 'Exterior angle of regular polygon', 'Interior angle of regular polygon', 'Sum of angles in triangle'],
+          correctMapping:{'$(n-2) \\times 180^\\circ$':0, '$\\dfrac{360^\\circ}{n}$':1, '$180^\\circ - x$':2, '$a+b+c=180^\\circ$':3},
+          explanation:`<p>Match standard geometric formulas to their specific use cases. <span class="tr">Cocokkan rumus geometri standar.</span></p>`}
+      ]
+    }
+  };
+
+  // ================= STATE =================
+  let currentSection = 'a';
+  let currentPage = 0;
+  let userAnswers = {};
+
+  // ================= UTILITIES =================
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  function renderMath(el){
+    if(window.renderMathInElement){
+      renderMathInElement(el, {
+        delimiters: [
+          {left:'$$', right:'$$', display:true},
+          {left:'$', right:'$', display:false}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
+  // ================= SIDEBAR =================
+  function renderSidebar(){
+    const sidebar = document.getElementById('sidebar');
+    const sectionKeys = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+    const meta = {
+      a:{t:'Spiral Review', e:'Spiral Review', time:'00:00-00:10'},
+      b:{t:'Intro & Real-World', e:'Pengantar & Dunia Nyata', time:'00:10-00:15'},
+      c:{t:'Prior Knowledge', e:'Pengetahuan Awal', time:'00:15-00:20'},
+      d:{t:'Problem Intro', e:'Pengantar Masalah', time:'00:20-00:30'},
+      e:{t:'Guided Practice', e:'Latihan Terbimbing', time:'00:30-00:45'},
+      f:{t:'Independent Prac', e:'Latihan Mandiri', time:'00:45-00:55'},
+      g:{t:'Consolidation', e:'Konsolidasi', time:'00:55-01:00'},
+      h:{t:'Task 1', e:'Tugas 1', time:'Printable'},
+      i:{t:'Task 2', e:'Tugas 2', time:'Printable'},
+      j:{t:'Task 3', e:'Tugas 3', time:'Printable'},
+      k:{t:'Task 4', e:'Tugas 4', time:'Printable'},
+      l:{t:'Task 5', e:'Tugas 5', time:'Printable'}
+    };
+    let html = '<h3>Sections <span class="tr">Bagian</span></h3>';
+    sectionKeys.forEach(key => {
+      const section = sectionsData[key];
+      const isActive = currentSection === key;
+      if(section){
+        html += `<div class="nav-link ${isActive?'active':''}" data-section="${key}">
+          <span class="nl-title">${key.toUpperCase()}. ${meta[key].t}</span>
+          <span class="tr">${meta[key].e}</span>
+          <span class="time">${meta[key].time}</span>
+        </div>`;
+      } else {
+        html += `<div class="nav-link disabled">${key.toUpperCase()}. ${meta[key].t}<br><span class="tr">${meta[key].e}</span><br><span class="time">${meta[key].time} (segera)</span></div>`;
+      }
+    });
+    sidebar.innerHTML = html;
+    sidebar.querySelectorAll('.nav-link[data-section]').forEach(el => {
+      el.addEventListener('click', () => {
+        currentSection = el.dataset.section;
+        currentPage = 0;
+        renderSidebar();
+        renderPage();
+      });
+    });
+  }
+
+  // ================= PAGE RENDER =================
+  function renderPage(){
+    const section = sectionsData[currentSection];
+    if(!section) return;
+    const page = section.pages[currentPage];
+    const contentEl = document.getElementById('pageContent');
+
+    let printBtnHtml = '';
+    if(['h','i','j','k','l'].includes(currentSection)){
+      printBtnHtml = '<button id="printBtnTop" style="background:var(--success);color:#fff;border:none;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:.8em;font-weight:600;white-space:nowrap">🖨 Print to PDF <span class="tr">Cetak ke PDF</span></button>';
+    }
+
+    let html = '<div class="page-header"><h2>' + section.title + ' <span class="tr">' + section.titleEn + '</span></h2><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' + printBtnHtml + '<span class="badge">' + page.pageTitle.split(':')[0] + '</span></div></div>';
+
+    if(page.type === 'explanation'){
+      html += '<div class="card explain"><h3>' + page.pageTitle + ' <span class="tr">' + page.pageTitleEn + '</span></h3>' + page.body + '</div>';
+    } else if(page.type === 'task'){
+      html += renderTask(page);
+    }
+    contentEl.innerHTML = html;
+    renderMath(contentEl);
+
+    const total = section.pages.length;
+    const pageNumsEl = document.getElementById('pageNums');
+    let pageNumHtml = '';
+    section.pages.forEach(function(p, i){
+      var raw = p.pageTitle.split(':')[0].trim();
+      var type = raw.charAt(0);
+      var num = parseInt(raw.substring(1));
+      var label = type + '-' + String(num).padStart(2, '0');
+      var typeClass = (type === 'E') ? 'page-num-e' : 'page-num-t';
+      var isActive = (i === currentPage);
+      pageNumHtml += '<button class="page-num ' + typeClass + ' ' + (isActive ? 'active' : '') + '" data-page="' + i + '"' + (isActive ? ' disabled' : '') + '>' + label + '</button>';
+    });
+    pageNumsEl.innerHTML = pageNumHtml;
+
+    pageNumsEl.querySelectorAll('.page-num').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        currentPage = parseInt(btn.dataset.page);
+        renderPage();
+      });
+    });
+
+    document.getElementById('prevBtn').disabled = (currentPage === 0);
+    document.getElementById('nextBtn').disabled = (currentPage === total - 1);
+
+    var printBtnTop = document.getElementById('printBtnTop');
+    if(printBtnTop){
+      printBtnTop.addEventListener('click', function(){ printTask(currentSection); });
+    }
+
+    if(page.type === 'task'){
+      attachTaskHandlers(page);
+    }
+  }
+
+  function renderTask(page){
+    let html = `<div class="card task"><h3>${page.pageTitle} <span class="tr">${page.pageTitleEn}</span></h3>`;
+    html += `<div class="q-text">${page.question} <span class="tr">${page.questionEn || ''}</span></div>`;
+
+    if(page.taskType === 'radio' || page.taskType === 'checkbox'){
+      const options = shuffle(page.options);
+      page._shuffledOptions = options;
+      html += '<div class="options">';
+      options.forEach((opt, i) => {
+        const cls = page.taskType === 'checkbox' ? 'option checkbox' : 'option radio';
+        html += `<div class="${cls}" data-idx="${i}">
+          <div class="marker"></div>
+          <div class="opt-text">${opt.text}</div>
+        </div>`;
+      });
+      html += '</div>';
+    } else if(page.taskType === 'fill'){
+      html += `<input type="text" class="fill-input" id="fillInput" placeholder="...">`;
+    } else if(page.taskType === 'truefalse'){
+      const opts = shuffle([
+        {text:'True <span class="tr">Benar</span>', val:'true'},
+        {text:'False <span class="tr">Salah</span>', val:'false'}
+      ]);
+      page._shuffledTF = opts;
+      html += '<div class="options">';
+      opts.forEach((o, i) => {
+        html += `<div class="option radio" data-val="${o.val}" data-idx="${i}"><div class="marker"></div><div class="opt-text">${o.text}</div></div>`;
+      });
+      html += '</div>';
+    } else if(page.taskType === 'sorting'){
+      const shuffled = shuffle(page.items.map((item, idx) => ({text:item, originalIdx:idx})));
+      page._shuffledItems = shuffled;
+      html += '<div class="sort-list">';
+      shuffled.forEach((it, i) => {
+        html += `<div class="sort-item" data-pos="${i}" data-orig="${it.originalIdx}">
+          <span class="pos">${i+1}</span>
+          <span class="sort-text">${it.text}</span>
+        </div>`;
+      });
+      html += '</div>';
+      html += '<p style="font-size:.82em;color:var(--muted);margin-top:6px">Click two items to swap. <span class="tr">Klik dua item untuk menukar.</span></p>';
+    } else if(page.taskType === 'pairing'){
+      const lefts = shuffle(page.pairs.map((p, idx) => ({text:p.left, originalIdx:idx})));
+      const rights = shuffle(page.pairs.map((p, idx) => ({text:p.right, originalIdx:idx})));
+      page._shuffledPairs = {lefts, rights};
+      html += '<div class="pair-grid">';
+      html += '<div class="pair-col"><h4>Left <span class="tr">Kiri</span></h4>';
+      lefts.forEach((l, i) => {
+        html += `<div class="pair-item" data-side="left" data-idx="${i}">${l.text}</div>`;
+      });
+      html += '</div>';
+      html += '<div class="pair-col"><h4>Right <span class="tr">Kanan</span></h4>';
+      rights.forEach((r, i) => {
+        html += `<div class="pair-item" data-side="right" data-idx="${i}">${r.text}</div>`;
+      });
+      html += '</div></div>';
+      html += '<div class="pairs-list" id="pairsList"></div>';
+      html += '<p style="font-size:.82em;color:var(--muted);margin-top:6px">Click left then right to pair. <span class="tr">Klik kiri lalu kanan untuk memasangkan.</span></p>';
+    } else if(page.taskType === 'dragdrop'){
+      const shuffled = shuffle(page.items.map((item, idx) => ({text:item, originalIdx:idx})));
+      page._shuffledDD = shuffled;
+      html += '<div class="drag-container">';
+      html += '<div class="drag-col"><h4>Items <span class="tr">Item</span></h4><div class="drag-items" id="dragItems">';
+      shuffled.forEach((it, i) => {
+        html += `<div class="drag-item" draggable="true" data-orig="${it.originalIdx}" data-text="${it.text.replace(/"/g, '&quot;')}">${it.text}</div>`;
+      });
+      html += '</div></div>';
+      html += '<div class="drag-col"><h4>Drop Zones <span class="tr">Zona Jatuh</span></h4><div class="drop-zones" id="dropZones">';
+      page.dropZones.forEach((zone, i) => {
+        html += `<div class="drop-zone" data-target="${i}"><span class="zone-label">${zone}</span><div class="zone-content"></div></div>`;
+      });
+      html += '</div></div></div>';
+      html += '<p style="font-size:.82em;color:var(--muted);margin-top:6px">Drag items to match. <span class="tr">Seret item untuk mencocokkan.</span></p>';
+    }
+    html += `<button class="btn-submit" id="submitBtn">Check Answer <span class="tr">Periksa Jawaban</span></button>`;
+    html += `<div class="feedback" id="feedback"></div></div>`;
+    return html;
+  }
+
+  function attachTaskHandlers(page){
+    const taskType = page.taskType;
+
+    if(taskType === 'radio' || taskType === 'truefalse'){
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+        });
+      });
+    } else if(taskType === 'checkbox'){
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => opt.classList.toggle('selected'));
+      });
+    } else if(taskType === 'sorting'){
+      let firstClick = null;
+      document.querySelectorAll('.sort-item').forEach(item => {
+        item.addEventListener('click', () => {
+          if(firstClick === null){
+            firstClick = item;
+            item.classList.add('selected');
+          } else if(firstClick === item){
+            item.classList.remove('selected');
+            firstClick = null;
+          } else {
+            const fText = firstClick.querySelector('.sort-text').innerHTML;
+            const sText = item.querySelector('.sort-text').innerHTML;
+            firstClick.querySelector('.sort-text').innerHTML = sText;
+            item.querySelector('.sort-text').innerHTML = fText;
+            const fOrig = firstClick.dataset.orig;
+            firstClick.dataset.orig = item.dataset.orig;
+            item.dataset.orig = fOrig;
+            firstClick.classList.remove('selected');
+            firstClick = null;
+          }
+        });
+      });
+    } else if(taskType === 'pairing'){
+      let selectedLeft = null;
+      document.querySelectorAll('.pair-item[data-side="left"]').forEach(item => {
+        item.addEventListener('click', () => {
+          if(item.classList.contains('paired')) return;
+          document.querySelectorAll('.pair-item[data-side="left"]').forEach(i => i.classList.remove('selected'));
+          item.classList.add('selected');
+          selectedLeft = item;
+        });
+      });
+      document.querySelectorAll('.pair-item[data-side="right"]').forEach(item => {
+        item.addEventListener('click', () => {
+          if(item.classList.contains('paired') || !selectedLeft) return;
+          const leftIdx = selectedLeft.dataset.idx;
+          const rightIdx = item.dataset.idx;
+          const pairList = document.getElementById('pairsList');
+          const pairRow = document.createElement('div');
+          pairRow.className = 'pair-row';
+          pairRow.dataset.leftIdx = leftIdx;
+          pairRow.dataset.rightIdx = rightIdx;
+          pairRow.innerHTML = `<span>${selectedLeft.innerHTML}</span> <span>↔</span> <span>${item.innerHTML}</span> <span class="remove" title="Remove">×</span>`;
+          pairRow.querySelector('.remove').addEventListener('click', function() {
+            const lIdx = pairRow.dataset.leftIdx;
+            const rIdx = pairRow.dataset.rightIdx;
+            const lItem = document.querySelector(`.pair-item[data-side="left"][data-idx="${lIdx}"]`);
+            const rItem = document.querySelector(`.pair-item[data-side="right"][data-idx="${rIdx}"]`);
+            if(lItem) lItem.classList.remove('paired');
+            if(rItem) rItem.classList.remove('paired');
+            pairRow.remove();
+          });
+          pairList.appendChild(pairRow);
+          selectedLeft.classList.remove('selected');
+          selectedLeft.classList.add('paired');
+          item.classList.add('paired');
+          selectedLeft = null;
+        });
+      });
+    } else if(taskType === 'dragdrop'){
+      let dragged = null;
+      document.querySelectorAll('.drag-item').forEach(item => {
+        item.addEventListener('dragstart', function(e) {
+          dragged = e.target;
+          e.target.style.opacity = 0.5;
+        });
+        item.addEventListener('dragend', function(e) {
+          e.target.style.opacity = '';
+        });
+      });
+      document.querySelectorAll('.drop-zone').forEach(zone => {
+        zone.addEventListener('dragover', function(e) {
+          e.preventDefault();
+        });
+        zone.addEventListener('dragenter', function(e) {
+          e.preventDefault();
+          this.classList.add('over');
+        });
+        zone.addEventListener('dragleave', function(e) {
+          this.classList.remove('over');
+        });
+        zone.addEventListener('drop', function(e) {
+          e.preventDefault();
+          this.classList.remove('over');
+          if (dragged) {
+            const content = this.querySelector('.zone-content');
+            if(content.innerHTML !== '') {
+              const oldItem = document.createElement('div');
+              oldItem.className = 'drag-item';
+              oldItem.setAttribute('draggable', 'true');
+              oldItem.dataset.orig = content.querySelector('.drag-item').dataset.orig;
+              oldItem.dataset.text = content.querySelector('.drag-item').dataset.text;
+              oldItem.innerHTML = content.innerHTML;
+              attachDragEvents(oldItem);
+              document.getElementById('dragItems').appendChild(oldItem);
+            }
+            content.innerHTML = '';
+            content.appendChild(dragged);
+          }
+        });
+      });
+      function attachDragEvents(item) {
+        item.addEventListener('dragstart', function(e) {
+          dragged = e.target;
+          e.target.style.opacity = 0.5;
+        });
+        item.addEventListener('dragend', function(e) {
+          e.target.style.opacity = '';
+        });
+      }
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', () => checkAnswer(page));
+  }
+
+  function checkAnswer(page){
+    const taskType = page.taskType;
+    let isCorrect = false;
+    let userAnswerStr = '';
+
+    if(taskType === 'radio'){
+      let selected = null, selectedIdx = -1;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')){
+          selected = page._shuffledOptions[i];
+          selectedIdx = i;
+        }
+      });
+      if(!selected){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      isCorrect = selected.correct;
+      userAnswerStr = selected.text;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(page._shuffledOptions[i].correct) opt.classList.add('correct');
+        else if(i === selectedIdx && !selected.correct) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'checkbox'){
+      const selectedIdxs = [];
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')) selectedIdxs.push(i);
+      });
+      if(selectedIdxs.length === 0){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      const correctSet = new Set();
+      page._shuffledOptions.forEach((opt, i) => { if(opt.correct) correctSet.add(i); });
+      const selectedSet = new Set(selectedIdxs);
+      isCorrect = correctSet.size === selectedSet.size && [...correctSet].every(i => selectedSet.has(i));
+      userAnswerStr = selectedIdxs.map(i => page._shuffledOptions[i].text).join(', ');
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(page._shuffledOptions[i].correct) opt.classList.add('correct');
+        else if(selectedSet.has(i)) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'fill'){
+      const val = document.getElementById('fillInput').value.trim();
+      const acceptable = page.acceptableAnswers || [page.correctAnswer];
+      const norm = s => s.toLowerCase().replace(/\s+/g, '').trim();
+      isCorrect = acceptable.some(a => norm(a) === norm(val));
+      userAnswerStr = val;
+    } else if(taskType === 'truefalse'){
+      let selectedVal = null, selectedIdx = -1;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')){
+          selectedVal = opt.dataset.val;
+          selectedIdx = i;
+        }
+      });
+      if(!selectedVal){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      isCorrect = selectedVal === page.correctAnswer;
+      userAnswerStr = selectedVal === 'true' ? 'True' : 'False';
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(opt.dataset.val === page.correctAnswer) opt.classList.add('correct');
+        else if(i === selectedIdx) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'sorting'){
+      const currentOrder = [];
+      document.querySelectorAll('.sort-item').forEach(item => {
+        currentOrder.push(parseInt(item.dataset.orig));
+      });
+      isCorrect = currentOrder.every((idx, i) => idx === page.correctOrder[i]);
+      userAnswerStr = currentOrder.map((idx, i) => `${i+1}. ${page.items[idx] || '?'}`).join('  |  ');
+      document.querySelectorAll('.sort-item').forEach((item, i) => {
+        if(currentOrder[i] === page.correctOrder[i]) item.style.borderColor = 'var(--success)';
+        else item.style.borderColor = 'var(--danger)';
+      });
+    } else if(taskType === 'pairing'){
+      const pairRows = document.querySelectorAll('.pair-row');
+      if(pairRows.length === 0){
+        showFeedback(false, 'Please make pairs. <span class="tr">Silakan buat pasangan.</span>', false);
+        return;
+      }
+      const userPairs = [];
+      pairRows.forEach(row => {
+        const lIdx = parseInt(row.dataset.leftIdx);
+        const rIdx = parseInt(row.dataset.rightIdx);
+        userPairs.push({
+          leftText: page._shuffledPairs.lefts[lIdx].text,
+          rightText: page._shuffledPairs.rights[rIdx].text
+        });
+      });
+      const correctPairs = page.pairs.map(p => ({left:p.left, right:p.right}));
+      const correctCount = userPairs.filter(up =>
+        correctPairs.some(cp => cp.left === up.leftText && cp.right === up.rightText)
+      ).length;
+      isCorrect = correctCount === correctPairs.length && userPairs.length === correctPairs.length;
+      userAnswerStr = userPairs.map(p => `${p.leftText}↔${p.rightText}`).join('  |  ');
+      pairRows.forEach(row => {
+        const lIdx = parseInt(row.dataset.leftIdx);
+        const rIdx = parseInt(row.dataset.rightIdx);
+        const lText = page._shuffledPairs.lefts[lIdx].text;
+        const rText = page._shuffledPairs.rights[rIdx].text;
+        const ok = correctPairs.some(cp => cp.left === lText && cp.right === rText);
+        row.style.background = ok ? '#d1fae5' : '#fee2e2';
+      });
+    } else if(taskType === 'dragdrop'){
+      const zoneElements = document.querySelectorAll('.drop-zone');
+      if(zoneElements.length === 0) return;
+      const userMapping = {};
+      let allFilled = true;
+      zoneElements.forEach(zone => {
+        const targetIdx = parseInt(zone.dataset.target);
+        const droppedItem = zone.querySelector('.drag-item');
+        if(droppedItem) {
+          const origIdx = parseInt(droppedItem.dataset.orig);
+          const text = page._shuffledDD[origIdx].text;
+          userMapping[text] = targetIdx;
+        } else {
+          allFilled = false;
+        }
+      });
+      if(!allFilled){
+        showFeedback(false, 'Please drag an item to every zone. <span class="tr">Silakan seret item ke setiap zona.</span>', false);
+        return;
+      }
+      let correctCount = 0;
+      for(let i=0; i<page.items.length; i++){
+        const itemText = page.items[i];
+        if(userMapping[itemText] !== undefined && userMapping[itemText] === page.correctMapping[itemText]){
+          correctCount++;
+        }
+      }
+      isCorrect = (correctCount === page.items.length);
+      userAnswerStr = Object.keys(userMapping).map(k => `${k} -> Zone ${userMapping[k]+1}`).join('  |  ');
+      
+      // Perbaikan visual warning (warna hijau/merah di dropzone)
+      zoneElements.forEach(zone => {
+        const targetIdx = parseInt(zone.dataset.target);
+        const droppedItem = zone.querySelector('.drag-item');
+        if(droppedItem) {
+          const origIdx = parseInt(droppedItem.dataset.orig);
+          const text = page._shuffledDD[origIdx].text;
+          if(page.correctMapping[text] === targetIdx) {
+            zone.style.borderColor = 'var(--success)';
+            zone.style.background = '#d1fae5';
+          } else {
+            zone.style.borderColor = 'var(--danger)';
+            zone.style.background = '#fee2e2';
+          }
+        }
+      });
+    }
+
+    const pageKey = `${currentSection}-${currentPage}`;
+    userAnswers[pageKey] = {userAnswer:userAnswerStr, correct:isCorrect, pageTitle:page.pageTitle};
+    showFeedback(isCorrect, page.explanation, true);
+  }
+
+  function showFeedback(isCorrect, explanation, showAnswer){
+    const feedback = document.getElementById('feedback');
+    feedback.className = `feedback show ${isCorrect?'correct':'incorrect'}`;
+    if(showAnswer){
+      feedback.innerHTML = `<h4>${isCorrect?'✓ Correct!':'✗ Incorrect'} <span class="tr">${isCorrect?'Benar!':'Salah'}</span></h4>${explanation}`;
+    } else {
+      feedback.innerHTML = `<h4>${isCorrect?'✓ Correct!':'✗ Incorrect'}</h4>`;
+    }
+    renderMath(feedback);
+  }
+
+  // ================= EVENT LISTENERS =================
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    if(currentPage > 0){ currentPage--; renderPage(); }
+  });
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    const total = sectionsData[currentSection].pages.length;
+    if(currentPage < total - 1){ currentPage++; renderPage(); }
+  });
+
+  const modal = document.getElementById('classRulesModal');
+  document.getElementById('classRulesBtn').addEventListener('click', () => modal.classList.add('active'));
+  document.querySelector('.modal-close').addEventListener('click', () => modal.classList.remove('active'));
+  modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('active'); });
+
+  // ================= PRINT TO PDF =================
+  function getCorrectAnswer(task){
+    if(task.taskType === 'radio'){
+      const c = task.options.find(o => o.correct);
+      return c ? c.text : '';
+    }
+    if(task.taskType === 'checkbox'){
+      return task.options.filter(o => o.correct).map(o => o.text).join(', ');
+    }
+    if(task.taskType === 'fill'){
+      return task.correctAnswer || '';
+    }
+    if(task.taskType === 'truefalse'){
+      return task.correctAnswer === 'true' ? 'True' : 'False';
+    }
+    if(task.taskType === 'sorting'){
+      return task.correctOrder.map(i => task.items[i]).join(' → ');
+    }
+    if(task.taskType === 'pairing'){
+      return task.pairs.map(p => p.left + ' ↔ ' + p.right).join('; ');
+    }
+    if(task.taskType === 'dragdrop'){
+      let res = [];
+      task.items.forEach(it => {
+        const zoneIdx = task.correctMapping[it];
+        res.push(it + ' -> ' + task.dropZones[zoneIdx]);
+      });
+      return res.join('; ');
+    }
+    return '';
+  }
+
+  function printTask(sectionKey){
+    const section = sectionsData[sectionKey];
+    if(!section) return;
+    const tasks = section.pages;
+    let correctCount = 0;
+
+    const rows = tasks.map((task, idx) => {
+      const pageKey = sectionKey + '-' + idx;
+      const ua = userAnswers[pageKey];
+      const isCorrect = ua ? ua.correct : false;
+      const userAns = ua ? ua.userAnswer : '(not answered)';
+      const correctAns = getCorrectAnswer(task);
+      if(ua && ua.correct) correctCount++;
+      return '<tr><td>' + (idx+1) + '</td><td>' + task.question + '<br><span class="tr">' + (task.questionEn || '') + '</span></td><td>' + userAns + '</td><td>' + correctAns + '</td><td style="text-align:center;font-size:1.1em">' + (isCorrect ? '✓' : '✗') + '</td></tr>';
+    }).join('');
+
+    const score = correctCount + ' / ' + tasks.length;
+    const today = new Date().toLocaleDateString('en-US', {day:'numeric',month:'long',year:'numeric'});
+
+    const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Print - ' + section.title + '</title>' +
+      '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">' +
+      '<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"><\/script>' +
+      '<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"><\/script>' +
+      '<style>' +
+      'body{font-family:Segoe UI,sans-serif;padding:30px;color:#1e293b;line-height:1.5}' +
+      'h1{font-size:1.2em;margin-bottom:5px}' +
+      '.info{margin-bottom:15px;font-size:.88em}' +
+      '.info div{margin:3px 0}' +
+      'table{width:100%;border-collapse:collapse;margin:15px 0;font-size:.82em}' +
+      'th,td{border:1px solid #cbd5e1;padding:6px 8px;text-align:left;vertical-align:top}' +
+      'th{background:#f1f5f9;font-weight:600}' +
+      '.checked-by{margin-top:30px;text-align:right;font-style:italic}' +
+      '.tr{font-style:italic;font-size:.85em;color:#64748b}' +
+      '@media print{body{padding:15px}}' +
+      '</style></head><body>' +
+      '<h1>Math Tutoring by Deni</h1>' +
+      '<div class="info">' +
+      '<div>Name: ____________________________ <span class="tr">Nama</span></div>' +
+      '<div>Date: ' + today + ' <span class="tr">Tanggal</span></div>' +
+      '<div>Topic: Geometry and measure: Angles <span class="tr">Topik: Geometri dan pengukuran: Sudut</span></div>' +
+      '<div>Task Group: ' + section.title + ' <span class="tr">Grup Task</span></div>' +
+      '<div>Score: <strong>' + score + '</strong> <span class="tr">Skor</span></div>' +
+      '</div>' +
+      '<table><thead><tr>' +
+      '<th style="width:30px">No.</th>' +
+      '<th>Question <span class="tr">Pertanyaan</span></th>' +
+      '<th>Student Answer <span class="tr">Jawaban Siswa</span></th>' +
+      '<th>Correct Answer <span class="tr">Jawaban Benar</span></th>' +
+      '<th style="width:50px">Note <span class="tr">Ket.</span></th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table>' +
+      '<div class="checked-by">Checked by, <span class="tr">Diperiksa oleh,</span><br>Deni</div>' +
+      '<script>document.addEventListener("DOMContentLoaded",function(){' +
+      'if(window.renderMathInElement){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false});}' +
+      'setTimeout(function(){window.print();},500);});<\/script>' +
+      '</body></html>';
+
+    const w = window.open('', '_blank');
+    if(w){
+      w.document.write(html);
+      w.document.close();
+    } else {
+      alert('Please allow pop-ups to print. <span class="tr">Mohon izinkan pop-up untuk mencetak.</span>');
+    }
+  }
+
+  // ================= INIT =================
+  renderSidebar();
+  renderPage();
+});
+</script>
+</body>
+</html>
