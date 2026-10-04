@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Tutoring by Deni - Perimeter and Area</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#2563eb;--primary-dark:#1e40af;--secondary:#f59e0b;--success:#10b981;--danger:#ef4444;--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.tr{font-style:italic;font-size:.82em;color:var(--muted);display:block;margin-top:2px}
+header{background:var(--primary);color:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.12);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
+header .brand{font-weight:700;font-size:1.05em}
+header .topic{font-size:.88em;text-align:center;flex:1}
+header .topic .tr{color:rgba(255,255,255,.85)}
+header button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.85em;white-space:nowrap}
+header button:hover{background:rgba(255,255,255,.25)}
+.main-container{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 52px)}
+.sidebar{background:var(--card);border-right:1px solid var(--border);padding:14px;overflow-y:auto;position:sticky;top:52px;height:calc(100vh - 52px)}
+.sidebar h3{font-size:.72em;color:var(--muted);text-transform:uppercase;margin-bottom:8px;letter-spacing:1px}
+.nav-link{display:block;padding:8px 10px;border-radius:6px;cursor:pointer;margin-bottom:3px;font-size:.84em;border:1px solid transparent;transition:all .15s}
+.nav-link:hover{background:#eff6ff}
+.nav-link.active{background:var(--primary);color:#fff;pointer-events:none;cursor:default}
+.nav-link .nl-title{display:block;font-weight:600}
+.nav-link .time{font-size:.76em;color:var(--muted);display:block;margin-top:2px}
+.nav-link.active .time,.nav-link.active .tr{color:rgba(255,255,255,.85)}
+.nav-link.disabled{opacity:.45;cursor:not-allowed;font-size:.8em;padding:6px 10px}
+.content-area{padding:22px 28px;overflow-y:auto;max-width:1100px;margin:0 auto;width:100%}
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:8px}
+.page-header h2{color:var(--primary-dark);font-size:1.1em}
+.page-header .badge{background:var(--secondary);color:#fff;padding:4px 10px;border-radius:20px;font-size:.76em;font-weight:600}
+.card{background:var(--card);border-radius:10px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;border:1px solid var(--border)}
+.card.explain{border-left:4px solid var(--primary)}
+.card.task{border-left:4px solid var(--secondary)}
+.card h3{color:var(--primary-dark);margin-bottom:12px;font-size:1.1em}
+.math-block{background:#f1f5f9;padding:12px 14px;border-radius:8px;margin:12px 0;overflow-x:auto}
+.example-box{background:#fef3c7;border-left:4px solid var(--secondary);padding:12px 16px;margin:12px 0;border-radius:6px}
+.example-box h4{color:#92400e;margin-bottom:6px;font-size:.95em}
+.tip-box{background:#dbeafe;border-left:4px solid var(--primary);padding:10px 14px;margin:10px 0;border-radius:6px}
+.tip-box h4{color:#1e40af;margin-bottom:4px;font-size:.9em}
+.illustration{text-align:center;margin:14px 0;padding:14px;background:#f1f5f9;border-radius:8px}
+.q-text{font-size:1em;margin-bottom:12px;line-height:1.7}
+.options{display:flex;flex-direction:column;gap:8px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:2px solid var(--border);border-radius:8px;cursor:pointer;background:#fff;transition:all .15s}
+.option:hover{border-color:var(--primary);background:#eff6ff}
+.option.selected{border-color:var(--primary);background:#dbeafe}
+.option.correct{border-color:var(--success);background:#d1fae5}
+.option.incorrect{border-color:var(--danger);background:#fee2e2}
+.option .marker{min-width:18px;width:18px;height:18px;border:2px solid var(--muted);border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:.7em;color:#fff}
+.option.selected .marker{background:var(--primary);border-color:var(--primary)}
+.option.correct .marker{background:var(--success);border-color:var(--success)}
+.option.incorrect .marker{background:var(--danger);border-color:var(--danger)}
+.option.checkbox .marker{border-radius:3px}
+.option .opt-text{flex:1}
+.fill-input{padding:8px 12px;border:2px solid var(--border);border-radius:6px;font-size:1em;width:100%;margin:8px 0;font-family:inherit}
+.fill-input:focus{border-color:var(--primary);outline:none}
+.btn-submit{background:var(--primary);color:#fff;border:none;padding:9px 20px;border-radius:6px;cursor:pointer;font-size:.88em;font-weight:600;margin-top:12px}
+.btn-submit:hover{background:var(--primary-dark)}
+.feedback{margin-top:12px;padding:14px;border-radius:8px;display:none}
+.feedback.show{display:block}
+.feedback.correct{background:#d1fae5;border:1px solid var(--success)}
+.feedback.incorrect{background:#fee2e2;border:1px solid var(--danger)}
+.feedback h4{margin-bottom:6px}
+.feedback ol,.feedback ul{margin:6px 0;padding-left:22px}
+.feedback li{margin:4px 0}
+.card ol, .card ul { padding-left: 26px; margin: 10px 0; }
+.card li { margin: 5px 0; }
+.example-box ol, .example-box ul { padding-left: 22px; margin: 8px 0; }
+.tip-box ol, .tip-box ul { padding-left: 22px; margin: 8px 0; }
+.math-block ol, .math-block ul { padding-left: 22px; margin: 8px 0; }
+.pagination{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:14px;border-top:1px solid var(--border)}
+.pagination button{background:var(--primary);color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.84em}
+.pagination button:disabled{background:#cbd5e1;cursor:not-allowed}
+.pagination .indicator{font-size:.82em;color:var(--muted);text-align:center;flex:1;padding:0 10px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}
+.modal.active{display:flex}
+.modal-content{background:#fff;padding:22px;border-radius:12px;max-width:460px;width:90%}
+.modal-content h3{color:var(--primary-dark);margin-bottom:12px}
+.modal-content ul{list-style:none;padding-left:0}
+.modal-content li{padding:10px 0;border-bottom:1px solid var(--border)}
+.modal-content li:last-child{border-bottom:none}
+.modal-close{background:var(--primary);color:#fff;border:none;padding:8px 18px;border-radius:6px;cursor:pointer;margin-top:12px}
+.sort-list{display:flex;flex-direction:column;gap:6px}
+.sort-item{padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .15s}
+.sort-item:hover{border-color:var(--primary)}
+.sort-item.selected{border-color:var(--primary);background:#dbeafe}
+.sort-item .pos{background:var(--primary);color:#fff;min-width:24px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8em;flex-shrink:0}
+.sort-item .sort-text{flex:1}
+.pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pair-col h4{font-size:.85em;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
+.pair-col{display:flex;flex-direction:column;gap:6px}
+.pair-item{padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;text-align:center;font-size:.92em}
+.pair-item.selected{border-color:var(--primary);background:#dbeafe}
+.pair-item.paired{opacity:.5;cursor:default;border-color:var(--success);background:#d1fae5}
+.pairs-list{margin-top:10px}
+.pair-row{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:#f1f5f9;border-radius:6px;margin-bottom:4px;font-size:.85em}
+.pair-row .remove{cursor:pointer;color:var(--danger);font-weight:700;margin-left:6px}
+.page-numbers {display:flex;gap:3px;flex-wrap:nowrap;justify-content:center;flex:1;overflow-x:auto;padding:0 3px;}
+.page-num {min-width:28px;height:26px;border:1px solid var(--border);background:#fff;border-radius:4px;cursor:pointer;font-size:.7em;display:flex;align-items:center;justify-content:center;padding:0 4px;white-space:nowrap;transition:all .15s;flex-shrink:0;}
+.page-num.page-num-e {background:#eff6ff;border-color:#93c5fd;color:#1e40af;}
+.page-num.page-num-t {background:#fffbeb;border-color:#fcd34d;color:#92400e;}
+.page-num.page-num-e:hover {background:#dbeafe;border-color:var(--primary);}
+.page-num.page-num-t:hover {background:#fef3c7;border-color:var(--secondary);}
+.page-num.page-num-e.active {background:var(--primary);color:#fff;border-color:var(--primary);font-weight:600;}
+.page-num.page-num-t.active {background:var(--secondary);color:#fff;border-color:var(--secondary);font-weight:600;}
+.page-num:disabled {opacity:1;cursor:default;}
+@media(max-width:1100px){.main-container{grid-template-columns:180px 1fr}.content-area{padding:18px 20px}}
+@media(max-width:760px){.main-container{grid-template-columns:1fr}.sidebar{display:none}.content-area{padding:16px}header{font-size:.9em}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Math Tutoring by Deni</div>
+  <div class="topic">Topic: Perimeter and Area of 2D Shapes <span class="tr">Topik: Keliling dan Luas Bangun Datar</span></div>
+  <button id="classRulesBtn">Class Rules <span class="tr">Aturan Kelas</span></button>
+</header>
+<div class="main-container">
+  <nav class="sidebar" id="sidebar"></nav>
+  <main class="content-area">
+    <div id="pageContent"></div>
+    <div class="pagination">
+      <button id="prevBtn">← Previous <span class="tr">Sebelumnya</span></button>
+      <div class="page-numbers" id="pageNums"></div>
+      <button id="nextBtn">Next <span class="tr">Berikutnya</span> →</button>
+    </div>
+  </main>
+</div>
+<div id="classRulesModal" class="modal">
+  <div class="modal-content">
+    <h3>Class Rules <span class="tr">Aturan Kelas</span></h3>
+    <ul>
+      <li>Speak in turn <span class="tr">Berbicara secara bergantian</span></li>
+      <li>Ask permission before leaving the class <span class="tr">Meminta izin jika ingin meninggalkan kelas</span></li>
+      <li>Turn on microphone and camera when needed <span class="tr">Menyalakan microphone dan camera jika diperlukan</span></li>
+    </ul>
+    <button class="modal-close">Close <span class="tr">Tutup</span></button>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  if(!window.renderMathInElement){setTimeout(arguments.callee,50);return;}
+  const sectionsData = {
+    a: {
+      title: 'Spiral Review Warm-up', titleEn: 'Spiral Review Warm-up', time: '00:00 - 00:10',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Perimeter of Rectangles and Squares', pageTitleEn:'Keliling Persegi Panjang dan Persegi',
+          body:`<p>The <strong>perimeter</strong> is the total distance around the outside of a 2D shape. <span class="tr"><strong>Keliling</strong> adalah total jarak di sekeliling luar bangun datar.</span></p>
+          <div class="math-block"><strong>Rectangle:</strong> $P = 2 \\times (l + w)$ <span class="tr">di mana $l$ = panjang, $w$ = lebar</span><br><strong>Square:</strong> $P = 4 \\times s$ <span class="tr">di mana $s$ = sisi</span></div>
+          <div class="illustration"><svg width="240" height="120" viewBox="0 0 240 120"><rect x="40" y="20" width="160" height="80" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="120" y="15" text-anchor="middle" font-size="12">l = 8 cm</text><text x="120" y="115" text-anchor="middle" font-size="12">8 cm</text><text x="30" y="65" text-anchor="middle" font-size="12">3 cm</text><text x="215" y="65" text-anchor="middle" font-size="12">3 cm</text></svg><div style="font-size:.82em;color:var(--muted);margin-top:6px">Rectangle <span class="tr">Persegi Panjang</span></div></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Find the perimeter of a rectangle with $l = 8$ cm and $w = 3$ cm. <span class="tr">Cari keliling persegi panjang dengan $l = 8$ cm dan $w = 3$ cm.</span>
+          <ol><li>$P = 2 \\times (l + w)$ <span class="tr">Tulis rumus</span></li><li>$P = 2 \\times (8 + 3)$ <span class="tr">Substitusi nilai</span></li><li>$P = 2 \\times 11$ <span class="tr">Hitung dalam kurung</span></li><li>$P = 22$ cm <span class="tr">Kali dan tulis satuan</span></li></ol></div>`
+        },
+        { type:'task', pageTitle:'T1: Find Perimeter', pageTitleEn:'Cari Keliling', taskType:'fill',
+          question:'Find the perimeter of a rectangle with $l = 10$ cm and $w = 4$ cm. $P = \\dots$ cm', questionEn:'Cari keliling persegi panjang dengan $l = 10$ cm dan $w = 4$ cm. $P = \\dots$ cm',
+          correctAnswer:'28', acceptableAnswers:['28'],
+          explanation:`<ol><li>$P = 2 \\times (l + w)$</li><li>$P = 2 \\times (10 + 4)$ <span class="tr">Substitusi nilai</span></li><li>$P = 2 \\times 14$</li><li>$P = 28$ cm</li></ol>`
+        },
+        { type:'task', pageTitle:'T2: Square Perimeter', pageTitleEn:'Keliling Persegi', taskType:'radio',
+          question:'What is the perimeter of a square with a side length of $7$ cm?', questionEn:'Berapa keliling persegi dengan panjang sisi $7$ cm?',
+          options:[{text:'$14$ cm', correct:false},{text:'$28$ cm', correct:true},{text:'$49$ cm', correct:false},{text:'$35$ cm', correct:false}],
+          explanation:`<p>$P = 4 \\times s = 4 \\times 7 = 28$ cm. <span class="tr">Keliling persegi adalah 4 kali sisi.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Correct Formula', pageTitleEn:'Rumus yang Benar', taskType:'checkbox',
+          question:'Which of the following formulas correctly calculate the perimeter of a rectangle?', questionEn:'Rumus manakah yang benar untuk menghitung keliling persegi panjang?',
+          options:[{text:'$2l + 2w$', correct:true},{text:'$l \\times w$', correct:false},{text:'$2(l + w)$', correct:true},{text:'$4s$', correct:false}],
+          explanation:`<p>Perimeter is $2l + 2w$ or $2(l+w)$. $l \\times w$ is area. $4s$ is for squares. <span class="tr">Keliling persegi panjang bisa dihitung dengan $2l + 2w$ atau $2(l+w)$.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Area of Rectangles and Squares', pageTitleEn:'Luas Persegi Panjang dan Persegi',
+          body:`<p>The <strong>area</strong> is the amount of space inside a 2D shape. <span class="tr"><strong>Luas</strong> adalah jumlah ruang di dalam bangun datar.</span></p>
+          <div class="math-block"><strong>Rectangle:</strong> $A = l \\times w$<br><strong>Square:</strong> $A = s \\times s = s^2$</div>
+          <div class="illustration"><svg width="240" height="120" viewBox="0 0 240 120"><rect x="40" y="20" width="160" height="80" fill="#d1fae5" stroke="#10b981" stroke-width="2"/><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#a7f3d0" stroke-width="1"/></pattern><rect x="40" y="20" width="160" height="80" fill="url(#grid)"/><text x="120" y="65" text-anchor="middle" font-size="14" fill="#065f46">8 cm × 3 cm</text></svg><div style="font-size:.82em;color:var(--muted);margin-top:6px">Area as unit squares <span class="tr">Luas sebagai kotak satuan</span></div></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Find the area of a rectangle with $l = 8$ cm and $w = 3$ cm. <span class="tr">Cari luas persegi panjang dengan $l = 8$ cm dan $w = 3$ cm.</span>
+          <ol><li>$A = l \\times w$ <span class="tr">Tulis rumus</span></li><li>$A = 8 \\times 3$ <span class="tr">Substitusi nilai</span></li><li>$A = 24$ cm$^2$ <span class="tr">Kali dan tulis satuan luas</span></li></ol></div>`
+        },
+        { type:'task', pageTitle:'T4: Find Area', pageTitleEn:'Cari Luas', taskType:'fill',
+          question:'Find the area of a rectangle with $l = 12$ cm and $w = 5$ cm. $A = \\dots$ cm$^2$', questionEn:'Cari luas persegi panjang dengan $l = 12$ cm dan $w = 5$ cm. $A = \\dots$ cm$^2$',
+          correctAnswer:'60', acceptableAnswers:['60'],
+          explanation:`<ol><li>$A = l \\times w$</li><li>$A = 12 \\times 5$</li><li>$A = 60$ cm$^2$</li></ol>`
+        },
+        { type:'task', pageTitle:'T5: Square Area', pageTitleEn:'Luas Persegi', taskType:'truefalse',
+          question:'True or false: The area of a square with side $6$ cm is $24$ cm$^2$.', questionEn:'Benar atau salah: Luas persegi dengan sisi $6$ cm adalah $24$ cm$^2$.',
+          correctAnswer:'false',
+          explanation:`<p>False. $A = s^2 = 6^2 = 36$ cm$^2$. <span class="tr">Salah. Luas persegi adalah sisi kuadrat.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Area Steps', pageTitleEn:'Langkah Luas', taskType:'sorting',
+          question:'Order the steps to calculate the area of a rectangle.', questionEn:'Urutkan langkah menghitung luas persegi panjang.',
+          items:['Identify the length ($l$) and width ($w$) <span class="tr">Identifikasi panjang dan lebar</span>','Write down the formula $A = l \\times w$ <span class="tr">Tulis rumus</span>','Substitute the values into the formula <span class="tr">Substitusi nilai</span>','Multiply to get the final answer in square units <span class="tr">Kali untuk dapat jawaban akhir</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard procedure for area calculation. <span class="tr">Prosedur standar menghitung luas.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Units of Measurement', pageTitleEn:'Satuan Pengukuran',
+          body:`<p>Perimeter is measured in linear units (mm, cm, m, km). Area is measured in square units (mm$^2$, cm$^2$, m$^2$, km$^2$). <span class="tr">Keliling diukur dalam satuan panjang. Luas diukur dalam satuan persegi.</span></p>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>If perimeter is $10$ cm, we write $P = 10$ cm. If area is $10$ cm$^2$, we write $A = 10$ cm$^2$. <span class="tr">Selalu perhatikan satuan yang digunakan.</span></div>`
+        },
+        { type:'task', pageTitle:'T7: Correct Unit', pageTitleEn:'Satuan yang Benar', taskType:'radio',
+          question:'What is the correct unit for the area of a book cover?', questionEn:'Apa satuan yang benar untuk luas sampul buku?',
+          options:[{text:'cm <span class="tr">sentimeter</span>', correct:false},{text:'cm$^2$ <span class="tr">sentimeter persegi</span>', correct:true},{text:'m <span class="tr">meter</span>', correct:false},{text:'m$^2$ <span class="tr">meter persegi</span>', correct:false}],
+          explanation:`<p>Area is always measured in square units. <span class="tr">Luas selalu diukur dalam satuan persegi.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Match Perimeters', pageTitleEn:'Pasangkan Keliling', taskType:'pairing',
+          question:'Match the shape to its perimeter.', questionEn:'Pasangkan bangun dengan kelilingnya.',
+          pairs:[{left:'Square $s=3$', right:'$12$'},{left:'Rectangle $l=5, w=2$', right:'$14$'},{left:'Rectangle $l=4, w=4$', right:'$16$'},{left:'Square $s=6$', right:'$24$'}],
+          explanation:`<p>Calculate $P = 2(l+w)$ or $P = 4s$. <span class="tr">Hitung menggunakan rumus yang sesuai.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Missing Width', pageTitleEn:'Lebar yang Hilang', taskType:'fill',
+          question:'A rectangle has a perimeter of $30$ cm and length of $10$ cm. The width is $\\dots$ cm.', questionEn:'Persegi panjang memiliki keliling $30$ cm dan panjang $10$ cm. Lebarnya adalah $\\dots$ cm.',
+          correctAnswer:'5', acceptableAnswers:['5'],
+          explanation:`<p>$2(10 + w) = 30 \\Rightarrow 10 + w = 15 \\Rightarrow w = 5$ cm. <span class="tr">Bagi keliling dengan 2, lalu kurangi panjang.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Missing Width Steps', pageTitleEn:'Langkah Lebar Hilang', taskType:'sorting',
+          question:'Order the steps to find the missing width of a rectangle given $P=30, l=10$.', questionEn:'Urutkan langkah mencari lebar jika $P=30, l=10$.',
+          items:['Divide perimeter by 2: $30 / 2 = 15$ <span class="tr">Bagi keliling dengan 2</span>','Subtract length: $15 - 10 = 5$ <span class="tr">Kurangi panjang</span>','The result is the width: $w = 5$ cm <span class="tr">Hasilnya adalah lebar</span>','Check: $2(10+5) = 30$ <span class="tr">Periksa kembali</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Algebraic steps to reverse the perimeter formula. <span class="tr">Langkah aljabar untuk membalik rumus keliling.</span></p>`
+        }
+      ]
+    },
+    b: {
+      title: 'Introduction & Real-World Connection', titleEn: 'Introduction & Real-World Connection', time: '00:10 - 00:15',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Fences and Carpets', pageTitleEn:'Pagar dan Karpet',
+          body:`<p>Perimeter and area are used in everyday life. If you want to build a fence around a garden, you need the <strong>perimeter</strong>. If you want to cover the floor with tiles, you need the <strong>area</strong>. <span class="tr">Keliling dan luas digunakan dalam kehidupan sehari-hari. Membangun pagar membutuhkan keliling, memasang ubin membutuhkan luas.</span></p>
+          <div class="illustration"><svg width="280" height="150" viewBox="0 0 280 150"><rect x="40" y="20" width="200" height="100" fill="#dbeafe" stroke="#2563eb" stroke-width="2" stroke-dasharray="5"/><pattern id="tiles" width="20" height="20" patternUnits="userSpaceOnUse"><rect width="20" height="20" fill="#fef3c7"/><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f59e0b" stroke-width="1"/></pattern><rect x="40" y="20" width="200" height="100" fill="url(#tiles)"/><text x="140" y="135" text-anchor="middle" font-size="12" fill="#92400e">Floor Area = $A = l \\times w$</text></svg><div style="font-size:.82em;color:var(--muted);margin-top:6px">Tiling a floor <span class="tr">Memasang ubin lantai</span></div></div>`
+        },
+        { type:'task', pageTitle:'T1: Fencing Concept', pageTitleEn:'Konsep Pagar', taskType:'radio',
+          question:'If you want to put a fence around your garden, what do you need to calculate?', questionEn:'Jika Anda ingin memasang pagar di sekitar taman, apa yang harus dihitung?',
+          options:[{text:'Perimeter <span class="tr">Keliling</span>', correct:true},{text:'Area <span class="tr">Luas</span>', correct:false},{text:'Volume <span class="tr">Volume</span>', correct:false},{text:'Weight <span class="tr">Berat</span>', correct:false}],
+          explanation:`<p>A fence goes around the outside, which is the perimeter. <span class="tr">Pagar berada di sekeliling luar, yaitu keliling.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Carpet Concept', pageTitleEn:'Konsep Karpet', taskType:'truefalse',
+          question:'True or false: To buy a carpet to cover the floor, you need to calculate the perimeter.', questionEn:'Benar atau salah: Untuk membeli karpet penutup lantai, Anda harus menghitung keliling.',
+          correctAnswer:'false',
+          explanation:`<p>False. A carpet covers the surface, so you need the area. <span class="tr">Salah. Karpet menutupi permukaan, jadi butuh luas.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Fencing Cost', pageTitleEn:'Biaya Pagar', taskType:'fill',
+          question:'Fencing costs &dollar;5 per meter. Your garden perimeter is $40$ m. Total cost = $\\dots$ dollars.', questionEn:'Pagar berharga &dollar;5 per meter. Keliling taman $40$ m. Total biaya = $\\dots$ dolar.',
+          correctAnswer:'200', acceptableAnswers:['200'],
+          explanation:`<p>Cost $=$ Perimeter $\\times$ Price per meter $= 40 \\times 5 = 200$. <span class="tr">Biaya $=$ Keliling $\\times$ Harga per meter.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Cost of Painting', pageTitleEn:'Biaya Mengecat',
+          body:`<p>Painters often charge by the area. To find the total cost, multiply the area by the cost per square unit. <span class="tr">Tukang cat sering charge berdasarkan luas. Total biaya adalah luas dikali biaya per satuan persegi.</span></p>
+          <div class="math-block"><strong>Total Cost</strong> $=$ Area $\\times$ Cost per unit$^2$ <span class="tr">Biaya Total $=$ Luas $\\times$ Biaya per satuan persegi</span></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>A wall is $5$ m long and $3$ m high. Area $= 5 \\times 3 = 15$ m$^2$. Paint costs &dollar;2 per m$^2$. Total cost $= 15 \\times 2 = 30$ dollars. <span class="tr">Luas $= 15$ m$^2$. Biaya total $= 15 \\times 2 = 30$ dolar.</span></div>`
+        },
+        { type:'task', pageTitle:'T4: Painting Cost', pageTitleEn:'Biaya Cat', taskType:'fill',
+          question:'A wall area is $20$ m$^2$. Paint costs &dollar;4 per m$^2$. Total cost = $\\dots$ dollars.', questionEn:'Luas dinding $20$ m$^2$. Cat berharga &dollar;4 per m$^2$. Total biaya = $\\dots$ dolar.',
+          correctAnswer:'80', acceptableAnswers:['80'],
+          explanation:`<p>$20 \\times 4 = 80$. <span class="tr">Luas dikali biaya per satuan.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Floor Area', pageTitleEn:'Luas Lantai', taskType:'radio',
+          question:'A room is $6$ m by $4$ m. What is the floor area?', questionEn:'Ruangan berukuran $6$ m kali $4$ m. Berapa luas lantainya?',
+          options:[{text:'$10$ m$^2$', correct:false},{text:'$20$ m$^2$', correct:false},{text:'$24$ m$^2$', correct:true},{text:'$24$ m', correct:false}],
+          explanation:`<p>$A = 6 \\times 4 = 24$ m$^2$. <span class="tr">$A = 6 \\times 4 = 24$ m$^2$.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Scenarios', pageTitleEn:'Pasangkan Skenario', taskType:'pairing',
+          question:'Match the real-world scenario to the concept.', questionEn:'Pasangkan skenario dengan konsepnya.',
+          pairs:[{left:'Fencing a garden <span class="tr">Pagar taman</span>', right:'Perimeter'},{left:'Carpeting a floor <span class="tr">Karpet lantai</span>', right:'Area'},{left:'Border of a photo <span class="tr">Bingkai foto</span>', right:'Perimeter'},{left:'Painting a wall <span class="tr">Cat dinding</span>', right:'Area'}],
+          explanation:`<p>Anything covering the inside is Area. Anything around the edge is Perimeter. <span class="tr">Menutupi bagian dalam adalah Luas. Di sekeliling tepi adalah Keliling.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Composite Shapes', pageTitleEn:'Bangun Gabungan',
+          body:`<p>A <strong>composite shape</strong> is made by combining two or more basic shapes. To find the area, split it into rectangles, find each area, and add them. <span class="tr"><strong>Bangun gabungan</strong> terdiri dari dua atau lebih bangun dasar. Untuk mencari luasnya, pisahkan menjadi persegi panjang, cari luasnya, lalu jumlahkan.</span></p>
+          <div class="illustration"><svg width="220" height="140" viewBox="0 0 220 140"><path d="M 20 20 L 140 20 L 140 80 L 180 80 L 180 120 L 20 120 Z" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><line x1="20" y1="80" x2="140" y2="80" stroke="#f59e0b" stroke-dasharray="4"/><text x="80" y="55" font-size="12">A1</text><text x="160" y="105" font-size="12">A2</text></svg><div style="font-size:.82em;color:var(--muted);margin-top:6px">L-shape split into two rectangles <span class="tr">Bentuk L dibagi menjadi dua persegi panjang</span></div></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Split into A1 and A2. $A_1 = 4 \\times 3 = 12$. $A_2 = 2 \\times 2 = 4$. Total Area $= 12 + 4 = 16$. <span class="tr">Pisahkan jadi A1 dan A2. Jumlahkan luasnya.</span></div>`
+        },
+        { type:'task', pageTitle:'T7: Splitting Shapes', pageTitleEn:'Memisah Bangun', taskType:'truefalse',
+          question:'True or false: To find the area of an L-shape, you can divide it into two rectangles and add their areas.', questionEn:'Benar atau salah: Untuk mencari luas bentuk L, Anda bisa membaginya jadi dua persegi panjang dan menjumlahkan luasnya.',
+          correctAnswer:'true',
+          explanation:`<p>Yes, addition of parts is the standard method. <span class="tr">Ya, penjumlahan bagian adalah metode standar.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Composite Methods', pageTitleEn:'Metode Bangun Gabungan', taskType:'checkbox',
+          question:'Which methods can be used to find the area of a composite shape?', questionEn:'Metode apa yang bisa digunakan untuk mencari luas bangun gabungan?',
+          options:[{text:'Split into smaller rectangles and add <span class="tr">Pisah jadi persegi panjang kecil dan jumlahkan</span>', correct:true},{text:'Subtract a smaller shape from a larger one <span class="tr">Kurangi bangun kecil dari bangun besar</span>', correct:true},{text:'Multiply all sides together <span class="tr">Kali semua sisi</span>', correct:false},{text:'Guess the area <span class="tr">Tebak luasnya</span>', correct:false}],
+          explanation:`<p>Splitting and adding, or subtraction methods both work. <span class="tr">Metode pemisahan dan penjumlahan, atau pengurangan sama-sama bisa.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: L-shape Steps', pageTitleEn:'Langkah Bentuk L', taskType:'sorting',
+          question:'Order the steps to find the area of an L-shape by splitting.', questionEn:'Urutkan langkah mencari luas bentuk L.',
+          items:['Split the shape into two rectangles <span class="tr">Pisah bangun jadi dua persegi panjang</span>','Find the area of the first rectangle <span class="tr">Cari luas persegi panjang pertama</span>','Find the area of the second rectangle <span class="tr">Cari luas persegi panjang kedua</span>','Add the two areas together <span class="tr">Jumlahkan kedua luas</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard procedure for composite areas. <span class="tr">Prosedur standar luas gabungan.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: L-shape Area', pageTitleEn:'Luas Bentuk L', taskType:'fill',
+          question:'An L-shape is split into two rectangles of areas $15$ cm$^2$ and $10$ cm$^2$. Total area = $\\dots$ cm$^2$', questionEn:'Bentuk L dipisah jadi dua persegi panjang dengan luas $15$ cm$^2$ dan $10$ cm$^2$. Total luas = $\\dots$ cm$^2$',
+          correctAnswer:'25', acceptableAnswers:['25'],
+          explanation:`<p>$15 + 10 = 25$ cm$^2$. <span class="tr">Jumlahkan luas kedua bagian.</span></p>`
+        }
+      ]
+    },
+    c: {
+      title: 'Review of Prior Knowledge', titleEn: 'Review of Prior Knowledge', time: '00:15 - 00:20',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Area of Triangles', pageTitleEn:'Luas Segitiga',
+          body:`<p>A <strong>triangle</strong> is half of a parallelogram. If you cut a parallelogram along its diagonal, you get two identical triangles. <span class="tr"><strong>Segitiga</strong> adalah setengah dari jajaran genjang. Jika memotong jajaran genjang di diagonalnya, didapat dua segitiga identik.</span></p>
+          <div class="math-block"><strong>Area of Triangle</strong> $= \dfrac{1}{2} \times \text{base} \times \text{height} = \dfrac{1}{2} b h$ <span class="tr">di mana $b$ = alas, $h$ = tinggi (tegak lurus dengan alas)</span></div>
+          <div class="illustration"><svg width="200" height="140" viewBox="0 0 200 140"><polygon points="100,20 20,120 180,120" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><line x1="100" y1="20" x2="100" y2="120" stroke="#ef4444" stroke-width="2" stroke-dasharray="4"/><text x="105" y="80" font-size="12" fill="#ef4444">h</text><text x="90" y="135" text-anchor="middle" font-size="12">b</text></svg><div style="font-size:.82em;color:var(--muted);margin-top:6px">Base and Height of Triangle <span class="tr">Alas dan Tinggi Segitiga</span></div></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Find the area of a triangle with $b = 10$ cm and $h = 6$ cm. <span class="tr">Cari luas segitiga dengan $b = 10$ cm dan $h = 6$ cm.</span>
+          <ol><li>$A = \dfrac{1}{2} b h$ <span class="tr">Tulis rumus</span></li><li>$A = \dfrac{1}{2} \times 10 \times 6$ <span class="tr">Substitusi nilai</span></li><li>$A = 5 \times 6 = 30$ cm$^2$ <span class="tr">Kali dan tulis satuan</span></li></ol></div>`
+        },
+        { type:'task', pageTitle:'T1: Triangle Area', pageTitleEn:'Luas Segitiga', taskType:'fill',
+          question:'Find the area of a triangle with $b = 8$ cm and $h = 5$ cm. $A = \\dots$ cm$^2$', questionEn:'Cari luas segitiga dengan $b = 8$ cm dan $h = 5$ cm. $A = \\dots$ cm$^2$',
+          correctAnswer:'20', acceptableAnswers:['20'],
+          explanation:`<ol><li>$A = \dfrac{1}{2} b h$</li><li>$A = \dfrac{1}{2} \times 8 \times 5$</li><li>$A = 4 \times 5 = 20$ cm$^2$</li></ol>`
+        },
+        { type:'task', pageTitle:'T2: Right Triangle Area', pageTitleEn:'Luas Segitiga Siku-siku', taskType:'radio',
+          question:'A right triangle has legs of $6$ cm and $8$ cm. What is its area?', questionEn:'Segitiga siku-siku memiliki sisi siku-sikunya $6$ cm dan $8$ cm. Berapa luasnya?',
+          options:[{text:'$14$ cm$^2$', correct:false},{text:'$24$ cm$^2$', correct:true},{text:'$48$ cm$^2$', correct:false},{text:'$28$ cm$^2$', correct:false}],
+          explanation:`<p>For right triangles, the legs are the base and height. $A = \dfrac{1}{2} \times 6 \times 8 = 24$ cm$^2$. <span class="tr">Sisi siku-siku berfungsi sebagai alas dan tinggi.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Height Concept', pageTitleEn:'Konsep Tinggi', taskType:'truefalse',
+          question:'True or false: The height of a triangle must always be one of its sides.', questionEn:'Benar atau salah: Tinggi segitiga harus selalu salah satu sisinya.',
+          correctAnswer:'false',
+          explanation:`<p>False. The height is the perpendicular distance from the base to the opposite vertex. <span class="tr">Salah. Tinggi adalah jarak tegak lurus dari alas ke titik sudut di hadapannya.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Area of Parallelograms', pageTitleEn:'Luas Jajaran Genjang',
+          body:`<p>A <strong>parallelogram</strong> has opposite sides parallel and equal. If you cut a triangle from one end and move it to the other, it forms a rectangle. <span class="tr"><strong>Jajaran genjang</strong> memiliki sisi berhadapan sejajar dan sama panjang. Jika dipotong dan dipindah, membentuk persegi panjang.</span></p>
+          <div class="math-block"><strong>Area of Parallelogram</strong> $= \text{base} \times \text{height} = b h$ <span class="tr">di mana $h$ adalah tinggi tegak lurus, BUKAN sisi miring</span></div>
+          <div class="illustration"><svg width="200" height="140" viewBox="0 0 200 140"><polygon points="40,20 160,20 120,120 0,120" fill="#d1fae5" stroke="#10b981" stroke-width="2"/><line x1="40" y1="20" x2="40" y2="120" stroke="#ef4444" stroke-width="2" stroke-dasharray="4"/><text x="45" y="80" font-size="12" fill="#ef4444">h</text><text x="80" y="135" text-anchor="middle" font-size="12">b</text></svg><div style="font-size:.82em;color:var(--muted);margin-top:6px">Parallelogram Base and Height <span class="tr">Alas dan Tinggi Jajaran Genjang</span></div></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Find area of parallelogram with $b = 12$ cm, $h = 4$ cm. <span class="tr">Cari luas jajaran genjang dengan $b = 12$ cm, $h = 4$ cm.</span>
+          <ol><li>$A = b h$</li><li>$A = 12 \times 4 = 48$ cm$^2$</li></ol></div>`
+        },
+        { type:'task', pageTitle:'T4: Parallelogram Area', pageTitleEn:'Luas Jajaran Genjang', taskType:'fill',
+          question:'Find the area of a parallelogram with $b = 15$ cm and $h = 6$ cm. $A = \\dots$ cm$^2$', questionEn:'Cari luas jajaran genjang dengan $b = 15$ cm dan $h = 6$ cm. $A = \\dots$ cm$^2$',
+          correctAnswer:'90', acceptableAnswers:['90'],
+          explanation:`<p>$A = b \times h = 15 \times 6 = 90$ cm$^2$. <span class="tr">Alas dikali tinggi tegak lurus.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Correct Base-Height', pageTitleEn:'Pasangan Alas-Tinggi', taskType:'radio',
+          question:'A parallelogram has sides $10$ cm and $5$ cm. The height perpendicular to the $10$ cm side is $4$ cm. What is the area?', questionEn:'Jajaran genjang memiliki sisi $10$ cm dan $5$ cm. Tinggi tegak lurus sisi $10$ cm adalah $4$ cm. Berapa luasnya?',
+          options:[{text:'$50$ cm$^2$', correct:false},{text:'$40$ cm$^2$', correct:true},{text:'$20$ cm$^2$', correct:false},{text:'$25$ cm$^2$', correct:false}],
+          explanation:`<p>Use the perpendicular height: $A = 10 \times 4 = 40$ cm$^2$. Do not multiply the two sides ($10 \times 5$). <span class="tr">Gunakan tinggi tegak lurus, bukan sisi miring.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Formulas', pageTitleEn:'Pasangkan Rumus', taskType:'pairing',
+          question:'Match the shape to its area formula.', questionEn:'Pasangkan bangun dengan rumus luasnya.',
+          pairs:[{left:'Square <span class="tr">Persegi</span>', right:'$s^2$'},{left:'Rectangle <span class="tr">Persegi Panjang</span>', right:'$l \times w$'},{left:'Triangle <span class="tr">Segitiga</span>', right:'$\\dfrac{1}{2} b h$'},{left:'Parallelogram <span class="tr">Jajaran Genjang</span>', right:'$b h$'}],
+          explanation:`<p>Memorize these fundamental formulas. <span class="tr">Hafalkan rumus dasar ini.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Area of Trapezoids', pageTitleEn:'Luas Trapesium',
+          body:`<p>A <strong>trapezoid</strong> has exactly one pair of parallel sides. To find its area, we take the average of the two parallel sides (bases) and multiply by the height. <span class="tr"><strong>Trapesium</strong> memiliki sepasang sisi sejajar. Luasnya adalah rata-rata dari dua sisi sejajar dikali tinggi.</span></p>
+          <div class="math-block"><strong>Area of Trapezoid</strong> $= \dfrac{1}{2} (a + b) h$ <span class="tr">di mana $a$ dan $b$ adalah sisi sejajar, $h$ = tinggi</span></div>
+          <div class="illustration"><svg width="200" height="140" viewBox="0 0 200 140"><polygon points="50,20 150,20 180,120 20,120" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><line x1="50" y1="20" x2="50" y2="120" stroke="#ef4444" stroke-width="2" stroke-dasharray="4"/><text x="55" y="80" font-size="12" fill="#ef4444">h</text><text x="100" y="15" text-anchor="middle" font-size="12">a</text><text x="100" y="135" text-anchor="middle" font-size="12">b</text></svg><div style="font-size:.82em;color:var(--muted);margin-top:6px">Trapezoid Bases and Height <span class="tr">Alas dan Tinggi Trapesium</span></div></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Find area of trapezoid with $a = 4$ cm, $b = 6$ cm, $h = 5$ cm. <span class="tr">Cari luas trapesium dengan $a = 4$ cm, $b = 6$ cm, $h = 5$ cm.</span>
+          <ol><li>$A = \dfrac{1}{2} (a + b) h$</li><li>$A = \dfrac{1}{2} (4 + 6) \times 5$</li><li>$A = \dfrac{1}{2} (10) \times 5 = 5 \times 5 = 25$ cm$^2$</li></ol></div>`
+        },
+        { type:'task', pageTitle:'T7: Trapezoid Area', pageTitleEn:'Luas Trapesium', taskType:'fill',
+          question:'Find the area of a trapezoid with $a = 5$ cm, $b = 7$ cm, $h = 4$ cm. $A = \\dots$ cm$^2$', questionEn:'Cari luas trapesium dengan $a = 5$ cm, $b = 7$ cm, $h = 4$ cm. $A = \\dots$ cm$^2$',
+          correctAnswer:'24', acceptableAnswers:['24'],
+          explanation:`<p>$A = \dfrac{1}{2} (5 + 7) \times 4 = \dfrac{1}{2} (12) \times 4 = 6 \times 4 = 24$ cm$^2$. <span class="tr">Rata-rata sisi sejajar dikali tinggi.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Trapezoid Logic', pageTitleEn:'Logika Trapesium', taskType:'truefalse',
+          question:'True or false: The height of a trapezoid is the distance between its two parallel sides.', questionEn:'Benar atau salah: Tinggi trapesium adalah jarak antara dua sisi sejajarnya.',
+          correctAnswer:'true',
+          explanation:`<p>Yes, the perpendicular distance between the parallel bases is the height. <span class="tr">Ya, jarak tegak lurus antara sisi sejajar adalah tinggi.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Trapezoid Steps', pageTitleEn:'Langkah Trapesium', taskType:'sorting',
+          question:'Order the steps to calculate trapezoid area.', questionEn:'Urutkan langkah menghitung luas trapesium.',
+          items:['Add the parallel sides $a + b$ <span class="tr">Jumlahkan sisi sejajar</span>','Divide the sum by 2 (find average) <span class="tr">Bagi 2 untuk cari rata-rata</span>','Multiply by the height $h$ <span class="tr">Kali dengan tinggi</span>','Write the final answer in square units <span class="tr">Tulis jawaban akhir</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Follow the formula $A = \dfrac{(a+b)}{2} h$. <span class="tr">Ikuti rumus rata-rata dikali tinggi.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Reverse Area', pageTitleEn:'Luas Terbalik', taskType:'fill',
+          question:'A trapezoid has area $30$ cm$^2$, $a = 4$, $h = 5$. Find $b$. $b = \\dots$ cm', questionEn:'Trapesium luas $30$ cm$^2$, $a = 4$, $h = 5$. Cari $b$. $b = \\dots$ cm',
+          correctAnswer:'8', acceptableAnswers:['8'],
+          explanation:`<p>$30 = \dfrac{1}{2}(4+b)\times 5 \Rightarrow 30 = 2.5(4+b) \Rightarrow 12 = 4+b \Rightarrow b = 8$. <span class="tr">Substitusi lalu selesaikan persamaan linear.</span></p>`
+        }
+      ]
+    },
+    d: {
+      title: 'Problem Introduction', titleEn: 'Problem Introduction', time: '00:20 - 00:30',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Deriving Triangle Area', pageTitleEn:'Turunan Luas Segitiga',
+          body:`<p>Why is the area of a triangle $\dfrac{1}{2} b h$? If you take two identical triangles and put them together, they form a parallelogram. The area of the parallelogram is $b h$. Since a triangle is half of that, its area is $\dfrac{1}{2} b h$. <span class="tr">Jika dua segitiga identik disatukan, membentuk jajaran genjang dengan luas $b h$. Segitiga adalah setengahnya, jadi $\dfrac{1}{2} b h$.</span></p>
+          <div class="illustration"><svg width="240" height="120" viewBox="0 0 240 120"><polygon points="20,100 100,20 100,100" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><polygon points="100,20 100,100 180,100" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="60" y="70" font-size="14">1/2</text><text x="130" y="70" font-size="14">1/2</text></svg><div style="font-size:.82em;color:var(--muted);margin-top:6px">Two triangles make a parallelogram <span class="tr">Dua segitiga membentuk jajaran genjang</span></div></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>A triangle has $b = 10$, $h = 8$. Parallelogram area would be $80$. Triangle area is $\dfrac{1}{2} \times 80 = 40$. <span class="tr">Luas jajaran genjang $80$. Luas segitiga setengahnya.</span></div>`
+        },
+        { type:'task', pageTitle:'T1: Triangle Derivation', pageTitleEn:'Turunan Segitiga', taskType:'fill',
+          question:'A parallelogram has area $24$ cm$^2$. A triangle cut from it has area $\\dots$ cm$^2$', questionEn:'Jajaran genjang luas $24$ cm$^2$. Segitiga yang dipotong darinya berluas $\\dots$ cm$^2$',
+          correctAnswer:'12', acceptableAnswers:['12'],
+          explanation:`<p>Triangle is half of parallelogram: $24 / 2 = 12$. <span class="tr">Segitiga setengah dari jajaran genjang.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Unknown Height', pageTitleEn:'Tinggi Tak Diketahui', taskType:'radio',
+          question:'A triangle has area $40$ cm$^2$ and base $10$ cm. What is the height?', questionEn:'Segitiga berluas $40$ cm$^2$ dan alas $10$ cm. Berapa tingginya?',
+          options:[{text:'$4$ cm', correct:false},{text:'$8$ cm', correct:true},{text:'$10$ cm', correct:false},{text:'$5$ cm', correct:false}],
+          explanation:`<p>$40 = \dfrac{1}{2} \times 10 \times h \Rightarrow 40 = 5h \Rightarrow h = 8$ cm. <span class="tr">Perhatikan proses pembagian.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Derivation Steps', pageTitleEn:'Langkah Turunan', taskType:'sorting',
+          question:'Order the steps to derive the triangle area formula.', questionEn:'Urutkan langkah menurunkan rumus luas segitiga.',
+          items:['Take two identical triangles <span class="tr">Ambil dua segitiga identik</span>','Join them along a corresponding side to form a parallelogram <span class="tr">Satukan membentuk jajaran genjang</span>','The parallelogram area is base $\\times$ height <span class="tr">Luas jajaran genjang adalah alas kali tinggi</span>','The triangle is half, so area is $\\dfrac{1}{2} b h$ <span class="tr">Segitiga setengahnya, jadi $\\dfrac{1}{2} b h$</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Geometric derivation of triangle area. <span class="tr">Turunan geometris luas segitiga.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Parallelogram as a Sheared Rectangle', pageTitleEn:'Jajaran Genjang sebagai Persegi Panjang Miring',
+          body:`<p>Imagine a rectangle. If you push its top to the side, it becomes a parallelogram. The area doesn't change because the base and the perpendicular height stay the same. <span class="tr">Persegi panjang yang dimiringkan menjadi jajaran genjang. Luasnya tidak berubah karena alas dan tinggi tegak lurusnya tetap.</span></p>
+          <div class="math-block"><strong>Proof:</strong> $A_{\text{rect}} = l \times w$. In the parallelogram, $b = l$ and $h = w$. So $A_{\text{para}} = b \times h$. <span class="tr">Luasnya sama, hanya variabel yang beda nama.</span></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>A rectangle $10 \times 5$ has area $50$. If sheared into a parallelogram with $b=10, h=5$, area is still $10 \times 5 = 50$. <span class="tr">Luasnya tetap 50.</span></div>`
+        },
+        { type:'task', pageTitle:'T4: Sheared Area', pageTitleEn:'Luas Miring', taskType:'fill',
+          question:'A rectangle $8 \times 4$ is sheared into a parallelogram. Its area is $\\dots$ cm$^2$', questionEn:'Persegi panjang $8 \times 4$ diubah jadi jajaran genjang. Luasnya $\\dots$ cm$^2$',
+          correctAnswer:'32', acceptableAnswers:['32'],
+          explanation:`<p>$8 \times 4 = 32$. Shearing does not change area. <span class="tr">Memiringkan tidak mengubah luas.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Side vs Height', pageTitleEn:'Sisi vs Tinggi', taskType:'truefalse',
+          question:'True or false: A parallelogram with sides $6$ and $8$ always has an area of $48$.', questionEn:'Benar atau salah: Jajaran genjang sisi $6$ dan $8$ selalu berluas $48$.',
+          correctAnswer:'false',
+          explanation:`<p>False. Area is $48$ only if the angle is $90^\\circ$ (rectangle). Otherwise, the perpendicular height is less than $8$, so area is less. <span class="tr">Salah. Luas bisa kurang dari 48 jika bukan persegi panjang.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Shapes', pageTitleEn:'Pasangkan Bangun', taskType:'pairing',
+          question:'Match the shape to its property.', questionEn:'Pasangkan bangun dengan sifatnya.',
+          pairs:[{left:'Square <span class="tr">Persegi</span>', right:'All sides equal, angles 90'},{left:'Rectangle <span class="tr">Persegi Panjang</span>', right:'Opposite sides equal, angles 90'},{left:'Parallelogram <span class="tr">Jajaran Genjang</span>', right:'Opposite sides parallel'},{left:'Trapezoid <span class="tr">Trapesium</span>', right:'One pair of parallel sides'}],
+          explanation:`<p>Definitions of 2D shapes. <span class="tr">Definisi bangun datar.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Deriving Trapezoid Area', pageTitleEn:'Turunan Luas Trapesium',
+          body:`<p>Why is the trapezoid formula $\dfrac{1}{2} (a + b) h$? If you take two identical trapezoids, flip one upside down, and put them together, they form a parallelogram! The base of this parallelogram is $(a + b)$, and the height is $h$. <span class="tr">Dua trapesium identik, salah satunya dibalik, disatukan membentuk jajaran genjang dengan alas $(a+b)$ dan tinggi $h$.</span></p>
+          <div class="illustration"><svg width="240" height="120" viewBox="0 0 240 120"><polygon points="40,20 80,20 20,100 0,100" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><polygon points="80,20 120,20 40,100 0,100" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="40" y="115" font-size="12">a</text><text x="100" y="115" font-size="12">b</text><text x="60" y="15" font-size="12">b</text><text x="110" y="15" font-size="12">a</text></svg><div style="font-size:.82em;color:var(--muted);margin-top:6px">Two trapezoids form a parallelogram <span class="tr">Dua trapesium membentuk jajaran genjang</span></div></div>
+          <div class="math-block">Parallelogram Area $= \text{base} \times \text{height} = (a + b) \times h$.<br>Trapezoid Area $= \dfrac{1}{2} \times (a + b) \times h$. <span class="tr">Luas Trapesium setengah dari luas jajaran genjang tersebut.</span></div>`
+        },
+        { type:'task', pageTitle:'T7: Trapezoid Derivation', pageTitleEn:'Turunan Trapesium', taskType:'fill',
+          question:'Two identical trapezoids form a parallelogram of area $40$ cm$^2$. One trapezoid has area $\\dots$ cm$^2$', questionEn:'Dua trapesium identik membentuk jajaran genjang luas $40$ cm$^2$. Satu trapesium berluas $\\dots$ cm$^2$',
+          correctAnswer:'20', acceptableAnswers:['20'],
+          explanation:`<p>$40 / 2 = 20$ cm$^2$. <span class="tr">Dibagi dua.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Trapezoid Properties', pageTitleEn:'Sifat Trapesium', taskType:'checkbox',
+          question:'Select all true statements about a trapezoid.', questionEn:'Pilih semua pernyataan benar tentang trapesium.',
+          options:[{text:'Has exactly one pair of parallel sides <span class="tr">Tepat satu pasang sisi sejajar</span>', correct:true},{text:'Area formula involves average of bases <span class="tr">Rumus luas melibatkan rata-rata alas</span>', correct:true},{text:'All angles are 90 degrees <span class="tr">Semua sudut 90 derajat</span>', correct:false},{text:'Can be split into a rectangle and triangles <span class="tr">Bisa dipisah jadi persegi panjang dan segitiga</span>', correct:true}],
+          explanation:`<p>These are key properties of trapezoids. <span class="tr">Ini sifat kunci trapesium.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Derivation Steps', pageTitleEn:'Langkah Turunan', taskType:'sorting',
+          question:'Order the steps to derive the trapezoid area formula.', questionEn:'Urutkan langkah menurunkan rumus luas trapesium.',
+          items:['Take two identical trapezoids <span class="tr">Ambil dua trapesium identik</span>','Flip one and join to form a parallelogram <span class="tr">Balik satu dan satukan jadi jajaran genjang</span>','Base of parallelogram is $(a+b)$, height is $h$ <span class="tr">Alas jajaran genjang $(a+b)$, tinggi $h$</span>','Divide parallelogram area by 2 to get trapezoid area <span class="tr">Bagi luas jajaran genjang dengan 2</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Geometric derivation of trapezoid area. <span class="tr">Turunan geometris luas trapesium.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Mixed Area', pageTitleEn:'Luas Campuran', taskType:'fill',
+          question:'A parallelogram has $b=10, h=6$. A triangle has $b=10, h=6$. Difference in area = $\\dots$ cm$^2$', questionEn:'Jajaran genjang $b=10, h=6$. Segitiga $b=10, h=6$. Selisih luas = $\\dots$ cm$^2$',
+          correctAnswer:'30', acceptableAnswers:['30'],
+          explanation:`<p>Para $= 60$, Tri $= 30$. Difference $= 60 - 30 = 30$. <span class="tr">Jajaran genjang $60$, segitiga $30$. Selisih $30$.</span></p>`
+        }
+      ]
+    },
+    e: {
+      title: 'Guided Practice', titleEn: 'Guided Practice', time: '00:30 - 00:45',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Composite Area (L-Shapes)', pageTitleEn:'Luas Gabungan (Bentuk L)',
+          body:`<p>A composite shape can be split into simpler shapes like rectangles. <span class="tr">Bangun gabungan bisa dipisah menjadi bangun sederhana seperti persegi panjang.</span></p>
+          <div class="illustration"><svg width="180" height="140" viewBox="0 0 180 140"><path d="M 20 20 L 100 20 L 100 80 L 160 80 L 160 120 L 20 120 Z" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><line x1="100" y1="20" x2="100" y2="120" stroke="#ef4444" stroke-width="1" stroke-dasharray="4"/><line x1="20" y1="80" x2="100" y2="80" stroke="#ef4444" stroke-width="1" stroke-dasharray="4"/><text x="60" y="50" font-size="12">8 cm</text><text x="60" y="105" font-size="12">4 cm</text><text x="130" y="105" font-size="12">6 cm</text></svg><div style="font-size:.82em;color:var(--muted);margin-top:6px">L-shape split into two rectangles <span class="tr">Bentuk L dibagi jadi dua persegi panjang</span></div></div>
+          <div class="math-block"><strong>Area Total</strong> $= A_1 + A_2$<br>$A_1 = 8 \\times 4 = 32$ cm$^2$<br>$A_2 = 6 \\times 4 = 24$ cm$^2$<br>Total $= 32 + 24 = 56$ cm$^2$</div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Split the shape vertically. Find the area of each rectangle, then add them. <span class="tr">Pisahkan secara vertikal. Cari luas masing-masing, lalu jumlahkan.</span></div>`
+        },
+        { type:'task', pageTitle:'T1: Missing Side', pageTitleEn:'Sisi Hilang', taskType:'fill',
+          question:'In the L-shape above, the total width is $10$ cm ($8$ cm + $\\dots$ cm).', questionEn:'Pada bentuk L di atas, lebar total adalah $10$ cm ($8$ cm + $\\dots$ cm).',
+          correctAnswer:'2', acceptableAnswers:['2'],
+          explanation:`<p>$10 - 8 = 2$ cm. <span class="tr">Lebar total dikurangi lebar bagian atas.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: L-shape Area', pageTitleEn:'Luas Bentuk L', taskType:'radio',
+          question:'Calculate the total area of the L-shape if $A_1 = 40$ and $A_2 = 25$.', questionEn:'Hitung luas total bentuk L jika $A_1 = 40$ dan $A_2 = 25$.',
+          options:[{text:'$15$ cm$^2$', correct:false},{text:'$65$ cm$^2$', correct:true},{text:'$100$ cm$^2$', correct:false},{text:'$200$ cm$^2$', correct:false}],
+          explanation:`<p>$40 + 25 = 65$ cm$^2$. <span class="tr">Penjumlahan luas bagian.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Split Methods', pageTitleEn:'Metode Pemisahan', taskType:'checkbox',
+          question:'Which ways can correctly split an L-shape to find its area?', questionEn:'Cara mana yang bisa memisah bentuk L dengan benar untuk mencari luasnya?',
+          options:[{text:'Split vertically into two rectangles <span class="tr">Pisah vertikal jadi dua persegi panjang</span>', correct:true},{text:'Split horizontally into two rectangles <span class="tr">Pisah horizontal jadi dua persegi panjang</span>', correct:true},{text:'Subtract a small rectangle from a large one <span class="tr">Kurangi persegi panjang besar dengan kecil</span>', correct:true},{text:'Split into two triangles <span class="tr">Pisah jadi dua segitiga</span>', correct:false}],
+          explanation:`<p>L-shapes can be split vertically, horizontally, or treated as a large rectangle with a piece removed. <span class="tr">Bentuk L bisa dipisah vertikal, horizontal, atau dikurangi.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Finding Missing Dimensions', pageTitleEn:'Mencari Dimensi yang Hilang',
+          body:`<p>If you know the area of a rectangle and one side, you can find the other side. <span class="tr">Jika diketahui luas dan satu sisi persegi panjang, kita bisa cari sisi lainnya.</span></p>
+          <div class="math-block">$A = l \\times w \\Rightarrow l = \\dfrac{A}{w}$ <span class="tr">Panjang = Luas / Lebar</span><br>$P = 2(l + w) \\Rightarrow l = \\dfrac{P}{2} - w$ <span class="tr">Panjang = (Keliling / 2) - Lebar</span></div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>A rectangle has Area $= 36$ cm$^2$ and width $= 4$ cm. Find length.<br>$l = 36 / 4 = 9$ cm. <span class="tr">Panjang $= 36 / 4 = 9$ cm.</span></div>`
+        },
+        { type:'task', pageTitle:'T4: Find Length', pageTitleEn:'Cari Panjang', taskType:'fill',
+          question:'Area $= 50$ cm$^2$, width $= 5$ cm. Length $= \\dots$ cm', questionEn:'Luas $= 50$ cm$^2$, lebar $= 5$ cm. Panjang $= \\dots$ cm',
+          correctAnswer:'10', acceptableAnswers:['10'],
+          explanation:`<p>$l = 50 / 5 = 10$ cm. <span class="tr">Bagi luas dengan lebar.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Triangle Height', pageTitleEn:'Tinggi Segitiga', taskType:'truefalse',
+          question:'True or false: If a triangle has area $20$ and base $5$, the height is $4$.', questionEn:'Benar atau salah: Jika segitiga luas $20$ dan alas $5$, tingginya $4$.',
+          correctAnswer:'false',
+          explanation:`<p>False. $20 = \dfrac{1}{2} \times 5 \times h \Rightarrow 40 = 5h \Rightarrow h = 8$. <span class="tr">Tingginya adalah $8$, bukan $4$.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Formulas', pageTitleEn:'Pasangkan Rumus', taskType:'pairing',
+          question:'Match the missing dimension to its formula.', questionEn:'Pasangkan dimensi hilang dengan rumusnya.',
+          pairs:[{left:'Rectangle Length <span class="tr">Panjang Persegi Panjang</span>', right:'$A / w$'},{left:'Rectangle Width <span class="tr">Lebar Persegi Panjang</span>', right:'$P/2 - l$'},{left:'Triangle Height <span class="tr">Tinggi Segitiga</span>', right:'$2A / b$'},{left:'Square Side <span class="tr">Sisi Persegi</span>', right:'$\\sqrt{A}$'}],
+          explanation:`<p>Rearrange the formulas to solve for missing variables. <span class="tr">Ubah rumus untuk mencari variabel yang hilang.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Shaded Regions', pageTitleEn:'Daerah Arsiran',
+          body:`<p>To find the area of a shaded region, subtract the area of the inner shape from the area of the outer shape. <span class="tr">Untuk mencari luas daerah arsiran, kurangi luas bangun dalam dari luas bangun luar.</span></p>
+          <div class="math-block"><strong>Shaded Area</strong> $= A_{\\text{outer}} - A_{\\text{inner}}$</div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>A rectangle $10 \\times 6$ has a triangle cut out. $A_{\\text{outer}} = 60$. $A_{\\text{inner}} = 15$. Shaded $= 60 - 15 = 45$. <span class="tr">Luas arsiran $= 60 - 15 = 45$.</span></div>`
+        },
+        { type:'task', pageTitle:'T7: Shaded Area', pageTitleEn:'Luas Arsiran', taskType:'fill',
+          question:'Outer area $= 80$, inner area $= 25$. Shaded area $= \\dots$', questionEn:'Luas luar $= 80$, luas dalam $= 25$. Luas arsiran $= \\dots$',
+          correctAnswer:'55', acceptableAnswers:['55'],
+          explanation:`<p>$80 - 25 = 55$. <span class="tr">Pengurangan luas.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Triangle in Rectangle', pageTitleEn:'Segitiga dalam Persegi Panjang', taskType:'radio',
+          question:'A rectangle is $8 \\times 4$. A triangle inside it has base $8$ and height $2$. What is the shaded area?', questionEn:'Persegi panjang $8 \\times 4$. Segitiga di dalamnya memiliki alas $8$ dan tinggi $2$. Berapa luas arsiran?',
+          options:[{text:'$32$', correct:false},{text:'$8$', correct:false},{text:'$24$', correct:true},{text:'$16$', correct:false}],
+          explanation:`<p>Rect $= 32$, Tri $= \dfrac{1}{2}(8)(2) = 8$. Shaded $= 32 - 8 = 24$. <span class="tr">Persegi panjang $32$, segitiga $8$. Arsiran $24$.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Shaded Steps', pageTitleEn:'Langkah Arsiran', taskType:'sorting',
+          question:'Order the steps to find the shaded area.', questionEn:'Urutkan langkah mencari luas arsiran.',
+          items:['Calculate area of the outer shape <span class="tr">Hitung luas bangun luar</span>','Calculate area of the inner shape <span class="tr">Hitung luas bangun dalam</span>','Subtract inner area from outer area <span class="tr">Kurangi luas dalam dari luar</span>','Write the answer with correct units <span class="tr">Tulis jawaban dengan satuan</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard procedure for shaded areas. <span class="tr">Prosedur standar luas arsiran.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Complex Area', pageTitleEn:'Luas Kompleks', taskType:'fill',
+          question:'A large rectangle $12 \\times 10$ has a smaller $4 \\times 5$ rectangle removed. Area left = $\\dots$ cm$^2$', questionEn:'Persegi panjang besar $12 \\times 10$ memiliki persegi panjang kecil $4 \\times 5$ yang dilepas. Sisa luas = $\\dots$ cm$^2$',
+          correctAnswer:'100', acceptableAnswers:['100'],
+          explanation:`<p>$120 - 20 = 100$ cm$^2$. <span class="tr">$120 - 20 = 100$ cm$^2$.</span></p>`
+        }
+      ]
+    },
+    f: {
+      title: 'Independent Practice', titleEn: 'Independent Practice', time: '00:45 - 00:55',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Multi-Step Word Problems', pageTitleEn:'Soal Cerita Multi-Langkah',
+          body:`<p>Some problems require multiple steps, like finding the perimeter first, then calculating the cost. <span class="tr">Beberapa soal butuh banyak langkah, seperti mencari keliling dulu, lalu menghitung biaya.</span></p>
+          <div class="math-block"><strong>Problem:</strong> A field is $30$ m by $20$ m. Fencing costs &dollar;4 per meter. Gate is $2$ m wide (no fence needed). Find total cost. <span class="tr">Taman $30 \times 20$ m. Pagar &dollar;4/m. Gerbang $2$ m. Cari total biaya.</span>
+          <br>Cost $= 98 \\times 4 = 392$ dollars</div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4><ol><li>Perimeter $= 2(30 + 20) = 100$ m</li><li>Fence length $= 100 - 2 = 98$ m</li><li>Cost $= 98 \\times 4 = 392$ dollars</li></ol></div>`
+        },
+        { type:'task', pageTitle:'T1: Fence Length', pageTitleEn:'Panjang Pagar', taskType:'fill',
+          question:'A square garden has side $10$ m. Gate is $1$ m. Fence length needed = $\\dots$ m', questionEn:'Taman persegi sisi $10$ m. Gerbang $1$ m. Panjang pagar dibutuhkan = $\\dots$ m',
+          correctAnswer:'39', acceptableAnswers:['39'],
+          explanation:`<p>Perimeter $= 4 \times 10 = 40$. $40 - 1 = 39$ m. <span class="tr">Keliling dikurangi lebar gerbang.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Total Cost', pageTitleEn:'Total Biaya', taskType:'radio',
+          question:'If fence costs &dollar;5 per meter, and you need $39$ meters, total cost is?', questionEn:'Jika pagar &dollar;5 per meter, dan butuh $39$ meter, total biayanya?',
+          options:[{text:'&dollar;195', correct:true},{text:'&dollar;200', correct:false},{text:'&dollar;150', correct:false},{text:'&dollar;100', correct:false}],
+          explanation:`<p>$39 \times 5 = 195$. <span class="tr">Panjang dikali harga per meter.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Cost Logic', pageTitleEn:'Logika Biaya', taskType:'truefalse',
+          question:'True or false: To find the cost of painting a wall, you multiply the perimeter by the cost per square meter.', questionEn:'Benar atau salah: Untuk biaya mengecat dinding, keliling dikali biaya per meter persegi.',
+          correctAnswer:'false',
+          explanation:`<p>False. Painting covers a surface (Area), not the edge (Perimeter). <span class="tr">Salah. Mengecat menutupi permukaan (Luas).</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Algebraic Expressions', pageTitleEn:'Ekspresi Aljabar',
+          body:`<p>We can write formulas using variables like $x$ and $y$. <span class="tr">Kita bisa menulis rumus menggunakan variabel seperti $x$ dan $y$.</span></p>
+          <div class="math-block">If length $= x$ and width $= 3$:<br>Perimeter $= 2(x + 3) = 2x + 6$<br>Area $= x \\times 3 = 3x$</div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>A rectangle has length $2y$ and width $y$. Area $= 2y \\times y = 2y^2$. <span class="tr">Luas $= 2y \\times y = 2y^2$.</span></div>`
+        },
+        { type:'task', pageTitle:'T4: Perimeter Expression', pageTitleEn:'Ekspresi Keliling', taskType:'fill',
+          question:'A rectangle has length $x$ and width $5$. Perimeter = $\\dots$ (write expression)', questionEn:'Persegi panjang panjang $x$ dan lebar $5$. Keliling = $\\dots$ (tulis ekspresi)',
+          correctAnswer:'2x+10', acceptableAnswers:['2x + 10', '10+2x', '10 + 2x'],
+          explanation:`<p>$2(x + 5) = 2x + 10$. <span class="tr">Gunakan rumus $2(l+w)$.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Area Expression', pageTitleEn:'Ekspresi Luas', taskType:'radio',
+          question:'What is the area of a rectangle with length $3x$ and width $x$?', questionEn:'Berapa luas persegi panjang panjang $3x$ dan lebar $x$?',
+          options:[{text:'$3x$', correct:false},{text:'$4x$', correct:false},{text:'$3x^2$', correct:true},{text:'$6x^2$', correct:false}],
+          explanation:`<p>$3x \times x = 3x^2$. <span class="tr">Panjang dikali lebar.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Expressions', pageTitleEn:'Pasangkan Ekspresi', taskType:'pairing',
+          question:'Match the shape (length $\\times$ width) to its Area.', questionEn:'Pasangkan bangun (panjang $\\times$ lebar) dengan Luasnya.',
+          pairs:[{left:'$x \\times x$ <span class="tr">kali</span>', right:'$x^2$'},{left:'$4x \\times 2x$ <span class="tr">kali</span>', right:'$8x^2$'},{left:'$5 \\times y$ <span class="tr">kali</span>', right:'$5y$'},{left:'$(x+2) \\times 3$ <span class="tr">kali</span>', right:'$3x + 6$'}],
+          explanation:`<p>Multiply the terms correctly. <span class="tr">Kali suku dengan benar.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E3: Same Area, Different Perimeter', pageTitleEn:'Luas Sama, Keliling Berbeda',
+          body:`<p>Two shapes can have the same area but different perimeters. <span class="tr">Dua bangun bisa memiliki luas sama tapi keliling berbeda.</span></p>
+          <div class="math-block"><strong>Shape A:</strong> Square $4 \\times 4$. Area $= 16$, Perimeter $= 16$.<br><strong>Shape B:</strong> Rectangle $8 \\times 2$. Area $= 16$, Perimeter $= 20$.</div>
+          <div class="example-box"><h4>Example <span class="tr">Contoh</span></h4>Both have Area $= 16$ cm$^2$. But Shape B has a larger perimeter ($20 > 16$). <span class="tr">Keduanya luas 16. Tapi Shape B kelilingnya lebih besar.</span></div>`
+        },
+        { type:'task', pageTitle:'T7: Compare Perimeters', pageTitleEn:'Bandingkan Keliling', taskType:'fill',
+          question:'Rect A is $6 \\times 4$ (Area $24$). Rect B is $12 \\times 2$ (Area $24$). Difference in perimeter = $\\dots$ units', questionEn:'Rect A $6 \\times 4$ (Luas $24$). Rect B $12 \\times 2$ (Luas $24$). Selisih keliling = $\\dots$ unit',
+          correctAnswer:'8', acceptableAnswers:['8'],
+          explanation:`<p>Rect A perimeter $= 20$. Rect B perimeter $= 28$. Difference $= 28 - 20 = 8$. <span class="tr">Hitung keduanya, lalu kurangi.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Same Area Properties', pageTitleEn:'Sifat Luas Sama', taskType:'checkbox',
+          question:'Which statements are true about shapes with the same area?', questionEn:'Pernyataan mana yang benar tentang bangun dengan luas yang sama?',
+          options:[{text:'They must have the same perimeter <span class="tr">Harus punya keliling sama</span>', correct:false},{text:'They can have different perimeters <span class="tr">Bisa punya keliling berbeda</span>', correct:true},{text:'They cover the same amount of space <span class="tr">Menutupi ruang yang sama</span>', correct:true},{text:'They must be identical shapes <span class="tr">Harus bangun identik</span>', correct:false}],
+          explanation:`<p>Same area only means the space inside is equal. Shapes and perimeters can differ. <span class="tr">Luas sama hanya berarti ruang dalam sama. Bentuk bisa beda.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Multi-step Problem', pageTitleEn:'Soal Multi-langkah', taskType:'sorting',
+          question:'Order the steps to solve: A yard is $10 \\times 8$. Grass seed covers $5$ m$^2$ per box. How many boxes needed?', questionEn:'Urutkan langkah: Halaman $10 \\times 8$. Rumput 1 kotak tutup $5$ m$^2$. Berapa kotak dibutuhkan?',
+          items:['Calculate area of yard: $10 \\times 8 = 80$ m$^2$ <span class="tr">Hitung luas halaman</span>','Identify coverage per box: $5$ m$^2$ <span class="tr">Identifikasi cakupan per kotak</span>','Divide total area by coverage: $80 / 5$ <span class="tr">Bagi total luas dengan cakupan</span>','Result: $16$ boxes needed <span class="tr">Hasil: $16$ kotak dibutuhkan</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard division procedure for coverage problems. <span class="tr">Prosedur pembagian standar untuk soal cakupan.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Final Calculation', pageTitleEn:'Perhitungan Akhir', taskType:'fill',
+          question:'A wall is $15$ m$^2$. Paint covers $3$ m$^2$ per liter. You need $\\dots$ liters of paint.', questionEn:'Dinding $15$ m$^2$. Cat tutup $3$ m$^2$ per liter. Anda butuh $\\dots$ liter cat.',
+          correctAnswer:'5', acceptableAnswers:['5'],
+          explanation:`<p>$15 / 3 = 5$ liters. <span class="tr">Bagi luas dengan cakupan.</span></p>`
+        }
+      ]
+    },
+    g: {
+      title: 'Consolidation & Reflection', titleEn: 'Consolidation & Reflection', time: '00:55 - 01:00',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Key Takeaways', pageTitleEn:'Poin Penting',
+          body:`<div class="illustration"><svg width="240" height="80" viewBox="0 0 240 80"><circle cx="40" cy="40" r="28" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="40" y="48" text-anchor="middle" font-size="22" fill="#2563eb">△</text><text x="85" y="35" font-size="13" fill="#1e40af" font-weight="bold">Perimeter & Area</text><text x="85" y="52" font-size="10" fill="#64748b">P, A, b, h</text></svg><div style="font-size:.82em;color:var(--muted);margin-top:4px">Formulas & Rules <span class="tr">Rumus & Aturan</span></div></div>
+          <p>Today we learned about Perimeter and Area of 2D Shapes. Here are the key formulas: <span class="tr">Hari ini kita belajar Keliling dan Luas Bangun Datar. Berikut rumus utamanya:</span></p>
+          <div class="math-block"><ol><li><strong>Rectangle Perimeter:</strong> $P = 2(l + w)$ <span class="tr">Keliling Persegi Panjang</span></li><li><strong>Rectangle Area:</strong> $A = l \\times w$ <span class="tr">Luas Persegi Panjang</span></li><li><strong>Triangle Area:</strong> $A = \dfrac{1}{2} b h$ <span class="tr">Luas Segitiga</span></li><li><strong>Parallelogram Area:</strong> $A = b h$ <span class="tr">Luas Jajaran Genjang</span></li><li><strong>Trapezoid Area:</strong> $A = \dfrac{1}{2} (a + b) h$ <span class="tr">Luas Trapesium</span></li></ol></div>`
+        },
+        { type:'task', pageTitle:'T1: Reflection Question', pageTitleEn:'Pertanyaan Refleksi', taskType:'truefalse',
+          question:'True or false: I understand that the height of a triangle must be perpendicular to the base, not just any side.', questionEn:'Benar atau salah: Saya mengerti bahwa tinggi segitiga harus tegak lurus dengan alas, bukan sembarang sisi.',
+          correctAnswer:'true',
+          explanation:`<p>Yes, the height $h$ used in the formula is always the perpendicular distance. <span class="tr">Ya, tinggi yang dipakai selalu jarak tegak lurus.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Exit Ticket', pageTitleEn:'Exit Ticket', taskType:'fill',
+          question:'Calculate the area of a triangle with base $10$ cm and height $6$ cm. $A = \\dots$ cm$^2$', questionEn:'Hitung luas segitiga dengan alas $10$ cm dan tinggi $6$ cm. $A = \\dots$ cm$^2$',
+          correctAnswer:'30', acceptableAnswers:['30'],
+          explanation:`<p>$A = \dfrac{1}{2} \times 10 \times 6 = 5 \times 6 = 30$ cm$^2$. <span class="tr">Setengah alas kali tinggi.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Follow-up Practice', pageTitleEn:'Latihan Lanjutan',
+          body:`<p>Additional practice is available in <strong>Sections H–L (Tasks 1–5)</strong>. Each section contains 10 questions of various types. <span class="tr">Latihan tambahan tersedia di Bagian H–L. Setiap bagian berisi 10 soal dengan berbagai tipe.</span></p>
+          <div class="math-block"><ul><li><strong>Task 1 (H):</strong> Perimeter & Area Basics <span class="tr">Dasar Keliling & Luas</span></li><li><strong>Task 2 (I):</strong> Triangles, Parallelograms & Trapezoids <span class="tr">Segitiga, Jajaran Genjang & Trapesium</span></li><li><strong>Task 3 (J):</strong> Composite Shapes & Shaded Regions <span class="tr">Bangun Gabungan & Daerah Arsiran</span></li><li><strong>Task 4 (K):</strong> Missing Dimensions & Algebra <span class="tr">Dimensi Hilang & Aljabar</span></li><li><strong>Task 5 (L):</strong> Exam-style Mixed Questions <span class="tr">Soal Campuran Tipe Ujian</span></li></ul></div>`
+        }
+      ]
+    },
+    h: {
+      title: 'Task 1', titleEn: 'Task 1', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Rectangle Perimeter', pageTitleEn:'Keliling Persegi Panjang', taskType:'fill',
+          question:'Find the perimeter of a rectangle with $l = 12$ cm and $w = 5$ cm. $P = \\dots$ cm', questionEn:'Cari keliling persegi panjang dengan $l = 12$ cm dan $w = 5$ cm. $P = \\dots$ cm',
+          correctAnswer:'34', acceptableAnswers:['34'],
+          explanation:`<p>$P = 2(l + w) = 2(12 + 5) = 2(17) = 34$ cm. <span class="tr">Gunakan rumus $2(l+w)$.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Square Area', pageTitleEn:'Luas Persegi', taskType:'radio',
+          question:'What is the area of a square with side length $9$ cm?', questionEn:'Berapa luas persegi dengan sisi $9$ cm?',
+          options:[{text:'$18$ cm$^2$', correct:false},{text:'$36$ cm$^2$', correct:false},{text:'$81$ cm$^2$', correct:true},{text:'$90$ cm$^2$', correct:false}],
+          explanation:`<p>$A = s^2 = 9^2 = 81$ cm$^2$. <span class="tr">Sisi kuadrat.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Concept Check', pageTitleEn:'Cek Konsep', taskType:'truefalse',
+          question:'True or false: Perimeter is the space inside a shape.', questionEn:'Benar atau salah: Keliling adalah ruang di dalam bangun.',
+          correctAnswer:'false',
+          explanation:`<p>False. Perimeter is the distance around the outside. Area is the space inside. <span class="tr">Salah. Keliling jarak sekeliling. Luas ruang dalam.</span></p>`
+        },
+        { type:'task', pageTitle:'T4: Area Steps', pageTitleEn:'Langkah Luas', taskType:'sorting',
+          question:'Order the steps to find the area of a rectangle.', questionEn:'Urutkan langkah mencari luas persegi panjang.',
+          items:['Write formula $A = l \\times w$ <span class="tr">Tulis rumus</span>','Substitute values $l=10, w=4$ <span class="tr">Substitusi nilai</span>','Multiply $10 \\times 4$ <span class="tr">Kali</span>','Result $40$ cm$^2$ <span class="tr">Hasil</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard area calculation procedure. <span class="tr">Prosedur standar hitung luas.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Correct Units', pageTitleEn:'Satuan Benar', taskType:'checkbox',
+          question:'Select all correct units for Area.', questionEn:'Pilih semua satuan benar untuk Luas.',
+          options:[{text:'mm$^2$', correct:true},{text:'cm', correct:false},{text:'m$^2$', correct:true},{text:'km', correct:false}],
+          explanation:`<p>Area is always in square units (e.g., cm$^2$). cm and km are linear units for perimeter. <span class="tr">Luas selalu satuan persegi.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Formulas', pageTitleEn:'Pasangkan Rumus', taskType:'pairing',
+          question:'Match the shape to its Perimeter formula.', questionEn:'Pasangkan bangun dengan rumus Kelilingnya.',
+          pairs:[{left:'Square <span class="tr">Persegi</span>', right:'$4s$'},{left:'Rectangle <span class="tr">Persegi Panjang</span>', right:'$2(l+w)$'},{left:'Triangle (Equilateral) <span class="tr">Segitiga Sama Sisi</span>', right:'$3s$'},{left:'Regular Pentagon <span class="tr">Pentagon Beraturan</span>', right:'$5s$'}],
+          explanation:`<p>Sum of all outer sides. <span class="tr">Jumlah semua sisi luar.</span></p>`
+        },
+        { type:'task', pageTitle:'T7: Reverse Perimeter', pageTitleEn:'Keliling Terbalik', taskType:'fill',
+          question:'A rectangle has $P = 30$ cm and $l = 10$ cm. Width $w = \\dots$ cm', questionEn:'Persegi panjang $P = 30$ cm dan $l = 10$ cm. Lebar $w = \\dots$ cm',
+          correctAnswer:'5', acceptableAnswers:['5'],
+          explanation:`<p>$30 = 2(10 + w) \\Rightarrow 15 = 10 + w \\Rightarrow w = 5$ cm. <span class="tr">Bagi 2 lalu kurangi panjang.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Cost of Fencing', pageTitleEn:'Biaya Pagar', taskType:'radio',
+          question:'A square field side $20$ m. Fence costs &dollar;3 per meter. Total cost?', questionEn:'Lapangan persegi sisi $20$ m. Pagar &dollar;3 per meter. Total biaya?',
+          options:[{text:'&dollar;60', correct:false},{text:'&dollar;120', correct:false},{text:'&dollar;240', correct:true},{text:'&dollar;400', correct:false}],
+          explanation:`<p>$P = 4 \\times 20 = 80$ m. Cost $= 80 \\times 3 = 240$ dollars. <span class="tr">Keliling kali harga.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Triangle Base', pageTitleEn:'Alas Segitiga', taskType:'truefalse',
+          question:'True or false: The base of a triangle is always the horizontal side.', questionEn:'Benar atau salah: Alas segitiga selalu sisi horizontal.',
+          correctAnswer:'false',
+          explanation:`<p>False. Any side can be chosen as the base, as long as the height is perpendicular to it. <span class="tr">Salah. Sisi mana saja bisa jadi alas.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Area Difference', pageTitleEn:'Selisih Luas', taskType:'fill',
+          question:'Square $A$ has side $4$. Square $B$ has side $6$. Difference in area = $\\dots$ cm$^2$', questionEn:'Persegi $A$ sisi $4$. Persegi $B$ sisi $6$. Selisih luas = $\\dots$ cm$^2$',
+          correctAnswer:'20', acceptableAnswers:['20'],
+          explanation:`<p>$A_B = 36$, $A_A = 16$. $36 - 16 = 20$. <span class="tr">Kurangi luasnya.</span></p>`
+        }
+      ]
+    },
+    i: {
+      title: 'Task 2', titleEn: 'Task 2', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Triangle Area', pageTitleEn:'Luas Segitiga', taskType:'fill',
+          question:'Triangle has $b = 14$ cm, $h = 5$ cm. $A = \\dots$ cm$^2$', questionEn:'Segitiga $b = 14$ cm, $h = 5$ cm. $A = \\dots$ cm$^2$',
+          correctAnswer:'35', acceptableAnswers:['35'],
+          explanation:`<p>$A = \dfrac{1}{2} \times 14 \times 5 = 7 \times 5 = 35$ cm$^2$. <span class="tr">Setengah kali alas kali tinggi.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Parallelogram Area', pageTitleEn:'Luas Jajaran Genjang', taskType:'radio',
+          question:'Parallelogram has $b = 8$ cm, $h = 6$ cm. What is the area?', questionEn:'Jajaran genjang $b = 8$ cm, $h = 6$ cm. Berapa luasnya?',
+          options:[{text:'$24$ cm$^2$', correct:false},{text:'$48$ cm$^2$', correct:true},{text:'$14$ cm$^2$', correct:false},{text:'$96$ cm$^2$', correct:false}],
+          explanation:`<p>$A = b \\times h = 8 \\times 6 = 48$ cm$^2$. <span class="tr">Alas kali tinggi tegak lurus.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Trapezoid Concept', pageTitleEn:'Konsep Trapesium', taskType:'truefalse',
+          question:'True or false: A trapezoid has exactly one pair of parallel sides.', questionEn:'Benar atau salah: Trapesium memiliki tepat satu pasang sisi sejajar.',
+          correctAnswer:'true',
+          explanation:`<p>Yes, by definition, a trapezoid has exactly one pair of parallel sides (bases). <span class="tr">Ya, definisi trapesium.</span></p>`
+        },
+        { type:'task', pageTitle:'T4: Match Shapes', pageTitleEn:'Pasangkan Bangun', taskType:'pairing',
+          question:'Match the shape to its Area formula.', questionEn:'Pasangkan bangun dengan rumus Luasnya.',
+          pairs:[{left:'Triangle <span class="tr">Segitiga</span>', right:'$\\dfrac{1}{2} b h$'},{left:'Parallelogram <span class="tr">Jajaran Genjang</span>', right:'$b h$'},{left:'Trapezoid <span class="tr">Trapesium</span>', right:'$\\dfrac{1}{2}(a+b)h$'},{left:'Rectangle <span class="tr">Persegi Panjang</span>', right:'$l w$'}],
+          explanation:`<p>Memorize these essential formulas. <span class="tr">Hafalkan rumus esensial ini.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Trapezoid Area', pageTitleEn:'Luas Trapesium', taskType:'checkbox',
+          question:'A trapezoid has $a=5, b=7, h=4$. Which calculations are correct?', questionEn:'Trapesium $a=5, b=7, h=4$. Perhitungan mana yang benar?',
+          options:[{text:'Sum of bases $= 12$ <span class="tr">Jumlah alas $= 12$</span>', correct:true},{text:'Average of bases $= 6$ <span class="tr">Rata-rata alas $= 6$</span>', correct:true},{text:'$A = 6 \\times 4 = 24$ <span class="tr">$A = 6 \\times 4 = 24$</span>', correct:true},{text:'$A = 12 \\times 4 = 48$ <span class="tr">$A = 12 \\times 4 = 48$</span>', correct:false}],
+          explanation:`<p>The formula is $\\dfrac{(a+b)}{2} \\times h$. So $12/2 = 6$, then $6 \\times 4 = 24$. <span class="tr">Gunakan rumus rata-rata dikali tinggi.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Triangle Height', pageTitleEn:'Tinggi Segitiga', taskType:'fill',
+          question:'Triangle area $= 60$ cm$^2$, base $= 15$ cm. Height $= \\dots$ cm', questionEn:'Luas segitiga $= 60$ cm$^2$, alas $= 15$ cm. Tinggi $= \\dots$ cm',
+          correctAnswer:'8', acceptableAnswers:['8'],
+          explanation:`<p>$60 = \dfrac{1}{2} \times 15 \times h \Rightarrow 120 = 15h \Rightarrow h = 8$ cm. <span class="tr">Perluas rumus lalu selesaikan.</span></p>`
+        },
+        { type:'task', pageTitle:'T7: Trapezoid Steps', pageTitleEn:'Langkah Trapesium', taskType:'sorting',
+          question:'Order the steps for trapezoid area $a=6, b=10, h=5$.', questionEn:'Urutkan langkah luas trapesium $a=6, b=10, h=5$.',
+          items:['Add bases: $6 + 10 = 16$ <span class="tr">Jumlah alas</span>','Divide by 2: $16 / 2 = 8$ <span class="tr">Bagi 2</span>','Multiply by height: $8 \\times 5 = 40$ <span class="tr">Kali tinggi</span>','Write unit: $40$ cm$^2$ <span class="tr">Tulis satuan</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Sequential calculation of trapezoid area. <span class="tr">Hitung berurutan.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Parallelogram Side', pageTitleEn:'Sisi Jajaran Genjang', taskType:'radio',
+          question:'A parallelogram has area $72$ cm$^2$ and height $8$ cm. What is the base?', questionEn:'Jajaran genjang luas $72$ cm$^2$ tinggi $8$ cm. Berapa alasnya?',
+          options:[{text:'$6$ cm', correct:false},{text:'$8$ cm', correct:false},{text:'$9$ cm', correct:true},{text:'$12$ cm', correct:false}],
+          explanation:`<p>$b = A / h = 72 / 8 = 9$ cm. <span class="tr">Bagi luas dengan tinggi.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Derivation Logic', pageTitleEn:'Logika Turunan', taskType:'truefalse',
+          question:'True or false: Two identical trapezoids can form a parallelogram.', questionEn:'Benar atau salah: Dua trapesium identik bisa membentuk jajaran genjang.',
+          correctAnswer:'true',
+          explanation:`<p>Yes, by flipping one and joining them, they make a parallelogram with base $(a+b)$. <span class="tr">Ya, dibalik dan disatukan.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Mixed Area', pageTitleEn:'Luas Campuran', taskType:'fill',
+          question:'A parallelogram ($b=10, h=4$) and a triangle ($b=10, h=4$). Sum of areas = $\\dots$ cm$^2$', questionEn:'Jajaran genjang ($b=10, h=4$) dan segitiga ($b=10, h=4$). Jumlah luas = $\\dots$ cm$^2$',
+          correctAnswer:'60', acceptableAnswers:['60'],
+          explanation:`<p>Para $= 40$, Tri $= 20$. Sum $= 60$ cm$^2$. <span class="tr">Jumlahkan luasnya.</span></p>`
+        }
+      ]
+    },
+    j: {
+      title: 'Task 3', titleEn: 'Task 3', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: L-Shape Area', pageTitleEn:'Luas Bentuk L', taskType:'fill',
+          question:'An L-shape is split into two rectangles. $A_1 = 24$ cm$^2$ and $A_2 = 15$ cm$^2$. Total area = $\\dots$ cm$^2$', questionEn:'Bentuk L dipisah jadi dua persegi panjang. $A_1 = 24$ cm$^2$ dan $A_2 = 15$ cm$^2$. Total luas = $\\dots$ cm$^2$',
+          correctAnswer:'39', acceptableAnswers:['39'],
+          explanation:`<p>$A_{\text{total}} = A_1 + A_2 = 24 + 15 = 39$ cm$^2$. <span class="tr">Jumlahkan luas kedua bagian.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Shaded Region', pageTitleEn:'Daerah Arsiran', taskType:'radio',
+          question:'A rectangle $10 \times 6$ has a triangle ($b=6, h=4$) removed. What is the shaded area?', questionEn:'Persegi panjang $10 \times 6$ memiliki segitiga ($b=6, h=4$) yang dilepas. Berapa luas arsiran?',
+          options:[{text:'$36$ cm$^2$', correct:false},{text:'$48$ cm$^2$', correct:true},{text:'$60$ cm$^2$', correct:false},{text:'$24$ cm$^2$', correct:false}],
+          explanation:`<p>Rect $= 60$. Tri $= \dfrac{1}{2}(6)(4) = 12$. Shaded $= 60 - 12 = 48$ cm$^2$. <span class="tr">Luas luar dikurangi luas dalam.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Composite Logic', pageTitleEn:'Logika Gabungan', taskType:'truefalse',
+          question:'True or false: To find the area of a shaded region, you add the inner area to the outer area.', questionEn:'Benar atau salah: Untuk mencari luas arsiran, luas dalam ditambah luas luar.',
+          correctAnswer:'false',
+          explanation:`<p>False. You subtract the inner shape's area from the outer shape's area. <span class="tr">Salah. Luas dalam dikurangi dari luas luar.</span></p>`
+        },
+        { type:'task', pageTitle:'T4: Shaded Steps', pageTitleEn:'Langkah Arsiran', taskType:'sorting',
+          question:'Order the steps to find the area of a shaded region.', questionEn:'Urutkan langkah mencari luas daerah arsiran.',
+          items:['Calculate area of outer shape <span class="tr">Hitung luas bangun luar</span>','Calculate area of inner shape <span class="tr">Hitung luas bangun dalam</span>','Subtract inner from outer <span class="tr">Kurangi luas dalam dari luar</span>','Write final answer in square units <span class="tr">Tulis jawaban dengan satuan persegi</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard procedure for shaded regions. <span class="tr">Prosedur standar daerah arsiran.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Area Methods', pageTitleEn:'Metode Luas', taskType:'checkbox',
+          question:'Which methods can find the area of a composite shape?', questionEn:'Metode mana yang bisa mencari luas bangun gabungan?',
+          options:[{text:'Addition of smaller shapes <span class="tr">Penjumlahan bangun kecil</span>', correct:true},{text:'Subtraction from a larger shape <span class="tr">Pengurangan dari bangun besar</span>', correct:true},{text:'Multiplying all sides <span class="tr">Mengalikan semua sisi</span>', correct:false},{text:'Guessing the area <span class="tr">Menebak luasnya</span>', correct:false}],
+          explanation:`<p>Splitting and adding, or subtraction methods work. <span class="tr">Metode pemisahan atau pengurangan bisa digunakan.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Match Dimensions', pageTitleEn:'Pasangkan Dimensi', taskType:'pairing',
+          question:'Match the composite shape split to its correct missing dimension.', questionEn:'Pasangkan pemisahan bangun gabungan dengan dimensi yang hilang.',
+          pairs:[{left:'Vertical split of $10 \\times 6$ L-shape <span class="tr">Pisah vertikal</span>', right:'Top width $= 4$, Bottom width $= 6$'},{left:'Horizontal split of $10 \\times 6$ L-shape <span class="tr">Pisah horizontal</span>', right:'Left height $= 4$, Right height $= 2$'},{left:'Subtraction method <span class="tr">Metode pengurangan</span>', right:'Big rect $10 \\times 6$, Small rect $4 \\times 2$'},{left:'Addition method <span class="tr">Metode penjumlahan</span>', right:'Sum of $A_1$ and $A_2$'}],
+          explanation:`<p>Visualize how dimensions map when splitting. <span class="tr">Visualisasikan dimensi saat dipisah.</span></p>`
+        },
+        { type:'task', pageTitle:'T7: U-Shape Area', pageTitleEn:'Luas Bentuk U', taskType:'fill',
+          question:'A large rect $12 \times 10$ has a small rect $4 \times 5$ removed from inside. Area = $\\dots$ cm$^2$', questionEn:'Persegi panjang besar $12 \times 10$ memiliki persegi panjang kecil $4 \times 5$ di dalamnya dilepas. Luas = $\\dots$ cm$^2$',
+          correctAnswer:'100', acceptableAnswers:['100'],
+          explanation:`<p>Outer $= 120$. Inner $= 20$. $120 - 20 = 100$ cm$^2$. <span class="tr">Luas luar dikurangi luas dalam.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Cost of Composite', pageTitleEn:'Biaya Bangun Gabungan', taskType:'radio',
+          question:'A composite shape has area $50$ m$^2$. Carpet costs &dollar;2 per m$^2$. Total cost?', questionEn:'Bangun gabungan luas $50$ m$^2$. Karpet &dollar;2 per m$^2$. Total biaya?',
+          options:[{text:'&dollar;25', correct:false},{text:'&dollar;50', correct:false},{text:'&dollar;100', correct:true},{text:'&dollar;200', correct:false}],
+          explanation:`<p>$50 \times 2 = 100$ dollars. <span class="tr">Luas dikali biaya per satuan.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Shape Identification', pageTitleEn:'Identifikasi Bangun', taskType:'truefalse',
+          question:'True or false: An L-shape can be split into a rectangle and a triangle.', questionEn:'Benar atau salah: Bentuk L bisa dipisah jadi persegi panjang dan segitiga.',
+          correctAnswer:'true',
+          explanation:`<p>True, though splitting into two rectangles is usually easier for area calculation. <span class="tr">Benar, meski dipisah jadi dua persegi panjang lebih mudah.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Perimeter of L', pageTitleEn:'Keliling Bentuk L', taskType:'fill',
+          question:'An L-shape has outer sides $10, 8, 4, 4, 6, 8$. Perimeter = $\\dots$ units', questionEn:'Bentuk L memiliki sisi luar $10, 8, 4, 4, 6, 8$. Keliling = $\\dots$ unit',
+          correctAnswer:'40', acceptableAnswers:['40'],
+          explanation:`<p>$10 + 8 + 4 + 4 + 6 + 8 = 40$ units. <span class="tr">Jumlahkan semua sisi luar.</span></p>`
+        }
+      ]
+    },
+    k: {
+      title: 'Task 4', titleEn: 'Task 4', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Find Length', pageTitleEn:'Cari Panjang', taskType:'fill',
+          question:'Rectangle area $= 48$ cm$^2$, width $= 6$ cm. Length $= \\dots$ cm', questionEn:'Luas persegi panjang $= 48$ cm$^2$, lebar $= 6$ cm. Panjang $= \\dots$ cm',
+          correctAnswer:'8', acceptableAnswers:['8'],
+          explanation:`<p>$l = A / w = 48 / 6 = 8$ cm. <span class="tr">Bagi luas dengan lebar.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Find Base', pageTitleEn:'Cari Alas', taskType:'radio',
+          question:'Triangle area $= 45$ cm$^2$, height $= 9$ cm. What is the base?', questionEn:'Luas segitiga $= 45$ cm$^2$, tinggi $= 9$ cm. Berapa alasnya?',
+          options:[{text:'$5$ cm', correct:false},{text:'$10$ cm', correct:true},{text:'$15$ cm', correct:false},{text:'$20$ cm', correct:false}],
+          explanation:`<p>$b = 2A / h = 2(45) / 9 = 90 / 9 = 10$ cm. <span class="tr">Perhitungan aljabar.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Reverse Logic', pageTitleEn:'Logika Terbalik', taskType:'truefalse',
+          question:'True or false: If perimeter is $20$ and length is $6$, width is $4$.', questionEn:'Benar atau salah: Jika keliling $20$ dan panjang $6$, lebar adalah $4$.',
+          correctAnswer:'true',
+          explanation:`<p>$20 = 2(6 + w) \Rightarrow 10 = 6 + w \Rightarrow w = 4$. True. <span class="tr">Pembuktian aljabar.</span></p>`
+        },
+        { type:'task', pageTitle:'T4: Match Reverses', pageTitleEn:'Pasangkan Terbalik', taskType:'pairing',
+          question:'Match the knowns to the missing dimension formula.', questionEn:'Pasukkan yang diketahui ke rumus dimensi yang hilang.',
+          pairs:[{left:'Rect: known $A, w$ <span class="tr">diketahui $A, w$</span>', right:'$l = A/w$'},{left:'Rect: known $P, l$ <span class="tr">diketahui $P, l$</span>', right:'$w = P/2 - l$'},{left:'Tri: known $A, b$ <span class="tr">diketahui $A, b$</span>', right:'$h = 2A/b$'},{left:'Para: known $A, h$ <span class="tr">diketahui $A, h$</span>', right:'$b = A/h$'}],
+          explanation:`<p>Algebraic manipulation of formulas. <span class="tr">Manipulasi aljabar rumus.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Algebraic Perimeter', pageTitleEn:'Keliling Aljabar', taskType:'checkbox',
+          question:'A rectangle has length $2x$ and width $x$. Which are correct?', questionEn:'Persegi panjang panjang $2x$ dan lebar $x$. Mana yang benar?',
+          options:[{text:'Perimeter $= 6x$ <span class="tr">Keliling $= 6x$</span>', correct:true},{text:'Area $= 2x^2$ <span class="tr">Luas $= 2x^2$</span>', correct:true},{text:'Perimeter $= 2x^2$ <span class="tr">Keliling $= 2x^2$</span>', correct:false},{text:'Area $= 6x$ <span class="tr">Luas $= 6x$</span>', correct:false}],
+          explanation:`<p>$P = 2(2x + x) = 6x$. $A = 2x \times x = 2x^2$. <span class="tr">Substitusi ke rumus dasar.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Trapezoid Algebra', pageTitleEn:'Aljabar Trapesium', taskType:'fill',
+          question:'Trapezoid has $a=x, b=2x, h=4$. Area $= \\dots x$ (simplify)', questionEn:'Trapesium $a=x, b=2x, h=4$. Luas $= \\dots x$ (sederhanakan)',
+          correctAnswer:'6x', acceptableAnswers:['6x','6 x'],
+          explanation:`<p>$A = \dfrac{1}{2}(x + 2x)4 = \dfrac{1}{2}(3x)4 = 6x$. <span class="tr">Sederhanakan suku sejenis.</span></p>`
+        },
+        { type:'task', pageTitle:'T7: Algebraic Steps', pageTitleEn:'Langkah Aljabar', taskType:'sorting',
+          question:'Order the steps to find $w$ if $P=20, l=2x, w=x$.', questionEn:'Urutkan langkah mencari $w$ jika $P=20, l=2x, w=x$.',
+          items:['Write equation: $20 = 2(2x + x)$ <span class="tr">Tulis persamaan</span>','Simplify inside: $20 = 2(3x)$ <span class="tr">Sederhanakan dalam kurung</span>','Divide by 2: $10 = 3x$ <span class="tr">Bagi 2</span>','Solve for x: $x = 10/3$ <span class="tr">Selesaikan untuk $x$</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Algebraic steps for solving linear equations. <span class="tr">Langkah aljabar persamaan linear.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Same Area Diff Perimeter', pageTitleEn:'Luas Sama Keliling Beda', taskType:'radio',
+          question:'Rect A is $12 \times 3$. Rect B is $9 \times 4$. What is true?', questionEn:'Rect A $12 \times 3$. Rect B $9 \times 4$. Apa yang benar?',
+          options:[{text:'Same Area, Same Perimeter <span class="tr">Luas sama, Keliling sama</span>', correct:false},{text:'Same Area, Diff Perimeter <span class="tr">Luas sama, Keliling beda</span>', correct:true},{text:'Diff Area, Same Perimeter <span class="tr">Luas beda, Keliling sama</span>', correct:false},{text:'Diff Area, Diff Perimeter <span class="tr">Luas beda, Keliling beda</span>', correct:false}],
+          explanation:`<p>$A_A = 36, A_B = 36$. $P_A = 30, P_B = 26$. Same area, diff perimeter. <span class="tr">Luas sama, keliling beda.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Area of Square vs Rect', pageTitleEn:'Luas Persegi vs Persegi Panjang', taskType:'truefalse',
+          question:'True or false: A rectangle and a square with the same perimeter always have the same area.', questionEn:'Benar atau salah: Persegi panjang dan persegi dengan keliling sama selalu punya luas sama.',
+          correctAnswer:'false',
+          explanation:`<p>False. For a given perimeter, the square has the maximum area. <span class="tr">Salah. Persegi punya luas maksimum untuk keliling tertentu.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Max Area', pageTitleEn:'Luas Maksimum', taskType:'fill',
+          question:'You have $20$ m of fence. What is the max area you can enclose (square)? $A = \\dots$ m$^2$', questionEn:'Anda punya $20$ m pagar. Berapa luas maksimum yang bisa dipagar (persegi)? $A = \\dots$ m$^2$',
+          correctAnswer:'25', acceptableAnswers:['25'],
+          explanation:`<p>Side $= 20 / 4 = 5$ m. Area $= 5 \times 5 = 25$ m$^2$. <span class="tr">Sisi bagi rata, lalu kuadratkan.</span></p>`
+        }
+      ]
+    },
+    l: {
+      title: 'Task 5', titleEn: 'Task 5', time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Mixed Calculation', pageTitleEn:'Perhitungan Campuran', taskType:'fill',
+          question:'A square has side $7$ cm. Area $= \\dots$ cm$^2$', questionEn:'Persegi sisi $7$ cm. Luas $= \\dots$ cm$^2$',
+          correctAnswer:'49', acceptableAnswers:['49'],
+          explanation:`<p>$A = 7^2 = 49$ cm$^2$. <span class="tr">Sisi kuadrat.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Triangle Logic', pageTitleEn:'Logika Segitiga', taskType:'radio',
+          question:'A triangle has $b=8, h=5$. What is the area?', questionEn:'Segitiga $b=8, h=5$. Berapa luasnya?',
+          options:[{text:'$40$ cm$^2$', correct:false},{text:'$20$ cm$^2$', correct:true},{text:'$13$ cm$^2$', correct:false},{text:'$26$ cm$^2$', correct:false}],
+          explanation:`<p>$A = \dfrac{1}{2} \times 8 \times 5 = 20$ cm$^2$. <span class="tr">Setengah alas kali tinggi.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Conceptual Check', pageTitleEn:'Cek Konseptual', taskType:'truefalse',
+          question:'True or false: A rectangle $4 \times 5$ and a triangle $b=10, h=4$ have the same area.', questionEn:'Benar atau salah: Persegi panjang $4 \times 5$ dan segitiga $b=10, h=4$ punya luas sama.',
+          correctAnswer:'true',
+          explanation:`<p>Rect $= 20$. Tri $= \dfrac{1}{2}(10)(4) = 20$. True. <span class="tr">Keduanya luasnya 20.</span></p>`
+        },
+        { type:'task', pageTitle:'T4: Mixed Steps', pageTitleEn:'Langkah Campuran', taskType:'sorting',
+          question:'Order the steps to solve: Rect $10 \times 8$. Fence costs &dollar;3/m. Find total cost.', questionEn:'Urutkan langkah: Rect $10 \times 8$. Pagar &dollar;3/m. Cari total biaya.',
+          items:['Calculate Perimeter: $2(10+8) = 36$ m <span class="tr">Hitung Keliling</span>','Identify cost per meter: &dollar;3 <span class="tr">Identifikasi biaya per meter</span>','Multiply perimeter by cost: $36 \times 3$ <span class="tr">Kali keliling dengan biaya</span>','Result: &dollar;108 <span class="tr">Hasil</span>'], correctOrder:[0,1,2,3],
+          explanation:`<p>Standard procedure for real-world cost problems. <span class="tr">Prosedur standar soal biaya dunia nyata.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Formula Match', pageTitleEn:'Pasangkan Rumus', taskType:'checkbox',
+          question:'Select all formulas that correctly calculate Area.', questionEn:'Pilih semua rumus yang benar untuk menghitung Luas.',
+          options:[{text:'$l \times w$ <span class="tr">Persegi panjang</span>', correct:true},{text:'$\dfrac{1}{2} b h$ <span class="tr">Segitiga</span>', correct:true},{text:'$b \times h$ <span class="tr">Jajaran genjang</span>', correct:true},{text:'$2(l + w)$ <span class="tr">Keliling</span>', correct:false}],
+          explanation:`<p>The first three are area formulas; the last is perimeter. <span class="tr">Tiga pertama luas, terakhir keliling.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Shaded Region Match', pageTitleEn:'Pasangkan Daerah Arsiran', taskType:'pairing',
+          question:'Match the problem to the correct calculation.', questionEn:'Pasangkan soal dengan perhitungan yang benar.',
+          pairs:[{left:'Rect $10 \times 6$ minus Tri $b=6, h=4$ <span class="tr">Kurangi</span>', right:'$60 - 12 = 48$'},{left:'Rect $8 \times 8$ minus Rect $4 \times 2$ <span class="tr">Kurangi</span>', right:'$64 - 8 = 56$'},{left:'Square $s=10$ minus Circle $r=2$ (approx) <span class="tr">Kurangi</span>', right:'$100 - 12.56$'},{left:'Para $b=10, h=6$ minus Rect $2 \times 3$ <span class="tr">Kurangi</span>', right:'$60 - 6 = 54$'}],
+          explanation:`<p>Calculate outer and inner areas separately, then subtract. <span class="tr">Hitung luas luar dan dalam, lalu kurangi.</span></p>`
+        },
+        { type:'task', pageTitle:'T7: Parallelogram Check', pageTitleEn:'Cek Jajaran Genjang', taskType:'radio',
+          question:'A parallelogram has $b=12, h=5$. What is the area?', questionEn:'Jajaran genjang $b=12, h=5$. Berapa luasnya?',
+          options:[{text:'$60$ cm$^2$', correct:true},{text:'$30$ cm$^2$', correct:false},{text:'$17$ cm$^2$', correct:false},{text:'$120$ cm$^2$', correct:false}],
+          explanation:`<p>$A = b \times h = 12 \times 5 = 60$ cm$^2$. <span class="tr">Alas kali tinggi tegak lurus.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Trapezoid Algebra', pageTitleEn:'Aljabar Trapesium', taskType:'truefalse',
+          question:'True or false: Trapezoid $a=x, b=2x, h=3$ has area $4.5x$.', questionEn:'Benar atau salah: Trapesium $a=x, b=2x, h=3$ luasnya $4.5x$.',
+          correctAnswer:'true',
+          explanation:`<p>$A = \dfrac{1}{2}(x + 2x)3 = \dfrac{1}{2}(3x)3 = 4.5x$. True. <span class="tr">Substitusi dan sederhanakan.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Reverse Parallelogram', pageTitleEn:'Jajaran Genjang Terbalik', taskType:'fill',
+          question:'Parallelogram area $= 72$, $h = 9$. Base $b = \\dots$ cm', questionEn:'Luas jajaran genjang $= 72$, $h = 9$. Alas $b = \\dots$ cm',
+          correctAnswer:'8', acceptableAnswers:['8'],
+          explanation:`<p>$b = A / h = 72 / 9 = 8$ cm. <span class="tr">Bagi luas dengan tinggi.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Final Challenge', pageTitleEn:'Tantangan Akhir', taskType:'fill',
+          question:'A square has the same perimeter as a $10 \times 6$ rectangle. What is the area of the square? $A = \\dots$ cm$^2$', questionEn:'Persegi punya keliling sama dengan persegi panjang $10 \times 6$. Berapa luas persegi? $A = \\dots$ cm$^2$',
+          correctAnswer:'64', acceptableAnswers:['64'],
+          explanation:`<p>Rect $P = 32$. Square $P = 32 \Rightarrow s = 8$. Square $A = 8^2 = 64$ cm$^2$. <span class="tr">Cari keliling persegi panjang, lalu sisi persegi, lalu luasnya.</span></p>`
+        }
+      ]
+    }
+  };
+
+  // ================= STATE =================
+  let currentSection = 'a';
+  let currentPage = 0;
+  let userAnswers = {};
+
+  // ================= UTILITIES =================
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  function renderMath(el){
+    if(window.renderMathInElement){
+      renderMathInElement(el, {
+        delimiters: [
+          {left:'$$', right:'$$', display:true},
+          {left:'$', right:'$', display:false}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
+  // ================= SIDEBAR =================
+  function renderSidebar(){
+    const sidebar = document.getElementById('sidebar');
+    const sectionKeys = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+    const meta = {
+      a:{t:'Spiral Review', e:'Spiral Review', time:'00:00-00:10'},
+      b:{t:'Intro & Real-World', e:'Pengantar & Dunia Nyata', time:'00:10-00:15'},
+      c:{t:'Prior Knowledge', e:'Pengetahuan Awal', time:'00:15-00:20'},
+      d:{t:'Problem Intro', e:'Pengantar Masalah', time:'00:20-00:30'},
+      e:{t:'Guided Practice', e:'Latihan Terbimbing', time:'00:30-00:45'},
+      f:{t:'Independent Prac', e:'Latihan Mandiri', time:'00:45-00:55'},
+      g:{t:'Consolidation', e:'Konsolidasi', time:'00:55-01:00'},
+      h:{t:'Task 1', e:'Tugas 1', time:'Printable'},
+      i:{t:'Task 2', e:'Tugas 2', time:'Printable'},
+      j:{t:'Task 3', e:'Tugas 3', time:'Printable'},
+      k:{t:'Task 4', e:'Tugas 4', time:'Printable'},
+      l:{t:'Task 5', e:'Tugas 5', time:'Printable'}
+    };
+    let html = '<h3>Sections <span class="tr">Bagian</span></h3>';
+    sectionKeys.forEach(key => {
+      const section = sectionsData[key];
+      const isActive = currentSection === key;
+      if(section){
+        html += `<div class="nav-link ${isActive?'active':''}" data-section="${key}">
+          <span class="nl-title">${key.toUpperCase()}. ${meta[key].t}</span>
+          <span class="tr">${meta[key].e}</span>
+          <span class="time">${meta[key].time}</span>
+        </div>`;
+      } else {
+        html += `<div class="nav-link disabled">${key.toUpperCase()}. ${meta[key].t}<br><span class="tr">${meta[key].e}</span><br><span class="time">${meta[key].time} (segera)</span></div>`;
+      }
+    });
+    sidebar.innerHTML = html;
+    sidebar.querySelectorAll('.nav-link[data-section]').forEach(el => {
+      el.addEventListener('click', () => {
+        currentSection = el.dataset.section;
+        currentPage = 0;
+        renderSidebar();
+        renderPage();
+      });
+    });
+  }
+
+  // ================= PAGE RENDER =================
+  function renderPage(){
+    const section = sectionsData[currentSection];
+    if(!section) return;
+    const page = section.pages[currentPage];
+    const contentEl = document.getElementById('pageContent');
+
+    let printBtnHtml = '';
+    if(['h','i','j','k','l'].includes(currentSection)){
+      printBtnHtml = '<button id="printBtnTop" style="background:var(--success);color:#fff;border:none;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:.8em;font-weight:600;white-space:nowrap">🖨 Print to PDF <span class="tr">Cetak ke PDF</span></button>';
+    }
+
+    let html = '<div class="page-header"><h2>' + section.title + ' <span class="tr">' + section.titleEn + '</span></h2><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' + printBtnHtml + '<span class="badge">' + page.pageTitle.split(':')[0] + '</span></div></div>';
+
+    if(page.type === 'explanation'){
+      html += '<div class="card explain"><h3>' + page.pageTitle + ' <span class="tr">' + page.pageTitleEn + '</span></h3>' + page.body + '</div>';
+    } else if(page.type === 'task'){
+      html += renderTask(page);
+    }
+    contentEl.innerHTML = html;
+    renderMath(contentEl);
+
+    const total = section.pages.length;
+    const pageNumsEl = document.getElementById('pageNums');
+    let pageNumHtml = '';
+    section.pages.forEach(function(p, i){
+      var raw = p.pageTitle.split(':')[0].trim();
+      var type = raw.charAt(0);
+      var num = parseInt(raw.substring(1));
+      var label = type + '-' + String(num).padStart(2, '0');
+      var typeClass = (type === 'E') ? 'page-num-e' : 'page-num-t';
+      var isActive = (i === currentPage);
+      pageNumHtml += '<button class="page-num ' + typeClass + ' ' + (isActive ? 'active' : '') + '" data-page="' + i + '"' + (isActive ? ' disabled' : '') + '>' + label + '</button>';
+    });
+    pageNumsEl.innerHTML = pageNumHtml;
+
+    pageNumsEl.querySelectorAll('.page-num').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        currentPage = parseInt(btn.dataset.page);
+        renderPage();
+      });
+    });
+
+    document.getElementById('prevBtn').disabled = (currentPage === 0);
+    document.getElementById('nextBtn').disabled = (currentPage === total - 1);
+
+    var printBtnTop = document.getElementById('printBtnTop');
+    if(printBtnTop){
+      printBtnTop.addEventListener('click', function(){ printTask(currentSection); });
+    }
+
+    if(page.type === 'task'){
+      attachTaskHandlers(page);
+    }
+  }
+
+  function renderTask(page){
+    let html = `<div class="card task"><h3>${page.pageTitle} <span class="tr">${page.pageTitleEn}</span></h3>`;
+    html += `<div class="q-text">${page.question} <span class="tr">${page.questionEn || ''}</span></div>`;
+
+    if(page.taskType === 'radio' || page.taskType === 'checkbox'){
+      const options = shuffle(page.options);
+      page._shuffledOptions = options;
+      html += '<div class="options">';
+      options.forEach((opt, i) => {
+        const cls = page.taskType === 'checkbox' ? 'option checkbox' : 'option radio';
+        html += `<div class="${cls}" data-idx="${i}">
+          <div class="marker"></div>
+          <div class="opt-text">${opt.text}</div>
+        </div>`;
+      });
+      html += '</div>';
+    } else if(page.taskType === 'fill'){
+      html += `<input type="text" class="fill-input" id="fillInput" placeholder="...">`;
+    } else if(page.taskType === 'truefalse'){
+      const opts = shuffle([
+        {text:'True <span class="tr">Benar</span>', val:'true'},
+        {text:'False <span class="tr">Salah</span>', val:'false'}
+      ]);
+      page._shuffledTF = opts;
+      html += '<div class="options">';
+      opts.forEach((o, i) => {
+        html += `<div class="option radio" data-val="${o.val}" data-idx="${i}"><div class="marker"></div><div class="opt-text">${o.text}</div></div>`;
+      });
+      html += '</div>';
+    } else if(page.taskType === 'sorting'){
+      const shuffled = shuffle(page.items.map((item, idx) => ({text:item, originalIdx:idx})));
+      page._shuffledItems = shuffled;
+      html += '<div class="sort-list">';
+      shuffled.forEach((it, i) => {
+        html += `<div class="sort-item" data-pos="${i}" data-orig="${it.originalIdx}">
+          <span class="pos">${i+1}</span>
+          <span class="sort-text">${it.text}</span>
+        </div>`;
+      });
+      html += '</div>';
+      html += '<p style="font-size:.82em;color:var(--muted);margin-top:6px">Click two items to swap. <span class="tr">Klik dua item untuk menukar.</span></p>';
+    } else if(page.taskType === 'pairing'){
+      const lefts = shuffle(page.pairs.map((p, idx) => ({text:p.left, originalIdx:idx})));
+      const rights = shuffle(page.pairs.map((p, idx) => ({text:p.right, originalIdx:idx})));
+      page._shuffledPairs = {lefts, rights};
+      html += '<div class="pair-grid">';
+      html += '<div class="pair-col"><h4>Left <span class="tr">Kiri</span></h4>';
+      lefts.forEach((l, i) => {
+        html += `<div class="pair-item" data-side="left" data-idx="${i}">${l.text}</div>`;
+      });
+      html += '</div>';
+      html += '<div class="pair-col"><h4>Right <span class="tr">Kanan</span></h4>';
+      rights.forEach((r, i) => {
+        html += `<div class="pair-item" data-side="right" data-idx="${i}">${r.text}</div>`;
+      });
+      html += '</div></div>';
+      html += '<div class="pairs-list" id="pairsList"></div>';
+      html += '<p style="font-size:.82em;color:var(--muted);margin-top:6px">Click left then right to pair. <span class="tr">Klik kiri lalu kanan untuk memasangkan.</span></p>';
+    }
+    html += `<button class="btn-submit" id="submitBtn">Check Answer <span class="tr">Periksa Jawaban</span></button>`;
+    html += `<div class="feedback" id="feedback"></div></div>`;
+    return html;
+  }
+
+  function attachTaskHandlers(page){
+    const taskType = page.taskType;
+
+    if(taskType === 'radio' || taskType === 'truefalse'){
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+        });
+      });
+    } else if(taskType === 'checkbox'){
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => opt.classList.toggle('selected'));
+      });
+    } else if(taskType === 'sorting'){
+      let firstClick = null;
+      document.querySelectorAll('.sort-item').forEach(item => {
+        item.addEventListener('click', () => {
+          if(firstClick === null){
+            firstClick = item;
+            item.classList.add('selected');
+          } else if(firstClick === item){
+            item.classList.remove('selected');
+            firstClick = null;
+          } else {
+            const fText = firstClick.querySelector('.sort-text').innerHTML;
+            const sText = item.querySelector('.sort-text').innerHTML;
+            firstClick.querySelector('.sort-text').innerHTML = sText;
+            item.querySelector('.sort-text').innerHTML = fText;
+            const fOrig = firstClick.dataset.orig;
+            firstClick.dataset.orig = item.dataset.orig;
+            item.dataset.orig = fOrig;
+            firstClick.classList.remove('selected');
+            firstClick = null;
+          }
+        });
+      });
+    } else if(taskType === 'pairing'){
+      let selectedLeft = null;
+      document.querySelectorAll('.pair-item[data-side="left"]').forEach(item => {
+        item.addEventListener('click', () => {
+          if(item.classList.contains('paired')) return;
+          document.querySelectorAll('.pair-item[data-side="left"]').forEach(i => i.classList.remove('selected'));
+          item.classList.add('selected');
+          selectedLeft = item;
+        });
+      });
+      document.querySelectorAll('.pair-item[data-side="right"]').forEach(item => {
+        item.addEventListener('click', () => {
+          if(item.classList.contains('paired') || !selectedLeft) return;
+          const leftIdx = selectedLeft.dataset.idx;
+          const rightIdx = item.dataset.idx;
+          const pairList = document.getElementById('pairsList');
+          const pairRow = document.createElement('div');
+          pairRow.className = 'pair-row';
+          pairRow.dataset.leftIdx = leftIdx;
+          pairRow.dataset.rightIdx = rightIdx;
+          pairRow.innerHTML = `<span>${selectedLeft.innerHTML}</span> <span>↔</span> <span>${item.innerHTML}</span> <span class="remove" title="Remove">×</span>`;
+          pairRow.querySelector('.remove').addEventListener('click', function() {
+            const lIdx = pairRow.dataset.leftIdx;
+            const rIdx = pairRow.dataset.rightIdx;
+            const lItem = document.querySelector(`.pair-item[data-side="left"][data-idx="${lIdx}"]`);
+            const rItem = document.querySelector(`.pair-item[data-side="right"][data-idx="${rIdx}"]`);
+            if(lItem) lItem.classList.remove('paired');
+            if(rItem) rItem.classList.remove('paired');
+            pairRow.remove();
+          });
+          pairList.appendChild(pairRow);
+          selectedLeft.classList.remove('selected');
+          selectedLeft.classList.add('paired');
+          item.classList.add('paired');
+          selectedLeft = null;
+        });
+      });
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', () => checkAnswer(page));
+  }
+
+  function checkAnswer(page){
+    const taskType = page.taskType;
+    let isCorrect = false;
+    let userAnswerStr = '';
+
+    if(taskType === 'radio'){
+      let selected = null, selectedIdx = -1;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')){
+          selected = page._shuffledOptions[i];
+          selectedIdx = i;
+        }
+      });
+      if(!selected){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      isCorrect = selected.correct;
+      userAnswerStr = selected.text;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(page._shuffledOptions[i].correct) opt.classList.add('correct');
+        else if(i === selectedIdx && !selected.correct) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'checkbox'){
+      const selectedIdxs = [];
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')) selectedIdxs.push(i);
+      });
+      if(selectedIdxs.length === 0){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      const correctSet = new Set();
+      page._shuffledOptions.forEach((opt, i) => { if(opt.correct) correctSet.add(i); });
+      const selectedSet = new Set(selectedIdxs);
+      isCorrect = correctSet.size === selectedSet.size && [...correctSet].every(i => selectedSet.has(i));
+      userAnswerStr = selectedIdxs.map(i => page._shuffledOptions[i].text).join(', ');
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(page._shuffledOptions[i].correct) opt.classList.add('correct');
+        else if(selectedSet.has(i)) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'fill'){
+      const val = document.getElementById('fillInput').value.trim();
+      const acceptable = page.acceptableAnswers || [page.correctAnswer];
+      const norm = s => s.toLowerCase().replace(/\s+/g, '').trim();
+      isCorrect = acceptable.some(a => norm(a) === norm(val));
+      userAnswerStr = val;
+    } else if(taskType === 'truefalse'){
+      let selectedVal = null, selectedIdx = -1;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')){
+          selectedVal = opt.dataset.val;
+          selectedIdx = i;
+        }
+      });
+      if(!selectedVal){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      isCorrect = selectedVal === page.correctAnswer;
+      userAnswerStr = selectedVal === 'true' ? 'True' : 'False';
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(opt.dataset.val === page.correctAnswer) opt.classList.add('correct');
+        else if(i === selectedIdx) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'sorting'){
+      const currentOrder = [];
+      document.querySelectorAll('.sort-item').forEach(item => {
+        currentOrder.push(parseInt(item.dataset.orig));
+      });
+      isCorrect = currentOrder.every((idx, i) => idx === page.correctOrder[i]);
+      userAnswerStr = currentOrder.map((idx, i) => `${i+1}. ${page.items[idx] || '?'}`).join('  |  ');
+      document.querySelectorAll('.sort-item').forEach((item, i) => {
+        if(currentOrder[i] === page.correctOrder[i]) item.style.borderColor = 'var(--success)';
+        else item.style.borderColor = 'var(--danger)';
+      });
+    } else if(taskType === 'pairing'){
+      const pairRows = document.querySelectorAll('.pair-row');
+      if(pairRows.length === 0){
+        showFeedback(false, 'Please make pairs. <span class="tr">Silakan buat pasangan.</span>', false);
+        return;
+      }
+      const userPairs = [];
+      pairRows.forEach(row => {
+        const lIdx = parseInt(row.dataset.leftIdx);
+        const rIdx = parseInt(row.dataset.rightIdx);
+        userPairs.push({
+          leftText: page._shuffledPairs.lefts[lIdx].text,
+          rightText: page._shuffledPairs.rights[rIdx].text
+        });
+      });
+      const correctPairs = page.pairs.map(p => ({left:p.left, right:p.right}));
+      const correctCount = userPairs.filter(up =>
+        correctPairs.some(cp => cp.left === up.leftText && cp.right === up.rightText)
+      ).length;
+      isCorrect = correctCount === correctPairs.length && userPairs.length === correctPairs.length;
+      userAnswerStr = userPairs.map(p => `${p.leftText}↔${p.rightText}`).join('  |  ');
+      pairRows.forEach(row => {
+        const lIdx = parseInt(row.dataset.leftIdx);
+        const rIdx = parseInt(row.dataset.rightIdx);
+        const lText = page._shuffledPairs.lefts[lIdx].text;
+        const rText = page._shuffledPairs.rights[rIdx].text;
+        const ok = correctPairs.some(cp => cp.left === lText && cp.right === rText);
+        row.style.background = ok ? '#d1fae5' : '#fee2e2';
+      });
+    }
+
+    const pageKey = `${currentSection}-${currentPage}`;
+    userAnswers[pageKey] = {userAnswer:userAnswerStr, correct:isCorrect, pageTitle:page.pageTitle};
+    showFeedback(isCorrect, page.explanation, true);
+  }
+
+  function showFeedback(isCorrect, explanation, showAnswer){
+    const feedback = document.getElementById('feedback');
+    feedback.className = `feedback show ${isCorrect?'correct':'incorrect'}`;
+    if(showAnswer){
+      feedback.innerHTML = `<h4>${isCorrect?'✓ Correct!':'✗ Incorrect'} <span class="tr">${isCorrect?'Benar!':'Salah'}</span></h4>${explanation}`;
+    } else {
+      feedback.innerHTML = `<h4>${isCorrect?'✓ Correct!':'✗ Incorrect'}</h4>`;
+    }
+    renderMath(feedback);
+  }
+
+  // ================= EVENT LISTENERS =================
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    if(currentPage > 0){ currentPage--; renderPage(); }
+  });
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    const total = sectionsData[currentSection].pages.length;
+    if(currentPage < total - 1){ currentPage++; renderPage(); }
+  });
+
+  const modal = document.getElementById('classRulesModal');
+  document.getElementById('classRulesBtn').addEventListener('click', () => modal.classList.add('active'));
+  document.querySelector('.modal-close').addEventListener('click', () => modal.classList.remove('active'));
+  modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('active'); });
+
+  // ================= PRINT TO PDF =================
+  function getCorrectAnswer(task){
+    if(task.taskType === 'radio'){
+      const c = task.options.find(o => o.correct);
+      return c ? c.text : '';
+    }
+    if(task.taskType === 'checkbox'){
+      return task.options.filter(o => o.correct).map(o => o.text).join(', ');
+    }
+    if(task.taskType === 'fill'){
+      return task.correctAnswer || '';
+    }
+    if(task.taskType === 'truefalse'){
+      return task.correctAnswer === 'true' ? 'True' : 'False';
+    }
+    if(task.taskType === 'sorting'){
+      return task.correctOrder.map(i => task.items[i]).join(' → ');
+    }
+    if(task.taskType === 'pairing'){
+      return task.pairs.map(p => p.left + ' ↔ ' + p.right).join('; ');
+    }
+    return '';
+  }
+
+  function printTask(sectionKey){
+    const section = sectionsData[sectionKey];
+    if(!section) return;
+    const tasks = section.pages;
+    let correctCount = 0;
+
+    const rows = tasks.map((task, idx) => {
+      const pageKey = sectionKey + '-' + idx;
+      const ua = userAnswers[pageKey];
+      const isCorrect = ua ? ua.correct : false;
+      const userAns = ua ? ua.userAnswer : '(not answered)';
+      const correctAns = getCorrectAnswer(task);
+      if(ua && ua.correct) correctCount++;
+      return '<tr><td>' + (idx+1) + '</td><td>' + task.question + '<br><span class="tr">' + (task.questionEn || '') + '</span></td><td>' + userAns + '</td><td>' + correctAns + '</td><td style="text-align:center;font-size:1.1em">' + (isCorrect ? '✓' : '✗') + '</td></tr>';
+    }).join('');
+
+    const score = correctCount + ' / ' + tasks.length;
+    const today = new Date().toLocaleDateString('en-US', {day:'numeric',month:'long',year:'numeric'});
+
+    const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Print - ' + section.title + '</title>' +
+      '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">' +
+      '<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"><\/script>' +
+      '<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"><\/script>' +
+      '<style>' +
+      'body{font-family:Segoe UI,sans-serif;padding:30px;color:#1e293b;line-height:1.5}' +
+      'h1{font-size:1.2em;margin-bottom:5px}' +
+      '.info{margin-bottom:15px;font-size:.88em}' +
+      '.info div{margin:3px 0}' +
+      'table{width:100%;border-collapse:collapse;margin:15px 0;font-size:.82em}' +
+      'th,td{border:1px solid #cbd5e1;padding:6px 8px;text-align:left;vertical-align:top}' +
+      'th{background:#f1f5f9;font-weight:600}' +
+      '.checked-by{margin-top:30px;text-align:right;font-style:italic}' +
+      '.tr{font-style:italic;font-size:.85em;color:#64748b}' +
+      '@media print{body{padding:15px}}' +
+      '</style></head><body>' +
+      '<h1>Math Tutoring by Deni</h1>' +
+      '<div class="info">' +
+      '<div>Name: ____________________________ <span class="tr">Nama</span></div>' +
+      '<div>Date: ' + today + ' <span class="tr">Tanggal</span></div>' +
+      '<div>Topic: Perimeter and Area of 2D Shapes <span class="tr">Topik: Keliling dan Luas Bangun Datar</span></div>' +
+      '<div>Task Group: ' + section.title + ' <span class="tr">Grup Task</span></div>' +
+      '<div>Score: <strong>' + score + '</strong> <span class="tr">Skor</span></div>' +
+      '</div>' +
+      '<table><thead><tr>' +
+      '<th style="width:30px">No.</th>' +
+      '<th>Question <span class="tr">Pertanyaan</span></th>' +
+      '<th>Student Answer <span class="tr">Jawaban Siswa</span></th>' +
+      '<th>Correct Answer <span class="tr">Jawaban Benar</span></th>' +
+      '<th style="width:50px">Note <span class="tr">Ket.</span></th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table>' +
+      '<div class="checked-by">Checked by, <span class="tr">Diperiksa oleh,</span><br>Deni</div>' +
+      '<script>document.addEventListener("DOMContentLoaded",function(){' +
+      'if(window.renderMathInElement){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false});}' +
+      'setTimeout(function(){window.print();},500);});<\/script>' +
+      '</body></html>';
+
+    const w = window.open('', '_blank');
+    if(w){
+      w.document.write(html);
+      w.document.close();
+    } else {
+      alert('Please allow pop-ups to print. <span class="tr">Mohon izinkan pop-up untuk mencetak.</span>');
+    }
+  }
+
+  // ================= INIT =================
+  renderSidebar();
+  renderPage();
+});
+</script>
+</body>
+</html>
