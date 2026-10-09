@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perimeter of Compound Shapes - Math Tutoring by Deni</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+    <style>
+        :root {
+            --primary: #4338CA; /* Warna utama lebih tajam */
+            --secondary: #6366F1;
+            --light: #E0E7FF; /* Background light lebih solid */
+            --dark: #1E293B; /* Teks utama gelap */
+            --bg: #F1F5F9; /* Background body lebih solid */
+            --success: #059669;
+            --danger: #DC2626;
+            --white: #FFFFFF;
+            --text-muted: #475569; /* Warna terjemahan ditingkatkan agar tidak samar */
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); color: var(--dark); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+        header { background: var(--primary); color: var(--white); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); }
+        .header-left h1 { font-size: 1.5rem; font-weight: 700; }
+        .header-left p { font-size: 1rem; margin-top: 5px; color: #E0E7FF; }
+        .header-left p i { font-style: italic; font-size: 0.85rem; color: #C7D2FE; }
+        .header-right button { background: var(--white); color: var(--primary); border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header-right button:hover { background: var(--light); }
+        .container { display: grid; grid-template-columns: 1fr 3fr; gap: 20px; padding: 20px; flex: 1; max-width: 1600px; margin: 0 auto; width: 100%; }
+        .sidebar { background: var(--white); padding: 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); height: fit-content; position: sticky; top: 20px; max-height: 90vh; overflow-y: auto; border: 1px solid #E2E8F0; }
+        .sidebar h3 { margin-bottom: 15px; color: var(--primary); border-bottom: 2px solid var(--light); padding-bottom: 10px; }
+        .sidebar ul { list-style: none; }
+        .sidebar li { margin-bottom: 8px; }
+        .sidebar a { display: block; text-decoration: none; color: var(--dark); padding: 8px 12px; border-radius: 6px; font-size: 0.95rem; font-weight: 500; }
+        .sidebar a:hover { background: var(--light); color: var(--primary); }
+        .main-content { background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 1px solid #E2E8F0; }
+        .section { display: none; animation: fadeIn 0.5s ease-in-out; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        h2 { color: var(--primary); border-bottom: 2px solid var(--light); padding-bottom: 10px; margin-bottom: 20px; }
+        h3 { color: var(--dark); margin: 20px 0 10px 0; }
+        p, li { margin-bottom: 10px; color: #334155; }
+        i { font-style: italic; color: var(--text-muted); font-size: 0.95em; display: block; margin-top: -5px; margin-bottom: 10px; font-weight: 500; }
+        .explanation-box, .task-box { border: 1px solid #CBD5E1; border-radius: 8px; padding: 20px; margin: 15px 0; background: #F8FAFC; box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); }
+        .explanation-box { border-left: 5px solid var(--secondary); }
+        .task-box { border-left: 5px solid var(--success); }
+        .collapsible { background-color: var(--light); color: var(--primary); cursor: pointer; padding: 12px; width: 100%; border: 1px solid var(--secondary); text-align: left; outline: none; font-size: 1rem; font-weight: 700; border-radius: 6px; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
+        .active, .collapsible:hover { background-color: var(--secondary); color: var(--white); border-color: var(--primary); }
+        .content { padding: 15px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background-color: var(--white); border: 1px solid #E2E8F0; border-top: none; border-radius: 0 0 6px 6px; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+        .modal-content { background-color: var(--white); padding: 30px; border-radius: 10px; width: 90%; max-width: 500px; text-align: left; box-shadow: 0 10px 15px rgba(0,0,0,0.2); }
+        .close-btn { float: right; font-size: 1.5rem; cursor: pointer; color: var(--danger); font-weight: bold; }
+        .shape-illustration { text-align: center; margin: 20px 0; background: var(--white); border-radius: 8px; padding: 15px; border: 1px dashed var(--secondary); }
+        .pagination-controls button { padding: 8px 16px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; margin: 0 5px; font-weight: 600; box-shadow: 0 2px 3px rgba(0,0,0,0.1); }
+        .pagination-controls button:hover { background: var(--secondary); }
+        @media print {
+            body * { visibility: hidden; }
+            .print-area, .print-area * { visibility: visible; }
+            .print-area { position: absolute; left: 0; top: 0; width: 100%; padding: 20px; }
+            .no-print { display: none !important; }
+            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+            th, td { border: 1px solid #000; padding: 8px; text-align: left; }
+            th { background-color: #f0f0f0; }
+        }
+        @media (max-width: 1024px) { .container { grid-template-columns: 1fr; } .sidebar { position: static; max-height: none; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <h1>Math Tutoring by Deni</h1>
+            <p>Topic: Perimeter of compound shapes <i>(Topik: Keliling bangun gabungan)</i></p>
+        </div>
+        <div class="header-right">
+            <button onclick="document.getElementById('rulesModal').style.display='flex'">Class rules <i>(Aturan kelas)</i></button>
+        </div>
+    </header>
+    <div id="rulesModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('rulesModal').style.display='none'">&times;</span>
+            <h2>Class Rules <i>(Aturan Kelas)</i></h2>
+            <ul style="margin-top: 15px;">
+                <li>Speak in turns. <i>(Berbicara secara bergantian.)</i></li>
+                <li>Ask for permission if you want to leave the class. <i>(Meminta izin jika ingin meninggalkan kelas.)</i></li>
+                <li>Turn on microphone and camera if needed. <i>(Menyalakan microphone dan camera jika diperlukan.)</i></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <nav class="sidebar">
+            <h3>Navigation <i>(Navigasi)</i></h3>
+            <ul>
+                <li><a href="#" onclick="showSection('a')">A. Spiral Review Warm-up</a></li>
+                <li><a href="#" onclick="showSection('b')">B. Intro & Real-World</a></li>
+                <li><a href="#" onclick="showSection('c')">C. Review of Prior Knowledge</a></li>
+                <li><a href="#" onclick="showSection('d')">D. Problem Introduction</a></li>
+                <li><a href="#" onclick="showSection('e')">E. Guided Practice</a></li>
+                <li><a href="#" onclick="showSection('f')">F. Independent Practice</a></li>
+                <li><a href="#" onclick="showSection('g')">G. Consolidation & Reflection</a></li>
+                <li><a href="#" onclick="showSection('h')">H. Task 1</a></li>
+                <li><a href="#" onclick="showSection('i')">I. Task 2</a></li>
+                <li><a href="#" onclick="showSection('j')">J. Task 3</a></li>
+                <li><a href="#" onclick="showSection('k')">K. Task 4</a></li>
+                <li><a href="#" onclick="showSection('l')">L. Task 5</a></li>
+            </ul>
+        </nav>
+        <main class="main-content">
+            <!-- SECTION A -->
+            <div id="section-a" class="section active">
+                <h2>A. Spiral Review Warm-up (00:00-00:10)</h2>
+                <p>Let's review what we have learned before! <i>(Mari kita ulas apa yang telah kita pelajari sebelumnya!)</i></p>
+                <div class="explanation-box">
+                    <h3>Explanation: Basic Perimeter <i>(Pembahasan: Keliling Dasar)</i></h3>
+                    <p>Perimeter is the total distance around the outside of a 2D shape. <i>(Keliling adalah total jarak di sekitar luar bangun datar 2D.)</i></p>
+                    <p>For a rectangle, the formula is: <i>(Untuk persegi panjang, rumusnya adalah:)</i></p>
+                    <p>$$ P = 2 \times (l + w) $$</p>
+                    <p>Where $P$ is Perimeter, $l$ is length, and $w$ is width. <i>(Di mana $P$ adalah Keliling, $l$ adalah panjang, dan $w$ adalah lebar.)</i></p>
+                    <p>For a square, since all sides are equal ($s$), the formula is: <i>(Untuk persegi, karena semua sisi sama panjang ($s$), rumusnya adalah:)</i></p>
+                    <p>$$ P = 4 \times s $$</p>
+                    <div class="shape-illustration">
+                        <svg width="200" height="120" viewBox="0 0 200 120"><rect x="50" y="20" width="100" height="60" fill="none" stroke="#4338CA" stroke-width="3" /><text x="95" y="15" fill="#4338CA" font-size="14" font-weight="bold">l = 10</text><text x="160" y="55" fill="#4338CA" font-size="14" font-weight="bold">w = 6</text></svg>
+                        <p>Example: A rectangle has $l=10$ cm and $w=6$ cm. <i>(Contoh: Persegi panjang memiliki $l=10$ cm dan $w=6$ cm.)</i></p>
+                        <p>$P = 2 \times (10 + 6) = 2 \times 16 = 32$ cm.</p>
+                    </div>
+                </div>
+                <div class="task-box">
+                    <h3>Task 1 (5 Questions) <i>(Tugas 1 - 5 Soal)</i></h3>
+                    <p>Find the perimeter of the following rectangles. <i>(Cari keliling persegi panjang berikut.)</i></p>
+                    <ol>
+                        <li>$l = 5$ cm, $w = 3$ cm</li>
+                        <li>$l = 8$ m, $w = 4$ m</li>
+                        <li>$l = 12$ cm, $w = 7$ cm</li>
+                        <li>A square with side $s = 9$ cm. <i>(Persegi dengan sisi $s = 9$ cm.)</i></li>
+                        <li>A square with side $s = 15$ m. <i>(Persegi dengan sisi $s = 15$ m.)</i></li>
+                    </ol>
+                    <button class="collapsible">Show Answers & Explanations <i>(Tampilkan Jawaban & Pembahasan)</i></button>
+                    <div class="content">
+                        <p>1. $P = 2 \times (5 + 3) = 2 \times 8 = 16$ cm.</p>
+                        <p>2. $P = 2 \times (8 + 4) = 2 \times 12 = 24$ m.</p>
+                        <p>3. $P = 2 \times (12 + 7) = 2 \times 19 = 38$ cm.</p>
+                        <p>4. $P = 4 \times 9 = 36$ cm.</p>
+                        <p>5. $P = 4 \times 15 = 60$ m.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- SECTION B -->
+            <div id="section-b" class="section">
+                <h2>B. Introduction & Real-World Connection (00:10-00:15)</h2>
+                <p>Why do we need to learn about compound shapes? <i>(Mengapa kita perlu belajar tentang bangun gabungan?)</i></p>
+                <div class="explanation-box">
+                    <h3>Real-World Connection <i>(Koneksi Dunia Nyata)</i></h3>
+                    <p>Imagine you want to put a fence around your garden. The garden is not a perfect rectangle; it has an L-shape because you have a small pond in one corner. To find out how much fencing you need to buy, you must calculate the perimeter of this compound shape. <i>(Bayangkan Anda ingin memasang pagar di sekitar taman Anda. Taman tersebut bukan persegi panjang sempurna; bentuknya seperti huruf L karena Anda memiliki kolam kecil di salah satu sudutnya. Untuk mengetahui berapa banyak pagar yang harus dibeli, Anda harus menghitung keliling bangun gabungan ini.)</i></p>
+                    <div class="shape-illustration">
+                        <svg width="200" height="150" viewBox="0 0 200 150"><polygon points="20,20 180,20 180,100 100,100 100,130 20,130" fill="none" stroke="#4338CA" stroke-width="3" /><text x="80" y="15" fill="#4338CA" font-size="12" font-weight="bold">Fence needed</text></svg>
+                        <p>An L-shaped garden fence. <i>(Pagar taman berbentuk L.)</i></p>
+                    </div>
+                </div>
+                <div class="task-box">
+                    <h3>Task 2 (5 Questions) <i>(Tugas 2 - 5 Soal)</i></h3>
+                    <p>Identify the compound shapes in these real-world scenarios. <i>(Identifikasi bangun gabungan pada skenario dunia nyata berikut.)</i></p>
+                    <ol>
+                        <li>A swimming pool with a small wading area attached. <i>(Kolam renang dengan area dangangan kecil yang menempel.)</i></li>
+                        <li>A running track around a field. <i>(Jalur lari di sekitar lapangan.)</i></li>
+                        <li>A living room connected to a dining room without a wall. <i>(Ruang tamu yang menyatu dengan ruang makan tanpa sekat.)</i></li>
+                        <li>A playground with a sandpit attached to the main play area. <i>(Taman bermain dengan bak pasir yang menempel pada area bermain utama.)</i></li>
+                        <li>A house floor plan with an attached garage. <i>(Denah lantai rumah dengan garasi yang menempel.)</i></li>
+                    </ol>
+                    <button class="collapsible">Show Answers & Explanations <i>(Tampilkan Jawaban & Pembahasan)</i></button>
+                    <div class="content">
+                        <p>1. Compound shape made of two rectangles. <i>(Bangun gabungan dari dua persegi panjang.)</i></p>
+                        <p>2. Compound shape made of a rectangle and two semi-circles. <i>(Bangun gabungan dari persegi panjang dan dua setengah lingkaran.)</i></p>
+                        <p>3. Compound shape made of two large rectangles. <i>(Bangun gabungan dari dua persegi panjang besar.)</i></p>
+                        <p>4. Compound shape made of a rectangle and a square. <i>(Bangun gabungan dari persegi panjang dan persegi.)</i></p>
+                        <p>5. Compound shape made of a main house shape and a rectangular garage. <i>(Bangun gabungan dari bentuk rumah utama dan garasi persegi panjang.)</i></p>
+                    </div>
+                </div>
+            </div>
+            <!-- SECTION C -->
+            <div id="section-c" class="section">
+                <h2>C. Review of Prior Knowledge (00:15-00:20)</h2>
+                <p>Before we calculate compound shapes, we must know how to find missing sides! <i>(Sebelum menghitung bangun gabungan, kita harus tahu cara mencari sisi yang hilang!)</i></p>
+                <div class="explanation-box">
+                    <h3>Explanation: Finding Missing Sides <i>(Pembahasan: Mencari Sisi yang Hilang)</i></h3>
+                    <p>In a rectangle, opposite sides are equal. <i>(Pada persegi panjang, sisi yang berhadapan sama panjang.)</i></p>
+                    <p>If we have a shape with a "step" or "notch", we can find the missing horizontal or vertical side by comparing it to the opposite side. <i>(Jika kita memiliki bangun dengan "undakan" atau "lekukan", kita bisa mencari sisi horizontal atau vertikal yang hilang dengan membandingkannya dengan sisi di depannya.)</i></p>
+                    <div class="shape-illustration">
+                        <svg width="250" height="150" viewBox="0 0 250 150"><polygon points="20,20 120,20 120,80 70,80 70,130 20,130" fill="none" stroke="#4338CA" stroke-width="3" /><text x="60" y="15" fill="#4338CA" font-size="14" font-weight="bold">10 cm</text><text x="125" y="55" fill="#4338CA" font-size="14" font-weight="bold">6 cm</text><text x="5" y="80" fill="#4338CA" font-size="14" font-weight="bold">11 cm</text><text x="30" y="145" fill="#4338CA" font-size="14" font-weight="bold">5 cm</text><text x="75" y="105" fill="#DC2626" font-size="14" font-weight="bold">? cm</text><text x="35" y="75" fill="#DC2626" font-size="14" font-weight="bold">? cm</text></svg>
+                        <p>Look at the shape above. The total height on the left is 11 cm. This must equal the total height on the right. <i>(Lihat bangun di atas. Total tinggi di kiri adalah 11 cm. Ini harus sama dengan total tinggi di kanan.)</i></p>
+                        <p>So, $11 \text{ cm} = 6 \text{ cm} + \text{? cm}$. Therefore, the missing vertical side is $11 - 6 = 5$ cm. <i>(Jadi, $11 \text{ cm} = 6 \text{ cm} + \text{? cm}$. Oleh karena itu, sisi vertikal yang hilang adalah $11 - 6 = 5$ cm.)</i></p>
+                    </div>
+                </div>
+                <div class="task-box">
+                    <h3>Task 3 (5 Questions) <i>(Tugas 3 - 5 Soal)</i></h3>
+                    <p>Find the length of the missing side marked with '?'. <i>(Cari panjang sisi yang hilang bertanda '?'.)</i></p>
+                    <ol>
+                        <li>A rectangle has a total width of 15 cm. The top part is 10 cm. What is the missing bottom part? <i>(Persegi panjang memiliki total lebar 15 cm. Bagian atas 10 cm. Berapa bagian bawah yang hilang?)</i></li>
+                        <li>An L-shape has a total height of 20 m. The left vertical side is 20 m, and the right vertical side is 12 m. What is the inset vertical side? <i>(Bangun L memiliki total tinggi 20 m. Sisi vertikal kiri 20 m, dan sisi vertikal kanan 12 m. Berapa sisi vertikal lekukannya?)</i></li>
+                        <li>A shape has opposite sides 14 cm and $x$ cm. If the total is 14 cm, what is $x$? <i>(Suatu bangun memiliki sisi berhadapan 14 cm dan $x$ cm. Jika totalnya 14 cm, berapa $x$?)</i></li>
+                        <li>A square has a side of 8 cm. If a 3 cm piece is cut out, what is the remaining length of that side? <i>(Persegi memiliki sisi 8 cm. Jika dipotong 3 cm, berapa panjang sisa sisi tersebut?)</i></li>
+                        <li>A step shape has total horizontal length of 25 cm. Top is 15 cm, bottom is 10 cm. What is the horizontal inset length? <i>(Bangun undakan memiliki total panjang horizontal 25 cm. Atas 15 cm, bawah 10 cm. Berapa panjang horizontal lekukannya?)</i></li>
+                    </ol>
+                    <button class="collapsible">Show Answers & Explanations <i>(Tampilkan Jawaban & Pembahasan)</i></button>
+                    <div class="content">
+                        <p>1. $15 \text{ cm} - 10 \text{ cm} = 5 \text{ cm}$. <i>(Sisi yang hilang adalah 5 cm.)</i></p>
+                        <p>2. $20 \text{ m} - 12 \text{ m} = 8 \text{ m}$. <i>(Sisi lekukan vertikal adalah 8 m.)</i></p>
+                        <p>3. $x = 14 \text{ cm}$, because opposite sides of a rectangle are equal. <i>(Karena sisi berhadapan sama.)</i></p>
+                        <p>4. $8 \text{ cm} - 3 \text{ cm} = 5 \text{ cm}$. <i>(Sisa sisi adalah 5 cm.)</i></p>
+                        <p>5. The inset length is 0 cm because $15 + 10 = 25 \text{ cm}$. <i>(Panjang lekukan 0 cm karena sudah memenuhi total.)</i></p>
+                    </div>
+                </div>
+            </div>
+            <!-- SECTION D -->
+            <div id="section-d" class="section">
+                <h2>D. Problem Introduction (00:20-00:25)</h2>
+                <p>Now, let's introduce compound shapes! <i>(Sekarang, mari kita perkenalkan bangun gabungan!)</i></p>
+                <div class="explanation-box">
+                    <h3>Explanation: Perimeter of Compound Shapes <i>(Pembahasan: Keliling Bangun Gabungan)</i></h3>
+                    <p>A compound shape is made of two or more basic shapes (like rectangles or squares) joined together. <i>(Bangun gabungan terdiri dari dua atau lebih bangun dasar (seperti persegi panjang atau persegi) yang disatukan.)</i></p>
+                    <p>To find the perimeter, we simply add up all the outside sides. We DO NOT include the inside lines where the shapes touch. <i>(Untuk mencari kelilingnya, kita cukup menjumlahkan semua sisi luar. Kita TIDAK memasukkan garis di dalam tempat bangun tersebut menyatu.)</i></p>
+                    <div class="shape-illustration">
+                        <svg width="250" height="150" viewBox="0 0 250 150"><polygon points="20,20 150,20 150,80 90,80 90,130 20,130" fill="none" stroke="#4338CA" stroke-width="3" /><line x1="20" y1="80" x2="90" y2="80" stroke="#DC2626" stroke-width="2" stroke-dasharray="5,5" /><text x="160" y="50" fill="#4338CA" font-size="14" font-weight="bold">Side 1</text><text x="95" y="15" fill="#4338CA" font-size="14" font-weight="bold">Side 2</text><text x="95" y="75" fill="#DC2626" font-size="12" font-weight="bold">Inside (Ignore)</text></svg>
+                        <p>The red dashed line is inside the overall shape, so we do not count it. <i>(Garis merah putus-putus ada di dalam bangun secara keseluruhan, jadi kita tidak menghitungnya.)</i></p>
+                        <p>Strategy: Trace the outside with your finger or pencil, and add the lengths. <i>(Strategi: Telusuri bagian luar dengan jari atau pensil Anda, lalu jumlahkan panjangnya.)</i></p>
+                    </div>
+                </div>
+                <div class="task-box">
+                    <h3>Task 4 (5 Questions) <i>(Tugas 4 - 5 Soal)</i></h3>
+                    <p>Identify which sides to add for the perimeter. <i>(Identifikasi sisi mana saja yang dijumlahkan untuk keliling.)</i></p>
+                    <ol>
+                        <li>An L-shape has 6 outside sides and 1 inside side. How many sides do you add? <i>(Bangun L memiliki 6 sisi luar dan 1 sisi dalam. Berapa banyak sisi yang Anda jumlahkan?)</i></li>
+                        <li>A T-shape is made of 2 rectangles. How many outside edges does it have? <i>(Bangun T terdiri dari 2 persegi panjang. Berapa banyak sisi luarnya?)</i></li>
+                        <li>A large square has a small square cut out from the corner. How many new sides are created for the perimeter? <i>(Persegi besar memiliki persegi kecil yang dipotong dari sudutnya. Berapa banyak sisi baru yang dibuat untuk keliling?)</i></li>
+                        <li>If two rectangles form a longer rectangle, how many sides make up the perimeter? <i>(Jika dua persegi panjang membentuk persegi panjang yang lebih panjang, berapa banyak sisi yang membentuk keliling?)</i></li>
+                        <li>True or False: The inside line where shapes join is included in the perimeter. <i>(Benar atau Salah: Garis di dalam tempat bangun menyatu termasuk dalam keliling.)</i></li>
+                    </ol>
+                    <button class="collapsible">Show Answers & Explanations <i>(Tampilkan Jawaban & Pembahasan)</i></button>
+                    <div class="content">
+                        <p>1. 6 sides. You ignore the 1 inside side. <i>(6 sisi. Anda abaikan 1 sisi di dalam.)</i></p>
+                        <p>2. 8 outside edges. <i>(8 sisi luar.)</i></p>
+                        <p>3. 2 new sides are created (one going in, one coming out). <i>(2 sisi baru dibuat (satu masuk, satu keluar).)</i></p>
+                        <p>4. 4 sides (it's just a normal rectangle). <i>(4 sisi (ini hanya persegi panjang biasa).)</i></p>
+                        <p>5. False. Inside lines are never part of the perimeter. <i>(Salah. Garis dalam tidak pernah menjadi bagian dari keliling.)</i></p>
+                    </div>
+                </div>
+            </div>
+            <!-- SECTION E -->
+            <div id="section-e" class="section">
+                <h2>E. Guided Practice (00:25-00:40)</h2>
+                <p>Let's solve a problem together step-by-step. <i>(Mari kita selesaikan soal bersama-sama langkah demi langkah.)</i></p>
+                <div class="explanation-box">
+                    <h3>Explanation: Step-by-Step Calculation <i>(Pembahasan: Perhitungan Langkah-demi-Langkah)</i></h3>
+                    <p><strong>Problem:</strong> Find the perimeter of the compound shape below. <i>(Soal: Cari keliling bangun gabungan di bawah ini.)</i></p>
+                    <div class="shape-illustration">
+                        <svg width="300" height="200" viewBox="0 0 300 200"><polygon points="50,30 250,30 250,110 150,110 150,170 50,170" fill="none" stroke="#4338CA" stroke-width="3" /><text x="130" y="25" fill="#4338CA" font-size="14" font-weight="bold">20 cm</text><text x="255" y="75" fill="#4338CA" font-size="14" font-weight="bold">8 cm</text><text x="155" y="150" fill="#4338CA" font-size="14" font-weight="bold">6 cm</text><text x="80" y="185" fill="#4338CA" font-size="14" font-weight="bold">10 cm</text><text x="20" y="105" fill="#4338CA" font-size="14" font-weight="bold">14 cm</text><text x="90" y="105" fill="#DC2626" font-size="14" font-weight="bold">? cm</text><text x="155" y="105" fill="#DC2626" font-size="14" font-weight="bold">? cm</text></svg>
+                    </div>
+                    <p><strong>Step 1: Find missing sides.</strong> <i>(Langkah 1: Cari sisi yang hilang.)</i></p>
+                    <ul>
+                        <li>Total horizontal length is 20 cm. Bottom has 10 cm. So, missing horizontal inset is $20 \text{ cm} - 10 \text{ cm} = 10 \text{ cm}$. <i>(Panjang horizontal total 20 cm. Bawah ada 10 cm. Jadi, lekukan horizontal yang hilang adalah $20 \text{ cm} - 10 \text{ cm} = 10 \text{ cm}$.)</i></li>
+                        <li>Total vertical length is 14 cm. Right side has 8 cm. So, missing vertical inset is $14 \text{ cm} - 8 \text{ cm} = 6 \text{ cm}$. <i>(Panjang vertikal total 14 cm. Sisi kanan ada 8 cm. Jadi, lekukan vertikal yang hilang adalah $14 \text{ cm} - 8 \text{ cm} = 6 \text{ cm}$.)</i></li>
+                    </ul>
+                    <p><strong>Step 2: Add all outside sides.</strong> <i>(Langkah 2: Jumlahkan semua sisi luar.)</i></p>
+                    <p>$$ P = 20 + 8 + 10 + 6 + 10 + 6 $$</p>
+                    <p>Let's trace it carefully: Top (20), Right top (8), Inset horizontal (10), Inset vertical (6), Bottom (10), Left (14). <i>(Mari telusuri dengan hati-hati: Atas (20), Kanan atas (8), Lekukan horizontal (10), Lekukan vertikal (6), Bawah (10), Kiri (14).)</i></p>
+                    <p>$$ P = 20 + 8 + 10 + 6 + 10 + 14 $$</p>
+                    <p><strong>Step 3: Calculate the total.</strong> <i>(Langkah 3: Hitung totalnya.)</i></p>
+                    <p>$$ P = 68 \text{ cm} $$</p>
+                </div>
+                <div class="task-box">
+                    <h3>Task 5 (5 Questions) <i>(Tugas 5 - 5 Soal)</i></h3>
+                    <p>Calculate the perimeter of these compound shapes. <i>(Hitung keliling bangun gabungan berikut.)</i></p>
+                    <ol>
+                        <li>An L-shape has sides: 12, 5, 4, 7, 8, and 6. Find the perimeter. <i>(Bangun L memiliki sisi: 12, 5, 4, 7, 8, dan 6. Cari kelilingnya.)</i></li>
+                        <li>A T-shape has sides: 10, 5, 5, 5, 5, 5, and 10. Find the perimeter. <i>(Bangun T memiliki sisi: 10, 5, 5, 5, 5, 5, dan 10. Cari kelilingnya.)</i></li>
+                        <li>A shape has sides 15, 6, 4, 9, 11, and 7. What is the perimeter? <i>(Suatu bangun memiliki sisi 15, 6, 4, 9, 11, dan 7. Berapa kelilingnya?)</i></li>
+                        <li>A compound shape has a total of 8 sides measuring: 8, 8, 3, 5, 8, 3, 5, 8. Find the perimeter. <i>(Bangun gabungan memiliki total 8 sisi yang ukurannya: 8, 8, 3, 5, 8, 3, 5, 8. Cari kelilingnya.)</i></li>
+                        <li>A rectangle (10 by 4) has another rectangle (4 by 2) attached to its side. What is the perimeter of the new compound shape? <i>(Persegi panjang (10x4) memiliki persegi panjang lain (4x2) menempel di sisinya. Berapa keliling bangun gabungan baru tersebut?)</i></li>
+                    </ol>
+                    <button class="collapsible">Show Answers & Explanations <i>(Tampilkan Jawaban & Pembahasan)</i></button>
+                    <div class="content">
+                        <p>1. $P = 12 + 5 + 4 + 7 + 8 + 6 = 42$. <i>(Kelilingnya 42.)</i></p>
+                        <p>2. $P = 10 + 5 + 5 + 5 + 5 + 5 + 10 = 45$. <i>(Kelilingnya 45.)</i></p>
+                        <p>3. $P = 15 + 6 + 4 + 9 + 11 + 7 = 52$. <i>(Kelilingnya 52.)</i></p>
+                        <p>4. $P = 8 + 8 + 3 + 5 + 8 + 3 + 5 + 8 = 48$. <i>(Kelilingnya 48.)</i></p>
+                        <p>5. The shape is a 14 by 6 rectangle (since 10+4=14 and 4+2=6). $P = 2 \times (14 + 6) = 2 \times 20 = 40$. <i>(Bangun tersebut menjadi persegi panjang 14x6. Kelilingnya 40.)</i></p>
+                    </div>
+                </div>
+            </div>
+            <!-- SECTION F -->
+            <div id="section-f" class="section">
+                <h2>F. Independent Practice (00:40-00:55)</h2>
+                <p>Now it's your turn to try! Use the strategies we learned. <i>(Sekarang giliranmu mencoba! Gunakan strategi yang telah kita pelajari.)</i></p>
+                <div class="explanation-box">
+                    <h3>Explanation: Alternative Strategy <i>(Pembahasan: Strategi Alternatif)</i></h3>
+                    <p>Sometimes, instead of finding missing sides, you can imagine the compound shape as a full large rectangle, and then subtract the "bitten" parts. <i>(Terkadang, alih-alih mencari sisi yang hilang, Anda bisa membayangkan bangun gabungan sebagai persegi panjang besar utuh, lalu mengurangi bagian yang "terpotong".)</i></p>
+                    <p>For example, an L-shape can be seen as a big rectangle with a small rectangle cut out from the corner. <i>(Misalnya, bangun L bisa dilihat sebagai persegi panjang besar dengan persegi panjang kecil yang dipotong dari sudutnya.)</i></p>
+                    <p>If the big rectangle's perimeter is 40, and the cut-out creates two new sides of 5 each, the new perimeter is $40 + 5 + 5 = 50$. <i>(Jika keliling persegi panjang besar adalah 40, dan potongan tersebut membuat dua sisi baru sepanjang 5, keliling barunya adalah $40 + 5 + 5 = 50$.)</i></p>
+                    <p>$$ P_{\text{compound}} = P_{\text{large}} + (\text{added sides}) $$</p>
+                </div>
+                <div class="task-box">
+                    <h3>Task 6 (5 Questions) <i>(Tugas 6 - 5 Soal)</i></h3>
+                    <p>Solve these independently. <i>(Selesaikan ini secara mandiri.)</i></p>
+                    <ol>
+                        <li>A 10x10 square has a 2x2 square cut from one corner. What is the perimeter of the new shape? <i>(Persegi 10x10 memiliki persegi 2x2 yang dipotong dari sudutnya. Berapa keliling bangun baru tersebut?)</i></li>
+                        <li>A 12x8 rectangle has a 3x4 rectangle cut from a corner. What is the new perimeter? <i>(Persegi panjang 12x8 memiliki persegi panjang 3x4 yang dipotong dari sudutnya. Berapa keliling barunya?)</i></li>
+                        <li>Two squares of side 5 cm are joined side-by-side. What is the perimeter of the compound shape? <i>(Dua persegi dengan sisi 5 cm disatukan berdampingan. Berapa keliling bangun gabungannya?)</i></li>
+                        <li>An L-shape is made of a 10x6 rectangle and a 4x4 rectangle. What is the total perimeter? <i>(Bangun L terbuat dari persegi panjang 10x6 dan 4x4. Berapa total kelilingnya?)</i></li>
+                        <li>A cross shape is made of 5 squares, each 2 cm. What is the perimeter? <i>(Bangun silang terbuat dari 5 persegi, masing-masing 2 cm. Berapa kelilingnya?)</i></li>
+                    </ol>
+                    <button class="collapsible">Show Answers & Explanations <i>(Tampilkan Jawaban & Pembahasan)</i></button>
+                    <div class="content">
+                        <p>1. The original perimeter was $4 \times 10 = 40$. Cutting a corner does not change the perimeter. New $P = 40$ cm. <i>(Keliling asli 40. Memotong sudut tidak mengubah keliling. Keliling baru 40 cm.)</i></p>
+                        <p>2. Original $P = 2 \times (12 + 8) = 40$. A corner cut does not change the perimeter. New $P = 40$ cm. <i>(Keliling baru 40 cm.)</i></p>
+                        <p>3. It forms a 10x5 rectangle. $P = 2 \times (10 + 5) = 30$ cm. <i>(Membentuk persegi panjang 10x5. Keliling 30 cm.)</i></p>
+                        <p>4. Assuming the 4x4 attaches to the 10-side making total 14x6. $P = 2 \times (14 + 6) = 40$ cm. <i>(Asumsi 4x4 menempel di sisi 10 sehingga jadi 14x6. Keliling 40 cm.)</i></p>
+                        <p>5. The cross has 12 outer sides, each 2 cm. $P = 12 \times 2 = 24$ cm. <i>(Silang memiliki 12 sisi luar, masing-masing 2 cm. Keliling 24 cm.)</i></p>
+                    </div>
+                </div>
+            </div>
+            <!-- SECTION G -->
+            <div id="section-g" class="section">
+                <h2>G. Consolidation & Reflection (00:55-01:00)</h2>
+                <p>Let's review what we learned today! Use the buttons below to navigate. <i>(Mari kita ulas apa yang kita pelajari hari ini! Gunakan tombol di bawah untuk berpindah.)</i></p>
+                <div class="paginated" id="pag-g">
+                    <div class="page page-g active">
+                        <div class="explanation-box"><h3>Key Points <i>(Poin Penting)</i></h3><ul><li><strong>Compound Shape:</strong> A shape made by joining two or more basic shapes. <i>(Bangun Gabungan: Bangun yang terbuat dari penggabungan dua atau lebih bangun dasar.)</i></li><li><strong>Perimeter:</strong> The total distance around the outside. <i>(Keliling: Total jarak di sekeliling luar bangun.)</i></li><li><strong>Finding Missing Sides:</strong> Use the properties of opposite sides in rectangles. If the total length is 15 and one part is 5, the missing part is $15 - 5 = 10$. <i>(Mencari Sisi Hilang: Gunakan sifat sisi berhadapan pada persegi panjang. Jika total panjang 15 dan salah satu bagian 5, bagian yang hilang adalah $15 - 5 = 10$.)</i></li><li><strong>Inside Lines:</strong> Never include the inside lines where shapes join when calculating perimeter. <i>(Garis Dalam: Jangan pernah menghitung garis dalam tempat bangun menyatu saat menghitung keliling.)</i></li></ul></div>
+                    </div>
+                    <div class="page page-g">
+                        <div class="task-box"><h3>Reflection Questions <i>(Pertanyaan Refleksi)</i></h3><p>Answer these questions in your own words. <i>(Jawab pertanyaan ini dengan kata-katamu sendiri.)</i></p><ol><li>What is the difference between perimeter and area? <i>(Apa perbedaan antara keliling dan luas?)</i></li><li>Why do we not include the inside lines when calculating perimeter? <i>(Mengapa kita tidak memasukkan garis dalam saat menghitung keliling?)</i></li><li>Explain how you would find a missing horizontal side on an L-shape. <i>(Jelaskan bagaimana kamu mencari sisi horizontal yang hilang pada bangun L.)</i></li></ol></div>
+                    </div>
+                    <div class="page page-g">
+                        <div class="task-box"><h3>Exit Ticket <i>(Tiket Keluar)</i></h3><p>Answer this before you leave the class! <i>(Jawab ini sebelum kamu meninggalkan kelas!)</i></p><p>An L-shape has a total vertical height of 12 cm. The top right vertical side is 4 cm. What is the missing inset vertical side? <i>(Bangun L memiliki total tinggi vertikal 12 cm. Sisi vertikal kanan atas panjangnya 4 cm. Berapa sisi vertikal lekukan yang hilang?)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$12 \text{ cm} - 4 \text{ cm} = 8 \text{ cm}$. <i>(Sisi lekukan yang hilang adalah 8 cm.)</i></p></div></div>
+                    </div>
+                    <div class="page page-g">
+                        <div class="task-box"><h3>Follow-up Practice <i>(Latihan Lanjutan)</i></h3><p>Try this challenging problem at home! <i>(Coba soal menantang ini di rumah!)</i></p><p>A large rectangle measures 20 cm by 15 cm. A small rectangle of 4 cm by 3 cm is cut from one corner. What is the perimeter of the remaining shape? <i>(Persegi panjang besar berukuran 20 cm x 15 cm. Persegi panjang kecil berukuran 4 cm x 3 cm dipotong dari salah satu sudutnya. Berapa keliling bangun yang tersisa?)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original perimeter $= 2 \times (20 + 15) = 70$ cm. A corner cut does not change the perimeter. New Perimeter $= 70$ cm. <i>(Keliling asli 70 cm. Potongan sudut tidak mengubah keliling. Keliling baru 70 cm.)</i></p></div></div>
+                    </div>
+                </div>
+                <div class="pagination-controls" style="margin-top:15px; text-align:center;">
+                    <button onclick="changePage('g', -1)">Prev <i>(Sebelumnya)</i></button>
+                    <button onclick="changePage('g', 1)">Next <i>(Berikutnya)</i></button>
+                </div>
+            </div>
+            <!-- SECTION H (Task 1) -->
+            <div id="section-h" class="section">
+                <h2>H. Task 1 <i>(Tugas 1)</i></h2>
+                <button class="no-print" onclick="printTask(1)" style="padding:10px 20px; background:#059669; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; margin-bottom:20px;">Print to PDF <i>(Cetak ke PDF)</i></button>
+                <div class="paginated" id="pag-h">
+                    <div class="page page-h active"><div class="task-box"><h3>Question 1 <i>(Soal 1)</i></h3><p>An L-shaped garden has sides measuring 12 m, 5 m, 4 m, 7 m, 8 m, and 6 m. What is the total perimeter of the garden? <i>(Taman berbentuk L memiliki sisi-sisi berukuran 12 m, 5 m, 4 m, 7 m, 8 m, dan 6 m. Berapa total keliling taman tersebut?)</i></p><button class="collapsible">Show Explanation & Answer <i>(Tampilkan Pembahasan & Jawaban)</i></button><div class="content"><p>To find the perimeter of a compound shape, we simply add all the outside sides together. <i>(Untuk mencari keliling bangun gabungan, kita jumlahkan semua sisi luarnya.)</i></p><p>$$ P = 12 + 5 + 4 + 7 + 8 + 6 $$</p><p>$$ P = 42 \text{ m} $$</p></div></div></div>
+                    <div class="page page-h"><div class="task-box"><h3>Question 2 <i>(Soal 2)</i></h3><p>A compound shape has a total vertical height of 15 cm. The top right vertical side is 6 cm. What is the length of the missing inset vertical side? <i>(Suatu bangun gabungan memiliki total tinggi vertikal 15 cm. Sisi vertikal kanan atas panjangnya 6 cm. Berapa panjang sisi vertikal lekukan yang hilang?)</i></p><button class="collapsible">Show Explanation & Answer <i>(Tampilkan Pembahasan & Jawaban)</i></button><div class="content"><p>The total vertical height must equal the sum of the vertical parts on the opposite side. <i>(Total tinggi vertikal harus sama dengan jumlah bagian vertikal di sisi sebaliknya.)</i></p><p>$$ \text{Missing Side} = 15 - 6 = 9 \text{ cm} $$</p></div></div></div>
+                    <div class="page page-h"><div class="task-box"><h3>Question 3 <i>(Soal 3)</i></h3><p>A 10 cm by 8 cm rectangle has a 2 cm by 2 cm square cut out from one of its corners. What is the perimeter of the new compound shape? <i>(Persegi panjang berukuran 10 cm x 8 cm memiliki persegi 2 cm x 2 cm yang dipotong dari salah satu sudutnya. Berapa keliling bangun gabungan baru tersebut?)</i></p><button class="collapsible">Show Explanation & Answer <i>(Tampilkan Pembahasan & Jawaban)</i></button><div class="content"><p>Original perimeter $= 2 \times (10 + 8) = 36$ cm. Cutting a corner does not change the perimeter because the removed sides are replaced by the new sides. <i>(Keliling asli 36 cm. Memotong sudut tidak mengubah keliling karena sisi yang dihilangkan digantikan oleh sisi baru.)</i></p><p>$$ P = 36 \text{ cm} $$</p></div></div></div>
+                    <div class="page page-h"><div class="task-box"><h3>Question 4 <i>(Soal 4)</i></h3><p>Two identical squares, each with a side of 5 cm, are joined side-by-side to form a rectangle. What is the perimeter of the new rectangle? <i>(Dua persegi identik, masing-masing bersisi 5 cm, disatukan berdampingan membentuk persegi panjang. Berapa keliling persegi panjang baru tersebut?)</i></p><button class="collapsible">Show Explanation & Answer <i>(Tampilkan Pembahasan & Jawaban)</i></button><div class="content"><p>When joined, the new length is $5 + 5 = 10$ cm, and the width remains 5 cm. <i>(Saat disatukan, panjang baru 10 cm, dan lebar tetap 5 cm.)</i></p><p>$$ P = 2 \times (10 + 5) = 2 \times 15 = 30 \text{ cm} $$</p></div></div></div>
+                    <div class="page page-h"><div class="task-box"><h3>Question 5 <i>(Soal 5)</i></h3><p>A T-shape is formed by a 10x4 rectangle on top and a 4x6 rectangle at the bottom. What is the total perimeter of the T-shape? <i>(Bangun T terbentuk dari persegi panjang 10x4 di atas dan persegi panjang 4x6 di bawah. Berapa total keliling bangun T tersebut?)</i></p><button class="collapsible">Show Explanation & Answer <i>(Tampilkan Pembahasan & Jawaban)</i></button><div class="content"><p>Trace the outside: Top(10), right top(4), inset(3), bottom stem(6), inset(3), left top(4). <i>(Telusuri bagian luar: Atas(10), kanan atas(4), lekukan(3), batang bawah(6), lekukan(3), kiri atas(4).)</i></p><p>$$ P = 10 + 4 + 3 + 6 + 3 + 4 = 30 \text{ cm} $$</p></div></div></div>
+                    <div class="page page-h"><div class="task-box"><h3>Question 6 <i>(Soal 6)</i></h3><p>A U-shape is made from a 12x10 rectangle with a 4x6 rectangle cut out from the top middle. What is the perimeter of the U-shape? <i>(Bangun U terbuat dari persegi panjang 12x10 dengan persegi panjang 4x6 yang dipotong dari tengah atas. Berapa keliling bangun U tersebut?)</i></p><button class="collapsible">Show Explanation & Answer <i>(Tampilkan Pembahasan & Jawaban)</i></button><div class="content"><p>Original $P = 2 \times (12 + 10) = 44$. The cut removes 4 from the top and adds $6+4+6=16$. Change is $-4+16=+12$. <i>(Keliling asli 44. Potongan mengurangi 4 dari atas dan menambah 16. Perubahan +12.)</i></p><p>$$ P = 44 + 12 = 56 \text{ cm} $$</p></div></div></div>
+                    <div class="page page-h"><div class="task-box"><h3>Question 7 <i>(Soal 7)</i></h3><p>A compound shape has sides $a, b, c, d, e, f$. If $a=14, b=5, c=6, d=9, e=8, f=7$, calculate the perimeter. <i>(Suatu bangun gabungan memiliki sisi $a, b, c, d, e, f$. Jika $a=14, b=5, c=6, d=9, e=8, f=7$, hitunglah kelilingnya.)</i></p><button class="collapsible">Show Explanation & Answer <i>(Tampilkan Pembahasan & Jawaban)</i></button><div class="content"><p>Add all the given side lengths together. <i>(Jumlahkan semua panjang sisi yang diketahui.)</i></p><p>$$ P = 14 + 5 + 6 + 9 + 8 + 7 = 49 \text{ units} $$</p></div></div></div>
+                    <div class="page page-h"><div class="task-box"><h3>Question 8 <i>(Soal 8)</i></h3><p>Farmer John wants to build a fence around his L-shaped field. The field has a total horizontal length of 50 m, with the top part being 20 m. The total vertical height is 40 m, and the right side is 15 m. What is the total length of the fence needed? <i>(Petani John ingin membangun pagar di sekitar lapangan berbentuk L-nya. Lapangan tersebut memiliki total panjang horizontal 50 m, dengan bagian atas 20 m. Total tinggi vertikal 40 m, dan sisi kanan 15 m. Berapa total panjang pagar yang dibutuhkan?)</i></p><button class="collapsible">Show Explanation & Answer <i>(Tampilkan Pembahasan & Jawaban)</i></button><div class="content"><p>Missing horizontal $= 50 - 20 = 30$ m. Missing vertical $= 40 - 15 = 25$ m. <i>(Horizontal hilang 30 m. Vertikal hilang 25 m.)</i></p><p>$$ P = 50 + 15 + 30 + 25 + 20 + 40 = 180 \text{ m} $$</p></div></div></div>
+                    <div class="page page-h"><div class="task-box"><h3>Question 9 <i>(Soal 9)</i></h3><p>A cross shape is made of 5 identical squares, each with a side of 3 cm. What is the perimeter of the cross? <i>(Bangun silang terbuat dari 5 persegi identik, masing-masing bersisi 3 cm. Berapa keliling silang tersebut?)</i></p><button class="collapsible">Show Explanation & Answer <i>(Tampilkan Pembahasan & Jawaban)</i></button><div class="content"><p>A standard cross has 12 outside edges. Each edge is 3 cm. <i>(Silang standar memiliki 12 sisi luar. Setiap sisi panjangnya 3 cm.)</i></p><p>$$ P = 12 \times 3 = 36 \text{ cm} $$</p></div></div></div>
+                    <div class="page page-h"><div class="task-box"><h3>Question 10 <i>(Soal 10)</i></h3><p>A step-shape has 3 steps. The bottom step is 10x4, the middle is 8x4, and the top is 6x4. What is the total perimeter? <i>(Bangun undakan memiliki 3 undakan. Undakan bawah 10x4, tengah 8x4, dan atas 6x4. Berapa total kelilingnya?)</i></p><button class="collapsible">Show Explanation & Answer <i>(Tampilkan Pembahasan & Jawaban)</i></button><div class="content"><p>Trace the outside: bottom(10), right(4), middle top(8), right(4), top(6), left(4), middle left(8), left(4). <i>(Telusuri luar: bawah(10), kanan(4), atas tengah(8), kanan(4), atas(6), kiri(4), kiri tengah(8), kiri(4).)</i></p><p>$$ P = 10 + 4 + 8 + 4 + 6 + 4 + 8 + 4 = 48 \text{ cm} $$</p></div></div></div>
+                </div>
+                <div class="pagination-controls" style="margin-top:15px; text-align:center;">
+                    <button onclick="changePage('h', -1)">Prev <i>(Sebelumnya)</i></button>
+                    <button onclick="changePage('h', 1)">Next <i>(Berikutnya)</i></button>
+                </div>
+            </div>
+            <!-- SECTION I (Task 2) -->
+            <div id="section-i" class="section">
+                <h2>I. Task 2 <i>(Tugas 2)</i></h2>
+                <button class="no-print" onclick="printTask(2)" style="padding:10px 20px; background:#059669; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; margin-bottom:20px;">Print to PDF <i>(Cetak ke PDF)</i></button>
+                <div class="paginated" id="pag-i">
+                    <div class="page page-i active"><div class="task-box"><h3>Question 1 <i>(Soal 1)</i></h3><p>An L-shape has sides 8, 4, 3, 5, 4, and 6. Find the perimeter. <i>(Bangun L memiliki sisi 8, 4, 3, 5, 4, dan 6. Cari kelilingnya.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$P = 8+4+3+5+4+6 = 30$</p></div></div></div>
+                    <div class="page page-i"><div class="task-box"><h3>Question 2 <i>(Soal 2)</i></h3><p>A shape has a total horizontal length of 20. One part is 7. Find the missing part. <i>(Suatu bangun memiliki total panjang horizontal 20. Salah satu bagian 7. Cari bagian yang hilang.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$20 - 7 = 13$</p></div></div></div>
+                    <div class="page page-i"><div class="task-box"><h3>Question 3 <i>(Soal 3)</i></h3><p>A T-shape has sides 12, 5, 2, 5, 5, 2, and 5. Find the perimeter. <i>(Bangun T memiliki sisi 12, 5, 2, 5, 5, 2, dan 5. Cari kelilingnya.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$P = 12+5+2+5+5+2+5 = 36$</p></div></div></div>
+                    <div class="page page-i"><div class="task-box"><h3>Question 4 <i>(Soal 4)</i></h3><p>A 15x10 rectangle has a 3x3 square cut from a corner. Find the new perimeter. <i>(Persegi panjang 15x10 memiliki persegi 3x3 yang dipotong dari sudutnya. Cari keliling barunya.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 2(15+10) = 50$. A corner cut does not change the perimeter. New $P = 50$</p></div></div></div>
+                    <div class="page page-i"><div class="task-box"><h3>Question 5 <i>(Soal 5)</i></h3><p>Two 6x6 squares are joined side-by-side. Find the perimeter. <i>(Dua persegi 6x6 disatukan berdampingan. Cari kelilingnya.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Forms a 12x6 rectangle. $P = 2(12+6) = 36$</p></div></div></div>
+                    <div class="page page-i"><div class="task-box"><h3>Question 6 <i>(Soal 6)</i></h3><p>A U-shape is made from a 10x8 rectangle with a 2x4 cut from the top. Find the perimeter. <i>(Bangun U terbuat dari persegi panjang 10x8 dengan potongan 2x4 dari atas. Cari kelilingnya.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 2(10+8) = 36$. Cut removes 2, adds $4+2+4=10$. New $P = 36 - 2 + 10 = 44$</p></div></div></div>
+                    <div class="page page-i"><div class="task-box"><h3>Question 7 <i>(Soal 7)</i></h3><p>A cross is made of 4 squares, each side 2. Find the perimeter. <i>(Silang terbuat dari 4 persegi, masing-masing sisi 2. Cari kelilingnya.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>12 outer edges. $P = 12 \times 2 = 24$</p></div></div></div>
+                    <div class="page page-i"><div class="task-box"><h3>Question 8 <i>(Soal 8)</i></h3><p>A step-shape has sides 12, 3, 9, 3, 6, 3, 3, 3. Find the perimeter. <i>(Bangun undakan memiliki sisi 12, 3, 9, 3, 6, 3, 3, 3. Cari kelilingnya.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$P = 12+3+9+3+6+3+3+3 = 42$</p></div></div></div>
+                    <div class="page page-i"><div class="task-box"><h3>Question 9 <i>(Soal 9)</i></h3><p>A compound shape has a total vertical height of 14. The right vertical side is 9. Find the missing inset. <i>(Bangun gabungan memiliki total tinggi 14. Sisi kanan 9. Cari lekukan yang hilang.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$14 - 9 = 5$</p></div></div></div>
+                    <div class="page page-i"><div class="task-box"><h3>Question 10 <i>(Soal 10)</i></h3><p>A compound shape has 6 sides. Five sides are 10, 10, 10, 10, 10. Total perimeter is 55. Find the 6th side. <i>(Bangun gabungan memiliki 6 sisi. Lima sisi adalah 10. Total keliling 55. Cari sisi ke-6.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$55 - 50 = 5$</p></div></div></div>
+                </div>
+                <div class="pagination-controls" style="margin-top:15px; text-align:center;">
+                    <button onclick="changePage('i', -1)">Prev <i>(Sebelumnya)</i></button>
+                    <button onclick="changePage('i', 1)">Next <i>(Berikutnya)</i></button>
+                </div>
+            </div>
+            <!-- SECTION J (Task 3) -->
+            <div id="section-j" class="section">
+                <h2>J. Task 3 <i>(Tugas 3)</i></h2>
+                <button class="no-print" onclick="printTask(3)" style="padding:10px 20px; background:#059669; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; margin-bottom:20px;">Print to PDF <i>(Cetak ke PDF)</i></button>
+                <div class="paginated" id="pag-j">
+                    <div class="page page-j active"><div class="task-box"><h3>Question 1 <i>(Soal 1)</i></h3><p>A fence around an L-field has sides 30, 10, 20, 15, 10, 15. Find the fence length. <i>(Pagar di sekitar lapangan L memiliki sisi 30, 10, 20, 15, 10, 15. Cari panjang pagar.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$30+10+20+15+10+15 = 100$</p></div></div></div>
+                    <div class="page page-j"><div class="task-box"><h3>Question 2 <i>(Soal 2)</i></h3><p>Wall trim for a T-room has sides 14, 4, 3, 4, 4, 3, 4. Find the trim length. <i>(List dinding untuk ruangan T memiliki sisi 14, 4, 3, 4, 4, 3, 4. Cari panjang list.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$14+4+3+4+4+3+4 = 36$</p></div></div></div>
+                    <div class="page page-j"><div class="task-box"><h3>Question 3 <i>(Soal 3)</i></h3><p>A frame for an L-picture has sides 18, 8, 5, 10, 13, 6. Find the frame length. <i>(Bingkai untuk gambar L memiliki sisi 18, 8, 5, 10, 13, 6. Cari panjang bingkai.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$18+8+5+10+13+6 = 60$</p></div></div></div>
+                    <div class="page page-j"><div class="task-box"><h3>Question 4 <i>(Soal 4)</i></h3><p>A border around a U-garden is a 20x10 rectangle with a 4x5 cut. Find the border length. <i>(Batas taman U adalah persegi panjang 20x10 dengan potongan 4x5. Cari panjang batas.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 2(20+10) = 60$. Cut removes 4, adds $5+4+5=14$. New $P = 60-4+14=70$</p></div></div></div>
+                    <div class="page page-j"><div class="task-box"><h3>Question 5 <i>(Soal 5)</i></h3><p>A deck is a cross shape of 5 squares, side 4. Find the deck perimeter. <i>(Dek berbentuk silang dari 5 persegi, sisi 4. Cari keliling dek.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>12 outer edges. $P = 12 \times 4 = 48$</p></div></div></div>
+                    <div class="page page-j"><div class="task-box"><h3>Question 6 <i>(Soal 6)</i></h3><p>A field is a step shape: 15, 5, 10, 5, 5, 5, 5, 10. Find the perimeter. <i>(Lapangan berbentuk undakan: 15, 5, 10, 5, 5, 5, 5, 10. Cari kelilingnya.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$15+5+10+5+5+5+5+10 = 60$</p></div></div></div>
+                    <div class="page page-j"><div class="task-box"><h3>Question 7 <i>(Soal 7)</i></h3><p>A fence has total horizontal length 40. Parts are 15, 5, 10. Find the missing part. <i>(Pagar memiliki total panjang 40. Bagian-bagiannya 15, 5, 10. Cari bagian hilang.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$40 - (15+5+10) = 10$</p></div></div></div>
+                    <div class="page page-j"><div class="task-box"><h3>Question 8 <i>(Soal 8)</i></h3><p>A track is a rectangle 100x40 with two semi-circles cut out (ignore curves, treat as straight 50). Find perimeter. <i>(Jalur lari persegi panjang 100x40 dengan dua setengah lingkaran dipotong (anggap lurus 50). Cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$P = 100+40+50+40 = 230$</p></div></div></div>
+                    <div class="page page-j"><div class="task-box"><h3>Question 9 <i>(Soal 9)</i></h3><p>A rug is 12x10 with a 2x2 cut. Find the perimeter. <i>(Karpet berukuran 12x10 dengan potongan 2x2. Cari kelilingnya.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 2(12+10) = 44$. Cut removes 2, adds $2+2+2=6$. New $P = 44-2+6=48$</p></div></div></div>
+                    <div class="page page-j"><div class="task-box"><h3>Question 10 <i>(Soal 10)</i></h3><p>A playground has sides 25, 10, 15, 8, 10, 12. Find the perimeter. <i>(Taman bermain memiliki sisi 25, 10, 15, 8, 10, 12. Cari kelilingnya.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$P = 25+10+15+8+10+12 = 80$</p></div></div></div>
+                </div>
+                <div class="pagination-controls" style="margin-top:15px; text-align:center;">
+                    <button onclick="changePage('j', -1)">Prev <i>(Sebelumnya)</i></button>
+                    <button onclick="changePage('j', 1)">Next <i>(Berikutnya)</i></button>
+                </div>
+            </div>
+            <!-- SECTION K (Task 4) -->
+            <div id="section-k" class="section">
+                <h2>K. Task 4 <i>(Tugas 4)</i></h2>
+                <button class="no-print" onclick="printTask(4)" style="padding:10px 20px; background:#059669; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; margin-bottom:20px;">Print to PDF <i>(Cetak ke PDF)</i></button>
+                <div class="paginated" id="pag-k">
+                    <div class="page page-k active"><div class="task-box"><h3>Question 1 <i>(Soal 1)</i></h3><p>A 20x15 rectangle has a 4x3 cut from a corner. Find the perimeter. <i>(Persegi 20x15 memiliki potongan 4x3 dari sudut. Cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 2(20+15) = 70$. A corner cut does not change the perimeter. New $P = 70$</p></div></div></div>
+                    <div class="page page-k"><div class="task-box"><h3>Question 2 <i>(Soal 2)</i></h3><p>A 12x10 rectangle has a 2x2 cut. Find the perimeter. <i>(Persegi 12x10 memiliki potongan 2x2. Cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 2(12+10) = 44$. A corner cut does not change the perimeter. New $P = 44$</p></div></div></div>
+                    <div class="page page-k"><div class="task-box"><h3>Question 3 <i>(Soal 3)</i></h3><p>A 10x8 rectangle has a 3x2 cut. Find the perimeter. <i>(Persegi 10x8 memiliki potongan 3x2. Cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 2(10+8) = 36$. A corner cut does not change the perimeter. New $P = 36$</p></div></div></div>
+                    <div class="page page-k"><div class="task-box"><h3>Question 4 <i>(Soal 4)</i></h3><p>A 14x14 square has a 5x5 cut. Find the perimeter. <i>(Persegi 14x14 memiliki potongan 5x5. Cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 4 \times 14 = 56$. A corner cut does not change the perimeter. New $P = 56$</p></div></div></div>
+                    <div class="page page-k"><div class="task-box"><h3>Question 5 <i>(Soal 5)</i></h3><p>A 16x12 rectangle has a 4x6 cut. Find the perimeter. <i>(Persegi 16x12 memiliki potongan 4x6. Cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 2(16+12) = 56$. A corner cut does not change the perimeter. New $P = 56$</p></div></div></div>
+                    <div class="page page-k"><div class="task-box"><h3>Question 6 <i>(Soal 6)</i></h3><p>An 18x10 rectangle has a 3x3 cut. Find the perimeter. <i>(Persegi 18x10 memiliki potongan 3x3. Cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 2(18+10) = 56$. A corner cut does not change the perimeter. New $P = 56$</p></div></div></div>
+                    <div class="page page-k"><div class="task-box"><h3>Question 7 <i>(Soal 7)</i></h3><p>A 20x20 square has a 6x4 cut. Find the perimeter. <i>(Persegi 20x20 memiliki potongan 6x4. Cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 4 \times 20 = 80$. A corner cut does not change the perimeter. New $P = 80$</p></div></div></div>
+                    <div class="page page-k"><div class="task-box"><h3>Question 8 <i>(Soal 8)</i></h3><p>A 15x10 rectangle has a 2x5 cut. Find the perimeter. <i>(Persegi 15x10 memiliki potongan 2x5. Cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 2(15+10) = 50$. A corner cut does not change the perimeter. New $P = 50$</p></div></div></div>
+                    <div class="page page-k"><div class="task-box"><h3>Question 9 <i>(Soal 9)</i></h3><p>A 12x12 square has a 4x4 cut. Find the perimeter. <i>(Persegi 12x12 memiliki potongan 4x4. Cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 4 \times 12 = 48$. A corner cut does not change the perimeter. New $P = 48$</p></div></div></div>
+                    <div class="page page-k"><div class="task-box"><h3>Question 10 <i>(Soal 10)</i></h3><p>A 25x20 rectangle has a 5x5 cut. Find the perimeter. <i>(Persegi 25x20 memiliki potongan 5x5. Cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 2(25+20) = 90$. A corner cut does not change the perimeter. New $P = 90$</p></div></div></div>
+                </div>
+                <div class="pagination-controls" style="margin-top:15px; text-align:center;">
+                    <button onclick="changePage('k', -1)">Prev <i>(Sebelumnya)</i></button>
+                    <button onclick="changePage('k', 1)">Next <i>(Berikutnya)</i></button>
+                </div>
+            </div>
+            <!-- SECTION L (Task 5) -->
+            <div id="section-l" class="section">
+                <h2>L. Task 5 <i>(Tugas 5)</i></h2>
+                <button class="no-print" onclick="printTask(5)" style="padding:10px 20px; background:#059669; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold; margin-bottom:20px;">Print to PDF <i>(Cetak ke PDF)</i></button>
+                <div class="paginated" id="pag-l">
+                    <div class="page page-l active"><div class="task-box"><h3>Question 1 <i>(Soal 1)</i></h3><p>Sides are $x, 2x, 3x, 4x, 5x, 6x$. If $x=2$, find the perimeter. <i>(Sisi-sisinya $x, 2x, 3x, 4x, 5x, 6x$. Jika $x=2$, cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Sum $= 21x$. $21(2) = 42$</p></div></div></div>
+                    <div class="page page-l"><div class="task-box"><h3>Question 2 <i>(Soal 2)</i></h3><p>Rectangle $l=2a, w=a$. Cut $a \times a$. If $a=4$, find perimeter. <i>(Persegi panjang $l=2a, w=a$. Potong $a \times a$. Jika $a=4$, cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 2(2a+a) = 6a = 24$. A corner cut does not change the perimeter. New $P = 24$</p></div></div></div>
+                    <div class="page page-l"><div class="task-box"><h3>Question 3 <i>(Soal 3)</i></h3><p>L-shape sides $5y, 3y, 2y, 4y, y, 6y$. If $y=3$, find perimeter. <i>(Bangun L sisi $5y, 3y, 2y, 4y, y, 6y$. Jika $y=3$, cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Sum $= 21y$. $21(3) = 63$</p></div></div></div>
+                    <div class="page page-l"><div class="task-box"><h3>Question 4 <i>(Soal 4)</i></h3><p>Perimeter is $10k$. Sides are $k, 2k, 3k, k$. Find remaining two sides if they are equal. <i>(Keliling $10k$. Sisi $k, 2k, 3k, k$. Cari dua sisi tersisa jika panjangnya sama.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Sum of 4 sides $= 7k$. Remaining $= 10k - 7k = 3k$. Each is $1.5k$</p></div></div></div>
+                    <div class="page page-l"><div class="task-box"><h3>Question 5 <i>(Soal 5)</i></h3><p>T-shape: Top is $10x$, stem is $4x$. If $x=1.5$, find perimeter. <i>(Bangun T: Atas $10x$, batang $4x$. Jika $x=1.5$, cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Trace: $10x + 4x + 3x + 4x + 3x + 4x = 28x$. $28(1.5) = 42$</p></div></div></div>
+                    <div class="page page-l"><div class="task-box"><h3>Question 6 <i>(Soal 6)</i></h3><p>Step shape sides $4p, p, 3p, p, 2p, p, p, p$. If $p=5$, find perimeter. <i>(Bangun undakan sisi $4p, p, 3p, p, 2p, p, p, p$. Jika $p=5$, cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Sum $= 13p$. $13(5) = 65$</p></div></div></div>
+                    <div class="page page-l"><div class="task-box"><h3>Question 7 <i>(Soal 7)</i></h3><p>Rect A is $10 \times 5$, Rect B is $6 \times 4$ attached inside. Find outer perimeter. <i>(Persegi A $10 \times 5$, Persegi B $6 \times 4$ menempel di dalam. Cari keliling luar.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Outer shape is just Rect A. $P = 2(10+5) = 30$</p></div></div></div>
+                    <div class="page page-l"><div class="task-box"><h3>Question 8 <i>(Soal 8)</i></h3><p>Rect $12 \times 8$, cut $3 \times y$. If $P=44$, find $y$. <i>(Persegi $12 \times 8$, potong $3 \times y$. Jika $P=44$, cari $y$.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>Original $P = 2(12+8) = 40$. Cut adds $3+y$. $40 + 3 + y = 44 \Rightarrow y=1$</p></div></div></div>
+                    <div class="page page-l"><div class="task-box"><h3>Question 9 <i>(Soal 9)</i></h3><p>Sides $a, b, c, d, e, f$. $a=c=10, b=d=5, e=4, f=6$. Find perimeter. <i>(Sisi $a, b, c, d, e, f$. $a=c=10, b=d=5, e=4, f=6$. Cari keliling.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>$P = 10+5+10+5+4+6 = 40$</p></div></div></div>
+                    <div class="page page-l"><div class="task-box"><h3>Question 10 <i>(Soal 10)</i></h3><p>Cross shape: 5 squares side $z$. Perimeter is 60. Find $z$. <i>(Bentuk silang: 5 persegi sisi $z$. Keliling 60. Cari $z$.)</i></p><button class="collapsible">Show Answer <i>(Tampilkan Jawaban)</i></button><div class="content"><p>12 outer sides. $12z = 60 \Rightarrow z=5$</p></div></div></div>
+                </div>
+                <div class="pagination-controls" style="margin-top:15px; text-align:center;">
+                    <button onclick="changePage('l', -1)">Prev <i>(Sebelumnya)</i></button>
+                    <button onclick="changePage('l', 1)">Next <i>(Berikutnya)</i></button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="print-area" id="printArea" style="display:none;"></div>
+    <script>
+        function showSection(id) {
+            let sections = document.querySelectorAll('.section');
+            sections.forEach(sec => sec.classList.remove('active'));
+            document.getElementById('section-' + id).classList.add('active');
+            let pages = document.querySelectorAll('.page-' + id);
+            pages.forEach(p => p.classList.remove('active'));
+            if(pages.length > 0) pages[0].classList.add('active');
+        }
+        function changePage(section, step) {
+            let pages = document.querySelectorAll('.page-' + section);
+            let current = 0;
+            pages.forEach((p, i) => {
+                if (p.classList.contains('active')) current = i;
+                p.classList.remove('active');
+            });
+            current += step;
+            if (current < 0) current = 0;
+            if (current >= pages.length) current = pages.length - 1;
+            pages[current].classList.add('active');
+        }
+        let coll = document.getElementsByClassName("collapsible");
+        for (let i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                let content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+        function printTask(taskNum) {
+            let sectionMap = { 1: 'h', 2: 'i', 3: 'j', 4: 'k', 5: 'l' };
+            let sectionLetter = sectionMap[taskNum];
+            let section = document.getElementById('section-' + sectionLetter);
+            let pages = section.querySelectorAll('.page');
+            let tableRows = '';
+            let qNum = 1;
+            pages.forEach(page => {
+                let questionP = page.querySelector('p');
+                let questionText = questionP ? questionP.innerText : '';
+                let contentDiv = page.querySelector('.content');
+                let answerText = '';
+                if(contentDiv) {
+                    answerText = contentDiv.innerText.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+                }
+                tableRows += `
+                    <tr>
+                        <td style="border:1px solid #000; padding:8px; text-align:center;">${qNum}</td>
+                        <td style="border:1px solid #000; padding:8px;">${questionText}</td>
+                        <td style="border:1px solid #000; padding:8px;"></td>
+                        <td style="border:1px solid #000; padding:8px;">${answerText}</td>
+                        <td style="border:1px solid #000; padding:8px; text-align:center;"></td>
+                    </tr>
+                `;
+                qNum++;
+            });
+            let printContent = `
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <h1 style="text-align:center;">Math Tutoring by Deni</h1>
+                    <br>
+                    <p><strong>Nama:</strong> ....................................</p>
+                    <p><strong>Tanggal:</strong> ....................................</p>
+                    <p><strong>Topic:</strong> Perimeter of compound shapes</p>
+                    <p><strong>Grup task:</strong> Task ${taskNum}</p>
+                    <p><strong>Skor:</strong> ........... / 100</p>
+                    <br>
+                    <table style="width:100%; border-collapse: collapse; border: 1px solid #000;">
+                        <thead>
+                            <tr style="background-color: #f0f0f0;">
+                                <th style="border:1px solid #000; padding:8px;">No.</th>
+                                <th style="border:1px solid #000; padding:8px;">Pertanyaan</th>
+                                <th style="border:1px solid #000; padding:8px;">Jawaban Siswa</th>
+                                <th style="border:1px solid #000; padding:8px;">Jawaban Benar</th>
+                                <th style="border:1px solid #000; padding:8px;">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableRows}
+                        </tbody>
+                    </table>
+                    <br><br>
+                    <p style="margin-top: 50px; text-align: right;">Checked by,</p>
+                    <br><br>
+                    <p style="text-align: right; font-weight: bold; font-size: 1.2em;">Deni</p>
+                </div>
+            `;
+            let printArea = document.getElementById('printArea');
+            printArea.innerHTML = printContent;
+            printArea.style.display = 'block';
+            window.print();
+            printArea.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
